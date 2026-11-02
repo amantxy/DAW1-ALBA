@@ -1,9 +1,14 @@
 # Programación
 
-DAW 1. Apuntes e interactivos de la asignatura en un único HTML por temas: `1-PROGRAMACION.html`.
+[← Volver a la portada](../README.md) · [Página de inicio](https://amantxy.github.io/DAW1-ALBA/)
+
+## HTML de la asignatura
+
+- [1-PROGRAMACION.html](https://amantxy.github.io/DAW1-ALBA/programacion/1-PROGRAMACION.html) · Apuntes por temas (UT 1, 2 y 3), ejercicios, libro, flashcards y práctica interactiva
+
+## Notas
 
 Fuente: Google Site del profesor (Programación 1 DAM).
-Web: https://amantxy.github.io/DAW1-ALBA/programacion/1-PROGRAMACION.html
 
 ## Archivos del profesor ya incluidos
 
