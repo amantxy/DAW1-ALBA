@@ -63,6 +63,10 @@ nav .c{font-weight:600;color:var(--acc);padding:6px 8px 2px;font-size:.82rem;tex
 .chap{margin:22px 0 6px;padding:6px 12px;font-weight:700;background:var(--accbg);border-left:4px solid var(--acc);border-radius:6px}
 #mn{display:none}
 @media(max-width:800px){#mn{display:inline-block}nav.open{display:block;position:fixed;top:56px;left:8px;right:8px;max-height:70vh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;z-index:50;box-shadow:0 8px 30px rgba(0,0,0,.25)}}
+.tabs{display:flex;gap:8px;margin:10px 0;position:sticky;top:0;z-index:5;background:var(--bg,var(--card));padding:6px 0}
+.tabs button{padding:8px 22px;font-weight:700}.tabs button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.tabpane{display:none}.tabpane.on,body.searching .tabpane{display:block}
+body.searching .tabs{display:none}
 </style>
 </head>
 <body>
@@ -338,121 +342,7 @@ public class EntradaSalida {
 </table>
 </div></section>
 
-<section class="sec"><h3>Ejercicios resueltos UT 1</h3><div class="body">
-<p class="sub">Fuentes: EjerciciosUnidad1.docx, EjerciciosBásicosU1.pdf, CirculoJava.pdf, EcuacionesSegundoGrado.pdf. Inténtalos antes de abrir la solución (también tienes versión interactiva en «Práctica interactiva»).</p>
-<h4>1. Longitud de la circunferencia (Java)</h4>
-<details><summary>Ver solución</summary>
-<pre><code>public static void main(String[] args) {
-    float radio = 5;
-    final float PI = 3.1416f;
-    float longitud = 2 * PI * radio;
-    System.out.println(longitud);
-}</code></pre></details>
-<h4>2. Evaluar expresiones (a = 12, b = 4, c = 2)</h4>
-<table>
-<tr><th></th><th>Expresión</th><th>Resultado</th></tr>
-<tr><td>a</td><td><code>a + b * c</code></td><td>20</td></tr>
-<tr><td>b</td><td><code>(a + b) * c</code></td><td>32</td></tr>
-<tr><td>c</td><td><code>a - b / c</code></td><td>10</td></tr>
-<tr><td>d</td><td><code>(a - b) / c</code></td><td>4</td></tr>
-<tr><td>e</td><td><code>a + b * c - 5</code></td><td>15</td></tr>
-<tr><td>f</td><td><code>(a + b) * (c + 3)</code></td><td>80</td></tr>
-</table>
-<h4>3. Expresiones booleanas (a = 12, b = 6, c = 3)</h4>
-<table>
-<tr><th></th><th>Expresión</th><th>Resultado</th></tr>
-<tr><td>a</td><td><code>a &gt; b &amp;&amp; b &gt; c</code></td><td>true</td></tr>
-<tr><td>b</td><td><code>a &lt; b || c &lt; b</code></td><td>true</td></tr>
-<tr><td>c</td><td><code>(a + b) &gt; 15 &amp;&amp; c == 3</code></td><td>true</td></tr>
-<tr><td>d</td><td><code>a / b == c || a &gt; 10</code></td><td>true</td></tr>
-<tr><td>e</td><td><code>(a - b) * c == 18 &amp;&amp; b &gt; c</code></td><td>true</td></tr>
-<tr><td>f</td><td><code>a % b == 0 &amp;&amp; c != 3</code></td><td>false</td></tr>
-</table>
-<h4>4. Área de un trapecio</h4>
-<details><summary>Ver solución</summary>
-<pre><code>float baseMayor = 10, baseMenor = 6, altura = 4;
-float area = (baseMayor + baseMenor) * altura / 2;
-System.out.println(area);   // 32.0</code></pre></details>
-<h4>5. Área de un rombo (con Scanner)</h4>
-<details><summary>Ver solución</summary>
-<pre><code>Scanner teclado = new Scanner(System.in);
-double diagonalMayor, diagonalMenor, area;
-System.out.println("Diagonal mayor ");
-diagonalMayor = teclado.nextDouble();
-System.out.println("Diagonal menor ");
-diagonalMenor = teclado.nextDouble();
-area = (diagonalMayor * diagonalMenor) / 2;
-System.out.println("El área el rombo es " + area);</code></pre></details>
-<h4>6. Fahrenheit → Celsius</h4>
-<details><summary>Ver solución</summary>
-<pre><code>public class Temperatura {
-    public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        double fahrenheit, celsius;
-        System.out.print("Introduce la temperatura en grados Fahrenheit: ");
-        fahrenheit = teclado.nextDouble();
-        celsius = (fahrenheit - 32) * 5 / 9;
-        System.out.println("La temperatura en grados Celsius es: " + celsius);
-    }
-}</code></pre></details>
-<h4>7. PSeInt: círculo y rectángulo</h4>
-<details><summary>Ver solución</summary>
-<pre><code>Algoritmo Círculo
-    Definir r Como Entero
-    Definir v,l Como Real
-    Escribir "Introducir el radio "
-    Leer r
-    l = 2 * PI * r;      // longitud de la circunferencia
-    v = PI * r ^ 2;      // área del círculo
-    Escribir "Longitud de la circunferencia ", l;
-    Escribir "Área del círculo ", v;
-FinAlgoritmo
 
-Algoritmo Rectangulo
-    Definir base, altura, area, perimetro Como Real
-    Escribir "Ingrese la base del rectángulo:"
-    Leer base
-    Escribir "Ingrese la altura del rectángulo:"
-    Leer altura
-    area = base * altura
-    perimetro = 2 * base + 2 * altura
-    Escribir "El área del rectángulo es: ", area
-    Escribir "El perímetro del rectángulo es: ", perimetro
-FinAlgoritmo</code></pre>
-<p class="sub">En el documento del profesor el segundo resultado del círculo se llama «volumen»; es en realidad el área (π·r²).</p></details>
-<h4>8. Círculo en Java</h4>
-<p>Enunciado: calcular longitud (perímetro) y área de una circunferencia, con el radio introducido por el usuario (puede tener decimales). El PDF del profesor trae solo el enunciado.</p>
-<details><summary>Mi propuesta de solución (no es oficial)</summary>
-<pre><code>Scanner teclado = new Scanner(System.in);
-System.out.print("Radio: ");
-double radio = teclado.nextDouble();
-double longitud = 2 * Math.PI * radio;
-double area = Math.PI * radio * radio;
-System.out.println("Longitud: " + longitud);
-System.out.println("Área: " + area);</code></pre></details>
-<h4>9. Ecuación de segundo grado</h4>
-<p>Fórmula: x = (−b ± √(b² − 4ac)) / 2a</p>
-<details><summary>Ver solución</summary>
-<pre><code>Scanner sc = new Scanner(System.in);
-double a, b, c, x1, x2;
-System.out.println("=== Resolver ecuación de segundo grado ===");
-System.out.print("Introduce el valor de a: "); a = sc.nextDouble();
-System.out.print("Introduce el valor de b: "); b = sc.nextDouble();
-System.out.print("Introduce el valor de c: "); c = sc.nextDouble();
-if (a == 0) {
-    System.out.println("No es una ecuación de segundo grado (a no puede ser 0).");
-} else {
-    if (b * b - 4 * a * c &lt; 0) {
-        System.out.println("No tiene solución");
-    } else {
-        x1 = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-        x2 = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-        System.out.println("x1 = " + x1);
-        System.out.println("x2 = " + x2);
-    }
-}
-sc.close();</code></pre></details>
-</div></section>
 
 
 
@@ -660,6 +550,320 @@ while (edad != 0) {
 double media = (double) suma / total;</code></pre>
 </div></section>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ================= UT 3 ================= -->
+<h2 class="tema" id="ut3">UT 3 · Funciones y métodos en Java</h2>
+<p class="sub">Fuente: U3_A_Funciones.docx del profesor.</p>
+
+<section class="sec"><h3>1. Estructura de un método</h3><div class="body">
+<p>En Java las funciones se llaman <b>métodos</b> y se declaran dentro de una clase. Sirven para organizar, reutilizar y dividir un problema en tareas pequeñas.</p>
+<pre><code>public static int sumar(int a, int b) {
+    return a + b;
+}</code></pre>
+<table>
+<tr><th>Parte</th><th>Significado</th></tr>
+<tr><td>public</td><td>Accesible desde otras clases</td></tr>
+<tr><td>static</td><td>Pertenece a la clase; se llama sin crear objeto</td></tr>
+<tr><td>int</td><td>Tipo que devuelve</td></tr>
+<tr><td>sumar</td><td>Nombre del método</td></tr>
+<tr><td>int a, int b</td><td>Parámetros: datos que recibe</td></tr>
+<tr><td>return</td><td>Devuelve el resultado y termina el método</td></tr>
+</table>
+<pre><code>modificadores tipoRetorno nombreMetodo(parametros) {
+    // Instrucciones
+}</code></pre>
+</div></section>
+
+<section class="sec"><h3>2. Declarar y llamar</h3><div class="body">
+<p><b>Declarar</b> = escribir qué hace. <b>Llamar</b> = ejecutarlo.</p>
+<pre><code>public class Ejemplo {
+    public static int sumar(int a, int b) { return a + b; }
+
+    public static void main(String[] args) {
+        int resultado = sumar(4, 6);
+        System.out.println(resultado); // 10
+    }
+}</code></pre>
+<div class="tip"><b>Parámetros</b> = variables de la declaración (<code>a</code>, <code>b</code>). <b>Argumentos</b> = valores que se pasan al llamar (<code>4</code>, <code>6</code>).</div>
+</div></section>
+
+<section class="sec"><h3>3. Tipos de método según parámetros y retorno</h3><div class="body">
+<h4>Sin parámetros y sin retorno (void)</h4>
+<pre><code>public static void saludar() { System.out.println("¡Hola!"); }
+saludar();</code></pre>
+<h4>Con parámetros y sin retorno</h4>
+<pre><code>public static void saludarPersona(String nombre) {
+    System.out.println("Hola, " + nombre);
+}
+saludarPersona("Ana");</code></pre>
+<h4>Sin parámetros y con retorno</h4>
+<pre><code>public static int obtenerNumero() { return 10; }
+int numero = obtenerNumero();</code></pre>
+<h4>Con parámetros y con retorno</h4>
+<pre><code>public static double calcularArea(double base, double altura) {
+    return base * altura / 2;
+}
+double area = calcularArea(6, 4); // 12.0</code></pre>
+</div></section>
+
+
+
+
+
+<section class="sec"><h3>4. Cómo funciona return</h3><div class="body">
+<p><code>return</code> termina el método en ese momento. El valor debe ser compatible con el tipo de retorno.</p>
+<pre><code>public static boolean esPar(int numero) {
+    return numero % 2 == 0;
+}</code></pre>
+<p>Un método con retorno debe devolver valor en <b>todos</b> los caminos:</p>
+<pre><code>public static String comprobarEdad(int edad) {
+    if (edad &gt;= 18) {
+        return "Mayor de edad";
+    }
+    return "Menor de edad";
+}</code></pre>
+<p>En un <code>void</code> se puede usar <code>return;</code> para salir antes:</p>
+<pre><code>public static void mostrarDivision(double a, double b) {
+    if (b == 0) {
+        System.out.println("No se puede dividir entre cero");
+        return;
+    }
+    System.out.println(a / b);
+}</code></pre>
+<div class="tip"><b>Mostrar ≠ devolver:</b> <code>println</code> escribe en pantalla; <code>return</code> entrega un resultado al código que llamó.</div>
+</div></section>
+
+<section class="sec"><h3>5. Métodos static y de instancia</h3><div class="body">
+<p>Un método <code>static</code> se llama con el nombre de la clase:</p>
+<pre><code>public class Calculadora {
+    public static int multiplicar(int a, int b) { return a * b; }
+}
+int resultado = Calculadora.multiplicar(3, 4);</code></pre>
+<p>Uno de instancia necesita un objeto:</p>
+<pre><code>public class Persona {
+    public void saludar() { System.out.println("¡Hola!"); }
+}
+Persona persona = new Persona();
+persona.saludar();</code></pre>
+<p>Desde <code>main</code> (que es static) necesitas un objeto para llamar a un método de instancia.</p>
+</div></section>
+
+<section class="sec"><h3>6. Sobrecarga de métodos</h3><div class="body">
+<p>Varios métodos con el <b>mismo nombre</b> si cambia el número, el tipo o el orden de los tipos de los parámetros.</p>
+<pre><code>public static int sumar(int a, int b)           { return a + b; }
+public static double sumar(double a, double b)  { return a + b; }
+public static int sumar(int a, int b, int c)    { return a + b + c; }
+
+sumar(2, 3);       // 5
+sumar(2.5, 3.5);   // 6.0
+sumar(2, 3, 4);    // 9</code></pre>
+<div class="err">Cambiar <b>solo el tipo de retorno</b> no permite sobrecargar.</div>
+</div></section>
+
+<section class="sec"><h3>7. Ámbito de las variables</h3><div class="body">
+<p>Parámetros y variables locales solo existen dentro de su método.</p>
+<pre><code>public static int duplicar(int numero) {
+    int resultado = numero * 2;
+    return resultado;
+}
+// fuera no existen numero ni resultado
+int doble = duplicar(5);   // recoge el valor devuelto</code></pre>
+</div></section>
+
+<section class="sec"><h3>8. Paso de argumentos por valor</h3><div class="body">
+<p>Java <b>siempre</b> pasa por valor: el método recibe una copia.</p>
+<pre><code>public static void cambiar(int numero) { numero = 100; }
+int valor = 5;
+cambiar(valor);
+System.out.println(valor);   // 5</code></pre>
+<p>Con objetos y arrays se copia la <b>referencia</b>, así que el método sí puede modificar el contenido:</p>
+<pre><code>public static void cambiarPrimero(int[] numeros) { numeros[0] = 100; }
+int[] datos = {1, 2, 3};
+cambiarPrimero(datos);
+System.out.println(datos[0]);   // 100</code></pre>
+<p>Pero asignar un objeto nuevo al parámetro no cambia la variable del llamador.</p>
+</div></section>
+
+<section class="sec"><h3>9. Recursividad</h3><div class="body">
+<p>Un método es recursivo si se llama a sí mismo. Necesita un <b>caso base</b> que detenga las llamadas.</p>
+<pre><code>// válido para n entre 0 y 12
+public static int factorial(int n) {
+    if (n &lt; 0 || n &gt; 12) {
+        throw new IllegalArgumentException("n debe estar entre 0 y 12");
+    }
+    if (n == 0) {
+        return 1;               // caso base
+    }
+    return n * factorial(n - 1);
+}
+factorial(4);   // 4 × 3 × 2 × 1 = 24</code></pre>
+<p>El límite 12 evita que el resultado supere la capacidad de <code>int</code>.</p>
+</div></section>
+
+<section class="sec"><h3>10. Errores frecuentes</h3><div class="body">
+<ul>
+<li>Olvidar devolver valor en un método que no es <code>void</code>.</li>
+<li>Confundir imprimir con devolver.</li>
+<li>Pasar argumentos con tipos o cantidad incorrectos.</li>
+<li>Llamar a un método de instancia desde <code>main</code> sin crear un objeto.</li>
+<li>Declarar un método dentro de otro.</li>
+<li>Creer que cambiar un parámetro primitivo modifica la variable original.</li>
+</ul>
+</div></section>
+
+
+
+
+
+
+
+
+
+<h2 class="tema" id="ejercicios">Ejercicios</h2>
+<p class="sub">Todos los ejercicios del profesor y del libro, separados por unidad. Elige la pestaña.</p>
+<div class="tabs" id="etabs"><button data-u="U1" class=on>U1</button><button data-u="U2">U2</button><button data-u="U3">U3</button></div>
+<div class="tabpane on" id="ej-U1" data-label="U1 · Introducción">
+<section class="sec"><h3>Ejercicios resueltos UT 1</h3><div class="body">
+<p class="sub">Fuentes: EjerciciosUnidad1.docx, EjerciciosBásicosU1.pdf, CirculoJava.pdf, EcuacionesSegundoGrado.pdf. Inténtalos antes de abrir la solución (también tienes versión interactiva en «Práctica interactiva»).</p>
+<h4>1. Longitud de la circunferencia (Java)</h4>
+<details><summary>Ver solución</summary>
+<pre><code>public static void main(String[] args) {
+    float radio = 5;
+    final float PI = 3.1416f;
+    float longitud = 2 * PI * radio;
+    System.out.println(longitud);
+}</code></pre></details>
+<h4>2. Evaluar expresiones (a = 12, b = 4, c = 2)</h4>
+<table>
+<tr><th></th><th>Expresión</th><th>Resultado</th></tr>
+<tr><td>a</td><td><code>a + b * c</code></td><td>20</td></tr>
+<tr><td>b</td><td><code>(a + b) * c</code></td><td>32</td></tr>
+<tr><td>c</td><td><code>a - b / c</code></td><td>10</td></tr>
+<tr><td>d</td><td><code>(a - b) / c</code></td><td>4</td></tr>
+<tr><td>e</td><td><code>a + b * c - 5</code></td><td>15</td></tr>
+<tr><td>f</td><td><code>(a + b) * (c + 3)</code></td><td>80</td></tr>
+</table>
+<h4>3. Expresiones booleanas (a = 12, b = 6, c = 3)</h4>
+<table>
+<tr><th></th><th>Expresión</th><th>Resultado</th></tr>
+<tr><td>a</td><td><code>a &gt; b &amp;&amp; b &gt; c</code></td><td>true</td></tr>
+<tr><td>b</td><td><code>a &lt; b || c &lt; b</code></td><td>true</td></tr>
+<tr><td>c</td><td><code>(a + b) &gt; 15 &amp;&amp; c == 3</code></td><td>true</td></tr>
+<tr><td>d</td><td><code>a / b == c || a &gt; 10</code></td><td>true</td></tr>
+<tr><td>e</td><td><code>(a - b) * c == 18 &amp;&amp; b &gt; c</code></td><td>true</td></tr>
+<tr><td>f</td><td><code>a % b == 0 &amp;&amp; c != 3</code></td><td>false</td></tr>
+</table>
+<h4>4. Área de un trapecio</h4>
+<details><summary>Ver solución</summary>
+<pre><code>float baseMayor = 10, baseMenor = 6, altura = 4;
+float area = (baseMayor + baseMenor) * altura / 2;
+System.out.println(area);   // 32.0</code></pre></details>
+<h4>5. Área de un rombo (con Scanner)</h4>
+<details><summary>Ver solución</summary>
+<pre><code>Scanner teclado = new Scanner(System.in);
+double diagonalMayor, diagonalMenor, area;
+System.out.println("Diagonal mayor ");
+diagonalMayor = teclado.nextDouble();
+System.out.println("Diagonal menor ");
+diagonalMenor = teclado.nextDouble();
+area = (diagonalMayor * diagonalMenor) / 2;
+System.out.println("El área el rombo es " + area);</code></pre></details>
+<h4>6. Fahrenheit → Celsius</h4>
+<details><summary>Ver solución</summary>
+<pre><code>public class Temperatura {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        double fahrenheit, celsius;
+        System.out.print("Introduce la temperatura en grados Fahrenheit: ");
+        fahrenheit = teclado.nextDouble();
+        celsius = (fahrenheit - 32) * 5 / 9;
+        System.out.println("La temperatura en grados Celsius es: " + celsius);
+    }
+}</code></pre></details>
+<h4>7. PSeInt: círculo y rectángulo</h4>
+<details><summary>Ver solución</summary>
+<pre><code>Algoritmo Círculo
+    Definir r Como Entero
+    Definir v,l Como Real
+    Escribir "Introducir el radio "
+    Leer r
+    l = 2 * PI * r;      // longitud de la circunferencia
+    v = PI * r ^ 2;      // área del círculo
+    Escribir "Longitud de la circunferencia ", l;
+    Escribir "Área del círculo ", v;
+FinAlgoritmo
+
+Algoritmo Rectangulo
+    Definir base, altura, area, perimetro Como Real
+    Escribir "Ingrese la base del rectángulo:"
+    Leer base
+    Escribir "Ingrese la altura del rectángulo:"
+    Leer altura
+    area = base * altura
+    perimetro = 2 * base + 2 * altura
+    Escribir "El área del rectángulo es: ", area
+    Escribir "El perímetro del rectángulo es: ", perimetro
+FinAlgoritmo</code></pre>
+<p class="sub">En el documento del profesor el segundo resultado del círculo se llama «volumen»; es en realidad el área (π·r²).</p></details>
+<h4>8. Círculo en Java</h4>
+<p>Enunciado: calcular longitud (perímetro) y área de una circunferencia, con el radio introducido por el usuario (puede tener decimales). El PDF del profesor trae solo el enunciado.</p>
+<details><summary>Mi propuesta de solución (no es oficial)</summary>
+<pre><code>Scanner teclado = new Scanner(System.in);
+System.out.print("Radio: ");
+double radio = teclado.nextDouble();
+double longitud = 2 * Math.PI * radio;
+double area = Math.PI * radio * radio;
+System.out.println("Longitud: " + longitud);
+System.out.println("Área: " + area);</code></pre></details>
+<h4>9. Ecuación de segundo grado</h4>
+<p>Fórmula: x = (−b ± √(b² − 4ac)) / 2a</p>
+<details><summary>Ver solución</summary>
+<pre><code>Scanner sc = new Scanner(System.in);
+double a, b, c, x1, x2;
+System.out.println("=== Resolver ecuación de segundo grado ===");
+System.out.print("Introduce el valor de a: "); a = sc.nextDouble();
+System.out.print("Introduce el valor de b: "); b = sc.nextDouble();
+System.out.print("Introduce el valor de c: "); c = sc.nextDouble();
+if (a == 0) {
+    System.out.println("No es una ecuación de segundo grado (a no puede ser 0).");
+} else {
+    if (b * b - 4 * a * c &lt; 0) {
+        System.out.println("No tiene solución");
+    } else {
+        x1 = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        x2 = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        System.out.println("x1 = " + x1);
+        System.out.println("x2 = " + x2);
+    }
+}
+sc.close();</code></pre></details>
+</div></section></div>
+<div class="tabpane" id="ej-U2" data-label="U2 · Estructuras de control">
 <section class="sec"><h3>Ejercicios resueltos UT 2: if / if-else / operadores lógicos</h3><div class="body">
 <p class="sub">Fuente: EjerciciosUnidad2.docx (60 páginas). Intenta cada ejercicio antes de abrir la solución.</p>
 <h4>1. Mayor de edad</h4>
@@ -732,9 +936,7 @@ if (edad &lt; 18 || estudiante) {
     if (entrada) System.out.println("Puede acceder");
     else         System.out.println("No puede acceder, no tiene entrada");
 }</code></pre></details>
-</div></section>
-
-<section class="sec"><h3>Ejercicios resueltos UT 2: switch</h3><div class="body">
+</div></section><section class="sec"><h3>Ejercicios resueltos UT 2: switch</h3><div class="body">
 <h4>13. Nota → texto (0-4 Suspenso, 5-6 Aprobado, 7-8 Notable, 9-10 Sobresaliente)</h4>
 <details><summary>Solución clásica (con fall-through)</summary><pre><code>int nota = 7;
 switch (nota) {
@@ -768,9 +970,7 @@ switch (opcion) {
     case 4 -&gt; System.out.println("Salir");
     default -&gt; System.out.println("Opción no válida");
 }</code></pre></details>
-</div></section>
-
-<section class="sec"><h3>Ejercicios resueltos UT 2: do-while y menús</h3><div class="body">
+</div></section><section class="sec"><h3>Ejercicios resueltos UT 2: do-while y menús</h3><div class="body">
 <h4>17. Repetir hasta que el valor sea distinto de 0</h4>
 <details><summary>Solución</summary><pre><code>int numero;
 do {
@@ -809,9 +1009,7 @@ do {
         default -&gt; System.out.println("Opción no válida");
     }
 } while (opcion != 4);</code></pre></details>
-</div></section>
-
-<section class="sec"><h3>Ejercicios resueltos UT 2: while (contadores y acumuladores)</h3><div class="body">
+</div></section><section class="sec"><h3>Ejercicios resueltos UT 2: while (contadores y acumuladores)</h3><div class="body">
 <h4>22. Aprobados y suspensos hasta introducir un 0</h4>
 <details><summary>Solución PSeInt y Java</summary><pre><code>Algoritmo sin_titulo
     Definir nota, aprobados, suspensos Como Entero
@@ -938,9 +1136,7 @@ FinAlgoritmo</code></pre></details>
 FinAlgoritmo</code></pre></details>
 <h4>Notas por categoría (termina con 0)</h4>
 <p>Enunciado del profesor: contar cuántos alumnos sacaron Sobresaliente (9, 10), Notable (7, 8), Suficiente (5, 6), Suspendieron (&lt; 5) y Aprobaron (≥ 5). El PDF no incluye texto de solución.</p>
-</div></section>
-
-<section class="sec"><h3>Ejercicios resueltos UT 2: for</h3><div class="body">
+</div></section><section class="sec"><h3>Ejercicios resueltos UT 2: for</h3><div class="body">
 <h4>36. Temperaturas de 7 días: media, días &gt; 25 ºC y días &lt; 10 ºC</h4>
 <details><summary>Solución</summary><pre><code>double temperatura, suma = 0, media;
 int sup25 = 0, inf10 = 0;
@@ -983,9 +1179,7 @@ for (int i = 2; i &lt;= n; i += 2) System.out.println(i);
 long f = 1;
 for (int i = 2; i &lt;= n; i++) f *= i;
 System.out.println(f);</code></pre></details>
-</div></section>
-
-<section class="sec"><h3>Ejercicios tipo examen UT 2</h3><div class="body">
+</div></section><section class="sec"><h3>Ejercicios tipo examen UT 2</h3><div class="body">
 <h4>Presupuesto de un jardín</h4>
 <p>Longitud, anchura y precio/m². Superficie = longitud × anchura; importe inicial = superficie × precio. Si el importe inicial supera 300 €, descuento del 10 %; si no, 0 €. Mostrar superficie, importe inicial, descuento e importe final. (Ej.: 10 × 4 a 8 €/m² → 40 m², 320 €, 32 €, 288 €.)</p>
 <details><summary>Solución del profesor</summary><pre><code>superficie = longitud * anchura;
@@ -1148,9 +1342,7 @@ for (int h = 0; h &lt; TOMAS; h++) {          // media por hora
     System.out.println("Media de las " + horas[h] + ": " + sumaHora / DIAS);
 }</code></pre>
 <p class="sub">Usa un array bidimensional y dos <code>for</code> anidados. El código del profesor calcula el máximo y su posición (<code>diaMax</code>, <code>horaMax</code>) pero no llega a imprimirlo: faltaría un <code>println</code> final.</p></details>
-</div></section>
-
-<section class="sec"><h3>Ejercicios propuestos para el primer examen (enunciados)</h3><div class="body">
+</div></section><section class="sec"><h3>Ejercicios propuestos para el primer examen (enunciados)</h3><div class="body">
 <p class="sub">Fuente: EjerciciosPropuestoPrimerExamen.pdf (solo enunciados)</p>
 <ol>
 <li>Aceptar dos números enteros y mostrar la media aritmética.</li>
@@ -1181,19 +1373,7 @@ for (int i = 0; i &lt; 6; i++) if (teclado.nextDouble() &lt; 5) suspensos++;
 
 // 8. Celsius → Fahrenheit
 double f = c * 9 / 5 + 32;</code></pre></details>
-</div></section>
-
-
-
-
-
-
-
-
-
-
-
-<section class="sec"><h3>Versiones PSeInt de los ejercicios de UT 2</h3><div class="body">
+</div></section><section class="sec"><h3>Versiones PSeInt de los ejercicios de UT 2</h3><div class="body">
 <p class="sub">Fuente: EjerciciosUnidad2.docx. Complementa las versiones Java que ya están más arriba.</p>
 <h4>Acceso a una actividad (edad, altura y autorización)</h4>
 <details><summary>PSeInt</summary><pre><code>Algoritmo Acceso
@@ -1411,336 +1591,6 @@ FinAlgoritmo</code></pre></details>
     Escribir "Suspensos: ", susp
     Escribir "Aprobados: ", aprob
 FinAlgoritmo</code></pre></details>
-</div></section>
-
-<!-- ================= UT 3 ================= -->
-<h2 class="tema" id="ut3">UT 3 · Funciones y métodos en Java</h2>
-<p class="sub">Fuente: U3_A_Funciones.docx del profesor.</p>
-
-<section class="sec"><h3>1. Estructura de un método</h3><div class="body">
-<p>En Java las funciones se llaman <b>métodos</b> y se declaran dentro de una clase. Sirven para organizar, reutilizar y dividir un problema en tareas pequeñas.</p>
-<pre><code>public static int sumar(int a, int b) {
-    return a + b;
-}</code></pre>
-<table>
-<tr><th>Parte</th><th>Significado</th></tr>
-<tr><td>public</td><td>Accesible desde otras clases</td></tr>
-<tr><td>static</td><td>Pertenece a la clase; se llama sin crear objeto</td></tr>
-<tr><td>int</td><td>Tipo que devuelve</td></tr>
-<tr><td>sumar</td><td>Nombre del método</td></tr>
-<tr><td>int a, int b</td><td>Parámetros: datos que recibe</td></tr>
-<tr><td>return</td><td>Devuelve el resultado y termina el método</td></tr>
-</table>
-<pre><code>modificadores tipoRetorno nombreMetodo(parametros) {
-    // Instrucciones
-}</code></pre>
-</div></section>
-
-<section class="sec"><h3>2. Declarar y llamar</h3><div class="body">
-<p><b>Declarar</b> = escribir qué hace. <b>Llamar</b> = ejecutarlo.</p>
-<pre><code>public class Ejemplo {
-    public static int sumar(int a, int b) { return a + b; }
-
-    public static void main(String[] args) {
-        int resultado = sumar(4, 6);
-        System.out.println(resultado); // 10
-    }
-}</code></pre>
-<div class="tip"><b>Parámetros</b> = variables de la declaración (<code>a</code>, <code>b</code>). <b>Argumentos</b> = valores que se pasan al llamar (<code>4</code>, <code>6</code>).</div>
-</div></section>
-
-<section class="sec"><h3>3. Tipos de método según parámetros y retorno</h3><div class="body">
-<h4>Sin parámetros y sin retorno (void)</h4>
-<pre><code>public static void saludar() { System.out.println("¡Hola!"); }
-saludar();</code></pre>
-<h4>Con parámetros y sin retorno</h4>
-<pre><code>public static void saludarPersona(String nombre) {
-    System.out.println("Hola, " + nombre);
-}
-saludarPersona("Ana");</code></pre>
-<h4>Sin parámetros y con retorno</h4>
-<pre><code>public static int obtenerNumero() { return 10; }
-int numero = obtenerNumero();</code></pre>
-<h4>Con parámetros y con retorno</h4>
-<pre><code>public static double calcularArea(double base, double altura) {
-    return base * altura / 2;
-}
-double area = calcularArea(6, 4); // 12.0</code></pre>
-</div></section>
-
-<section class="sec"><h3>Ejercicios resueltos del profesor</h3><div class="body">
-<h4>Área y perímetro de un rectángulo (con Scanner)</h4>
-<details><summary>Ver solución</summary>
-<pre><code>import java.util.Scanner;
-
-public class FuncionArea {
-    public static int calcularArea(int base, int altura) {
-        int area = base * altura;
-        return area;
-    }
-    public static int calcularPerimetro(int base, int altura) {
-        int perimetro = base * 2 + altura * 2;
-        return perimetro;
-    }
-    public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        int base, altura, area, perimetro;
-        System.out.print("Introduce la base: ");
-        base = teclado.nextInt();
-        System.out.print("Introduce la altura: ");
-        altura = teclado.nextInt();
-        area = calcularArea(base, altura);
-        System.out.println("El área del rectángulo es: " + area);
-        perimetro = calcularPerimetro(base, altura);
-        System.out.println("Longitud del perímetro es: " + perimetro);
-    }
-}</code></pre></details>
-<h4>Mostrar el mayor de dos números</h4>
-<details><summary>Ver solución</summary>
-<pre><code>import java.util.Scanner;
-
-public class NumeroMayor {
-    public static void mostrarMayor(int a, int b) {
-        if (a &gt; b) {
-            System.out.println("El mayor es: " + a);
-        } else if (b &gt; a) {
-            System.out.println("El mayor es: " + b);
-        } else {
-            System.out.println("Los dos números son iguales");
-        }
-    }
-    public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        int num1, num2;
-        System.out.print("Introduce el primer número: ");
-        num1 = teclado.nextInt();
-        System.out.print("Introduce el segundo número: ");
-        num2 = teclado.nextInt();
-        mostrarMayor(num1, num2);
-    }
-}</code></pre></details>
-</div></section>
-
-<section class="sec"><h3>Suma con función: PSeInt vs Java</h3><div class="body">
-<p><b>Objetivo:</b> pedir dos enteros, llamar a una función que los sume y mostrar el resultado. El programa principal lee y muestra; la función calcula.</p>
-<h4>PSeInt</h4>
-<pre><code>Funcion resultado &lt;- Sumar(a, b)
-    Definir resultado Como Entero
-    resultado &lt;- a + b
-FinFuncion
-
-Algoritmo Principal
-    Definir num1, num2, suma Como Entero
-    Escribir "Introduce el primer número:"
-    Leer num1
-    Escribir "Introduce el segundo número:"
-    Leer num2
-    suma &lt;- Sumar(num1, num2)
-    Escribir "La suma es: ", suma
-FinAlgoritmo</code></pre>
-<p>En PSeInt, la variable a la izquierda de <code>&lt;-</code> en la cabecera es la que se devuelve.</p>
-<h4>Java</h4>
-<pre><code>import java.util.Scanner;
-
-public class Principal {
-    public static int sumar(int a, int b) {
-        int resultado = a + b;
-        return resultado;
-    }
-    public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        int num1, num2, suma;
-        System.out.print("Introduce el primer número: ");
-        num1 = teclado.nextInt();
-        System.out.print("Introduce el segundo número: ");
-        num2 = teclado.nextInt();
-        suma = sumar(num1, num2);
-        System.out.println("La suma es: " + suma);
-    }
-}</code></pre>
-<ul>
-<li><code>import java.util.Scanner;</code> permite leer del teclado.</li>
-<li><code>new Scanner(System.in)</code> crea el lector; <code>nextInt()</code> lee un entero.</li>
-<li><code>print</code> no salta de línea; <code>println</code> sí.</li>
-</ul>
-<h4>Comparación</h4>
-<table>
-<tr><th>PSeInt</th><th>Java</th></tr>
-<tr><td><code>Funcion resultado &lt;- Sumar(a, b)</code></td><td><code>public static int sumar(int a, int b) {</code></td></tr>
-<tr><td><code>resultado &lt;- a + b</code></td><td><code>int resultado = a + b;</code></td></tr>
-<tr><td><code>FinFuncion</code> (se devuelve resultado)</td><td><code>return resultado; }</code></td></tr>
-<tr><td><code>suma &lt;- Sumar(num1, num2)</code></td><td><code>suma = sumar(num1, num2);</code></td></tr>
-<tr><td><code>Escribir "La suma es: ", suma</code></td><td><code>System.out.println("La suma es: " + suma);</code></td></tr>
-</table>
-<p>Ejemplo de ejecución con 5 y 3: <code>La suma es: 8</code>.</p>
-</div></section>
-
-<section class="sec"><h3>4. Cómo funciona return</h3><div class="body">
-<p><code>return</code> termina el método en ese momento. El valor debe ser compatible con el tipo de retorno.</p>
-<pre><code>public static boolean esPar(int numero) {
-    return numero % 2 == 0;
-}</code></pre>
-<p>Un método con retorno debe devolver valor en <b>todos</b> los caminos:</p>
-<pre><code>public static String comprobarEdad(int edad) {
-    if (edad &gt;= 18) {
-        return "Mayor de edad";
-    }
-    return "Menor de edad";
-}</code></pre>
-<p>En un <code>void</code> se puede usar <code>return;</code> para salir antes:</p>
-<pre><code>public static void mostrarDivision(double a, double b) {
-    if (b == 0) {
-        System.out.println("No se puede dividir entre cero");
-        return;
-    }
-    System.out.println(a / b);
-}</code></pre>
-<div class="tip"><b>Mostrar ≠ devolver:</b> <code>println</code> escribe en pantalla; <code>return</code> entrega un resultado al código que llamó.</div>
-</div></section>
-
-<section class="sec"><h3>5. Métodos static y de instancia</h3><div class="body">
-<p>Un método <code>static</code> se llama con el nombre de la clase:</p>
-<pre><code>public class Calculadora {
-    public static int multiplicar(int a, int b) { return a * b; }
-}
-int resultado = Calculadora.multiplicar(3, 4);</code></pre>
-<p>Uno de instancia necesita un objeto:</p>
-<pre><code>public class Persona {
-    public void saludar() { System.out.println("¡Hola!"); }
-}
-Persona persona = new Persona();
-persona.saludar();</code></pre>
-<p>Desde <code>main</code> (que es static) necesitas un objeto para llamar a un método de instancia.</p>
-</div></section>
-
-<section class="sec"><h3>6. Sobrecarga de métodos</h3><div class="body">
-<p>Varios métodos con el <b>mismo nombre</b> si cambia el número, el tipo o el orden de los tipos de los parámetros.</p>
-<pre><code>public static int sumar(int a, int b)           { return a + b; }
-public static double sumar(double a, double b)  { return a + b; }
-public static int sumar(int a, int b, int c)    { return a + b + c; }
-
-sumar(2, 3);       // 5
-sumar(2.5, 3.5);   // 6.0
-sumar(2, 3, 4);    // 9</code></pre>
-<div class="err">Cambiar <b>solo el tipo de retorno</b> no permite sobrecargar.</div>
-</div></section>
-
-<section class="sec"><h3>7. Ámbito de las variables</h3><div class="body">
-<p>Parámetros y variables locales solo existen dentro de su método.</p>
-<pre><code>public static int duplicar(int numero) {
-    int resultado = numero * 2;
-    return resultado;
-}
-// fuera no existen numero ni resultado
-int doble = duplicar(5);   // recoge el valor devuelto</code></pre>
-</div></section>
-
-<section class="sec"><h3>8. Paso de argumentos por valor</h3><div class="body">
-<p>Java <b>siempre</b> pasa por valor: el método recibe una copia.</p>
-<pre><code>public static void cambiar(int numero) { numero = 100; }
-int valor = 5;
-cambiar(valor);
-System.out.println(valor);   // 5</code></pre>
-<p>Con objetos y arrays se copia la <b>referencia</b>, así que el método sí puede modificar el contenido:</p>
-<pre><code>public static void cambiarPrimero(int[] numeros) { numeros[0] = 100; }
-int[] datos = {1, 2, 3};
-cambiarPrimero(datos);
-System.out.println(datos[0]);   // 100</code></pre>
-<p>Pero asignar un objeto nuevo al parámetro no cambia la variable del llamador.</p>
-</div></section>
-
-<section class="sec"><h3>9. Recursividad</h3><div class="body">
-<p>Un método es recursivo si se llama a sí mismo. Necesita un <b>caso base</b> que detenga las llamadas.</p>
-<pre><code>// válido para n entre 0 y 12
-public static int factorial(int n) {
-    if (n &lt; 0 || n &gt; 12) {
-        throw new IllegalArgumentException("n debe estar entre 0 y 12");
-    }
-    if (n == 0) {
-        return 1;               // caso base
-    }
-    return n * factorial(n - 1);
-}
-factorial(4);   // 4 × 3 × 2 × 1 = 24</code></pre>
-<p>El límite 12 evita que el resultado supere la capacidad de <code>int</code>.</p>
-</div></section>
-
-<section class="sec"><h3>10. Errores frecuentes</h3><div class="body">
-<ul>
-<li>Olvidar devolver valor en un método que no es <code>void</code>.</li>
-<li>Confundir imprimir con devolver.</li>
-<li>Pasar argumentos con tipos o cantidad incorrectos.</li>
-<li>Llamar a un método de instancia desde <code>main</code> sin crear un objeto.</li>
-<li>Declarar un método dentro de otro.</li>
-<li>Creer que cambiar un parámetro primitivo modifica la variable original.</li>
-</ul>
-</div></section>
-
-<section class="sec"><h3>Ejercicios para practicar</h3><div class="body">
-<div class="ex">
-<ol>
-<li><code>cuadrado(int numero)</code> → devuelve el número multiplicado por sí mismo.</li>
-<li><code>mayor(int a, int b)</code> → devuelve el mayor.</li>
-<li><code>esPositivo(int numero)</code> → devuelve si es mayor que cero.</li>
-<li><code>mostrarTabla(int numero)</code> → imprime su tabla de multiplicar del 1 al 10.</li>
-<li><code>calcularMedia(double a, double b, double c)</code> → devuelve la media.</li>
-</ol>
-</div>
-<details><summary>Ver soluciones (inténtalo antes)</summary>
-<pre><code>static int cuadrado(int n)            { return n * n; }
-static int mayor(int a, int b)        { return a &gt; b ? a : b; }
-static boolean esPositivo(int n)      { return n &gt; 0; }
-static void mostrarTabla(int n) {
-    for (int i = 1; i &lt;= 10; i++) System.out.println(n + " x " + i + " = " + n * i);
-}
-static double calcularMedia(double a, double b, double c) { return (a + b + c) / 3; }</code></pre>
-<p class="sub">Soluciones escritas por mí a partir de los enunciados del profesor; no son material oficial.</p>
-</details>
-</div></section>
-
-
-
-
-
-
-
-<h2 class="tema" id="libro">Libro · por capítulos</h2>
-<p class="sub">«Introducción a la programación» (páginas 75–295 del libro del profesor). Ejercicios en Java con el código corregido.</p>
-<div class="chap" id="cap1">Capítulo 1 · Estructura lineal</div>
-<section class="sec"><h3>Libro «Introducción a la programación»: estructura lineal (cap. 1)</h3><div class="body">
-<p class="sub">Fuente: Introduccion-a-la-programacion-17-74 UT1.pdf (58 páginas). Resumen; el archivo completo tiene cada ejercicio en español estructurado, prueba de escritorio, PSeInt y Java.</p>
-<ul>
-<li>El <b>análisis</b> es lo más importante: ¿qué tenemos? ¿qué necesitamos? Después la estructura, la indentación y las buenas prácticas.</li>
-<li><b>Buenas prácticas:</b> nombre del algoritmo alusivo, variables con nombres descriptivos, orden (comentarios → nombre → definición de variables → inicializar a 0 o <code>""</code>), sangría en las estructuras.</li>
-<li><b>Variable:</b> valor que cambia pero siempre del mismo tipo. <b>Constante:</b> no cambia (p. ej. <code>PI</code> = 3.1416).</li>
-<li><b>Tipos de datos:</b> entero, real, cadena, booleano, fecha.</li>
-<li><b>Prueba de escritorio:</b> simular a mano el algoritmo línea a línea con una tabla de una columna por variable; conviene probar valores correctos e incorrectos.</li>
-<li><b>PSeInt</b> es una herramienta para aprender algoritmos (funciones: MOD, RC/RAIZ, ABS, EXP, TRUNC, REDON, AZAR).</li>
-</ul>
-<h4>Ejercicios del capítulo (fórmulas)</h4>
-<table>
-<tr><th>Nº</th><th>Problema</th><th>Cálculo</th></tr>
-<tr><td>1</td><td>Ganancia de una inversión</td><td><code>ganancia = capital * dias * 0.02</code> (4200 · 30 · 0.02 = 2520)</td></tr>
-<tr><td>2</td><td>Arena para revocar una pared</td><td><code>arena = largo * ancho * 0.5</code> (10 · 5 · 0.5 = 25)</td></tr>
-<tr><td>3</td><td>Cono</td><td>aBase = π·r²; aLado = π·r·g; aTotal = aBase + aLado; volumen = aBase·altura/3</td></tr>
-<tr><td>4</td><td>Esfera</td><td>área = 4·π·r²; volumen = 4·π·r³/3</td></tr>
-<tr><td>5</td><td>Cubo</td><td>aBase = L²; aLado = 4·L²; aTotal = 6·L²; volumen = L³</td></tr>
-<tr><td>6</td><td>Perímetro de un triángulo (coordenadas)</td><td>suma de 3 distancias <code>Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2))</code></td></tr>
-<tr><td>7</td><td>Superficie de un triángulo (coordenadas)</td><td>((x1·y2 + x2·y3 + x3·y1) − (x1·y3 + x3·y2 + x2·y1)) / 2</td></tr>
-<tr><td>8</td><td>Prisma pentagonal</td><td>aBase = per·apo/2; aLado = per·alt; aTotal = 2·aBase + aLado; volumen = aBase·alt</td></tr>
-<tr><td>9</td><td>Monto de un capital</td><td><code>monto = capital * (1 + interes / 100)</code></td></tr>
-</table>
-<div class="tip">La lectura del libro se detiene en el ejercicio 9 de esta copia; el resto del capítulo no pude extraerlo completo.</div>
-</div></section><div class="chap" id="cap2">Capítulo 2 · Estructuras selectivas</div>
-<section class="sec"><h3>Libro «Introducción a la programación»: estructuras selectivas (cap. 2)</h3><div class="body">
-<p class="sub">Fuente: Libro-completo-Introduccion-a-la-programacion-75-295.pdf (221 páginas; solo pude extraer el inicio del capítulo 2).</p>
-<ul>
-<li>Tres tipos: <b>SI simple</b>, <b>SINO (SI doble)</b> y <b>SI anidado (SI múltiple)</b>.</li>
-<li>Operadores de comparación: <code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>&lt;&gt;</code> (distinto).</li>
-<li>Operadores lógicos: <code>Y</code> / <code>&amp;</code>, <code>O</code> / <code>|</code>, <code>NO</code> / <code>~</code>.</li>
-<li>SI simple: solo si la condición (por ejemplo <code>sueldo &lt; 1000</code>) es verdadera se ejecuta lo de dentro.</li>
-</ul>
-<div class="tip">El resto de este libro (hasta la página 295 del original) no está volcado aquí. Si el profesor lo pide para el examen, dímelo y lo leo por capítulos.</div>
 </div></section><section class="sec"><h3>Libro (cap. 2): estructura selectiva SI (if) – ejercicios 1 a 3</h3><div class="body">
 <p class="sub">Fuente: Libro-completo-Introduccion-a-la-programacion-75-295.pdf. En el PDF se pierden los símbolos ≥ y ≤ y algún <code>==</code>; aquí el Java está corregido. En cada ejercicio el libro incluye además español estructurado, prueba de escritorio y versión PSeInt, que aquí se omiten por ser equivalentes.</p>
 <p><b>SI simple:</b> si la condición es verdadera se ejecuta el bloque; si no, no pasa nada. <b>SI-SINO:</b> dos caminos, se ejecuta exactamente uno. <b>SI anidado (múltiple):</b> más de dos caminos, con indentación escalonada.</p>
@@ -2030,8 +1880,7 @@ if (edad &gt;= 14 &amp;&amp; edad &lt;= 22) {
 } else {
     System.out.println("El costo total por los días en el hospital es: " + costo);
 }</code></pre><p class="sub">Ej.: enfermedad 2, 15 años, 3 días → 52.800000000000004.</p></details>
-</div></section><div class="chap" id="cap3">Capítulo 3 · Estructuras repetitivas</div>
-<section class="sec"><h3>Libro (cap. 3): bucle Mientras (while) – ejercicios 1 a 8</h3><div class="body">
+</div></section><section class="sec"><h3>Libro (cap. 3): bucle Mientras (while) – ejercicios 1 a 8</h3><div class="body">
 <h4>1. Primeros 50 números impares</h4>
 <details><summary>Java</summary><pre><code>int numero = 1, contador = 0;
 while (contador &lt; 50) {
@@ -2166,7 +2015,171 @@ for (int i = 1; i &lt;= 10; i++) {
 }
 if (contPares &gt; 0)   System.out.println("Media de pares: " + (double) sumaPares / contPares);
 if (contImpares &gt; 0) System.out.println("Media de impares: " + (double) sumaImpares / contImpares);</code></pre></details>
-</div></section>
+</div></section></div>
+<div class="tabpane" id="ej-U3" data-label="U3 · Funciones">
+<section class="sec"><h3>Ejercicios resueltos del profesor</h3><div class="body">
+<h4>Área y perímetro de un rectángulo (con Scanner)</h4>
+<details><summary>Ver solución</summary>
+<pre><code>import java.util.Scanner;
+
+public class FuncionArea {
+    public static int calcularArea(int base, int altura) {
+        int area = base * altura;
+        return area;
+    }
+    public static int calcularPerimetro(int base, int altura) {
+        int perimetro = base * 2 + altura * 2;
+        return perimetro;
+    }
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        int base, altura, area, perimetro;
+        System.out.print("Introduce la base: ");
+        base = teclado.nextInt();
+        System.out.print("Introduce la altura: ");
+        altura = teclado.nextInt();
+        area = calcularArea(base, altura);
+        System.out.println("El área del rectángulo es: " + area);
+        perimetro = calcularPerimetro(base, altura);
+        System.out.println("Longitud del perímetro es: " + perimetro);
+    }
+}</code></pre></details>
+<h4>Mostrar el mayor de dos números</h4>
+<details><summary>Ver solución</summary>
+<pre><code>import java.util.Scanner;
+
+public class NumeroMayor {
+    public static void mostrarMayor(int a, int b) {
+        if (a &gt; b) {
+            System.out.println("El mayor es: " + a);
+        } else if (b &gt; a) {
+            System.out.println("El mayor es: " + b);
+        } else {
+            System.out.println("Los dos números son iguales");
+        }
+    }
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        int num1, num2;
+        System.out.print("Introduce el primer número: ");
+        num1 = teclado.nextInt();
+        System.out.print("Introduce el segundo número: ");
+        num2 = teclado.nextInt();
+        mostrarMayor(num1, num2);
+    }
+}</code></pre></details>
+</div></section><section class="sec"><h3>Suma con función: PSeInt vs Java</h3><div class="body">
+<p><b>Objetivo:</b> pedir dos enteros, llamar a una función que los sume y mostrar el resultado. El programa principal lee y muestra; la función calcula.</p>
+<h4>PSeInt</h4>
+<pre><code>Funcion resultado &lt;- Sumar(a, b)
+    Definir resultado Como Entero
+    resultado &lt;- a + b
+FinFuncion
+
+Algoritmo Principal
+    Definir num1, num2, suma Como Entero
+    Escribir "Introduce el primer número:"
+    Leer num1
+    Escribir "Introduce el segundo número:"
+    Leer num2
+    suma &lt;- Sumar(num1, num2)
+    Escribir "La suma es: ", suma
+FinAlgoritmo</code></pre>
+<p>En PSeInt, la variable a la izquierda de <code>&lt;-</code> en la cabecera es la que se devuelve.</p>
+<h4>Java</h4>
+<pre><code>import java.util.Scanner;
+
+public class Principal {
+    public static int sumar(int a, int b) {
+        int resultado = a + b;
+        return resultado;
+    }
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        int num1, num2, suma;
+        System.out.print("Introduce el primer número: ");
+        num1 = teclado.nextInt();
+        System.out.print("Introduce el segundo número: ");
+        num2 = teclado.nextInt();
+        suma = sumar(num1, num2);
+        System.out.println("La suma es: " + suma);
+    }
+}</code></pre>
+<ul>
+<li><code>import java.util.Scanner;</code> permite leer del teclado.</li>
+<li><code>new Scanner(System.in)</code> crea el lector; <code>nextInt()</code> lee un entero.</li>
+<li><code>print</code> no salta de línea; <code>println</code> sí.</li>
+</ul>
+<h4>Comparación</h4>
+<table>
+<tr><th>PSeInt</th><th>Java</th></tr>
+<tr><td><code>Funcion resultado &lt;- Sumar(a, b)</code></td><td><code>public static int sumar(int a, int b) {</code></td></tr>
+<tr><td><code>resultado &lt;- a + b</code></td><td><code>int resultado = a + b;</code></td></tr>
+<tr><td><code>FinFuncion</code> (se devuelve resultado)</td><td><code>return resultado; }</code></td></tr>
+<tr><td><code>suma &lt;- Sumar(num1, num2)</code></td><td><code>suma = sumar(num1, num2);</code></td></tr>
+<tr><td><code>Escribir "La suma es: ", suma</code></td><td><code>System.out.println("La suma es: " + suma);</code></td></tr>
+</table>
+<p>Ejemplo de ejecución con 5 y 3: <code>La suma es: 8</code>.</p>
+</div></section><section class="sec"><h3>Ejercicios para practicar</h3><div class="body">
+<div class="ex">
+<ol>
+<li><code>cuadrado(int numero)</code> → devuelve el número multiplicado por sí mismo.</li>
+<li><code>mayor(int a, int b)</code> → devuelve el mayor.</li>
+<li><code>esPositivo(int numero)</code> → devuelve si es mayor que cero.</li>
+<li><code>mostrarTabla(int numero)</code> → imprime su tabla de multiplicar del 1 al 10.</li>
+<li><code>calcularMedia(double a, double b, double c)</code> → devuelve la media.</li>
+</ol>
+</div>
+<details><summary>Ver soluciones (inténtalo antes)</summary>
+<pre><code>static int cuadrado(int n)            { return n * n; }
+static int mayor(int a, int b)        { return a &gt; b ? a : b; }
+static boolean esPositivo(int n)      { return n &gt; 0; }
+static void mostrarTabla(int n) {
+    for (int i = 1; i &lt;= 10; i++) System.out.println(n + " x " + i + " = " + n * i);
+}
+static double calcularMedia(double a, double b, double c) { return (a + b + c) / 3; }</code></pre>
+<p class="sub">Soluciones escritas por mí a partir de los enunciados del profesor; no son material oficial.</p>
+</details>
+</div></section></div>
+<h2 class="tema" id="libro">Libro · por capítulos</h2>
+<p class="sub">«Introducción a la programación» (páginas 75–295 del libro del profesor). Ejercicios en Java con el código corregido.</p>
+<div class="chap" id="cap1">Capítulo 1 · Estructura lineal</div>
+<section class="sec"><h3>Libro «Introducción a la programación»: estructura lineal (cap. 1)</h3><div class="body">
+<p class="sub">Fuente: Introduccion-a-la-programacion-17-74 UT1.pdf (58 páginas). Resumen; el archivo completo tiene cada ejercicio en español estructurado, prueba de escritorio, PSeInt y Java.</p>
+<ul>
+<li>El <b>análisis</b> es lo más importante: ¿qué tenemos? ¿qué necesitamos? Después la estructura, la indentación y las buenas prácticas.</li>
+<li><b>Buenas prácticas:</b> nombre del algoritmo alusivo, variables con nombres descriptivos, orden (comentarios → nombre → definición de variables → inicializar a 0 o <code>""</code>), sangría en las estructuras.</li>
+<li><b>Variable:</b> valor que cambia pero siempre del mismo tipo. <b>Constante:</b> no cambia (p. ej. <code>PI</code> = 3.1416).</li>
+<li><b>Tipos de datos:</b> entero, real, cadena, booleano, fecha.</li>
+<li><b>Prueba de escritorio:</b> simular a mano el algoritmo línea a línea con una tabla de una columna por variable; conviene probar valores correctos e incorrectos.</li>
+<li><b>PSeInt</b> es una herramienta para aprender algoritmos (funciones: MOD, RC/RAIZ, ABS, EXP, TRUNC, REDON, AZAR).</li>
+</ul>
+<h4>Ejercicios del capítulo (fórmulas)</h4>
+<table>
+<tr><th>Nº</th><th>Problema</th><th>Cálculo</th></tr>
+<tr><td>1</td><td>Ganancia de una inversión</td><td><code>ganancia = capital * dias * 0.02</code> (4200 · 30 · 0.02 = 2520)</td></tr>
+<tr><td>2</td><td>Arena para revocar una pared</td><td><code>arena = largo * ancho * 0.5</code> (10 · 5 · 0.5 = 25)</td></tr>
+<tr><td>3</td><td>Cono</td><td>aBase = π·r²; aLado = π·r·g; aTotal = aBase + aLado; volumen = aBase·altura/3</td></tr>
+<tr><td>4</td><td>Esfera</td><td>área = 4·π·r²; volumen = 4·π·r³/3</td></tr>
+<tr><td>5</td><td>Cubo</td><td>aBase = L²; aLado = 4·L²; aTotal = 6·L²; volumen = L³</td></tr>
+<tr><td>6</td><td>Perímetro de un triángulo (coordenadas)</td><td>suma de 3 distancias <code>Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2))</code></td></tr>
+<tr><td>7</td><td>Superficie de un triángulo (coordenadas)</td><td>((x1·y2 + x2·y3 + x3·y1) − (x1·y3 + x3·y2 + x2·y1)) / 2</td></tr>
+<tr><td>8</td><td>Prisma pentagonal</td><td>aBase = per·apo/2; aLado = per·alt; aTotal = 2·aBase + aLado; volumen = aBase·alt</td></tr>
+<tr><td>9</td><td>Monto de un capital</td><td><code>monto = capital * (1 + interes / 100)</code></td></tr>
+</table>
+<div class="tip">La lectura del libro se detiene en el ejercicio 9 de esta copia; el resto del capítulo no pude extraerlo completo.</div>
+</div></section><div class="chap" id="cap2">Capítulo 2 · Estructuras selectivas</div>
+<section class="sec"><h3>Libro «Introducción a la programación»: estructuras selectivas (cap. 2)</h3><div class="body">
+<p class="sub">Fuente: Libro-completo-Introduccion-a-la-programacion-75-295.pdf (221 páginas; solo pude extraer el inicio del capítulo 2).</p>
+<ul>
+<li>Tres tipos: <b>SI simple</b>, <b>SINO (SI doble)</b> y <b>SI anidado (SI múltiple)</b>.</li>
+<li>Operadores de comparación: <code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>&lt;&gt;</code> (distinto).</li>
+<li>Operadores lógicos: <code>Y</code> / <code>&amp;</code>, <code>O</code> / <code>|</code>, <code>NO</code> / <code>~</code>.</li>
+<li>SI simple: solo si la condición (por ejemplo <code>sueldo &lt; 1000</code>) es verdadera se ejecuta lo de dentro.</li>
+</ul>
+<div class="tip">El resto de este libro (hasta la página 295 del original) no está volcado aquí. Si el profesor lo pide para el examen, dímelo y lo leo por capítulos.</div>
+</div></section><div class="chap" id="cap3">Capítulo 3 · Estructuras repetitivas</div>
+
 <h2 class="tema" id="practica">Práctica interactiva</h2>
 <p class="sub">Flashcards, test, predicción de salidas, huecos de código y ejercicios de escritura. Tu progreso se guarda en este navegador.</p>
 
@@ -2225,7 +2238,8 @@ $$("main > h2.tema").forEach(function(t,i){
   h+='<details open><summary><a href="#'+t.id+'" style="color:inherit;text-decoration:none">'+t.textContent.split(" · ")[0]+(t.id==="libro"?" (por capítulos)":"")+'</a></summary>';
   var el=t.nextElementSibling;
   while(el&&el.tagName!=="H2"){
-    if(el.classList.contains("chap")){h+='<div class="c"><a href="#'+el.id+'" style="color:inherit;text-decoration:none">'+el.textContent+'</a></div>';}
+    if(el.classList.contains("tabpane")){h+='<div class="c"><a href="#'+el.id+'" style="color:inherit;text-decoration:none">'+el.getAttribute("data-label")+'</a></div>';$$("section.sec",el).forEach(function(s2){if(!s2.id)s2.id="s"+Math.random().toString(36).slice(2,7);h+='<a href="#'+s2.id+'">'+s2.querySelector("h3").textContent.replace(/^Libro \(cap\. \d\): /,"")+'</a>';});}
+    else if(el.classList.contains("chap")){h+='<div class="c"><a href="#'+el.id+'" style="color:inherit;text-decoration:none">'+el.textContent+'</a></div>';}
     else if(el.tagName==="SECTION"){var s=el.querySelector("h3");if(!el.id)el.id="s"+Math.random().toString(36).slice(2,7);h+='<a href="#'+el.id+'">'+s.textContent.replace(/^Libro \(cap\. \d\): /,"")+'</a>';}
     el=el.nextElementSibling;
   }
@@ -2244,12 +2258,15 @@ $$("pre").forEach(function(p){
 nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;var t=document.querySelector(a.getAttribute("href"));if(t&&t.classList)t.classList.remove("closed")});
 $("#mn").onclick=function(){nav.classList.toggle("open")};
 nav.addEventListener("click",function(e){if(e.target.closest("a"))nav.classList.remove("open")});
+function showPane(u){$$(".tabpane").forEach(function(p){p.classList.toggle("on",p.id==="ej-"+u)});$$("#etabs button").forEach(function(b){b.classList.toggle("on",b.dataset.u===u)})}
+$$("#etabs button").forEach(function(b){b.onclick=function(){showPane(b.dataset.u)}});
+nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;var t=document.querySelector(a.getAttribute("href"));var p=t&&t.closest?t.closest(".tabpane"):null;if(p)showPane(p.id.slice(3))});
 // toggle all
 var allOpen=true;
 $("#all").onclick=function(){allOpen=!allOpen;$$("section.sec").forEach(function(s){s.classList.toggle("closed",!allOpen)})};
 // search
 $("#q").addEventListener("input",function(e){
-  var v=e.target.value.trim().toLowerCase();
+  var v=e.target.value.trim().toLowerCase();document.body.classList.toggle("searching",!!v);
   $$("section.sec").forEach(function(s){
     var m=!v||s.textContent.toLowerCase().indexOf(v)>-1;
     s.classList.toggle("hide",!m);
