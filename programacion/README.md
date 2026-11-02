@@ -36,3 +36,7 @@ Fuente: Google Site del profesor (Programación 1 DAM).
 
 ## Práctica interactiva (dentro del HTML)
 Flashcards, test, predicción de salidas, expresiones, huecos de código y ejercicios de escritura con solución bloqueada hasta intentarlo.
+
+## Libro
+
+El apartado **Libro** incluye «Introducción a la programación» (Pino Herrera et al., 2020) completo: capítulos 1 a 3, sus 57 ejercicios con español estructurado, PSeInt, Java y resultados, y la teoría de cada capítulo. No se copian las tablas de pruebas de escritorio.
