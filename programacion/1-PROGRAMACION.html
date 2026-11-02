@@ -748,6 +748,103 @@ factorial(4);   // 4 × 3 × 2 × 1 = 24</code></pre>
 <p class="sub">Todos los ejercicios del profesor y del libro, separados por unidad. Elige la pestaña.</p>
 <div class="tabs" id="etabs"><button data-u="U1" class=on>U1</button><button data-u="U2">U2</button><button data-u="U3">U3</button></div>
 <div class="tabpane on" id="ej-U1" data-label="U1 · Introducción">
+<section class="sec"><h3>Libro (cap. 1): estructura lineal – ejercicios 1 a 11</h3><div class="body"><p class="sub">Fuente: Introduccion-a-la-programacion-17-74 UT1.pdf (cap. 1, estructura lineal). Java del libro (con <code>import java.util.Scanner;</code> y la clase <code>public class … { public static void main(String[] args) { … } }</code> alrededor, que aquí se omite). Cada ejercicio del libro trae además español estructurado, prueba de escritorio y PSeInt.</p><h4>1. Ganancia de una inversión</h4><p>Una persona invierte su capital en un banco que paga el 2 % mensual. Calcula cuánto gana tras un mes.</p><details><summary>Java</summary><pre><code>Scanner entrada = new Scanner(System.in);
+int dias;
+double capital, ganancia, interes;
+System.out.println(&quot;Teclea Capital: &quot;);
+capital = entrada.nextDouble();
+System.out.println(&quot;Teclea Días Mes: &quot;);
+dias = entrada.nextInt();
+interes = 0.02;
+ganancia = capital * dias * interes;
+System.out.println(&quot;La ganancia es: &quot; + ganancia);</code></pre><p class="sub">Ej.: 4200 y 30 días → 2520. (El libro muestra 5000 y 1 día → 100.0.)</p></details><h4>2. Arena para revocar una pared</h4><p>Hacen falta 0,5 m³ de arena por m² de revoque. Calcula la arena necesaria según el largo y el ancho de la pared.</p><details><summary>Java</summary><pre><code>Scanner entrada = new Scanner(System.in);
+double metros, largo, ancho, arena;
+System.out.println(&quot;Ingrese el largo de la pared en metros: &quot;);
+largo = entrada.nextDouble();
+System.out.println(&quot;Ingrese el ancho de la pared en metros: &quot;);
+ancho = entrada.nextDouble();
+metros = 0.5;
+arena = largo * ancho * metros;
+System.out.println(&quot;La cantidad de arena necesaria es de: &quot; + arena);</code></pre><p class="sub">10 × 5 → 25.0</p></details><h4>3. Cono: áreas y volumen</h4><p>Dados el radio, la generatriz y la altura, calcula el área de la base (π·r²), el área lateral (π·r·g), el área total y el volumen (aBase·altura/3).</p><details><summary>Java</summary><pre><code>Scanner entrada = new Scanner(System.in);
+double radio, generatriz, altura;
+double aBase, aLado, aTotal, volumen;
+final double PI = Math.PI;
+radio = entrada.nextDouble();
+generatriz = entrada.nextDouble();
+altura = entrada.nextDouble();
+aBase = PI * (radio * radio);
+aLado = PI * radio * generatriz;
+aTotal = aBase + aLado;
+volumen = (aBase * altura) / 3;
+System.out.println(&quot;El área de la base es: &quot; + aBase);
+System.out.println(&quot;El área lateral es: &quot; + aLado);
+System.out.println(&quot;El área Total es: &quot; + aTotal);
+System.out.println(&quot;El Volumen total es: &quot; + volumen);</code></pre><p class="sub">Radio 10, generatriz 5, altura 6 → base 314.159…, lateral 157.079…, total 471.238…</p></details><h4>4. Esfera: área y volumen</h4><p>Dado el radio, área = 4·π·r² y volumen = 4·π·r³/3.</p><details><summary>Java</summary><pre><code>Scanner entrada = new Scanner(System.in);
+double area, volumen, radio;
+final double PI = Math.PI;
+radio = entrada.nextDouble();
+area = (4 * PI) * (radio * radio);
+volumen = ((4 * PI) * ((radio * radio) * radio)) / 3;
+System.out.println(&quot;El resultado del área de la esfera es: &quot; + area);
+System.out.println(&quot;El resultado del Volumen de la esfera es: &quot; + volumen);</code></pre><p class="sub">Radio 5 → área 314.159…, volumen 523.598…</p></details><h4>5. Cubo (hexaedro)</h4><p>Dado el lado L: área de la base L², área lateral 4·L², área total 6·L² y volumen L³.</p><details><summary>Java</summary><pre><code>Scanner entrada = new Scanner(System.in);
+double lado, aBase, aLado, aTotal, volumen;
+lado = entrada.nextDouble();
+aBase = lado * lado;
+aLado = 4 * (lado * lado);
+aTotal = 6 * lado * lado;
+volumen = lado * lado * lado;
+System.out.println(&quot;El Área de la Base es: &quot; + aBase);
+System.out.println(&quot;El Área Lateral es: &quot; + aLado);
+System.out.println(&quot;El Área Total es: &quot; + aTotal);
+System.out.println(&quot;El Volumen es: &quot; + volumen);</code></pre><p class="sub">Lado 10 → 100.0, 400.0, 600.0, 1000.0</p></details><h4>6. Perímetro de un triángulo (coordenadas)</h4><p>Dadas las coordenadas de P1, P2 y P3, el perímetro es la suma de las tres distancias entre vértices.</p><details><summary>Java</summary><pre><code>Scanner entrada = new Scanner(System.in);
+double x1, x2, x3, y1, y2, y3, distancia1, distancia2, distancia3, perimetro;
+x1 = entrada.nextDouble();  y1 = entrada.nextDouble();
+x2 = entrada.nextDouble();  y2 = entrada.nextDouble();
+x3 = entrada.nextDouble();  y3 = entrada.nextDouble();
+distancia1 = Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
+distancia2 = Math.sqrt(Math.pow((x2 - x3), 2) + Math.pow((y2 - y3), 2));
+distancia3 = Math.sqrt(Math.pow((x3 - x1), 2) + Math.pow((y3 - y1), 2));
+perimetro = distancia1 + distancia2 + distancia3;
+System.out.println(&quot;El perímetro del Triangulo es: &quot; + perimetro);</code></pre><p class="sub">El libro pide cada coordenada con su propio mensaje (omitido aquí).</p></details><h4>7. Superficie de un triángulo (coordenadas)</h4><p>Con las coordenadas de los tres vértices, área = ((x1·y2 + x2·y3 + x3·y1) − (x1·y3 + x3·y2 + x2·y1)) / 2.</p><details><summary>Java</summary><pre><code>Scanner entrada = new Scanner(System.in);
+double x1, x2, x3, y1, y2, y3, area;
+x1 = entrada.nextDouble();  y1 = entrada.nextDouble();
+x2 = entrada.nextDouble();  y2 = entrada.nextDouble();
+x3 = entrada.nextDouble();  y3 = entrada.nextDouble();
+area = (((x1 * y2) + (x2 * y3) + (x3 * y1)) - ((x1 * y3) + (x3 * y2) + (x2 * y1))) / 2;
+System.out.println(&quot;El Área del Triangulo con respecto a sus Vertices es: &quot; + area);</code></pre><p class="sub">Ojo: la fórmula puede dar negativo según el orden de los puntos (aplica Math.abs si quieres el área).</p></details><h4>8. Prisma pentagonal: áreas y volumen</h4><p>Dado el perímetro de la base, la apotema y la altura: aBase = per·apo/2, aLado = per·alt, aTotal = 2·aBase + aLado, volumen = aBase·alt.</p><details><summary>Java</summary><pre><code>Scanner entrada = new Scanner(System.in);
+double perimetro, apotema, altura, aTotal, aLado, aBase, volumen;
+perimetro = entrada.nextDouble();
+apotema = entrada.nextDouble();
+altura = entrada.nextDouble();
+aBase = (perimetro * apotema) / 2;
+aLado = perimetro * altura;
+aTotal = (2 * aBase) + aLado;
+volumen = aBase * altura;
+System.out.println(&quot;El área de la base es: &quot; + aBase);
+System.out.println(&quot;El área lateral es: &quot; + aLado);
+System.out.println(&quot;El área total es: &quot; + aTotal);
+System.out.println(&quot;El volumen del prisma pentagonal es: &quot; + volumen);</code></pre><p class="sub">23, 12, 14 → base 138.0, lateral 322.0, total 598.0</p></details><h4>9. Monto de un capital</h4><p>Calcula el monto total según el capital inicial y la tasa de interés vigente (en %).</p><details><summary>Java</summary><pre><code>Scanner entrada = new Scanner(System.in);
+double capital, interes, monto;
+capital = entrada.nextDouble();
+interes = entrada.nextDouble();
+monto = capital * (1 + (interes / 100));
+System.out.println(&quot;El monto es: &quot; + monto);</code></pre><p class="sub">100 y 15 % → 114.99999999999999 (error de redondeo de double)</p></details><h4>10. Áreas de un prisma pentagonal (otra versión)</h4><p>Igual que el 8, pidiendo perímetro, apotema y altura, sin volumen.</p><details><summary>Java</summary><pre><code>Scanner entrada = new Scanner(System.in);
+double perimetro, apotema, altura, aTotal, aLateral, aBase;
+perimetro = entrada.nextDouble();
+apotema = entrada.nextDouble();
+altura = entrada.nextDouble();
+aBase = (perimetro * apotema) / 2;
+aLateral = (perimetro * altura) / 2;
+aTotal = (2 * aBase) + aLateral;
+System.out.println(&quot;El área de la base es: &quot; + aBase);
+System.out.println(&quot;El área lateral es: &quot; + aLateral);
+System.out.println(&quot;El área total es: &quot; + aTotal);</code></pre><p class="sub">5, 3, 2 → 7.5, 5.0, 20.0. Ojo: aquí el libro divide el área lateral entre 2, a diferencia del ejercicio 8.</p></details><h4>11. Segundos en un número de días</h4><p>Calcula e imprime los segundos que hay en los días indicados.</p><details><summary>Java</summary><pre><code>Scanner entrada = new Scanner(System.in);
+double dias, segundos;
+System.out.println(&quot;Ingrese los días:&quot;);
+dias = entrada.nextDouble();
+segundos = dias * 24 * 60 * 60;
+System.out.println(&quot;Los días &quot; + dias);
+System.out.println(&quot;Son equivalentes a &quot; + segundos + &quot; segundos.&quot;);</code></pre><p class="sub">2 días → 172800.0 segundos</p></details></div></section>
 <section class="sec"><h3>Ejercicios resueltos UT 1</h3><div class="body">
 <p class="sub">Fuentes: EjerciciosUnidad1.docx, EjerciciosBásicosU1.pdf, CirculoJava.pdf, EcuacionesSegundoGrado.pdf. Inténtalos antes de abrir la solución (también tienes versión interactiva en «Práctica interactiva»).</p>
 <h4>1. Longitud de la circunferencia (Java)</h4>
@@ -3153,7 +3250,7 @@ static double calcularMedia(double a, double b, double c) { return (a + b + c) /
 <tr><td>8</td><td>Prisma pentagonal</td><td>aBase = per·apo/2; aLado = per·alt; aTotal = 2·aBase + aLado; volumen = aBase·alt</td></tr>
 <tr><td>9</td><td>Monto de un capital</td><td><code>monto = capital * (1 + interes / 100)</code></td></tr>
 </table>
-<div class="tip">La lectura del libro se detiene en el ejercicio 9 de esta copia; el resto del capítulo no pude extraerlo completo.</div>
+<div class="tip">Los ejercicios 1 a 11 con su Java están en la pestaña Ejercicios → U1.</div>
 </div></section><div class="chap" id="cap2">Capítulo 2 · Estructuras selectivas</div>
 <section class="sec"><h3>Libro «Introducción a la programación»: estructuras selectivas (cap. 2)</h3><div class="body">
 <p class="sub">Fuente: Libro-completo-Introduccion-a-la-programacion-75-295.pdf (221 páginas; solo pude extraer el inicio del capítulo 2).</p>
