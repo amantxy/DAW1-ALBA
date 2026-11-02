@@ -1212,6 +1212,523 @@ double f = c * 9 / 5 + 32;</code></pre></details>
 <div class="tip">El resto de este libro (hasta la página 295 del original) no está volcado aquí. Si el profesor lo pide para el examen, dímelo y lo leo por capítulos.</div>
 </div></section>
 
+<section class="sec"><h3>Libro (cap. 2): estructura selectiva SI (if) – ejercicios 1 a 3</h3><div class="body">
+<p class="sub">Fuente: Libro-completo-Introduccion-a-la-programacion-75-295.pdf. En el PDF se pierden los símbolos ≥ y ≤ y algún <code>==</code>; aquí el Java está corregido. En cada ejercicio el libro incluye además español estructurado, prueba de escritorio y versión PSeInt, que aquí se omiten por ser equivalentes.</p>
+<p><b>SI simple:</b> si la condición es verdadera se ejecuta el bloque; si no, no pasa nada. <b>SI-SINO:</b> dos caminos, se ejecuta exactamente uno. <b>SI anidado (múltiple):</b> más de dos caminos, con indentación escalonada.</p>
+<h4>1. Aumento del 15 % si el sueldo es menor de 1000</h4>
+<details><summary>Java</summary><pre><code>double sueldo, nuevoSueldo;
+sueldo = entrada.nextDouble();
+if (sueldo &lt; 1000) {
+    nuevoSueldo = sueldo * 1.15;
+    System.out.println("El nuevo Sueldo del Trabajador es: " + nuevoSueldo);
+}</code></pre><p class="sub">Ej.: 900 → 1035.0</p></details>
+<h4>2. Temperatura según los sonidos de un grillo</h4>
+<p>Si el número de sonidos es mayor que 0, temperatura = (número / 4) + 40.</p>
+<details><summary>Java</summary><pre><code>double numero, temperatura;
+numero = entrada.nextDouble();
+if (numero &gt; 0) {
+    temperatura = (numero / 4) + 40;
+    System.out.println("La temperatura es: " + temperatura);
+}</code></pre><p class="sub">Ej.: 5 → 41.25</p></details>
+<h4>3. Enganche (35 %) y 18 mensualidades sin intereses</h4>
+<details><summary>Java</summary><pre><code>double costo, enganche, mensualidad;
+costo = entrada.nextDouble();
+enganche = costo * 0.35;
+if (enganche &gt; 0) {
+    mensualidad = (costo - enganche) / 18;
+    System.out.println("El enganche fue de: " + enganche);
+    System.out.println("Las mensualidades son de: " + mensualidad);
+}</code></pre><p class="sub">Ej.: 20000 → enganche 7000.0, mensualidad 722.22…</p></details>
+</div></section>
+
+<section class="sec"><h3>Libro (cap. 2): estructura SI / SI NO (if / else) – ejercicios 1 a 11</h3><div class="body">
+<h4>1. Lavar los platos (según estén sucios o limpios)</h4>
+<details><summary>Java</summary><pre><code>String traste = entrada.next();
+if (traste.equalsIgnoreCase("sucios")) {
+    System.out.println("Lavar los Trastes");
+    System.out.println(" Mezclar jabón con agua.");
+    System.out.println(" Meter esponja en la mezcla.");
+    System.out.println(" Fregar los trastes con la esponja.");
+    System.out.println(" Enjuagar los trastes.");
+    System.out.println(" Secar los trastes.");
+    System.out.println(" Guardar los trastes.");
+} else {
+    System.out.println("No Lavarlos");
+}</code></pre><p class="sub"><code>equalsIgnoreCase</code> compara cadenas sin distinguir mayúsculas. Los Strings no se comparan con <code>==</code>.</p></details>
+<h4>2. Reparar un pinchazo de bicicleta</h4>
+<details><summary>Java</summary><pre><code>String llanta = entrada.next();
+if (llanta.equalsIgnoreCase("ponchada")) {
+    System.out.println("Desmontar la rueda");
+    System.out.println("Quitar la cubierta");
+    System.out.println("Sacar la cámara");
+    System.out.println("Inflar la cámara");
+    System.out.println("Meter la pieza en cubo agua");
+    System.out.println("Checar de dónde salen las burbujas");
+    System.out.println("Marcar el pinchazo");
+    System.out.println("Aplicar pegamento en el área dañada");
+    System.out.println("Esperar a que seque el pegamento");
+    System.out.println("Parchar el pinchazo");
+    System.out.println("Aplicar presión en el pinchazo para que quede bien el parche");
+    System.out.println("Montar la cámara");
+    System.out.println("Montar la cubierta");
+    System.out.println("Montar la llanta");
+    System.out.println("Inflar la llanta");
+} else {
+    System.out.println("No hay que parchar la llanta");
+}</code></pre></details>
+<h4>3. Calificación: APROBADO si es ≥ 8, REPROBADO en caso contrario</h4>
+<details><summary>Java</summary><pre><code>double calificacion = entrada.nextDouble();
+if (calificacion &gt;= 8) {
+    System.out.println("El alumno está APROBADO");
+} else {
+    System.out.println("El alumno está REPROBADO");
+}</code></pre></details>
+<h4>4. Aumento del 15 % si el sueldo es &lt; 1000 y del 12 % en caso contrario</h4>
+<details><summary>Java</summary><pre><code>if (sueldo &lt; 1000) {
+    nuevoSueldo = sueldo * 1.15;
+} else {
+    nuevoSueldo = sueldo * 1.12;
+}
+System.out.println("El nuevo Sueldo del Trabajador es: " + nuevoSueldo);</code></pre><p class="sub">Con 1200 sale <code>1344.0000000000002</code> por la representación de los decimales en <code>double</code>. En PSeInt el libro escribe por error 1.5 y 1.2 en lugar de 1.15 y 1.12.</p></details>
+<h4>5. Matrícula y 5 calificaciones: imprimir matrícula, promedio y «Aprobado» si es ≥ 6</h4>
+<details><summary>Java</summary><pre><code>String matricula = entrada.nextLine();
+double nota1 = entrada.nextDouble(), nota2 = entrada.nextDouble(),
+       nota3 = entrada.nextDouble(), nota4 = entrada.nextDouble(),
+       nota5 = entrada.nextDouble();
+double promedio = (nota1 + nota2 + nota3 + nota4 + nota5) / 5;
+System.out.println("Matricula: " + matricula);
+System.out.println("Promedio: " + promedio);
+if (promedio &gt;= 6) {
+    System.out.println("El alumno está APROBADO");
+} else {
+    System.out.println("El alumno está REPROBADO");
+}</code></pre><p class="sub">Ej.: 8, 6, 7, 8, 9 → 7.6 APROBADO; 5, 6, 5, 6, 5 → 5.4 REPROBADO. Ojo: <code>nextLine()</code> justo después de un <code>nextInt()/nextDouble()</code> da problemas con el salto de línea pendiente.</p></details>
+<h4>6. Grupo abierto o cerrado (mínimo 30 alumnos)</h4>
+<details><summary>Java</summary><pre><code>String nombre = entrada.nextLine();
+int alumnos = entrada.nextInt();
+System.out.println("El grupo: " + nombre);
+if (alumnos &gt;= 30) {
+    System.out.println("Grupo ABIERTO");
+} else {
+    System.out.println("Grupo CERRADO");
+}</code></pre></details>
+<h4>7. Descuento: 10 % si el monto es ≥ 100 y 2 % si es menor</h4>
+<details><summary>Java</summary><pre><code>if (monto &gt;= 100) {
+    descuento = (monto * 10) / 100;
+} else {
+    descuento = (monto * 2) / 100;
+}
+montoDesc = monto - descuento;
+System.out.println("El descuento es de: " + descuento);
+System.out.println("El monto con descuento es: " + montoDesc);</code></pre><p class="sub">El enunciado dice «mayor a $100», pero el código del libro usa ≥ 100.</p></details>
+<h4>8. Goleador (6 goles o más) / No goleador</h4>
+<details><summary>Java</summary><pre><code>String nombre = entrada.nextLine();
+int goles = entrada.nextInt();
+System.out.println("El jugador " + nombre);
+if (goles &gt;= 6) {
+    System.out.println("Es GOLEADOR");
+} else {
+    System.out.println("Es NO GOLEADOR");
+}</code></pre></details>
+<h4>9. Número par o impar</h4>
+<details><summary>Java</summary><pre><code>double numero = entrada.nextDouble();
+if (numero % 2 == 0) {
+    System.out.println("EL NÚMERO ES PAR");
+} else {
+    System.out.println("EL NÚMERO ES IMPAR");
+}</code></pre></details>
+<h4>10. Pago en efectivo o con tarjeta (más de 200 → efectivo)</h4>
+<details><summary>Java</summary><pre><code>if (precio &gt;= 200) {   // el libro usa &gt;= 200
+    System.out.println("El producto se paga en efectivo");
+} else {
+    System.out.println("El producto se paga con tarjeta");
+}</code></pre></details>
+<h4>11. Tres números enteros: ¿están en orden creciente?</h4>
+<details><summary>Java</summary><pre><code>if (numero2 &gt; numero1 &amp;&amp; numero3 &gt; numero2) {
+    System.out.println("Los números están en orden creciente");
+} else {
+    System.out.println("Los números no están en orden creciente");
+}</code></pre><p class="sub">El libro usa <code>&amp;</code> (y sin cortocircuito); <code>&amp;&amp;</code> es lo habitual.</p></details>
+</div></section>
+
+<section class="sec"><h3>Libro (cap. 2): SI anidado – ejercicios 1 a 5 y 7</h3><div class="body">
+<h4>1. Equipo ganador (goles y, si hay empate, penaltis)</h4>
+<details><summary>Java</summary><pre><code>String equipoA = entrada.next();
+int golesA = entrada.nextInt();
+String equipoB = entrada.next();
+int golesB = entrada.nextInt();
+if (golesA == golesB) {
+    int penalesA = entrada.nextInt();
+    int penalesB = entrada.nextInt();
+    if (penalesA &gt; penalesB) {
+        System.out.println("Ganó el equipo " + equipoA);
+    } else {
+        System.out.println("Ganó el equipo " + equipoB);
+    }
+} else {
+    if (golesA &gt; golesB) {
+        System.out.println("Ganó el equipo " + equipoA);
+    } else {
+        System.out.println("Ganó el equipo " + equipoB);
+    }
+}</code></pre></details>
+<h4>2. Número entero: positivo, negativo o nulo</h4>
+<details><summary>Java</summary><pre><code>if (numero == 0) {
+    System.out.println("El número es NULO");
+} else {
+    if (numero &gt; 0) {            // el PDF pierde el símbolo; es &gt; 0
+        System.out.println("El número es POSITIVO");
+    } else {
+        System.out.println("El número es NEGATIVO");
+    }
+}</code></pre></details>
+<h4>3. Descuento por tramos del monto de la compra</h4>
+<p>&lt; 500: sin descuento · 500–1000: 5 % · 1000–7000: 11 % · 7000–15000: 18 % · &gt; 15000: 25 %.</p>
+<details><summary>Java</summary><pre><code>double monto = entrada.nextDouble(), pagar;
+if (monto &lt;= 500) {
+    pagar = monto;
+    System.out.println("El monto no tiene descuento");
+} else if (monto &lt;= 1000) {
+    pagar = monto - monto * 0.05;
+} else if (monto &lt;= 7000) {
+    pagar = monto - monto * 0.11;
+} else if (monto &lt;= 15000) {
+    pagar = monto - monto * 0.18;
+} else {
+    pagar = monto - monto * 0.25;
+}
+System.out.println("El cliente pagará $" + pagar);</code></pre><p class="sub">Versión compacta con <code>else if</code>; el libro usa <code>if</code> anidados con <code>&amp;</code> y obtiene lo mismo.</p></details>
+<h4>4. Precio total con impuesto según el precio básico</h4>
+<p>&lt; 20: sin impuesto · 20 a 40: +30 % · 40 a 500: +40 % · resto: +50 %.</p>
+<details><summary>Java</summary><pre><code>double precio = entrada.nextDouble(), total;
+if (precio &lt; 20) {
+    System.out.println("El producto no paga impuestos");
+    total = precio;
+} else if (precio &lt;= 40) {
+    total = precio * 1.30;
+} else if (precio &lt; 500) {
+    total = precio * 1.40;
+} else {
+    total = precio * 1.50;
+}
+System.out.println("El precio del producto es: " + total);</code></pre></details>
+<h4>5. Cambio de carrera: matrícula, carrera, semestre y promedio</h4>
+<p>Según la carrera a la que quiere cambiarse (1 Economía, 2 Computación, 3 Administración, 4 Contabilidad) se exige un semestre y un promedio mínimos.</p>
+<details><summary>Java</summary><pre><code>if (cambio == 1) {
+    if (semestre &gt;= 6 &amp;&amp; promedio &gt;= 8.8) System.out.println("APROBADO");
+    else System.out.println("NO APROBADO");
+}
+if (cambio == 2) {
+    if (semestre &gt; 6 &amp;&amp; promedio &gt; 8.5) System.out.println("APROBADO");
+    else System.out.println("NO APROBADO");
+}
+if (cambio == 3) {
+    if (semestre &gt; 5 &amp;&amp; promedio &gt; 8.5) System.out.println("APROBADO");
+    else System.out.println("NO APROBADO");
+}
+if (cambio == 4) {
+    if (semestre &gt; 5 &amp;&amp; promedio &gt; 8.5) System.out.println("APROBADO");
+    else System.out.println("NO APROBADO");
+}</code></pre><p class="sub">En el PDF la comparación del caso 1 aparece sin símbolo; la he leído como ≥ 6 y ≥ 8.8.</p></details>
+<h4>7. Aumento a un grupo de empleados + nómina total</h4>
+<p>Sueldo &lt; 1000: +15 %; ≥ 1000: +12 %. Mostrar el sueldo nuevo y la nómina del grupo.</p>
+<details><summary>Java</summary><pre><code>double trabajadores = entrada.nextDouble();
+double sueldo = entrada.nextDouble(), sueldoNuevo, nomina;
+if (sueldo &lt; 1000) {
+    sueldoNuevo = sueldo * 1.15;
+} else {
+    sueldoNuevo = sueldo * 1.12;
+}
+nomina = sueldoNuevo * trabajadores;
+System.out.println("El nuevo sueldo es: $" + sueldoNuevo);
+System.out.println("El total de la nómina es: $" + nomina);</code></pre><p class="sub">Ej.: 10 trabajadores, 500 → 575.0 y nómina 5750.0. (El ejercicio 6 de esta sección no se pudo extraer del PDF.)</p></details>
+</div></section>
+
+<section class="sec"><h3>Libro (cap. 2): estructura Según (switch) – ejercicios 1 a 5</h3><div class="body">
+<h4>1. Función según la opción: 1 → 100·valor, 2 → 100^valor, 3 → 100/valor</h4>
+<details><summary>Java</summary><pre><code>int opcion = entrada.nextInt();
+int valor = entrada.nextInt();
+double resultado;
+switch (opcion) {
+    case 1: resultado = 100 * valor; break;
+    case 2: resultado = Math.pow(100, valor); break;
+    case 3: resultado = 100 / valor; break;
+    default: resultado = 0; break;
+}
+System.out.println("El resultado de la funcion es: " + resultado);</code></pre><p class="sub">Con la opción 1 y valor 3 → 300.0. <code>Math.pow</code> eleva a una potencia.</p></details>
+<h4>2. Aumento por categoría del trabajador</h4>
+<p>Categoría 1: 15 %, 2: 10 %, 3: 8 %, 4: 7 %.</p>
+<details><summary>Java</summary><pre><code>switch (categoria) {
+    case 1: nuevoSueldo = sueldo * 1.15; break;
+    case 2: nuevoSueldo = sueldo * 1.10; break;
+    case 3: nuevoSueldo = sueldo * 1.08; break;
+    case 4: nuevoSueldo = sueldo * 1.07; break;
+    default: nuevoSueldo = sueldo; break;
+}</code></pre></details>
+<h4>3. Costo de una llamada internacional según la zona</h4>
+<table><tr><th>Clave</th><th>Zona</th><th>Precio/min</th></tr>
+<tr><td>12</td><td>América Norte</td><td>2</td></tr><tr><td>15</td><td>América Central</td><td>2.2</td></tr><tr><td>18</td><td>América Sur</td><td>4.5</td></tr><tr><td>19</td><td>Europa</td><td>3.5</td></tr><tr><td>23</td><td>Asia</td><td>6</td></tr><tr><td>25</td><td>África</td><td>6</td></tr><tr><td>29</td><td>Oceanía</td><td>5</td></tr></table>
+<details><summary>Java</summary><pre><code>switch (zona) {
+    case 12: costo = minutos * 2;   break;
+    case 15: costo = minutos * 2.2; break;
+    case 18: costo = minutos * 4.5; break;
+    case 19: costo = minutos * 3.5; break;
+    case 23: case 25: costo = minutos * 6; break;   // Asia y África valen lo mismo
+    case 29: costo = minutos * 5;   break;
+    default:
+        System.out.println("No es una clave válida");
+        costo = minutos;
+}</code></pre></details>
+<h4>4. Sueldo + horas extra según categoría</h4>
+<p>Precio de la hora extra: categoría 1 → 30, 2 → 38, 3 → 50, 4 → 70.</p>
+<details><summary>Java</summary><pre><code>switch (categoria) {
+    case 1: nuevoSueldo = sueldo + horasExtra * 30; break;
+    case 2: nuevoSueldo = sueldo + horasExtra * 38; break;
+    case 3: nuevoSueldo = sueldo + horasExtra * 50; break;
+    case 4: nuevoSueldo = sueldo + horasExtra * 70; break;
+    default:
+        System.out.println("Categoría no válida");
+        nuevoSueldo = sueldo;
+}</code></pre></details>
+<h4>5. Costo de un paciente según la enfermedad (+10 % si tiene entre 14 y 22 años)</h4>
+<p>Coste por día: enfermedad 1 → 25, 2 → 16, 3 → 20, 4 → 30.</p>
+<details><summary>Java</summary><pre><code>switch (enfermedad) {
+    case 1: costo = dias * 25; break;
+    case 2: costo = dias * 16; break;
+    case 3: costo = dias * 20; break;
+    case 4: costo = dias * 30; break;
+    default:
+        System.out.println("Opción no válida");
+        costo = dias;
+}
+if (edad &gt;= 14 &amp;&amp; edad &lt;= 22) {
+    costoTotal = costo * 1.10;
+    System.out.println("El costo total por los días en el hospital es: " + costoTotal);
+} else {
+    System.out.println("El costo total por los días en el hospital es: " + costo);
+}</code></pre><p class="sub">Ej.: enfermedad 2, 15 años, 3 días → 52.800000000000004.</p></details>
+</div></section>
+
+<section class="sec"><h3>Versiones PSeInt de los ejercicios de UT 2</h3><div class="body">
+<p class="sub">Fuente: EjerciciosUnidad2.docx. Complementa las versiones Java que ya están más arriba.</p>
+<h4>Acceso a una actividad (edad, altura y autorización)</h4>
+<details><summary>PSeInt</summary><pre><code>Algoritmo Acceso
+    Definir edad Como Entero
+    Definir altura Como Real
+    Definir autorizado Como Logico
+    Escribir "Introduce la edad:"
+    Leer edad
+    Escribir "Introduce la altura en metros:"
+    Leer altura
+    Escribir "¿Tiene autorización? (Verdadero/Falso):"
+    Leer autorizado
+    Si edad &lt; 12 O altura &lt; 1.40 Entonces
+        Escribir "No puede participar"
+    SiNo
+        Si edad &lt; 18 Entonces
+            Si autorizado Entonces
+                Escribir "Puede participar"
+            SiNo
+                Escribir "Necesita autorización"
+            FinSi
+        SiNo
+            Escribir "Puede participar"
+        FinSi
+    FinSi
+FinAlgoritmo</code></pre></details>
+<h4>Control de acceso a un taller</h4>
+<details><summary>PSeInt</summary><pre><code>Algoritmo ControlAcceso
+    Definir edad Como Entero
+    Definir nota Como Real
+    Definir autorizacion Como Logico
+    Escribir "Introduce la edad:"
+    Leer edad
+    Escribir "Introduce la nota:"
+    Leer nota
+    Escribir "¿Tiene autorización? (Verdadero/Falso):"
+    Leer autorizacion
+    Si edad &lt; 16 Entonces
+        Escribir "No cumple la edad mínima"
+    SiNo
+        Si nota &lt; 6 Entonces
+            Escribir "No supera la prueba"
+        SiNo
+            Si edad &lt; 18 Entonces
+                Si autorizacion Entonces
+                    Escribir "Acceso permitido"
+                SiNo
+                    Escribir "Necesita autorización"
+                FinSi
+            SiNo
+                Escribir "Acceso permitido"
+            FinSi
+        FinSi
+    FinSi
+FinAlgoritmo</code></pre></details>
+<h4>Menú con Repetir … Hasta Que y Según</h4>
+<details><summary>PSeInt</summary><pre><code>Algoritmo MenuOpciones
+    Definir opcion Como Entero
+    Repetir
+        Escribir "1. Consultar horario"
+        Escribir "2. Consultar normas"
+        Escribir "3. Salir"
+        Escribir "Introduce una opción:"
+        Leer opcion
+        Segun opcion Hacer
+            1:
+                Escribir "Horario de 09:00 a 19:00"
+            2:
+                Escribir "Es obligatorio utilizar casco"
+            3:
+                Escribir "Fin del programa"
+            De Otro Modo:
+                Escribir "Opción no válida"
+        FinSegun
+    Hasta Que opcion &gt;= 1 Y opcion &lt;= 3
+FinAlgoritmo</code></pre><p class="sub">Ojo: así el menú termina con cualquier opción válida (1, 2 o 3), no solo con la 3. La versión Java del mismo ejercicio sí repite hasta <code>opcion != 3</code>.</p></details>
+<h4>Edades: mayor, menor, total y media</h4>
+<details><summary>PSeInt</summary><pre><code>Algoritmo Edades
+    Definir edad, mayor_edad, menor_edad, total, suma Como Entero
+    Definir media Como Real
+    mayor_edad &lt;- 0
+    menor_edad &lt;- 200
+    total &lt;- 0      // contador
+    suma &lt;- 0       // acumulador
+    Escribir "Introduce la edad &lt;&lt; 0 para salir &gt;&gt; "
+    leer edad
+    Mientras edad &lt;&gt; 0
+        si edad &lt; menor_edad Entonces
+            menor_edad &lt;- edad
+        FinSi
+        si edad &gt; mayor_edad Entonces
+            mayor_edad &lt;- edad
+        FinSi
+        total &lt;- total + 1
+        suma &lt;- suma + edad
+        Escribir "Introduce la edad &lt;&lt; 0 para salir &gt;&gt; "
+        leer edad
+    FinMientras
+    Escribir "La edad más alta es ", mayor_edad
+    Escribir "La edad más baja es ", menor_edad
+    Escribir "Total edades ", total
+    media &lt;- suma / total
+    Escribir "Media de edades: ", media
+FinAlgoritmo</code></pre></details>
+<h4>Ventas con objetivo de 1000 €</h4>
+<details><summary>PSeInt</summary><pre><code>Algoritmo Ventas_
+    Definir venta, mayor_venta, menor_venta, totalNventas, media Como Real
+    Definir totalVentas, sup100, inf50 Como Entero
+    mayor_venta &lt;- 0
+    menor_venta &lt;- 99999
+    totalNventas &lt;- 0   // contador
+    totalVentas &lt;- 0    // acumulador
+    sup100 &lt;- 0
+    inf50 &lt;- 0
+    Escribir "Introduce el importe de la venta "
+    Leer venta
+    Mientras venta &lt;&gt; 0 Hacer
+        si venta &gt; mayor_venta Entonces
+            mayor_venta &lt;- venta
+        FinSi
+        si venta &lt; menor_venta Entonces
+            menor_venta &lt;- venta
+        FinSi
+        totalNventas &lt;- totalNventas + 1
+        totalVentas &lt;- totalVentas + venta
+        media &lt;- totalVentas / totalNventas
+        Si venta &gt; 100 Entonces
+            sup100 &lt;- sup100 + 1
+        FinSi
+        Si venta &lt; 50 Entonces
+            inf50 &lt;- inf50 + 1
+        FinSi
+        Escribir "Introduce el importe de la venta "
+        Leer venta
+    FinMientras
+    Escribir "La mayor venta es ", mayor_venta
+    Escribir "La menor venta es ", menor_venta
+    Escribir "El total del número de ventas es ", totalNventas
+    Escribir "La suma total de las ventas es ", totalVentas
+    Escribir "El importe medio de las ventas es ", media
+    Escribir "Ventas superiores a 100 euros > ", sup100
+    Escribir "Ventas inferiores a 50 euros > ", inf50
+    Si totalVentas &gt; 1000 Entonces
+        Escribir "Objetivo cumplido"
+    SiNo
+        Escribir "Objetivo no cumplido"
+    FinSi
+FinAlgoritmo</code></pre><p class="sub">Nota: <code>totalVentas</code> se declara Entero en el original, lo que puede dar problemas con importes con decimales; en Java se usa <code>double</code>.</p></details>
+<h4>Registro de edades (con caso sin datos)</h4>
+<details><summary>PSeInt</summary><pre><code>Algoritmo RegistroEdades
+    Definir edad, contador, suma Como Entero
+    Definir mayor, menor, mayores18 Como Entero
+    Definir media Como Real
+    contador &lt;- 0
+    suma &lt;- 0
+    mayores18 &lt;- 0
+    Escribir "Introduce una edad (0 para terminar):"
+    Leer edad
+    Si edad = 0 Entonces
+        Escribir "No se han introducido datos"
+    SiNo
+        mayor &lt;- edad
+        menor &lt;- edad
+        Mientras edad &lt;&gt; 0 Hacer
+            contador &lt;- contador + 1
+            suma &lt;- suma + edad
+            Si edad &gt; mayor Entonces
+                mayor &lt;- edad
+            FinSi
+            Si edad &lt; menor Entonces
+                menor &lt;- edad
+            FinSi
+            Si edad &gt;= 18 Entonces
+                mayores18 &lt;- mayores18 + 1
+            FinSi
+            Escribir "Introduce una edad (0 para terminar):"
+            Leer edad
+        FinMientras
+        media &lt;- suma / contador
+        Escribir "Número de edades: ", contador
+        Escribir "Edad mayor: ", mayor
+        Escribir "Edad menor: ", menor
+        Escribir "Media: ", media
+        Escribir "Personas de 18 años o más: ", mayores18
+    FinSi
+FinAlgoritmo</code></pre></details>
+<h4>Ejercicio de lectura de notas (PSeInt, con categorías)</h4>
+<p>Los PDF de este ejercicio (notas hasta un cero, con Sobresaliente/Notable/Suficiente/Suspenso) no traen texto de solución. Mi propuesta:</p>
+<details><summary>Mi propuesta (no es oficial)</summary><pre><code>Algoritmo ContarNotas
+    Definir nota, sobre, notab, sufi, susp, aprob Como Entero
+    sobre &lt;- 0  notab &lt;- 0  sufi &lt;- 0  susp &lt;- 0  aprob &lt;- 0
+    Escribir "Introduce la nota (0 para salir):"
+    Leer nota
+    Mientras nota &lt;&gt; 0 Hacer
+        Si nota &gt;= 9 Entonces
+            sobre &lt;- sobre + 1
+        SiNo
+            Si nota &gt;= 7 Entonces
+                notab &lt;- notab + 1
+            SiNo
+                Si nota &gt;= 5 Entonces
+                    sufi &lt;- sufi + 1
+                SiNo
+                    susp &lt;- susp + 1
+                FinSi
+            FinSi
+        FinSi
+        Escribir "Introduce la nota (0 para salir):"
+        Leer nota
+    FinMientras
+    aprob &lt;- sobre + notab + sufi
+    Escribir "Sobresalientes: ", sobre
+    Escribir "Notables: ", notab
+    Escribir "Suficientes: ", sufi
+    Escribir "Suspensos: ", susp
+    Escribir "Aprobados: ", aprob
+FinAlgoritmo</code></pre></details>
+</div></section>
+
 <!-- ================= UT 3 ================= -->
 <h2 class="tema" id="ut3">UT 3 · Funciones y métodos en Java</h2>
 <p class="sub">Fuente: U3_A_Funciones.docx del profesor.</p>
@@ -1498,6 +2015,146 @@ static double calcularMedia(double a, double b, double c) { return (a + b + c) /
 </div></section>
 
 
+<section class="sec"><h3>Libro (cap. 3): bucle Mientras (while) – ejercicios 1 a 8</h3><div class="body">
+<h4>1. Primeros 50 números impares</h4>
+<details><summary>Java</summary><pre><code>int numero = 1, contador = 0;
+while (contador &lt; 50) {
+    System.out.println(numero);
+    numero = numero + 2;
+    contador = contador + 1;
+}</code></pre></details>
+<h4>2. Sumar los gastos de un viaje (no se sabe cuántos hay; 0 para terminar)</h4>
+<details><summary>Java</summary><pre><code>int gasto, total = 0;
+gasto = entrada.nextInt();
+if (gasto == 0) {
+    System.out.println("No hubo gastos");
+}
+while (gasto != 0) {
+    total = total + gasto;
+    System.out.println("El total es: $" + total);
+    System.out.println("¿Hay más gastos? Ingresa la cantidad");
+    gasto = entrada.nextInt();
+    if (gasto == 0) {
+        System.out.println("Ya no Hay Gastos");
+    }
+}
+System.out.println("El total es: $" + total);</code></pre></details>
+<h4>3. Cubo de números naturales (1 a 9) hasta introducir uno no válido</h4>
+<details><summary>Java</summary><pre><code>double numero = entrada.nextDouble();
+if (numero &lt; 0 || numero &gt; 9) {
+    System.out.println("El número no es natural");
+}
+while (numero &gt;= 0 &amp;&amp; numero &lt;= 9) {
+    double cubo = Math.pow(numero, 3);
+    System.out.println("El cubo del número es: " + cubo);
+    System.out.println("Ingresa otro número natural: ");
+    numero = entrada.nextDouble();
+    if (numero &lt; 0 || numero &gt; 9) {
+        System.out.println("El número no es natural");
+    }
+}</code></pre></details>
+<h4>4. Aumento de sueldo para varios grupos y nómina</h4>
+<details><summary>Java</summary><pre><code>double trabajadores = entrada.nextDouble();
+while (trabajadores &gt; 0) {
+    double sueldo = entrada.nextDouble();
+    double sueldoNuevo;
+    if (sueldo &lt; 1000) sueldoNuevo = sueldo * 1.15;
+    else                sueldoNuevo = sueldo * 1.12;
+    double nomina = sueldoNuevo * trabajadores;
+    System.out.println("El nuevo sueldo del grupo es: $" + sueldoNuevo);
+    System.out.println("El total de la nómina es: $" + nomina);
+    System.out.println("---");
+    System.out.println("¿Cuántos trabajadores tiene el grupo?");
+    trabajadores = entrada.nextDouble();
+}</code></pre></details>
+<h4>5. Continuar en el sistema mientras no se elija «No» (2)</h4>
+<details><summary>PSeInt y Java</summary><pre><code>Algoritmo OPCION_CONTINUAR
+    DEFINIR opcion Como ENTERO;
+    opcion &lt;- 0;
+    MIENTRAS (opcion &lt;&gt; 2) HACER
+        ESCRIBIR "¿Deseas continuar?";
+        ESCRIBIR "(1) Si (2)No";
+        LEER opcion;
+    FINMIENTRAS
+FinAlgoritmo</code></pre>
+<pre><code>int opcion = 0;
+while (opcion != 2) {
+    System.out.println("¿Desea Continuar?");
+    System.out.println("(1) Si (2)No");
+    opcion = entrada.nextInt();
+}</code></pre></details>
+<h4>6. Suma de los primeros cien números</h4>
+<details><summary>Java</summary><pre><code>int numero = 1, suma = 0;
+while (numero &lt;= 100) {
+    suma += numero;
+    numero++;
+}
+System.out.println("La suma de los primeros 100 números es: " + suma);   // 5050</code></pre></details>
+<h4>7. Números del 1 al 1000</h4>
+<details><summary>Java</summary><pre><code>int numero = 1;
+while (numero &lt;= 1000) {
+    System.out.println(numero);
+    numero++;
+}</code></pre></details>
+<h4>8. Serie 2, 5, 7, 10, 12, 15, 17… hasta 1800: imprimir términos y sumarlos</h4>
+<p>Patrón: se suma 2, luego 3, luego 2, luego 3…</p>
+<details><summary>Java</summary><pre><code>int serie = 0, contador = 0;
+while (serie &lt; 1800) {
+    serie = serie + 2;
+    contador = contador + serie;
+    System.out.println(serie);
+    serie = serie + 3;
+    contador = contador + serie;
+    System.out.println(serie);
+}
+System.out.println("La suma de todos los términos de la serie es: " + contador);</code></pre></details>
+</div></section>
+
+<section class="sec"><h3>Libro (cap. 3): bucle Para (for) – ejercicios 1 a 5</h3><div class="body">
+<h4>1. Factorial de un número</h4>
+<details><summary>Java</summary><pre><code>int numero = entrada.nextInt();
+int resultado = 1;
+for (int i = 1; i &lt;= numero; i++) {
+    resultado = i * resultado;
+}
+System.out.println("El factorial del número ingresado es: " + resultado);</code></pre><p class="sub">Con <code>int</code> el factorial desborda a partir de 13!. Usa <code>long</code> si quieres llegar más lejos.</p></details>
+<h4>2. Números del 1 al 100</h4>
+<details><summary>Java</summary><pre><code>for (int numero = 1; numero &lt;= 100; numero++) {
+    System.out.println(numero);
+}</code></pre></details>
+<h4>3. Tabla de multiplicar de un número</h4>
+<details><summary>Java</summary><pre><code>int numero = entrada.nextInt();
+for (int contador = 1; contador &lt;= 10; contador++) {
+    int resultado = contador * numero;
+    System.out.println(numero + " X " + contador + " = " + resultado);
+}</code></pre></details>
+<h4>4. Suma de los primeros cien números</h4>
+<details><summary>Java</summary><pre><code>int suma = 0;
+for (int contador = 1; contador &lt;= 100; contador++) {
+    suma = suma + contador;
+}
+System.out.println("La suma de los primeros cien números es: " + suma);</code></pre></details>
+<h4>5. Tablas de multiplicar del 1 al 9 (for anidados)</h4>
+<details><summary>Java</summary><pre><code>for (int tabla = 1; tabla &lt; 10; tabla++) {
+    for (int contador = 1; contador &lt;= 10; contador++) {
+        int resultado = tabla * contador;
+        System.out.println(tabla + " X " + contador + " = " + resultado);
+    }
+    System.out.println("");   // línea divisora
+}</code></pre></details>
+<h4>Último ejercicio del capítulo: media de pares e impares (10 números)</h4>
+<p>El PDF trae el enunciado y la salida (media de los pares 3, media de los impares 2) pero el código no se pudo extraer.</p>
+<details><summary>Mi propuesta (no es del libro)</summary><pre><code>int sumaPares = 0, contPares = 0, sumaImpares = 0, contImpares = 0;
+for (int i = 1; i &lt;= 10; i++) {
+    int n = entrada.nextInt();
+    if (n % 2 == 0) { sumaPares += n;   contPares++; }
+    else            { sumaImpares += n; contImpares++; }
+}
+if (contPares &gt; 0)   System.out.println("Media de pares: " + (double) sumaPares / contPares);
+if (contImpares &gt; 0) System.out.println("Media de impares: " + (double) sumaImpares / contImpares);</code></pre></details>
+</div></section>
+
+
 <h2 class="tema" id="practica">Práctica interactiva</h2>
 <p class="sub">Flashcards, test, predicción de salidas, huecos de código y ejercicios de escritura. Tu progreso se guarda en este navegador.</p>
 
@@ -1545,7 +2202,7 @@ static double calcularMedia(double a, double b, double c) { return (a + b + c) /
 </div>
 <footer>
 Contenido basado en los materiales publicados por el profesor en <i>Programación 1 DAM</i> (Google Sites): UT 1, UT 2 y UT 3.
-Última actualización: 2 nov 2026. Incluye los archivos de UT 1, UT 2 y UT 3 (ver README para el detalle y lo que falta).
+Última actualización: 2 nov 2026. Incluye el libro (cap. 1–3, ejercicios en Java) y los archivos de UT 1, UT 2 y UT 3 (ver README para el detalle y lo que falta).
 </footer>
 <script>
 (function(){
