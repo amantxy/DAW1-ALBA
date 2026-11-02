@@ -748,20 +748,13 @@ factorial(4);   // 4 × 3 × 2 × 1 = 24</code></pre>
 
 
 <h2 class="tema" id="ejercicios">Ejercicios</h2>
-<p class="sub">Todos los ejercicios del profesor y del libro, separados por unidad. Elige la pestaña.</p>
-<div class="tabs" id="etabs"><button data-u="U1" class=on>U1</button><button data-u="U2">U2</button><button data-u="U3">U3</button></div>
+<p class="sub">Todos los ejercicios en un solo sitio, por unidad (U1, U2, U3), con su título, su enunciado y la solución. Incluye los del profesor y los del libro. Los del libro de bucles y arreglos van en U2 (estructuras de control).</p>
+<div class="tabs" id="etabs"><button data-u="U1" class="on">U1</button><button data-u="U2">U2</button><button data-u="U3">U3</button></div>
 <div class="tabpane on" id="ej-U1" data-label="U1 · Introducción">
-<section class="sec"><h3>Ejercicios resueltos UT 1</h3><div class="body">
-<p class="sub">Fuentes: EjerciciosUnidad1.docx, EjerciciosBásicosU1.pdf, CirculoJava.pdf, EcuacionesSegundoGrado.pdf. Inténtalos antes de abrir la solución (también tienes versión interactiva en «Práctica interactiva»).</p>
-<h4>1. Longitud de la circunferencia (Java)</h4>
-<details><summary>Ver solución</summary>
-<pre><code>public static void main(String[] args) {
-    float radio = 5;
-    final float PI = 3.1416f;
-    float longitud = 2 * PI * radio;
-    System.out.println(longitud);
-}</code></pre></details>
-<h4>2. Evaluar expresiones (a = 12, b = 4, c = 2)</h4>
+<section class="sec"><h3>U1 · Profesor · Ejercicios de la unidad 1</h3><div class="body"><p class="sub">Fuentes: EjerciciosUnidad1.docx, EjerciciosBásicosU1.pdf, CirculoJava.pdf, EcuacionesSegundoGrado.pdf. Hay versión interactiva en «Práctica interactiva».</p><h4>Ejercicio 1 · Longitud de una circunferencia (Java)</h4><p>Calcula la longitud de la circunferencia de radio 5 usando una constante PI = 3.1416 (2·PI·radio).</p><details><summary>Ver solución</summary><pre><code>float radio = 5;
+final float PI = 3.1416f;
+float longitud = 2 * PI * radio;
+System.out.println(longitud);</code></pre></details><h4>Ejercicio 2 · Evaluar expresiones aritméticas (a = 12, b = 4, c = 2)</h4><p>Calcula el valor de cada expresión teniendo en cuenta la precedencia de operadores y que la división entre enteros trunca.</p>
 <table>
 <tr><th></th><th>Expresión</th><th>Resultado</th></tr>
 <tr><td>a</td><td><code>a + b * c</code></td><td>20</td></tr>
@@ -770,8 +763,7 @@ factorial(4);   // 4 × 3 × 2 × 1 = 24</code></pre>
 <tr><td>d</td><td><code>(a - b) / c</code></td><td>4</td></tr>
 <tr><td>e</td><td><code>a + b * c - 5</code></td><td>15</td></tr>
 <tr><td>f</td><td><code>(a + b) * (c + 3)</code></td><td>80</td></tr>
-</table>
-<h4>3. Expresiones booleanas (a = 12, b = 6, c = 3)</h4>
+</table><h4>Ejercicio 3 · Expresiones booleanas (a = 12, b = 6, c = 3)</h4><p>Indica si cada expresión es <code>true</code> o <code>false</code>.</p>
 <table>
 <tr><th></th><th>Expresión</th><th>Resultado</th></tr>
 <tr><td>a</td><td><code>a &gt; b &amp;&amp; b &gt; c</code></td><td>true</td></tr>
@@ -780,94 +772,366 @@ factorial(4);   // 4 × 3 × 2 × 1 = 24</code></pre>
 <tr><td>d</td><td><code>a / b == c || a &gt; 10</code></td><td>true</td></tr>
 <tr><td>e</td><td><code>(a - b) * c == 18 &amp;&amp; b &gt; c</code></td><td>true</td></tr>
 <tr><td>f</td><td><code>a % b == 0 &amp;&amp; c != 3</code></td><td>false</td></tr>
-</table>
-<h4>4. Área de un trapecio</h4>
-<details><summary>Ver solución</summary>
-<pre><code>float baseMayor = 10, baseMenor = 6, altura = 4;
+</table><h4>Ejercicio 4 · Área de un trapecio</h4><p>Calcula el área de un trapecio con base mayor 10, base menor 6 y altura 4: (base mayor + base menor) · altura / 2.</p><details><summary>Ver solución</summary><pre><code>float baseMayor = 10, baseMenor = 6, altura = 4;
 float area = (baseMayor + baseMenor) * altura / 2;
-System.out.println(area);   // 32.0</code></pre></details>
-<h4>5. Área de un rombo (con Scanner)</h4>
-<details><summary>Ver solución</summary>
-<pre><code>Scanner teclado = new Scanner(System.in);
+System.out.println(area);   // 32.0</code></pre></details><h4>Ejercicio 5 · Área de un rombo (con Scanner)</h4><p>Pide por teclado las diagonales mayor y menor de un rombo y muestra su área: (diagonal mayor · diagonal menor) / 2.</p><details><summary>Ver solución</summary><pre><code>Scanner teclado = new Scanner(System.in);
 double diagonalMayor, diagonalMenor, area;
-System.out.println("Diagonal mayor ");
+System.out.println(&quot;Diagonal mayor &quot;);
 diagonalMayor = teclado.nextDouble();
-System.out.println("Diagonal menor ");
+System.out.println(&quot;Diagonal menor &quot;);
 diagonalMenor = teclado.nextDouble();
 area = (diagonalMayor * diagonalMenor) / 2;
-System.out.println("El área el rombo es " + area);</code></pre></details>
-<h4>6. Fahrenheit → Celsius</h4>
-<details><summary>Ver solución</summary>
-<pre><code>public class Temperatura {
+System.out.println(&quot;El área el rombo es &quot; + area);</code></pre></details><h4>Ejercicio 6 · Fahrenheit a Celsius</h4><p>Pide una temperatura en grados Fahrenheit y muéstrala en Celsius: C = (F − 32) · 5 / 9.</p><details><summary>Ver solución</summary><pre><code>public class Temperatura {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
         double fahrenheit, celsius;
-        System.out.print("Introduce la temperatura en grados Fahrenheit: ");
+        System.out.print(&quot;Introduce la temperatura en grados Fahrenheit: &quot;);
         fahrenheit = teclado.nextDouble();
         celsius = (fahrenheit - 32) * 5 / 9;
-        System.out.println("La temperatura en grados Celsius es: " + celsius);
+        System.out.println(&quot;La temperatura en grados Celsius es: &quot; + celsius);
     }
-}</code></pre></details>
-<h4>7. PSeInt: círculo y rectángulo</h4>
-<details><summary>Ver solución</summary>
-<pre><code>Algoritmo Círculo
+}</code></pre></details><h4>Ejercicio 7 · PSeInt: círculo y rectángulo</h4><p>Círculo: lee el radio y muestra la longitud de la circunferencia y el área. Rectángulo: lee base y altura y muestra el área y el perímetro.</p><details><summary>Ver solución</summary><pre><code>Algoritmo Círculo
     Definir r Como Entero
     Definir v,l Como Real
-    Escribir "Introducir el radio "
+    Escribir &quot;Introducir el radio &quot;
     Leer r
     l = 2 * PI * r;      // longitud de la circunferencia
     v = PI * r ^ 2;      // área del círculo
-    Escribir "Longitud de la circunferencia ", l;
-    Escribir "Área del círculo ", v;
+    Escribir &quot;Longitud de la circunferencia &quot;, l;
+    Escribir &quot;Área del círculo &quot;, v;
 FinAlgoritmo
 
 Algoritmo Rectangulo
     Definir base, altura, area, perimetro Como Real
-    Escribir "Ingrese la base del rectángulo:"
+    Escribir &quot;Ingrese la base del rectángulo:&quot;
     Leer base
-    Escribir "Ingrese la altura del rectángulo:"
+    Escribir &quot;Ingrese la altura del rectángulo:&quot;
     Leer altura
     area = base * altura
     perimetro = 2 * base + 2 * altura
-    Escribir "El área del rectángulo es: ", area
-    Escribir "El perímetro del rectángulo es: ", perimetro
-FinAlgoritmo</code></pre>
-<p class="sub">En el documento del profesor el segundo resultado del círculo se llama «volumen»; es en realidad el área (π·r²).</p></details>
-<h4>8. Círculo en Java</h4>
-<p>Enunciado: calcular longitud (perímetro) y área de una circunferencia, con el radio introducido por el usuario (puede tener decimales). El PDF del profesor trae solo el enunciado.</p>
-<details><summary>Mi propuesta de solución (no es oficial)</summary>
-<pre><code>Scanner teclado = new Scanner(System.in);
-System.out.print("Radio: ");
+    Escribir &quot;El área del rectángulo es: &quot;, area
+    Escribir &quot;El perímetro del rectángulo es: &quot;, perimetro
+FinAlgoritmo</code></pre></details><p class="sub">En el documento del profesor el segundo resultado del círculo se llama «volumen»; es en realidad el área (π·r²).</p><h4>Ejercicio 8 · Círculo en Java</h4><p>Calcula la longitud (perímetro) y el área de una circunferencia con el radio introducido por el usuario (puede tener decimales).</p><details><summary>Mi propuesta de solución (el PDF solo trae el enunciado)</summary><pre><code>Scanner teclado = new Scanner(System.in);
+System.out.print(&quot;Radio: &quot;);
 double radio = teclado.nextDouble();
 double longitud = 2 * Math.PI * radio;
 double area = Math.PI * radio * radio;
-System.out.println("Longitud: " + longitud);
-System.out.println("Área: " + area);</code></pre></details>
-<h4>9. Ecuación de segundo grado</h4>
-<p>Fórmula: x = (−b ± √(b² − 4ac)) / 2a</p>
-<details><summary>Ver solución</summary>
-<pre><code>Scanner sc = new Scanner(System.in);
+System.out.println(&quot;Longitud: &quot; + longitud);
+System.out.println(&quot;Área: &quot; + area);</code></pre></details><h4>Ejercicio 9 · Ecuación de segundo grado</h4><p>Pide los coeficientes a, b y c y muestra las soluciones reales de ax² + bx + c = 0: x = (−b ± √(b² − 4ac)) / 2a. Si no hay soluciones reales, indícalo.</p><details><summary>Ver solución</summary><pre><code>Scanner sc = new Scanner(System.in);
 double a, b, c, x1, x2;
-System.out.println("=== Resolver ecuación de segundo grado ===");
-System.out.print("Introduce el valor de a: "); a = sc.nextDouble();
-System.out.print("Introduce el valor de b: "); b = sc.nextDouble();
-System.out.print("Introduce el valor de c: "); c = sc.nextDouble();
+System.out.println(&quot;=== Resolver ecuación de segundo grado ===&quot;);
+System.out.print(&quot;Introduce el valor de a: &quot;); a = sc.nextDouble();
+System.out.print(&quot;Introduce el valor de b: &quot;); b = sc.nextDouble();
+System.out.print(&quot;Introduce el valor de c: &quot;); c = sc.nextDouble();
 if (a == 0) {
-    System.out.println("No es una ecuación de segundo grado (a no puede ser 0).");
+    System.out.println(&quot;No es una ecuación de segundo grado (a no puede ser 0).&quot;);
 } else {
     if (b * b - 4 * a * c &lt; 0) {
-        System.out.println("No tiene solución");
+        System.out.println(&quot;No tiene solución&quot;);
     } else {
         x1 = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
         x2 = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
-        System.out.println("x1 = " + x1);
-        System.out.println("x2 = " + x2);
+        System.out.println(&quot;x1 = &quot; + x1);
+        System.out.println(&quot;x2 = &quot; + x2);
     }
 }
-sc.close();</code></pre></details>
-</div></section></div>
+sc.close();</code></pre></details></div></section>
+<section class="sec"><h3>U1 · Libro · Cap. 1 · Estructura lineal (ejercicios 1 a 11)</h3><div class="body"><p class="sub">Fuente: libro «Introducción a la programación». Aquí van enunciado y solución en Java; en el apartado Libro tienes además el español estructurado, el PSeInt y el resultado.</p><h4>Ejercicio 1 · Ganancia inversion</h4><p>Una persona desea invertir su capital en un banco y desea saber cuánto dinero ganará después de un mes si el banco le pagará intereses del 2% mensual, cree un algoritmo para solucionarlo.</p><details><summary>Ver solución en Java</summary><pre><code>/* Una persona desea invertir su capital en un banco y desea saber cuánto dinero
+ * ganará después de un mes si el banco le pagará intereses del 2% mensual.
+ */
+package EstructuraSecuencial;
+import java.util.Scanner;
+public class Ganancia_Inversion {
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int dias;
+        double capital, ganancia, interes;
+
+        System.out.println(&quot;Teclea Capital: &quot;);
+        capital = entrada.nextDouble();
+        System.out.println(&quot;Teclea Días Mes: &quot;);
+        dias = entrada.nextInt()
+        interes = 0.02;
+        ganancia = capital * dias * interes;
+        System.out.println(&quot;La ganancia es: &quot; + ganancia);
+    }
+}</code></pre></details><h4>Ejercicio 2 · Cant arena</h4><p>Un constructor sabe que necesita 0.5 metros cúbicos de arena por metro cuadrado de revoque a realizar. Escriba un algoritmo que le permita obtener la cantidad de arena necesaria para revocar una pared cualquiera, según sus medidas (largo y alto) expresadas en metros.</p><details><summary>Ver solución en Java</summary><pre><code>/* Un constructor sabe que necesita 0,5 metros cúbicos de arena por metro cuadrado
+ * de revoque a realizar. Escribir un algoritmo que le permita obtener la cantidad
+ * de arena necesaria para revocar una pared cualquiera según sus medidas (largo y alto)
+ * expresadas en metros.
+ */
+package EstructuraSecuencial;
+
+import java.util.Scanner;
+
+public class Cant_Arena {
+
+    public static void main(String[] args) {
+
+        Scanner entrada = new Scanner(System.in);
+        double metros, largo, ancho, arena;
+
+        System.out.println(&quot;Ingrese el largo de la pared en metros: &quot;);
+        largo = entrada.nextDouble();
+        System.out.println(&quot;Ingrese el ancho de la pared en metros: &quot;);
+        ancho = entrada.nextDouble();
+
+        metros = 0.5;
+        arena = largo * ancho * metros;
+
+        System.out.println(&quot;La cantidad de arena necesaria es de: &quot; + arena);
+
+    }
+}</code></pre></details><h4>Ejercicio 3 · Area cono</h4><p>Construya el algoritmo tal que, dado el radio, la generatriz y la altura de un cono, calcule e imprima el área de la base, el área lateral, el área total y su volumen. Consideraciones: • El área de la base se calcula aplicando la siguiente fórmula: AB = π * RADIO 2 • El área lateral se calcula: AL = π * RADIO * GENE RATRIZ • El área total se calcula como: AT= AB + A • El volumen se calcula de la siguiente forma: VOL = * AB * ALTURA</p><details><summary>Ver solución en Java</summary><pre><code>/* Construya el algoritmo tal que, dado el radio, la generatriz y   la altura de un cono,
+ * calcule e imprima el área de la base, el área lateral, el área total y su volumen.
+ */
+package EstructuraSecuencial;
+
+import java.util.Scanner;
+
+public class Area_Cono {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double radio, generatriz, altura;
+        double aBase, aLado, aTotal, volumen;
+        final double PI = Math.PI;
+
+        System.out.println(&quot;Ingresa el radio del cono: &quot;);
+        radio = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la Generatriz del cono: &quot;);
+        generatriz = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la altura del cono: &quot;);
+        altura = entrada.nextDouble();
+
+        aBase = PI * (radio * radio);
+        aLado = PI * radio * generatriz;
+        aTotal = aBase + aLado;
+        volumen = (aBase * altura) / 3;
+
+        System.out.println(&quot;El área de la base es: &quot; + aBase);
+        System.out.println(&quot;El área lateral es: &quot; + aLado);
+        System.out.println(&quot;El área Total es: &quot; + aTotal);
+        System.out.println(&quot;El Volumen total es: &quot; + volumen);
+
+    }
+}</code></pre></details><h4>Ejercicio 4 · Esfera</h4><p>Construya el algoritmo tal que, dado el radio de una esfera, calcule e imprima el área y su volumen. Consideraciones: • El área de una esfera la calculamos de esta forma: Área = 4 *π * ( radio ) • El volumen como: Volumen = 4 *π * radio3</p><details><summary>Ver solución en Java</summary><pre><code>/* Construya el algoritmo tal que, dado el radio de una esfera,
+ * calcule e imprima el área y su volumen.
+ */
+package EstructuraSecuencial;
+
+import java.util.Scanner;
+
+public class Esfera {
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double area, volumen, radio;
+        final double PI = Math.PI;
+
+        System.out.println(&quot;Introduzca el valor del radio: &quot;);
+        radio = entrada.nextDouble();
+
+        area = (4 * PI) * (radio * radio);
+        volumen = ((4 * PI) * ((radio * radio) * radio)) / 3;
+
+        System.out.println(&quot;El resultado del área de la esfera es: &quot; + area);
+        System.out.println(&quot;El resultado del Volumen de la esfera es: &quot; + volumen);
+    }
+}</code></pre></details><h4>Ejercicio 5 · Hexa cubo</h4><p>Construya el algoritmo tal que, dado como dato el lado de un hexaedro o cubo, calcule el área de la base, el área lateral, el área total y el volumen. Consideraciones: • Para calcular el área de la base aplicamos la siguiente fórmula: AB = L • Para calcular el área lateral hacemos: AL = 4* L2 • Para calcular el área total hacemos: AT = 6* L2 • Para calcular el volumen hacemos: V = L3</p><details><summary>Ver solución en Java</summary><pre><code>/* Construya el algoritmo tal que dado como dato el lado de un hexaedro o cubo,
+ * calcule el área de la base, al área lateral, el área total y el volumen.
+ */
+package EstructuraSecuencial;
+
+import java.util.Scanner;
+
+public class Hexa_Cubo {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double lado, aBase ,aLado, aTotal, volumen;
+
+        System.out.println(&quot;Ingrese el valor del lado del Hexaedro o Cubo: &quot;);
+        lado = entrada.nextDouble();
+
+        aBase = lado * lado;
+        aLado = 4 * (lado * lado);
+        aTotal = 6 * lado * lado;
+        volumen = lado * lado * lado;
+
+        System.out.println(&quot;El Área de la Base es: &quot; + aBase);
+        System.out.println(&quot;El Área Lateral es: &quot; + aLado);
+        System.out.println(&quot;El Área Total es: &quot; + aTotal);
+        System.out.println(&quot;El Volumen es: &quot; + volumen);
+
+    }
+
+}</code></pre></details><h4>Ejercicio 6 · Triangulo</h4><p>Construya el algoritmo tal que, dadas las coordenadas de los puntos P1, P2 y P3 que corresponden a los vértices de un triángulo, calcule su perímetro. Donde: • X1 y Y1 representan las coordenadas en el eje de las X y las Y, del punto P1. • X2 y Y2 expresan las coordenadas en el eje de las X y las Y, del punto P2. • X3 y Y3 representan las coordenadas en el eje de las X y las Y, del punto P3. Consideraciones: Para calcular la distancia entre dos puntos P1 y P2 hacemos: ( X 1 − X 2 ) + (Y 1 − Y 2 ) 2                  2 D= 9.   TRIANGULO 10. x1, x2, x3, y1, y2, y3, distancia1, distancia2, distancia3, perimetro: REAL 11. Inicio 12. ESCRIBIR &quot;Introduce el valor de x1: &quot; 13. LEER x1 14. ESCRIBIR &quot;Introduce el valor de x2: &quot; 15. LEER x2 16. ESCRIBIR &quot;Introduce el valor de x3: &quot; 17. LEER x3 18. ESCRIBIR &quot;Introduce el valor de y1: &quot; 19. LEER y1 20. ESCRIBIR &quot;Introduce el valor de y2: &quot; 21. LEER y2 22. ESCRIBIR &quot;Introduce el valor de y3: &quot; 23. LEER y3 24. distancia1&lt;- RAIZ ((x1-x2) ^2 + (y1-y2) ^2) 25. distancia2&lt;- RAIZ ((x2-x3) ^2 + (y2-y3) ^2) 26. distancia3&lt;- RAIZ ((x3-x1) ^2 + (y3-y1) ^2) 27. perimetro&lt;- distancia1 + distancia2 + distancia3 28. ESCRIBIR &quot;El perímetro del triángulo es: &quot; 29. ESCRIBIR perimetro 30. Fin PRUEBA DE ESCRITORIO TRIANGULO x1    y1   x2   y2   x3   y3   distancia1 distancia2   distancia3   perímetro 0     0    0    0     0   0        0            0          0           0 10    23   15   11   23   32      13            22        16        51.2835 ALGORITMO EN PseInt PRUEBA DE ESCRITORIO EN PseInt</p><details><summary>Ver solución en Java</summary><pre><code>package EstructuraSecuencial;
+
+import java.util.Scanner;
+
+public class Triangulo {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double x1, x2, x3, y1, y2, y3, distancia1, distancia2, distancia3, perimetro;
+
+        System.out.println(&quot;Ingresa la coordenada de x1: &quot;);
+        x1 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la coordenada de y1: &quot;);
+        y1 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la coordenada de x2: &quot;);
+        x2 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la coordenada de y2: &quot;);
+        y2 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la coordenada de x3: &quot;);
+        x3 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la coordenada de y3: &quot;);
+        y3 = entrada.nextDouble();
+
+        distancia1 = Math.sqrt( Math.pow( (x1 - x2), 2) + Math.pow( (y1 - y2), 2) );
+        distancia2 = Math.sqrt( Math.pow( (x2 - x3), 2) + Math.pow( (y2 - y3), 2) );
+        distancia3 = Math.sqrt( Math.pow( (x3 - x1), 2) + Math.pow( (y3 - y1), 2) );
+        perimetro = distancia1 + distancia2 + distancia3;
+
+        System.out.println(&quot;El perímetro del Triangulo es: &quot; + perimetro);
+    }
+}</code></pre></details><h4>Ejercicio 7 · Triangulo superficie</h4><p>Construya el algoritmo tal que, dadas las coordenadas de los puntos P1, P2 y P3 que corresponden a los vértices de un triángulo, calcule su superficie. Donde: • X1 y Y1 representan las coordenadas en el eje de las X y las Y, del punto P1. • X2 y Y2 expresan las coordenadas en el eje de las X y las Y, del punto P2. • X3 y Y3 representan las coordenadas en el eje de las X y las Y, del punto P3. Consideraciones: • Para calcular el área de un triángulo dadas de las coordenadas de los vértices que la componen, debemos aplicar la siguiente formula. ÁREA =        * X 1* (Y 2 − Y 3) + X 2* (Y 3 − Y 1) + X 3* (Y 1 − Y 2 ) O bien, esta otra: ÁREA =         * ( X 2 − X 1) * (Y 3 − Y 1) − ( X 3 − X 1) * (Y 2 − Y 1)</p><details><summary>Ver solución en Java</summary><pre><code>/* Construya el algoritmo tal que dadas las coordenadas de los puntos P1, P2 y P3
+ * que corresponden a los vértices de un triángulo, calcule su superficie.
+ */
+package EstructuraSecuencial;
+
+import java.util.Scanner;
+
+public class Triangulo_Superficie {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double x1, x2, x3, y1, y2, y3, area;
+
+        System.out.println(&quot;Ingresa la cordenada de x1: &quot;);
+        x1 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la cordenada de y1: &quot;);
+        y1 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la cordenada de x2: &quot;);
+        x2 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la cordenada de y2: &quot;);
+        y2 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la cordenada de x3: &quot;);
+        x3 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la cordenada de y3: &quot;);
+        y3 = entrada.nextDouble();
+
+        area = (((x1 * y2) + (x2 * y3) + (x3 * y1)) - ((x1 * y3)
+        + (x3 * y2) + (x2 * y1))) / 2;
+
+        System.out.println(&quot;El Área del Triangulo con respecto a sus Vertices es: &quot;
+        + area);
+
+    }
+
+}</code></pre></details><h4>Ejercicio 8 · Prisma pentagonal</h4><p>Construya el algoritmo tal que, dado el perímetro de la base, la apotema y la altura de un prisma pentagonal; calcule el área de la base, el área lateral, el área total y el volumen. Consideraciones: PER * APO • Para calcular el área de la base, hacemos: AB =          2 • Para calcular el área lateral, aplicamos la siguiente fórmula: AL = PER * ALT AT 2* AB + AL • Para calcular el área total hacemos:= • Para calcular el volumen hacemos: VOL = AB * ALT</p><details><summary>Ver solución en Java</summary><pre><code>/* Calcula el área total, área lateral y el área de la base de un prisma pentagonal.
+ * perimetro, apotema. altura, aTotal, aLateral, aBase : Real*/
+package EstructuraSecuencial;
+
+import java.util.Scanner;
+
+public class Prisma_Pentagonal {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double perimetro, apotema, altura, aTotal, aLado, aBase, volumen;
+
+        System.out.println(&quot;Ingresa el perimetro de la Base: &quot;);
+        perimetro = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la apotema: &quot;);
+        apotema = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la altura: &quot;);
+        altura = entrada.nextDouble();
+
+        aBase = (perimetro * apotema) / 2;
+        aLado = perimetro * altura;
+        aTotal = (2 * aBase) + aLado;
+        volumen = aBase * altura;
+
+        System.out.println(&quot;El área de la base es: &quot; + aBase);
+        System.out.println(&quot;El área lateral es: &quot; + aLado);
+        System.out.println(&quot;El área total es: &quot; + aTotal);
+        System.out.println(&quot;El volumen del prisma pentagonal es: &quot; + volumen);
+    }
+}</code></pre></details><h4>Ejercicio 9 · Monto capital</h4><p>Construya un algoritmo que calcule el monto total de una capital según sea el capital ingresado inicialmente y la tasa de interés vigente.</p><details><summary>Ver solución en Java</summary><pre><code>// Construya un algoritmo que calcule el monto total de una capital
+// según sea el capital ingresado inicialmente y la tasa de interés
+// vigente.
+package EstructuraSecuencial;
+
+import java.util.Scanner;
+
+public class Monto_Capital {
+
+    public static void main(String[] args) {
+
+        Scanner entrada = new Scanner(System.in);
+        double capital, interes, monto;
+        System.out.println(&quot;Ingrese el capital: &quot;);
+        capital = entrada.nextDouble();
+        System.out.println(&quot;Ingrese la tasa de interés: &quot;);
+        interes = entrada.nextDouble();
+
+        monto = capital * (1 + (interes / 100));
+
+        System.out.println(&quot;El monto es: &quot; + monto);
+    }
+}</code></pre></details><h4>Ejercicio 10 · Areas prisma</h4><p>Escribe un algoritmo que calcule el área total, lateral y el área de la base de un prisma pentagonal, solicitando para esto el perímetro de la base, apotema y altura del prisma.</p><details><summary>Ver solución en Java</summary><pre><code>/* Calcula el área total, área lateral y el área de la base de un prisma pentagonal.
+perimetro, apotema. altura, aTotal, aLateral, aBase : Real*/
+
+package EstructuraSecuencial;
+
+import java.util.Scanner;
+
+public class Areas_Prisma {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double perimetro, apotema, altura, aTotal, aLateral, aBase;
+
+        System.out.println(&quot;Ingresa el perimetro de la Base: &quot;);
+        perimetro = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la apotema: &quot;);
+        apotema = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la altura: &quot;);
+        altura = entrada.nextDouble();
+
+        aBase = (perimetro * apotema) / 2;
+        aLateral = (perimetro * altura) / 2;
+        aTotal = (2 * aBase) + aLateral;
+
+        System.out.println(&quot;El área de la base es: &quot; + aBase);
+        System.out.println(&quot;El área lateral es: &quot; + aLateral);
+        System.out.println(&quot;El área total es: &quot; + aTotal);
+    }
+
+}</code></pre></details><h4>Ejercicio 11 · Segundos por dia</h4><p>Escribe un algoritmo que calcule e imprima los segundos que existen en el número de días ingresados por el usuario.</p><details><summary>Ver solución en Java</summary><pre><code>// Escribe un algoritmo que calcule e imprima los segundos que existen
+// en el número de días ingresados por el usuario.
+package EstructuraSecuencial;
+
+import java.util.Scanner;
+
+public class Segundos_Por_Dia {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double dias, segundos;
+        System.out.println(&quot;Ingrese los días:&quot;);
+        dias = entrada.nextDouble();
+
+        segundos = dias * 24 * 60 * 60;
+
+        System.out.println(&quot;Los días &quot; + dias);
+        System.out.println(&quot;Son equivalentes a &quot; + segundos + &quot; segundos.&quot;);
+    }
+}</code></pre></details></div></section>
+</div>
 <div class="tabpane" id="ej-U2" data-label="U2 · Estructuras de control">
-<section class="sec"><h3>Docx del profesor (1/4): if, if-else y operadores lógicos</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>1. Mayor de edad</h4><div style="white-space:pre-line">Escribir un ejercicio en java en que se muestre el mensaje “ es mayor de edad”, si la variable edad es mayor o igual a
+<section class="sec"><h3>U2 · Profesor · EjerciciosUnidad2.docx (1/4): if, if-else y operadores lógicos</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>1. Mayor de edad</h4><div style="white-space:pre-line">Escribir un ejercicio en java en que se muestre el mensaje “ es mayor de edad”, si la variable edad es mayor o igual a
 18</div><details><summary>Java</summary><pre><code>public class Mavenproject5 {
     public static void main(String[] args) {
         int edad = 10;
@@ -1008,8 +1272,7 @@ o Si tiene menos de 18 años: «No puede acceder: debe ser mayor de edad».</div
             System.out.println(&quot;No puede acceder, no tiene entrada&quot;);
         }
     }
-}</code></pre></details></div></section>
-<section class="sec"><h3>Docx del profesor (2/4): switch</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>12. Nota → Suspenso / Aprobado / Notable / Sobresaliente</h4><div style="white-space:pre-line">Crea un programa en java que según sea el contenido de una nota muestre
+}</code></pre></details></div></section><section class="sec"><h3>U2 · Profesor · EjerciciosUnidad2.docx (2/4): switch</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>12. Nota → Suspenso / Aprobado / Notable / Sobresaliente</h4><div style="white-space:pre-line">Crea un programa en java que según sea el contenido de una nota muestre
 0 a 4 -&gt; Suspenso
 5 y 6 -&gt; Aprobado
 7 y 8 -&gt; Notable
@@ -1065,8 +1328,7 @@ Si el número introducido no está comprendido entre 1 y 4, deberá mostrar:
         case 4 -&gt; System.out.println(&quot;Salir&quot;);
         default -&gt; System.out.println(&quot;Opción no válida&quot;);
     }
-}</code></pre></details></div></section>
-<section class="sec"><h3>Docx del profesor (3/4): do-while, while y for</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>14. Repetir hasta un valor distinto de 0</h4><div style="white-space:pre-line">Escribir un programa en java que acepte un valor entero por teclado y se repita la petición hasta que el valor sea
+}</code></pre></details></div></section><section class="sec"><h3>U2 · Profesor · EjerciciosUnidad2.docx (3/4): do-while, while y for</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>14. Repetir hasta un valor distinto de 0</h4><div style="white-space:pre-line">Escribir un programa en java que acepte un valor entero por teclado y se repita la petición hasta que el valor sea
 distinto de cero.</div><details><summary>Java</summary><pre><code>public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
@@ -1388,8 +1650,7 @@ El programa deberá mostrar al finalizar:
     System.out.println(&quot;La temperatura media es &quot; + media);
     System.out.println(&quot;Días con temperatura superior a 25 ºC: &quot; + sup25);
     System.out.println(&quot;Días con temperatura inferior a 10 ºC: &quot; + inf10);
-}</code></pre></details></div></section>
-<section class="sec"><h3>Docx del profesor (4/4): ejercicios de examen</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>Examen · Presupuesto de un jardín</h4><div style="white-space:pre-line">Ejercicio 1. Presupuesto de un jardín
+}</code></pre></details></div></section><section class="sec"><h3>U2 · Profesor · EjerciciosUnidad2.docx (4/4): ejercicios de examen</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>Examen · Presupuesto de un jardín</h4><div style="white-space:pre-line">Ejercicio 1. Presupuesto de un jardín
 Una empresa instala césped en jardines rectangulares. Solicita la longitud y la anchura del jardín
 en metros, y el precio por metro cuadrado. Puedes suponer que los tres valores son positivos.
  Calcula la superficie con la fórmula superficie = longitud × anchura y el importe inicial como
@@ -1852,293 +2113,12 @@ public class RegistroEdades {
         }
         teclado.close();
     }
-}</code></pre></details></div></section>
-<section class="sec"><h3>Ejercicios resueltos UT 2: if / if-else / operadores lógicos</h3><div class="body">
-<p class="sub">Fuente: EjerciciosUnidad2.docx (60 páginas). Intenta cada ejercicio antes de abrir la solución.</p>
-<h4>1. Mayor de edad</h4>
-<p>Mostrar «Es mayor de edad» si <code>edad</code> ≥ 18.</p>
-<details><summary>Solución</summary><pre><code>int edad = 10;
-if (edad &gt;= 18) {
-    System.out.println("Es mayor de edad");
-}</code></pre></details>
-<h4>2. Descuento del 10 %</h4>
-<p>Si el precio (float) es superior a 100 €, aplicar 10 % de descuento y mostrar el precio final.</p>
-<details><summary>Solución</summary><pre><code>float precio = 150;
-float descuento;
-if (precio &gt; 100) {
-    descuento = precio * 10 / 100;
-    precio = precio - descuento;
-}
-System.out.println("Precio final: " + precio + " euros");</code></pre></details>
-<h4>3. Mostrar el mayor</h4>
-<details><summary>Solución</summary><pre><code>int a = 10, b = 20;
-if (a &gt; b) { System.out.println(a); }
-else          { System.out.println(b); }</code></pre></details>
-<h4>4. Días de un año (bisiesto si es divisible entre 4)</h4>
-<details><summary>Solución</summary><pre><code>int anno = 2000;
-int n_dias = 365;
-if (anno % 4 == 0) {
-    n_dias++;          // equivale a n_dias = n_dias + 1
-}
-System.out.println(n_dias);</code></pre></details>
-<h4>5. Atracción: 12 años o más Y altura ≥ 1,40</h4>
-<details><summary>Solución</summary><pre><code>int edad = 11;
-float altura = 1.50f;
-if (edad &gt;= 12 &amp;&amp; altura &gt;= 1.40f) {
-    System.out.println("Puede ingresar");
-} else {
-    System.out.println("No puede ingresar");
-}</code></pre></details>
-<h4>6. Temperatura fuera de rango (&lt; 0 o &gt; 40)</h4>
-<details><summary>Solución</summary><pre><code>if (temperatura &lt; 0 || temperatura &gt; 40) {
-    System.out.println("Temperatura fuera de rango");
-}</code></pre></details>
-<h4>7. Acceso gratuito (menos de 6 años O 65 o más)</h4>
-<details><summary>Solución</summary><pre><code>if (edad &lt; 6 || edad &gt;= 65) {
-    System.out.println("Acceso gratuito");
-}</code></pre></details>
-<h4>8. Aprobar: examen ≥ 5 Y ejercicios ≥ 5</h4>
-<details><summary>Solución</summary><pre><code>if (examen &gt;= 5 &amp;&amp; ejercicios &gt;= 5) {
-    System.out.println("Aprobado");
-}</code></pre></details>
-<h4>9. Museo gratis si edad &lt; 18 O es estudiante (boolean)</h4>
-<details><summary>Solución</summary><pre><code>boolean estudiante = true;
-if (edad &lt; 18 || estudiante) {
-    System.out.println("Entrada gratuita");
-}</code></pre></details>
-<h4>10. Préstamo de libros (if anidado)</h4>
-<p>&lt; 14 años: «No puede realizar el préstamo sin autorización». ≥ 14 y &lt; 3 libros: «Puede llevarse otro libro». ≥ 14 y ≥ 3 libros: «No puede llevarse más libros».</p>
-<details><summary>Solución</summary><pre><code>if (edad &lt; 14) {
-    System.out.println("No se puede realizar el préstamo sin autorización");
-} else {
-    if (prestados &lt; 3) {
-        System.out.println("Puede llevarse otro libro");
-    } else {
-        System.out.println("No se puede llevarse más libros");
-    }
-}</code></pre></details>
-<h4>11–12. Zona VIP</h4>
-<p>&lt; 18: «No puede acceder: debe ser mayor de edad». ≥ 18 con entrada VIP: «Puede acceder a la zona VIP». ≥ 18 sin VIP: «No puede acceder: necesita una entrada VIP».</p>
-<details><summary>Solución</summary><pre><code>if (edad &lt; 18) {
-    System.out.println("No puede acceder, es menor");
-} else {
-    if (entrada) System.out.println("Puede acceder");
-    else         System.out.println("No puede acceder, no tiene entrada");
-}</code></pre></details>
-</div></section><section class="sec"><h3>Ejercicios resueltos UT 2: switch</h3><div class="body">
-<h4>13. Nota → texto (0-4 Suspenso, 5-6 Aprobado, 7-8 Notable, 9-10 Sobresaliente)</h4>
-<details><summary>Solución clásica (con fall-through)</summary><pre><code>int nota = 7;
-switch (nota) {
-    case 0: case 1: case 2: case 3: case 4:
-        System.out.println("Suspenso"); break;
-    case 5: case 6:
-        System.out.println("Aprobado"); break;
-    case 7: case 8:
-        System.out.println("Notable"); break;
-    case 9: case 10:
-        System.out.println("Sobresaliente"); break;
-    default:
-        System.out.println("NOTA NO VÁLIDA");
-}</code></pre></details>
-<details><summary>Alternativa moderna (->)</summary><pre><code>switch (nota) {
-    case 0, 1, 2, 3, 4 -&gt; System.out.println("Suspenso");
-    case 5, 6          -&gt; System.out.println("Aprobado");
-    case 7, 8          -&gt; System.out.println("Notable");
-    case 9, 10         -&gt; System.out.println("Sobresaliente");
-    default            -&gt; System.out.println("NOTA NO VÁLIDA");
-}</code></pre></details>
-<h4>15–16. Menú 1-4 con switch</h4>
-<p>1 «Consultar saldo», 2 «Realizar ingreso», 3 «Realizar retirada», 4 «Salir», otro «Opción no válida».</p>
-<details><summary>Solución</summary><pre><code>Scanner teclado = new Scanner(System.in);
-System.out.print("Introduce una opción entre 1 y 4: ");
-int opcion = teclado.nextInt();
-switch (opcion) {
-    case 1 -&gt; System.out.println("Consultar saldo");
-    case 2 -&gt; System.out.println("Realizar ingreso");
-    case 3 -&gt; System.out.println("Realizar retirada");
-    case 4 -&gt; System.out.println("Salir");
-    default -&gt; System.out.println("Opción no válida");
-}</code></pre></details>
-</div></section><section class="sec"><h3>Ejercicios resueltos UT 2: do-while y menús</h3><div class="body">
-<h4>17. Repetir hasta que el valor sea distinto de 0</h4>
-<details><summary>Solución</summary><pre><code>int numero;
-do {
-    System.out.print("Introduce un número entero distinto de 0: ");
-    numero = teclado.nextInt();
-} while (numero == 0);
-System.out.println("Número introducido: " + numero);</code></pre></details>
-<h4>18. Repetir mientras no esté entre 1 y 4</h4>
-<details><summary>Solución</summary><pre><code>do {
-    System.out.print("Introduce un número entre 1 y 4: ");
-    numero = teclado.nextInt();
-} while (numero &lt; 1 || numero &gt; 4);</code></pre></details>
-<h4>19. Par o impar hasta que se introduzca 0</h4>
-<details><summary>Solución</summary><pre><code>do {
-    System.out.print("Introduce un número: ");
-    numero = teclado.nextInt();
-    if (numero != 0) {
-        if (numero % 2 == 0) System.out.println("El número es par");
-        else                 System.out.println("El número es impar");
-    }
-} while (numero != 0);</code></pre></details>
-<h4>20–21. Menú repetido hasta «4. Salir»</h4>
-<details><summary>Solución</summary><pre><code>int opcion;
-do {
-    System.out.println("1. Consultar datos");
-    System.out.println("2. Añadir datos");
-    System.out.println("3. Eliminar datos");
-    System.out.println("4. Salir");
-    System.out.print("Elige una opción: ");
-    opcion = teclado.nextInt();
-    switch (opcion) {
-        case 1 -&gt; System.out.println("Has elegido consultar datos");
-        case 2 -&gt; System.out.println("Has elegido añadir datos");
-        case 3 -&gt; System.out.println("Has elegido eliminar datos");
-        case 4 -&gt; System.out.println("Fin del programa");
-        default -&gt; System.out.println("Opción no válida");
-    }
-} while (opcion != 4);</code></pre></details>
-</div></section><section class="sec"><h3>Ejercicios resueltos UT 2: while (contadores y acumuladores)</h3><div class="body">
-<h4>22. Aprobados y suspensos hasta introducir un 0</h4>
-<details><summary>Solución PSeInt y Java</summary><pre><code>Algoritmo sin_titulo
-    Definir nota, aprobados, suspensos Como Entero
-    aprobados &lt;- 0
-    suspensos &lt;- 0
-    Escribir "introducir nota "
-    Leer nota
-    Mientras nota &lt;&gt; 0 Hacer
-        Si nota &gt;= 5 Entonces
-            aprobados &lt;- aprobados + 1
-        SiNo
-            suspensos &lt;- suspensos + 1
-        FinSi
-        Escribir "introducir nota "
-        Leer nota
-    FinMientras
-    Escribir "Alumnos aprobados ", aprobados
-    Escribir "Alumnos suspensos ", suspensos
-FinAlgoritmo</code></pre>
-<pre><code>int nota, aprobados = 0, suspensos = 0;
-nota = teclado.nextInt();
-while (nota != 0) {
-    if (nota &gt;= 5) aprobados++;
-    else            suspensos++;
-    nota = teclado.nextInt();
-}</code></pre></details>
-<h4>23. Temperatura máxima y mínima (termina con 99)</h4>
-<details><summary>Solución PSeInt y Java</summary><pre><code>Algoritmo sin_titulo
-    Definir temperatura, maxima, minima Como Entero;
-    maxima &lt;- -9999
-    minima &lt;- 9999
-    Repetir
-        Escribir "Introducir temperatura &lt;&lt;99 para Salir&gt;&gt;"
-        Leer temperatura
-        Si temperatura &lt;&gt; 99 Entonces
-            Si temperatura &gt; maxima Entonces
-                maxima &lt;- temperatura
-            FinSi
-            Si temperatura &lt; minima Entonces
-                minima &lt;- temperatura
-            FinSi
-        FinSi
-    Hasta Que temperatura = 99
-    Escribir "Temperatura máxima ", maxima
-    Escribir "Temperatura mínima ", minima
-FinAlgoritmo</code></pre>
-<pre><code>int temperatura, maxima = -9999, minima = 9999;
-do {
-    temperatura = teclado.nextInt();
-    if (temperatura != 99) {
-        if (temperatura &gt; maxima) maxima = temperatura;
-        if (temperatura &lt; minima) minima = temperatura;
-    }
-} while (temperatura != 99);</code></pre></details>
-<h4>27. Edades: mayor, menor, total y media (termina con 0)</h4>
-<details><summary>Solución Java</summary><pre><code>int edad, mayor = 0, menor = 200, total = 0, suma = 0;
-double media;
-edad = teclado.nextInt();
-while (edad != 0) {
-    if (edad &gt; mayor) mayor = edad;
-    if (edad &lt; menor) menor = edad;
-    suma += edad;     // acumulador
-    total++;          // contador
-    edad = teclado.nextInt();
-}
-media = (double) suma / total;</code></pre></details>
-<h4>31. Ventas: mayor, menor, nº, total, media, &gt;100 €, &lt;50 € y objetivo 1000 €</h4>
-<details><summary>Solución Java</summary><pre><code>double venta, mayorVenta = 0, menorVenta = 9999, totalVenta = 0, media;
-int totalNventas = 0, sup100 = 0, inf50 = 0;
-venta = teclado.nextDouble();
-while (venta != 0) {
-    totalNventas++;
-    totalVenta += venta;
-    if (venta &gt; mayorVenta) mayorVenta = venta;
-    if (venta &lt; menorVenta) menorVenta = venta;
-    if (venta &gt; 100) sup100++;
-    if (venta &lt; 50)  inf50++;
-    venta = teclado.nextDouble();
-}
-media = totalVenta / totalNventas;
-if (totalVenta &gt; 1000) System.out.println("objetivo cumplido");
-else                   System.out.println("objetivo NO cumplido");</code></pre></details>
-<h4>Valor máximo de una serie (termina con 0)</h4>
-<details><summary>Solución PSeInt</summary><pre><code>Algoritmo valorMaximo
-    Definir v, maximo como Entero
-    Escribir "valor "
-    Leer v              // Lectura adelantada
-    maximo = v
-    Mientras v &lt;&gt; 0 Hacer
-        si v &gt; maximo Entonces
-            maximo &lt;- v
-        FinSi
-        Escribir "valor "
-        Leer v
-    FinMientras
-    Escribir "El valor máximo es " maximo
-FinAlgoritmo</code></pre></details>
-<h4>Edades de alumnos: nº, suma, media y mayores de edad</h4>
-<details><summary>Solución PSeInt</summary><pre><code>Algoritmo sin_titulo
-    Definir media Como Real
-    suma &lt;- 0
-    contador &lt;- 0
-    mayoredad &lt;- 0
-    Escribir "Edad: "
-    Leer edad
-    Mientras edad &lt;&gt; 0 Hacer
-        suma &lt;- suma + edad
-        contador &lt;- contador + 1
-        si edad &gt;= 18 Entonces
-            mayoredad &lt;- mayoredad + 1
-        FinSi
-        Escribir "Edad: "
-        Leer edad
-    FinMientras
-    Si contador &lt;&gt; 0 Entonces
-        media &lt;- suma / contador
-        Escribir "El numero de edades es ", contador
-        Escribir "La suma de las edades es ", suma
-        Escribir "la media de las edades es ", media
-        Escribir "El número de mayores de edad es ", mayoredad
-    SiNo
-        Escribir "No se ha introducido valor"
-    FinSi
-FinAlgoritmo</code></pre></details>
-<h4>Notas por categoría (termina con 0)</h4>
-<p>Enunciado del profesor: contar cuántos alumnos sacaron Sobresaliente (9, 10), Notable (7, 8), Suficiente (5, 6), Suspendieron (&lt; 5) y Aprobaron (≥ 5). El PDF no incluye texto de solución.</p>
-</div></section><section class="sec"><h3>Ejercicios resueltos UT 2: for</h3><div class="body">
-<h4>36. Temperaturas de 7 días: media, días &gt; 25 ºC y días &lt; 10 ºC</h4>
-<details><summary>Solución</summary><pre><code>double temperatura, suma = 0, media;
-int sup25 = 0, inf10 = 0;
-for (int i = 1; i &lt;= 7; i++) {
-    System.out.print("Introduce la temperatura del día " + i + ": ");
-    temperatura = teclado.nextDouble();
-    suma = suma + temperatura;
-    if (temperatura &gt; 25) sup25++;
-    if (temperatura &lt; 10) inf10++;
-}
-media = suma / 7;</code></pre></details>
-<h4>Números intermedios entre dos números (en cualquier orden)</h4>
-<details><summary>Solución PSeInt</summary><pre><code>Algoritmo Numeros_Intermedios
+}</code></pre></details><p class="sub">Nota sobre el jardín: la solución del archivo añade una condición que no está en el enunciado (si el importe está entre 270 y 300, el importe final es 270). Consúltalo con el profesor si te preguntan por ello.</p></div></section><section class="sec"><h3>U2 · Profesor · Ejercicios propuestos para el primer examen</h3><div class="body"><p class="sub">Fuente: EjerciciosPropuestoPrimerExamen.pdf (el PDF trae solo los enunciados).</p><h4>Propuesto 1 · Media aritmética de dos números</h4><p>Aceptar dos números enteros y mostrar la media aritmética.</p><details><summary>Mi propuesta de solución (no es oficial)</summary><pre><code>double media = (a + b) / 2.0;
+System.out.println(media);</code></pre></details><h4>Propuesto 2 · El menor de tres números</h4><p>Introducir tres números y mostrar el menor.</p><details><summary>Mi propuesta de solución (no es oficial)</summary><pre><code>int menor = a;
+if (b &lt; menor) menor = b;
+if (c &lt; menor) menor = c;
+System.out.println(menor);</code></pre></details><h4>Propuesto 3 · Números intermedios entre dos números</h4><p>Introducir dos números y mostrar todos los intermedios (ambos incluidos), en cualquier orden: 5 y 10 → 5,6,7,8,9,10; 8 y 2 → 2,3,4,5,6,7,8.</p>
+<details><summary>Solución en PSeInt</summary><pre><code>Algoritmo Numeros_Intermedios
     Definir num1, num2, i Como Entero
     Escribir "Ingrese el primer número:"
     Leer num1
@@ -2154,407 +2134,15 @@ media = suma / 7;</code></pre></details>
         FinPara
     FinSi
 FinAlgoritmo</code></pre></details>
-<h4>Enunciados propuestos (sin solución en los archivos)</h4>
-<ul>
-<li>Tabla de multiplicar de un número.</li>
-<li>Mostrar los números pares desde 2 hasta el número introducido.</li>
-<li>Factorial de un número (5! = 5 × 4 × 3 × 2 × 1 = 120).</li>
-</ul>
-<details><summary>Mi propuesta (no es oficial)</summary><pre><code>// Tabla de multiplicar
-for (int i = 1; i &lt;= 10; i++) System.out.println(n + " x " + i + " = " + n * i);
-// Pares hasta n
-for (int i = 2; i &lt;= n; i += 2) System.out.println(i);
-// Factorial
-long f = 1;
-for (int i = 2; i &lt;= n; i++) f *= i;
-System.out.println(f);</code></pre></details>
-</div></section><section class="sec"><h3>Ejercicios tipo examen UT 2</h3><div class="body">
-<h4>Presupuesto de un jardín</h4>
-<p>Longitud, anchura y precio/m². Superficie = longitud × anchura; importe inicial = superficie × precio. Si el importe inicial supera 300 €, descuento del 10 %; si no, 0 €. Mostrar superficie, importe inicial, descuento e importe final. (Ej.: 10 × 4 a 8 €/m² → 40 m², 320 €, 32 €, 288 €.)</p>
-<details><summary>Solución del profesor</summary><pre><code>superficie = longitud * anchura;
-importeInicial = superficie * precio;
-if (importeInicial &gt; 300) descuento = importeInicial * 0.10;
-else                      descuento = 0;
-importeFinal = importeInicial - descuento;</code></pre>
-<p class="sub">La solución del archivo añade además una condición extra (si el importe está entre 270 y 300 el final es 270) que no está en el enunciado de este ejercicio; consúltalo con el profesor si te preguntan por ello.</p></details>
-<h4>Actividad con edad, altura y autorización</h4>
-<p>Participa quien tenga ≥ 12 años y altura ≥ 1,40. Si no cumple: «No puede participar» (prioridad). Si cumple y es menor de 18: «Puede participar» con autorización o «Necesita autorización». Si es mayor de edad: «Puede participar». Un único resultado.</p>
-<details><summary>Solución</summary><pre><code>if (edad &gt;= 12 &amp;&amp; altura &gt;= 1.40) {
-    if (edad &gt;= 18) {
-        System.out.println("PUEDE PARTICIPAR");
-    } else if (autorizado) {
-        System.out.println("PUEDE PARTICIPAR");
-    } else {
-        System.out.println("NECESITA AUTORIZACIÓN");
-    }
-} else {
-    System.out.println("NO PUEDE PARTICIPAR");
-}</code></pre>
-<p class="sub">Atención: la solución del profesor usa <code>altura &gt; 1.40</code>, pero el enunciado dice «al menos 1,40» (≥). En el PSeInt sí usa <code>altura &lt; 1.40</code> para rechazar.</p></details>
-<h4>Menú de servicios (switch + do-while)</h4>
-<p>Opciones: 1 horario («Horario de 09:00 a 20:00»), 2 coste de reserva (pedir horas entre 1 y 5 hasta que sean válidas; 12,50 €/hora), 3 normas («Es obligatorio presentar identificación»), 4 salir («Fin del programa»). Otra opción: «Opción no válida». Puntuación del ejercicio: 2,50 puntos.</p>
-<details><summary>Solución</summary><pre><code>int opcion, horas;
-double coste;
-do {
-    System.out.println("MENÚ DE SERVICIOS");
-    System.out.println("1. Consultar horario");
-    System.out.println("2. Calcular coste de una reserva");
-    System.out.println("3. Consultar normas");
-    System.out.println("4. Salir");
-    System.out.print("Elige una opción: ");
-    opcion = teclado.nextInt();
-    switch (opcion) {
-        case 1:
-            System.out.println("Horario de 09:00 a 20:00");
-            break;
-        case 2:
-            do {
-                System.out.print("Introduce el número de horas: ");
-                horas = teclado.nextInt();
-                if (horas &lt; 1 || horas &gt; 5) System.out.println("Número de horas incorrecto");
-            } while (horas &lt; 1 || horas &gt; 5);
-            coste = horas * 12.50;
-            System.out.println("Coste de la reserva: " + coste + " euros");
-            break;
-        case 3:
-            System.out.println("Es obligatorio presentar identificación");
-            break;
-        case 4:
-            System.out.println("Fin del programa");
-            break;
-        default:
-            System.out.println("Opción no válida");
-    }
-} while (opcion != 4);</code></pre></details>
-<h4>Beca de estudios (if anidados / else if)</h4>
-<p>Requisitos en este orden: edad ≥ 16 («No cumple la edad mínima»), nota media ≥ 7 («No cumple la nota mínima»), ingresos ≤ 18.000 € («Supera el límite de ingresos»); si cumple todo: «Beca concedida». Un solo mensaje.</p>
-<details><summary>Solución</summary><pre><code>if (edad &lt; 16) {
-    System.out.println("No cumple la edad mínima");
-} else if (nota &lt; 7) {
-    System.out.println("No cumple la nota mínima");
-} else if (ingresos &gt; 18000) {
-    System.out.println("Supera el límite de ingresos");
-} else {
-    System.out.println("Beca concedida");
-}</code></pre></details>
-<h4>Presupuesto de pintura</h4>
-<p>Longitud y altura de una pared y precio/m². Si el importe inicial supera 240 €, descuento del 10 %; si no, 0 €. (8 × 4 a 10 €/m² → 32 m², 320 €, 32 €, 288 €.)</p>
-<details><summary>Solución PSeInt</summary><pre><code>superficie &lt;- long * altura
-importeInicial &lt;- superficie * precio
-Si importeInicial &gt; 240 Entonces
-    descuento &lt;- importeInicial * 0.10
-SiNo
-    descuento &lt;- 0
-FinSi
-importeFinal &lt;- importeInicial - descuento</code></pre></details>
-<h4>Acceso a un taller (edad, nota, autorización)</h4>
-<p>Orden: edad &lt; 16 → «No cumple la edad mínima»; nota &lt; 6 → «No supera la prueba»; menor de 18 → «Acceso permitido» con autorización o «Necesita autorización»; 18 o más → «Acceso permitido».</p>
-<details><summary>Solución Java</summary><pre><code>if (edad &lt; 16) {
-    System.out.println("No cumple la edad mínima");
-} else if (nota &lt; 6) {
-    System.out.println("No supera la prueba");
-} else if (edad &lt; 18) {
-    if (autorizacion) System.out.println("Acceso permitido");
-    else              System.out.println("Necesita autorización");
-} else {
-    System.out.println("Acceso permitido");
-}</code></pre></details>
-<h4>Menú con casco (se repite hasta una opción válida)</h4>
-<p>1 «Horario de 09:00 a 19:00», 2 «Es obligatorio utilizar casco», 3 «Fin del programa»; otra: «Opción no válida».</p>
-<details><summary>Solución Java</summary><pre><code>do {
-    System.out.println("1. Consultar horario");
-    System.out.println("2. Consultar normas");
-    System.out.println("3. Salir");
-    System.out.print("Introduce una opción: ");
-    opcion = teclado.nextInt();
-    switch (opcion) {
-        case 1: System.out.println("Horario de 09:00 a 19:00"); break;
-        case 2: System.out.println("Es obligatorio utilizar casco"); break;
-        case 3: System.out.println("Fin del programa"); break;
-        default: System.out.println("Opción no válida");
-    }
-} while (opcion != 3);</code></pre></details>
-<h4>Registro de edades (con caso sin datos)</h4>
-<p>Leer edades hasta 0. Mostrar nº de edades, mayor, menor, media con decimales y cuántas son ≥ 18. Si el primer dato es 0: solo «No se han introducido datos».</p>
-<details><summary>Solución Java</summary><pre><code>int edad, contador = 0, suma = 0, mayor, menor, mayores18 = 0;
-double media;
-edad = teclado.nextInt();
-if (edad == 0) {
-    System.out.println("No se han introducido datos");
-} else {
-    mayor = edad;
-    menor = edad;
-    while (edad != 0) {
-        contador++;
-        suma += edad;
-        if (edad &gt; mayor) mayor = edad;
-        if (edad &lt; menor) menor = edad;
-        if (edad &gt;= 18) mayores18++;
-        edad = teclado.nextInt();
-    }
-    media = (double) suma / contador;
-    System.out.println("Número de edades: " + contador);
-    System.out.println("Edad mayor: " + mayor);
-    System.out.println("Edad menor: " + menor);
-    System.out.println("Media: " + media);
-    System.out.println("Personas de 18 años o más: " + mayores18);
-}</code></pre></details>
-<h4>Examen 2: temperaturas de un paciente (matriz 4 días × 3 tomas)</h4>
-<p>Tomas a las 08:00, 14:00 y 22:00 durante 4 días. Indicar la temperatura más alta (día y hora) y la media de cada día.</p>
-<details><summary>Solución del profesor</summary><pre><code>final int DIAS = 4;
-final int TOMAS = 3;
-String[] horas = {"08:00", "14:00", "22:00"};
-float[][] temp = {
-    {36.7f, 37.5f, 37.0f},
-    {37.1f, 38.2f, 37.8f},
-    {36.8f, 37.6f, 37.2f},
-    {37.0f, 38.5f, 38.0f}
-};
-float max = temp[0][0];
-int diaMax = 0, horaMax = 0;
-System.out.println("Día 08:00 14:00 22:00 Media");
-for (int d = 0; d &lt; DIAS; d++) {          // media por día
-    float sumaDia = 0;
-    System.out.print((d + 1) + " ");
-    for (int h = 0; h &lt; TOMAS; h++) {
-        float t = temp[d][h];
-        sumaDia += t;
-        if (t &gt; max) { max = t; diaMax = d; horaMax = h; }
-        System.out.print(t + " ");
-    }
-    float mediaDia = sumaDia / TOMAS;
-    System.out.println(mediaDia);
-}
-for (int h = 0; h &lt; TOMAS; h++) {          // media por hora
-    float sumaHora = 0;
-    for (int d = 0; d &lt; DIAS; d++) sumaHora += temp[d][h];
-    System.out.println("Media de las " + horas[h] + ": " + sumaHora / DIAS);
-}</code></pre>
-<p class="sub">Usa un array bidimensional y dos <code>for</code> anidados. El código del profesor calcula el máximo y su posición (<code>diaMax</code>, <code>horaMax</code>) pero no llega a imprimirlo: faltaría un <code>println</code> final.</p></details>
-</div></section><section class="sec"><h3>Ejercicios propuestos para el primer examen (enunciados)</h3><div class="body">
-<p class="sub">Fuente: EjerciciosPropuestoPrimerExamen.pdf (solo enunciados)</p>
-<ol>
-<li>Aceptar dos números enteros y mostrar la media aritmética.</li>
-<li>Introducir tres números y mostrar el menor.</li>
-<li>Introducir dos números y mostrar todos los intermedios (ambos incluidos), en cualquier orden: 5 y 10 → 5,6,7,8,9,10; 8 y 2 → 2,3,4,5,6,7,8.</li>
-<li>Pedir los coeficientes de una ecuación de segundo grado y mostrar sus soluciones reales; si no existen, indicarlo.</li>
-<li>Escribir todos los múltiplos de 5 menores que 50.</li>
-<li>Escribir 5 números por teclado y mostrar la media.</li>
-<li>Escribir 6 notas por teclado y mostrar el número de suspensos.</li>
-<li>Pedir una temperatura en Celsius y mostrar su equivalente en Fahrenheit.</li>
-</ol>
-<details><summary>Mis propuestas de solución (no son oficiales)</summary><pre><code>// 2. menor de tres
-int menor = a;
-if (b &lt; menor) menor = b;
-if (c &lt; menor) menor = c;
-
-// 5. múltiplos de 5 menores que 50
-for (int i = 5; i &lt; 50; i += 5) System.out.println(i);
-
-// 6. media de 5 números
-double suma = 0;
+<h4>Propuesto 4 · Ecuación de segundo grado</h4><p>Pedir los coeficientes de una ecuación de segundo grado y mostrar sus soluciones reales; si no existen, indicarlo.</p><details><summary>Ver solución</summary><p>Es el ejercicio 9 de U1: mira esa pestaña (U1) para la solución con if anidados.</p></details><h4>Propuesto 5 · Múltiplos de 5 menores que 50</h4><p>Escribir todos los múltiplos de 5 menores que 50.</p><details><summary>Mi propuesta de solución (no es oficial)</summary><pre><code>for (int i = 5; i &lt; 50; i += 5) System.out.println(i);</code></pre></details><h4>Propuesto 6 · Media de 5 números</h4><p>Escribir 5 números por teclado y mostrar la media.</p><details><summary>Mi propuesta de solución (no es oficial)</summary><pre><code>double suma = 0;
 for (int i = 0; i &lt; 5; i++) suma += teclado.nextDouble();
-System.out.println(suma / 5);
-
-// 7. suspensos de 6 notas
-int suspensos = 0;
+System.out.println(suma / 5);</code></pre></details><h4>Propuesto 7 · Suspensos de 6 notas</h4><p>Escribir 6 notas por teclado y mostrar el número de suspensos.</p><details><summary>Mi propuesta de solución (no es oficial)</summary><pre><code>int suspensos = 0;
 for (int i = 0; i &lt; 6; i++) if (teclado.nextDouble() &lt; 5) suspensos++;
-
-// 8. Celsius → Fahrenheit
-double f = c * 9 / 5 + 32;</code></pre></details>
-</div></section><section class="sec"><h3>Versiones PSeInt de los ejercicios de UT 2</h3><div class="body">
-<p class="sub">Fuente: EjerciciosUnidad2.docx. Complementa las versiones Java que ya están más arriba.</p>
-<h4>Acceso a una actividad (edad, altura y autorización)</h4>
-<details><summary>PSeInt</summary><pre><code>Algoritmo Acceso
-    Definir edad Como Entero
-    Definir altura Como Real
-    Definir autorizado Como Logico
-    Escribir "Introduce la edad:"
-    Leer edad
-    Escribir "Introduce la altura en metros:"
-    Leer altura
-    Escribir "¿Tiene autorización? (Verdadero/Falso):"
-    Leer autorizado
-    Si edad &lt; 12 O altura &lt; 1.40 Entonces
-        Escribir "No puede participar"
-    SiNo
-        Si edad &lt; 18 Entonces
-            Si autorizado Entonces
-                Escribir "Puede participar"
-            SiNo
-                Escribir "Necesita autorización"
-            FinSi
-        SiNo
-            Escribir "Puede participar"
-        FinSi
-    FinSi
-FinAlgoritmo</code></pre></details>
-<h4>Control de acceso a un taller</h4>
-<details><summary>PSeInt</summary><pre><code>Algoritmo ControlAcceso
-    Definir edad Como Entero
-    Definir nota Como Real
-    Definir autorizacion Como Logico
-    Escribir "Introduce la edad:"
-    Leer edad
-    Escribir "Introduce la nota:"
-    Leer nota
-    Escribir "¿Tiene autorización? (Verdadero/Falso):"
-    Leer autorizacion
-    Si edad &lt; 16 Entonces
-        Escribir "No cumple la edad mínima"
-    SiNo
-        Si nota &lt; 6 Entonces
-            Escribir "No supera la prueba"
-        SiNo
-            Si edad &lt; 18 Entonces
-                Si autorizacion Entonces
-                    Escribir "Acceso permitido"
-                SiNo
-                    Escribir "Necesita autorización"
-                FinSi
-            SiNo
-                Escribir "Acceso permitido"
-            FinSi
-        FinSi
-    FinSi
-FinAlgoritmo</code></pre></details>
-<h4>Menú con Repetir … Hasta Que y Según</h4>
-<details><summary>PSeInt</summary><pre><code>Algoritmo MenuOpciones
-    Definir opcion Como Entero
-    Repetir
-        Escribir "1. Consultar horario"
-        Escribir "2. Consultar normas"
-        Escribir "3. Salir"
-        Escribir "Introduce una opción:"
-        Leer opcion
-        Segun opcion Hacer
-            1:
-                Escribir "Horario de 09:00 a 19:00"
-            2:
-                Escribir "Es obligatorio utilizar casco"
-            3:
-                Escribir "Fin del programa"
-            De Otro Modo:
-                Escribir "Opción no válida"
-        FinSegun
-    Hasta Que opcion &gt;= 1 Y opcion &lt;= 3
-FinAlgoritmo</code></pre><p class="sub">Ojo: así el menú termina con cualquier opción válida (1, 2 o 3), no solo con la 3. La versión Java del mismo ejercicio sí repite hasta <code>opcion != 3</code>.</p></details>
-<h4>Edades: mayor, menor, total y media</h4>
-<details><summary>PSeInt</summary><pre><code>Algoritmo Edades
-    Definir edad, mayor_edad, menor_edad, total, suma Como Entero
-    Definir media Como Real
-    mayor_edad &lt;- 0
-    menor_edad &lt;- 200
-    total &lt;- 0      // contador
-    suma &lt;- 0       // acumulador
-    Escribir "Introduce la edad &lt;&lt; 0 para salir &gt;&gt; "
-    leer edad
-    Mientras edad &lt;&gt; 0
-        si edad &lt; menor_edad Entonces
-            menor_edad &lt;- edad
-        FinSi
-        si edad &gt; mayor_edad Entonces
-            mayor_edad &lt;- edad
-        FinSi
-        total &lt;- total + 1
-        suma &lt;- suma + edad
-        Escribir "Introduce la edad &lt;&lt; 0 para salir &gt;&gt; "
-        leer edad
-    FinMientras
-    Escribir "La edad más alta es ", mayor_edad
-    Escribir "La edad más baja es ", menor_edad
-    Escribir "Total edades ", total
-    media &lt;- suma / total
-    Escribir "Media de edades: ", media
-FinAlgoritmo</code></pre></details>
-<h4>Ventas con objetivo de 1000 €</h4>
-<details><summary>PSeInt</summary><pre><code>Algoritmo Ventas_
-    Definir venta, mayor_venta, menor_venta, totalNventas, media Como Real
-    Definir totalVentas, sup100, inf50 Como Entero
-    mayor_venta &lt;- 0
-    menor_venta &lt;- 99999
-    totalNventas &lt;- 0   // contador
-    totalVentas &lt;- 0    // acumulador
-    sup100 &lt;- 0
-    inf50 &lt;- 0
-    Escribir "Introduce el importe de la venta "
-    Leer venta
-    Mientras venta &lt;&gt; 0 Hacer
-        si venta &gt; mayor_venta Entonces
-            mayor_venta &lt;- venta
-        FinSi
-        si venta &lt; menor_venta Entonces
-            menor_venta &lt;- venta
-        FinSi
-        totalNventas &lt;- totalNventas + 1
-        totalVentas &lt;- totalVentas + venta
-        media &lt;- totalVentas / totalNventas
-        Si venta &gt; 100 Entonces
-            sup100 &lt;- sup100 + 1
-        FinSi
-        Si venta &lt; 50 Entonces
-            inf50 &lt;- inf50 + 1
-        FinSi
-        Escribir "Introduce el importe de la venta "
-        Leer venta
-    FinMientras
-    Escribir "La mayor venta es ", mayor_venta
-    Escribir "La menor venta es ", menor_venta
-    Escribir "El total del número de ventas es ", totalNventas
-    Escribir "La suma total de las ventas es ", totalVentas
-    Escribir "El importe medio de las ventas es ", media
-    Escribir "Ventas superiores a 100 euros > ", sup100
-    Escribir "Ventas inferiores a 50 euros > ", inf50
-    Si totalVentas &gt; 1000 Entonces
-        Escribir "Objetivo cumplido"
-    SiNo
-        Escribir "Objetivo no cumplido"
-    FinSi
-FinAlgoritmo</code></pre><p class="sub">Nota: <code>totalVentas</code> se declara Entero en el original, lo que puede dar problemas con importes con decimales; en Java se usa <code>double</code>.</p></details>
-<h4>Registro de edades (con caso sin datos)</h4>
-<details><summary>PSeInt</summary><pre><code>Algoritmo RegistroEdades
-    Definir edad, contador, suma Como Entero
-    Definir mayor, menor, mayores18 Como Entero
-    Definir media Como Real
-    contador &lt;- 0
-    suma &lt;- 0
-    mayores18 &lt;- 0
-    Escribir "Introduce una edad (0 para terminar):"
-    Leer edad
-    Si edad = 0 Entonces
-        Escribir "No se han introducido datos"
-    SiNo
-        mayor &lt;- edad
-        menor &lt;- edad
-        Mientras edad &lt;&gt; 0 Hacer
-            contador &lt;- contador + 1
-            suma &lt;- suma + edad
-            Si edad &gt; mayor Entonces
-                mayor &lt;- edad
-            FinSi
-            Si edad &lt; menor Entonces
-                menor &lt;- edad
-            FinSi
-            Si edad &gt;= 18 Entonces
-                mayores18 &lt;- mayores18 + 1
-            FinSi
-            Escribir "Introduce una edad (0 para terminar):"
-            Leer edad
-        FinMientras
-        media &lt;- suma / contador
-        Escribir "Número de edades: ", contador
-        Escribir "Edad mayor: ", mayor
-        Escribir "Edad menor: ", menor
-        Escribir "Media: ", media
-        Escribir "Personas de 18 años o más: ", mayores18
-    FinSi
-FinAlgoritmo</code></pre></details>
-<h4>Ejercicio de lectura de notas (PSeInt, con categorías)</h4>
-<p>Los PDF de este ejercicio (notas hasta un cero, con Sobresaliente/Notable/Suficiente/Suspenso) no traen texto de solución. Mi propuesta:</p>
-<details><summary>Mi propuesta (no es oficial)</summary><pre><code>Algoritmo ContarNotas
+System.out.println(suspensos);</code></pre></details><h4>Propuesto 8 · Celsius a Fahrenheit</h4><p>Pedir una temperatura en Celsius y mostrar su equivalente en Fahrenheit.</p><details><summary>Mi propuesta de solución (no es oficial)</summary><pre><code>double f = c * 9 / 5 + 32;
+System.out.println(f);</code></pre></details><h4>Extra · Notas con categorías (PSeInt)</h4><p>Leer notas hasta un cero y contar sobresalientes (≥ 9), notables (≥ 7), suficientes (≥ 5), suspensos y aprobados.</p><details><summary>Mi propuesta de solución (no es oficial)</summary><pre><code>Algoritmo ContarNotas
     Definir nota, sobre, notab, sufi, susp, aprob Como Entero
     sobre &lt;- 0  notab &lt;- 0  sufi &lt;- 0  susp &lt;- 0  aprob &lt;- 0
-    Escribir "Introduce la nota (0 para salir):"
+    Escribir &quot;Introduce la nota (0 para salir):&quot;
     Leer nota
     Mientras nota &lt;&gt; 0 Hacer
         Si nota &gt;= 9 Entonces
@@ -2570,22 +2158,1442 @@ FinAlgoritmo</code></pre></details>
                 FinSi
             FinSi
         FinSi
-        Escribir "Introduce la nota (0 para salir):"
+        Escribir &quot;Introduce la nota (0 para salir):&quot;
         Leer nota
     FinMientras
     aprob &lt;- sobre + notab + sufi
-    Escribir "Sobresalientes: ", sobre
-    Escribir "Notables: ", notab
-    Escribir "Suficientes: ", sufi
-    Escribir "Suspensos: ", susp
-    Escribir "Aprobados: ", aprob
-FinAlgoritmo</code></pre></details>
-</div></section></div>
+    Escribir &quot;Sobresalientes: &quot;, sobre
+    Escribir &quot;Notables: &quot;, notab
+    Escribir &quot;Suficientes: &quot;, sufi
+    Escribir &quot;Suspensos: &quot;, susp
+    Escribir &quot;Aprobados: &quot;, aprob
+FinAlgoritmo</code></pre></details></div></section>
+<section class="sec"><h3>U2 · Libro · Cap. 2 · SI (IF) (ejercicios 1 a 3)</h3><div class="body"><p class="sub">Fuente: libro «Introducción a la programación». Aquí van enunciado y solución en Java; en el apartado Libro tienes además el español estructurado, el PSeInt y el resultado.</p><h4>Ejercicio 1 · Sueldo trabajador</h4><p>Escribir un algoritmo que aplique un aumento del 15% al sueldo de un trabajador, si éste es menor a $1,000.00.</p><details><summary>Ver solución en Java</summary><pre><code>/* Aplica un aumento del 15% al sueldo de un trabajador
+si este es menor a $1,000.00 */
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Sueldo_Trabajador {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+
+        double sueldo, nuevoSueldo;
+
+        System.out.println(&quot;El sueldo del trabajado es: &quot;);
+        sueldo = entrada.nextDouble();
+
+        if (sueldo &lt; 1000) {
+            nuevoSueldo = sueldo * 1.15;
+            System.out.println(&quot;El nuevo Sueldo del Trabajador es: &quot; + nuevoSueldo);
+        }
+
+    }
+}</code></pre></details><h4>Ejercicio 2 · Temperatura sonidos grillo</h4><p>Escribe un algoritmo que calcule la temperatura de acuerdo con el número de sonidos emitidos por un grillo.</p><details><summary>Ver solución en Java</summary><pre><code>package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Temperatura_Sonidos_Grillo {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double numero, temperatura;
+        System.out.println(&quot;Ingrese el número de sonidos emitidos por el grillo: &quot;);
+        numero = entrada.nextDouble();
+
+        if (numero &gt; 0) {
+            temperatura = (numero / 4) + 40;
+            System.out.println(&quot;La temperatura es: &quot; + temperatura);
+        }
+
+    }
+
+}</code></pre></details><h4>Ejercicio 3 · Enganche mensualidades</h4><p>Dada la estabilidad económica que existe en un determinado país de américa latina, las agencias automotrices comienzan a ofrecer distintos planes de financiamiento para la comercialización de sus vehículos. La empresa XGW ofrece el siguiente plan de financiación: dado el monto total de vehículo, el cliente debe pagar el 35% de enganche y el resto en 18 mensualidades sin intereses. Construye un algoritmo que permita obtener cuál es el importe del enganche y las mensualidades que debe pagar el cliente.</p><details><summary>Ver solución en Java</summary><pre><code>/* Calcule el importe del enganche y las mensualidades para comprar un vehiculo.
+costo , enganche , mensualidad */
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Enganche_Mensualidades {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double costo, enganche, mensualidad;
+
+        System.out.println(&quot;Ingresa el costo total del vehículo: &quot;);
+        costo = entrada.nextDouble();
+
+        enganche = costo * 0.35;
+
+        if (enganche &gt; 0) {
+            mensualidad = (costo - enganche) / 18;
+            System.out.println(&quot;El enganche fue de: &quot; + enganche);
+            System.out.println(&quot;Las mensualidades son de: &quot; + mensualidad);
+        }
+
+    }
+
+}</code></pre></details></div></section>
+<section class="sec"><h3>U2 · Libro · Cap. 2 · SI / SI NO (IF / ELSE) (ejercicios 1 a 11)</h3><div class="body"><p class="sub">Fuente: libro «Introducción a la programación». Aquí van enunciado y solución en Java; en el apartado Libro tienes además el español estructurado, el PSeInt y el resultado.</p><h4>Ejercicio 1 · Lavar platos</h4><p>Escribir un algoritmo para lavar los platos de la comida.</p><details><summary>Ver solución en Java</summary><pre><code>// Escribir un algoritmo para lavar los platos de la comida.
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Lavar_Platos {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        String traste;
+
+        System.out.println(&quot;Teclea como están los trastes: &quot;);
+        traste = entrada.next();
+
+        if (traste.equalsIgnoreCase(&quot;sucios&quot;)) {
+            System.out.println(&quot;Lavar los Trastes&quot;);
+            System.out.println(&quot; Mezclar jabón con agua.&quot;);
+            System.out.println(&quot; Meter esponja en la mezcla.&quot;);
+            System.out.println(&quot; Fregar los trastes con la esponja.&quot;);
+            System.out.println(&quot; Enjuagar los trastes.&quot;);
+            System.out.println(&quot; Secar los trastes.&quot;);
+            System.out.println(&quot; Guardar los trastes.&quot;);
+        } else {
+            System.out.println(&quot;No Lavarlos&quot;);
+        }
+    }
+}</code></pre></details><h4>Ejercicio 2 · Pinchazo</h4><p>Escribir un algoritmo para reparar un pinchazo de bicicleta.</p><details><summary>Ver solución en Java</summary><pre><code>// Escribir un algoritmo para reparar un pinchazo de bicicleta.
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Pinchazo {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        String llanta;
+
+        System.out.println(&quot;¿Cómo están las llantas de la bicicleta?&quot;);
+        llanta = entrada.next();
+
+        if (llanta.equalsIgnoreCase(&quot;ponchada&quot;)) {
+            System.out.println(&quot;Desmontar la rueda&quot;);
+            System.out.println(&quot;Quitar la cubierta&quot;);
+            System.out.println(&quot;Sacar la cámara&quot;);
+            System.out.println(&quot;Inflar la cámara&quot;);
+            System.out.println(&quot;Meter la pieza en cubo agua&quot;);
+            System.out.println(&quot;Checar de dónde salen las burbujas&quot;);
+            System.out.println(&quot;Marcar el pinchazo&quot;);
+            System.out.println(&quot;Aplicar pegamento en el área dañada&quot;);
+            System.out.println(&quot;Esperar a que seque el pegamento&quot;);
+            System.out.println(&quot;Parchar el pinchazo&quot;);
+            System.out.println(&quot;Aplicar presión en el pinchazo para que quede bien el parche&quot;);
+            System.out.println(&quot;Montar la cámara&quot;);
+            System.out.println(&quot;Montar la cubierta&quot;);
+            System.out.println(&quot;Montar la llanta&quot;);
+            System.out.println(&quot;Inflar la llanta&quot;);
+        } else {
+            System.out.println(&quot;No hay que parchar la llanta&quot;);
+        }
+    }
+
+}</code></pre></details><h4>Ejercicio 3 · Calificacion</h4><p>Construya un algoritmo dado como dato la calificación de un alumno en un examen, escriba &quot;APROBADO&quot; si su calificación es mayor o igual que 8 y &quot;REPROBADO&quot; en caso contrario.</p><details><summary>Ver solución en Java</summary><pre><code>/* Construye un algoritmo dado como dato la calificación de un alumno en un
+ * examen, escriba &quot;APROBADO&quot; si su calificacion es mayoro igual que 8 y
+ * &quot;REPROBADO&quot; en caso contrario.
+ */
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Calificacion {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double calificacion;
+
+        System.out.println(&quot;Ingrese la calificación del alumno: &quot;);
+        calificacion = entrada.nextDouble();
+
+        if (calificacion &gt;= 8) {
+            System.out.println(&quot;El alumno está APROBADO&quot;);
+        } else {
+            System.out.println(&quot;El alumno está REPROBADO&quot;);
+        }
+    }
+
+}</code></pre></details><h4>Ejercicio 4 · Aumento sueldo</h4><p>Construya un algoritmo dado como dato el sueldo de un trabajador, aplique un aumento del 15% si su sueldo es inferior a $1,000.00 y el 12% en caso contrario. Imprima el nuevo sueldo del trabajador.</p><details><summary>Ver solución en Java</summary><pre><code>/* Aplica un aumento del 15% al sueldo de un trabajador
+ * si este es menor a $1,000.00, en caso contrario un
+ * aumento del 12%
+ */
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Aumento_Sueldo {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+
+        double sueldo, nuevoSueldo;
+
+        System.out.println(&quot;Ingrese el sueldo del trabajador: &quot;);
+        sueldo = entrada.nextDouble();
+
+        if (sueldo &lt; 1000) {
+            nuevoSueldo = sueldo * 1.15;
+            System.out.println(&quot;El nuevo Sueldo del Trabajador es: \n&quot; + nuevoSueldo);
+        } else {
+            nuevoSueldo = sueldo * 1.12;
+            System.out.println(&quot;El nuevo Sueldo del Trabajador es: \n&quot; + nuevoSueldo);
+        }
+    }
+}</code></pre></details><h4>Ejercicio 5 · Promedio</h4><p>Construye un algoritmo dado como datos la matrícula y 5 calificaciones de un alumno; imprima la matrícula, el promedio y la palabra &quot;Aprobado&quot; si el alumno tiene un promedio mayor o igual que 6, y la palabra &quot;No aprobado&quot;, en caso contrario.</p><details><summary>Ver solución en Java</summary><pre><code>// Calcula el promedio de un alumno a partir de cinco calificaciones
+// ingresadas y muestra si aprueba o no.
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Promedio {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double nota1, nota2, nota3, nota4, nota5, promedio;
+        String matricula;
+
+        System.out.println(&quot;Ingrese la matricula: &quot;);
+        matricula = entrada.nextLine();
+
+        System.out.println(&quot;Ingresa la calificación 1: &quot;);
+        nota1 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la calificación 2: &quot;);
+        nota2 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la calificación 3: &quot;);
+        nota3 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la calificación 4: &quot;);
+        nota4 = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la calificación 5: &quot;);
+        nota5 = entrada.nextDouble();
+
+        promedio = (nota1 + nota2 + nota3 + nota4 + nota5) / 5;
+
+        System.out.println(&quot;Matricula: &quot; + matricula);
+        System.out.println(&quot;Promedio: &quot; + promedio);
+
+        if (promedio &gt;= 6) {
+            System.out.println(&quot;El alumno está APROBADO&quot;);
+        } else {
+            System.out.println(&quot;El alumno está REPROBADO&quot;);
+        }
+    }
+}</code></pre></details><h4>Ejercicio 6 · Grupo</h4><p>Construye un algoritmo que, dados el nombre del grupo y el número de alumnos preinscritos, exprese el nombre del grupo, el número de alumnos inscritos y si el grupo será abierto o cerrado, puesto que, para abrir un grupo, se necesitan mínimo 30 alumnos.</p><details><summary>Ver solución en Java</summary><pre><code>// Calcula si un grupo es abierto o cerrado a partir de
+// los lineamientos para apertura de grupos.
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Grupo {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int alumnos;
+        String nombre;
+
+        System.out.println(&quot;Ingrese el nombre del grupo: &quot;);
+        nombre = entrada.nextLine();
+        System.out.println(&quot;Ingrese el total de alumnos preinscritos: &quot;);
+        alumnos = entrada.nextInt();
+
+        System.out.println(&quot;El grupo: &quot; + nombre);
+
+        if (alumnos &gt;= 30) {
+            System.out.println(&quot;Grupo ABIERTO&quot;);
+        } else {
+            System.out.println(&quot;Grupo CERRADO&quot;);
+        }
+    }
+}</code></pre></details><h4>Ejercicio 7 · Descuento</h4><p>Escribe un algoritmo que calcule el descuento considerando las siguientes especificaciones: Si el monto es mayor a $100, se aplica un descuento del 10% sobre la compra. Si el monto es menor a $100, se aplica un descuento del 2% sobre el monto total de la compra.</p><details><summary>Ver solución en Java</summary><pre><code>/* Calcule el descuento considerando, si es más de o igual a $100 aplica el 10%
+si es menor de $100 aplica el   2%*/
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Descuento {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double monto, descuento, montoDesc;
+        System.out.println(&quot;Ingresa el monto: &quot;);
+        monto = entrada.nextDouble();
+
+        if (monto &gt;= 100) {
+            descuento = (monto * 10) / 100;
+            montoDesc = monto - descuento;
+        } else {
+            descuento = (monto * 2) / 100;
+            montoDesc = monto - descuento;
+        }
+
+        System.out.println(&quot;El descuento es de: &quot; + descuento);
+        System.out.println(&quot;El monto con descuento es: &quot; + montoDesc);
+    }
+
+}</code></pre></details><h4>Ejercicio 8 · Goles anotados</h4><p>Escribe un algoritmo que solicite el nombre del jugador, número de goles; y que al jugador que tenga 6 goles o más, imprima en pantalla &quot;GOLEADOR&quot;, en caso contrario, deberá imprimirse &quot;NO GOLEADOR.</p><details><summary>Ver solución en Java</summary><pre><code>// Calcula el tipo de jugador a partir de los goles anotados.
+// Si tiene 6 o más goles es &quot;Goleador&quot;, en caso contrario
+// &quot;No Goleador&quot;
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Goles_Anotados {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int goles;
+        String nombre;
+
+        System.out.println(&quot;Ingrese el nombre del jugador: &quot;);
+        nombre = entrada.nextLine();
+        System.out.println(&quot;Ingrese la cantidad de goles anotados: &quot;);
+        goles = entrada.nextInt();
+
+        System.out.println(&quot;El jugador &quot; + nombre);
+
+        if (goles &gt;= 6) {
+            System.out.println(&quot;Es GOLEADOR&quot;);
+        } else {
+            System.out.println(&quot;Es NO GOLEADOR&quot;);
+        }
+    }
+}</code></pre></details><h4>Ejercicio 9 · Par impar</h4><p>Escribe un algoritmo que identifique si el número ingresado es par o impar.</p><details><summary>Ver solución en Java</summary><pre><code>// Define si el número ingresado es par o impar
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Par_Impar {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double numero;
+
+        System.out.println(&quot;Ingresa el número: &quot;);
+        numero = entrada.nextDouble();
+
+        if (numero % 2 == 0) {
+            System.out.println(&quot;EL NÚMERO ES PAR&quot;);
+        } else {
+            System.out.println(&quot;EL NÚMERO ES IMPAR&quot;);
+        }
+    }
+}</code></pre></details><h4>Ejercicio 10 · Producto</h4><p>Escribe un algoritmo que identifique si un producto va a ser pagado en efectivo o mediante tarjeta, los aspectos a considerar son: Si el costo del producto a pagar es mayor a $200, se paga en efectivo. Si el costo del producto es menor a $200, se paga con tarjeta.</p><details><summary>Ver solución en Java</summary><pre><code>// Identifica si un producto es mayor a $200 se paga en efectivo
+// y si es menos se paga con tarjeta.
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Producto {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        String nombre;
+        double precio;
+
+        System.out.println(&quot;Ingresa el nombre del producto: &quot;);
+        nombre = entrada.nextLine();
+
+        System.out.println(&quot;Ingresa su precio: &quot;);
+        precio = entrada.nextDouble();
+
+        if (precio &gt;= 200) {
+            System.out.println(&quot;El producto se paga en efectivo&quot;);
+        } else {
+            System.out.println(&quot;El producto se paga con tarjeta&quot;);
+        }
+
+    }
+
+}</code></pre></details><h4>Ejercicio 11 · Numeros crecientes</h4><p>Construye un algoritmo, dado como datos de entrada tres números enteros. Determine si los mismos están en orden creciente.</p><details><summary>Ver solución en Java</summary><pre><code>// Determina si 3 números enteros están introducidos en orden creciente.
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class NumerosCreDecre {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int numero1, numero2, numero3;
+
+        System.out.println(&quot;Ingresa el primer número: &quot;);
+        numero1 = entrada.nextInt();
+        System.out.println(&quot;Ingresa el segundo número: &quot;);
+        numero2 = entrada.nextInt();
+        System.out.println(&quot;Ingresa el tercer número: &quot;);
+        numero3 = entrada.nextInt();
+
+        System.out.println(&quot;Los números ingresados son &quot; +
+        numero1 + &quot; &quot; + numero2 + &quot; &quot; + numero3);
+
+        if (numero2 &gt; numero1 &amp;&amp; numero3 &gt; numero2) {
+            System.out.println(&quot;Los números están en orden creciente&quot;);
+        } else {
+            System.out.println(&quot;Los números no están en orden creciente&quot;);
+        }
+    }
+}</code></pre></details></div></section>
+<section class="sec"><h3>U2 · Libro · Cap. 2 · SI ANIDADO (ejercicios 1 a 5 y 7)</h3><div class="body"><p class="sub">Fuente: libro «Introducción a la programación». Aquí van enunciado y solución en Java; en el apartado Libro tienes además el español estructurado, el PSeInt y el resultado.</p><h4>Ejercicio 1 · Partido final</h4><p>Escribe un algoritmo que imprima el nombre y marcador. con el cual es ganador un equipo en cierto partido de futbol, se debe solicitar el nombre de los equipos del partido, y la cantidad de goles anotado por cada uno, se deben considerar también el número de goles anotados en los penaltis del partido.</p><details><summary>Ver solución en Java</summary><pre><code>// Calcula el equipo ganador a partir de la información proporcionada
+// por el usuario.
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Partido_Final {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        String equipoA, equipoB;
+        int golesA, golesB, penalesA, penalesB;
+
+        System.out.println(&quot;Ingresa el nombre del equipo A:&quot;);
+        equipoA = entrada.next();
+        System.out.println(&quot;Ingresa los goles del equipo A:&quot;);
+        golesA = entrada.nextInt();
+        System.out.println(&quot;Ingresa el nombre del equipo B:&quot;);
+        equipoB = entrada.next();
+        System.out.println(&quot;Ingresa los goles del equipo B:&quot;);
+        golesB = entrada.nextInt();
+
+        if (golesA == golesB) {
+            System.out.println(&quot;Ingresa los penales anotados del equipo A:&quot;);
+            penalesA = entrada.nextInt();
+            System.out.println(&quot;Ingresa los penales anotados del equipo B:&quot;);
+            penalesB = entrada.nextInt();
+            if (penalesA &gt; penalesB) {
+                System.out.println(&quot;Ganó el equipo &quot; + equipoA);
+            } else {
+                System.out.println(&quot;Ganó el equipo &quot; + equipoB);
+            }
+        } else {
+            if (golesA &gt; golesB) {
+                System.out.println(&quot;Ganó el equipo &quot; + equipoA);
+            } else {
+                System.out.println(&quot;Ganó el equipo &quot; + equipoB);
+            }
+        }
+    }
+}</code></pre></details><h4>Ejercicio 2 · Numeros</h4><p>Construye un algoritmo dado como dato un número entero. Determine e imprima si el mismo es positivo, negativo o nulo.</p><details><summary>Ver solución en Java</summary><pre><code>// Determina si el número ingresado es positivo, negativo o nulo.
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Numeros {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int numero;
+
+        System.out.println(&quot;Ingresa el número entero:&quot;);
+        numero = entrada.nextInt();
+
+        if (numero == 0) {
+            System.out.println(&quot;El número es NULO&quot;);
+        } else {
+            if (numero &gt;= 1) {
+                System.out.println(&quot;El número es POSITIVO&quot;);
+            } else {
+                if (numero &lt; 0) {
+                    System.out.println(&quot;El número es NEGATIVO&quot;);
+                }
+            }
+        }
+    }
+}</code></pre></details><h4>Ejercicio 3 · Descuento monto</h4><p>Construya un algoritmo dado el monto de la compra de un cliente, que determine lo que se debe pagar. En una tienda efectúan un descuento a los clientes dependiendo del monto de la compra. El descuento se efectúa con base en el siguiente criterio: Si el monto es menor que $500.00, no hay descuento. Si el monto está comprendido entre $500 y $1000.00, tiene un 5% de descuento. Si el monto está comprendido entre $1000 y $7000.00, tiene un descuento del 11%. Si el monto está comprendido entre $7,000 y $15,000.00, tiene un 18% de descuento. Si el monto es mayor a $15,000.00, tiene un 25% de descuento.</p><details><summary>Ver solución en Java</summary><pre><code>// Determina el descuento a partir del monto ingresado.
+package EstructuraSelectiva;
+import java.util.Scanner;
+
+public class Descuento_Monto {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double monto, descuento;
+
+        System.out.println(&quot;Ingresa el monto de la compra: &quot;);
+        monto = entrada.nextDouble();
+
+        if (monto &lt;= 500) {
+            descuento = monto;
+            System.out.println(&quot;El monto no tiene descuento&quot;);
+            System.out.println(&quot;El cliente pagará $&quot; + descuento);
+        } else {
+            if ((monto &gt; 500) &amp;&amp; (monto &lt;= 1000)) {
+                descuento = monto - (monto * 0.05);
+                System.out.println(&quot;El cliente pagará $&quot; + descuento);
+            } else {
+                if ((monto &gt; 1000) &amp;&amp; (monto &lt;= 7000)) {
+                    descuento = monto - (monto * 0.11);
+                    System.out.println(&quot;El cliente pagará $&quot; + descuento);
+                } else {
+                    if ((monto &gt; 7000) &amp;&amp; (monto &lt;= 15000)) {
+                        descuento = monto - (monto * 0.18);
+                        System.out.println(&quot;El cliente pagará $&quot; + descuento);
+                    } else {
+                        if (monto &gt; 15000) {
+                            descuento = monto - (monto * 0.25);
+                            System.out.println(&quot;El cliente pagará $&quot; +
+                            descuento);
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+}</code></pre></details><h4>Ejercicio 4 · Impuesto</h4><p>Diseñe un algoritmo que lea el costo básico de un artículo y calcule su precio total (precio total igual a precio básico más impuesto).</p><details><summary>Ver solución en Java</summary><pre><code>/*Diseñe un algoritmo que lea el costo básico de un artículo y calcule
+su precio total (precio total igual a precio básico más impuesto).*/
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Impuesto {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double precio = 0;
+        double impuesto = 0;
+
+        System.out.println(&quot;Ingresa el precio del producto:&quot;);
+        precio = entrada.nextDouble();
+
+        if (precio &lt; 20) {
+            System.out.println(&quot;El producto no paga impuestos&quot;);
+            impuesto = precio;
+        } else {
+            if (precio &gt;= 20 &amp;&amp; precio &lt;= 40) {
+                impuesto = precio * 1.30;
+            } else {
+                if (precio &gt; 40 &amp;&amp; precio &lt; 500) {
+                    impuesto = precio * 1.40;
+                } else {
+                    impuesto = precio * 1.50;
+                }
+            }
+        }
+        System.out.println(&quot;El precio del producto es: &quot; + impuesto);
+    }
+}</code></pre></details><h4>Ejercicio 5 · Alumno aceptado</h4><p>Construya un algoritmo que, dados la matrícula de un alumno, la carrera en la que está inscrito, su semestre y su promedio; determine si el mismo es apto para pertenecer a algunas de las facultades menores que tiene la universidad.</p><details><summary>Ver solución en Java</summary><pre><code>/*Construya un algoritmo que dados la matrícula de un alumno, la carrera en la que
+está inscrito, su semestre y su promedio; determine si el mismo es apto para pertenecer
+a algunas de las facultades menores que tiene la universidad.
+ */
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Alumno_Aceptado {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+
+        String matricula, carrera;
+        double cambio, promedio, semestre;
+
+        System.out.println(&quot;¿En qué carrera está inscrito?&quot;);
+        carrera = entrada.nextLine();
+
+        System.out.println(&quot;Elige alguna de las carreras: &quot;);
+        System.out.println(&quot;Economía (1)&quot;);
+        System.out.println(&quot;Computación (2)&quot;);
+        System.out.println(&quot;Administración(3)&quot;);
+        System.out.println(&quot;Contabilidad (4)&quot;);
+
+        System.out.println(&quot;¿A qué carrera te quieres cambiar? &quot;);
+        cambio = entrada.nextDouble();
+        System.out.println(&quot;Ingresa la matricula del alumno:&quot;);
+        matricula = entrada.next();
+        System.out.println(&quot;¿En qué semestre está inscrito?&quot;);
+        semestre = entrada.nextDouble();
+        System.out.println(&quot;¿Cuál es su promedio?:&quot;);
+        promedio = entrada.nextDouble();
+
+        if (cambio == 1) {
+            if (semestre &gt;= 6 &amp;&amp; promedio &gt;= 8.8) {
+                System.out.println(&quot;APROBADO&quot;);
+            } else {
+                System.out.println(&quot;NO APROBADO&quot;);
+            }
+        }
+        if (cambio == 2) {
+            if (semestre &gt; 6 &amp;&amp; promedio &gt; 8.5) {
+                System.out.println(&quot;APROBADO&quot;);
+            } else {
+                System.out.println(&quot;NO APROBADO&quot;);
+            }
+        }
+        if (cambio == 3) {
+            if (semestre &gt; 5 &amp;&amp; promedio &gt; 8.5) {
+                System.out.println(&quot;APROBADO&quot;);
+            } else {
+                System.out.println(&quot;NO APROBADO&quot;);
+            }
+        }
+        if (cambio == 4) {
+            if (semestre &gt; 5 &amp;&amp; promedio &gt; 8.5) {
+                System.out.println(&quot;APROBADO&quot;);
+            } else {
+                System.out.println(&quot;NO APROBADO&quot;);
+            }
+        }
+    }
+}</code></pre></details><h4>Ejercicio 7 · Proceso aumento sueldo grupo</h4><p>Calcule el aumento de sueldo para un grupo de empleados de una empresa, teniendo en cuenta el siguiente criterio: Si el sueldo es inferior a $1,000.00, aumento del 15% Si el sueldo es mayor o igual a $1,000.00, aumento del 12 % Imprima el sueldo nuevo del trabajador y el total de nómina de la empresa. considerando este nuevo aumento.</p><details><summary>Ver solución en Java</summary><pre><code>/* Calcule el aumento de sueldo para un grupo de empleados de una empresa teniendo
+ * en cuenta el siguiente criterio, si sueldo es inferior a 1,000 aumento del 15%,
+ * si sueldo es mayor o igual a 1000 aumento del 12%.
+ */
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Aumento_Sueldo_Grupo {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double trabajadores, sueldo, sueldoNuevo, nomina;
+
+        System.out.println(&quot;¿Cuántos trabajadores tiene el grupo?&quot;);
+        trabajadores = entrada.nextDouble();
+        System.out.println(&quot;¿Cuál es el sueldo actual?&quot;);
+        sueldo = entrada.nextDouble();
+        if (sueldo &lt; 1000) {
+            sueldoNuevo = sueldo * 1.15;
+            nomina = sueldoNuevo * trabajadores;
+            System.out.println(&quot;El nuevo sueldo del grupo de trabajadores es: $&quot;
+            + sueldoNuevo);
+            System.out.println(&quot;El total de la nómina es: &quot; + nomina);
+        } else {
+            if (sueldo &gt;= 1000) {
+                sueldoNuevo = sueldo * 1.12;
+                nomina = sueldoNuevo * trabajadores;
+                System.out.println(&quot;El nuevo sueldo del grupo de trabajadores es: $&quot;
+                + sueldoNuevo);
+                System.out.println(&quot;El total de la nómina es: $&quot; + nomina);
+            }
+        }
+    }
+}</code></pre></details></div></section>
+<section class="sec"><h3>U2 · Libro · Cap. 2 · SEGÚN (SWITCH CASE) (ejercicios 1 a 5)</h3><div class="body"><p class="sub">Fuente: libro «Introducción a la programación». Aquí van enunciado y solución en Java; en el apartado Libro tienes además el español estructurado, el PSeInt y el resultado.</p><h4>Ejercicio 1 · Funcion</h4><p>Escribir un algoritmo dado como datos: Numero, Valor y Resultado obteniendo los resultados según las siguientes funciones: Opción                                 Resultado 1                            100 * Valor 2                            100 ^ Valor 3                            100 / Valor</p><details><summary>Ver solución en Java</summary><pre><code>// Determina la operación a realizar a partir de lo ingresado por el
+// usuario.
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Funcion {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int opcion = 0;
+        int valor = 0;
+        double resultado = 0;
+        System.out.println(&quot;Ingrese la opción a ejecutar:&quot;);
+        System.out.println(&quot; (1) Multiplicar el número * 100,&quot;);
+        System.out.println(&quot; (2) Elevar como potencia el número a 100,&quot;);
+        System.out.println(&quot; (3) Dividir el valor / 100.&quot;);
+        opcion = entrada.nextInt();
+        System.out.println(&quot;Ingrese el valor a trabajar: &quot;);
+        valor = entrada.nextInt();
+
+        switch (opcion) {
+            case (1):
+                resultado = 100 * valor;
+                break;
+            case (2):
+                resultado = Math.pow(100, valor);
+                break;
+            case (3):
+                resultado = 100 / valor;
+                break;
+            default:
+                resultado = 0;
+                break;
+        }
+
+        System.out.println(&quot;El resultado de la funcion es: &quot; + resultado);
+    }
+
+}</code></pre></details><h4>Ejercicio 2 · Sueldo categoria</h4><p>Construye un algoritmo dado como datos la categoría y el sueldo de un trabajador, calcule el aumento correspondiente, teniendo en cuenta la siguiente tabla. Categoría                             Porcentaje 1                                       15% 2                                       10% 3                                       8% 4                                       7% Imprima la categoría del trabajador y su nuevo sueldo.</p><details><summary>Ver solución en Java</summary><pre><code>// Calcula el aumento de un trabajador de acuerdo con su categoría.
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+public class Sueldo_Categoria {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int categoria;
+        double sueldo, nuevoSueldo;
+
+        System.out.println(&quot;Ingrese la categoría del trabajador: &quot;);
+        categoria = entrada.nextInt();
+        System.out.println(&quot;Ingrese el sueldo del trabajador: &quot;);
+        sueldo = entrada.nextDouble();
+        switch (categoria) {
+            case 1:
+                nuevoSueldo = sueldo * 1.15;
+                break;
+            case 2:
+                nuevoSueldo = sueldo * 1.10;
+                break;
+            case 3:
+                nuevoSueldo = sueldo * 1.08;
+                break;
+            case 4:
+                nuevoSueldo = sueldo * 1.07;
+                break;
+            default:
+                nuevoSueldo = sueldo;
+                break;
+        }
+        System.out.println(&quot;La categoría del trabajador es: &quot; + categoria);
+        System.out.println(&quot;El nuevo Sueldo del trabajador es: &quot; +
+        nuevoSueldo);
+
+    }
+}</code></pre></details><h4>Ejercicio 3 · Costo llamada</h4><p>El costo de las llamadas telefónicas internacionales depende de la zona geográfica en la que se encuentra el país de destino y el número de minutos hablados, en la siguiente tabla se presenta el costo de un minuto por zona; a cada zona se le asignado una clave. Construye un algoritmo que permita calcular e imprimir el costo total de una llamada. Clave                       Zona                     Precio 12                    América Norte                   2 15                   América Central                 2.2 18                     América Sur                   4.5 19                        Europa                     3.5 23                         Asia                       6 25                        África                      6 29                        Oceanía                     5</p><details><summary>Ver solución en Java</summary><pre><code>// Calcula e imprime el costo de una llamada de acuerdo con su zona
+// geográfica
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Costo_Llamada {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double costo = 0;
+        double minutos = 0;
+        int zona;
+
+        System.out.println(&quot;Claves de las zonas geográficas:&quot;);
+        System.out.println(&quot; (12)   América Norte&quot;);
+        System.out.println(&quot; (15)   América Central&quot;);
+        System.out.println(&quot; (18)   América Sur&quot;);
+        System.out.println(&quot; (19)   Europa&quot;);
+        System.out.println(&quot; (23)   Asia&quot;);
+        System.out.println(&quot; (25)   África&quot;);
+        System.out.println(&quot; (29)   Oceanía&quot;);
+
+        System.out.println(&quot;Ingrese la clave de la zona: &quot;);
+        zona = entrada.nextInt();
+        System.out.println(&quot;Ingrese los minutos: &quot;);
+        minutos = entrada.nextDouble();
+        switch (zona) {
+            case (12):
+                costo = minutos * 2;
+                break;
+            case (15):
+                costo = minutos * 2.2;
+                break;
+            case (18):
+                costo = minutos * 4.5;
+                break;
+            case (19):
+                costo = minutos * 3.5;
+                break;
+            case (23):
+                costo = minutos * 6;
+                break;
+            case (25):
+                costo = minutos * 6;
+                break;
+            case (29):
+                costo = minutos * 5;
+                break;
+            default:
+                System.out.println(&quot;No es una clave válida&quot;);
+                costo = minutos;
+        }
+        System.out.println(&quot;El costo total de la llamada fue de: &quot; + costo);
+    }
+}</code></pre></details><h4>Ejercicio 4 · Sueldo horas extras</h4><p>Escriba el algoritmo que permita calcular lo que hay que pagarle a un trabajador teniendo en cuenta su sueldo y las horas extras trabajadas. Para el pago de horas extras se toma en cuenta la categoría del trabajador. Categoría                             Precio Hora Extra 1                                      30 2                                      38 3                                      50 4                                      70</p><details><summary>Ver solución en Java</summary><pre><code>// Calcula el aumento de un trabajador de acuerdo con su categoría.
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Sueldo_Horas_Extra {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int categoria;
+        double sueldo, nuevoSueldo, horasExtra;
+        System.out.println(&quot;Categorías&quot;);
+        System.out.println(&quot;(1) (2) (3) (4)&quot;);
+        System.out.println(&quot;Ingrese la categoría del trabajador: &quot;);
+        categoria = entrada.nextInt();
+        System.out.println(&quot;Ingrese el sueldo del trabajador: &quot;);
+        sueldo = entrada.nextDouble();
+        System.out.println(&quot;Ingrese las horas extras del trabajador: &quot;);
+        horasExtra = entrada.nextDouble();
+        switch (categoria) {
+            case 1:
+                nuevoSueldo = sueldo + (horasExtra * 30);
+                break;
+            case 2:
+                nuevoSueldo = sueldo + (horasExtra * 38);
+                break;
+            case 3:
+                nuevoSueldo = sueldo + (horasExtra * 50);
+                break;
+            case 4:
+                nuevoSueldo = sueldo + (horasExtra * 70);
+                break;
+            default:
+                System.out.println(&quot;Categoría no válida&quot;);
+                nuevoSueldo = sueldo;
+                break;
+        }
+        System.out.println(&quot;El nuevo Sueldo del trabajador es: &quot;
+        + nuevoSueldo);
+
+    }
+}</code></pre></details><h4>Ejercicio 5 · Costo enfermedad</h4><p>La siguiente tabla expresa los costos diarios según el tipo de enfermedad, construye un algoritmo que calcule e imprima el costo total que representa un paciente, considerando que, si el paciente tiene de 14 a 22 años, se le agrega al costo total a pagar un 10% sobre el costo. Enfermedad                       Costo paciente día 1                                   25 2                                   16 3                                   20 4                                   30</p><details><summary>Ver solución en Java</summary><pre><code>/*Construye un algoritmo que calcule e imprima el costo total que representa un paciente.
+ */
+package EstructuraSelectiva;
+
+import java.util.Scanner;
+
+public class Costo_Enfermedad {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        String nombre;
+        double costo = 0;
+        double costoTotal;
+        int enfermedad, edad, dias;
+
+        System.out.println(&quot;Las enfermedades son del 1,2,3 y 4&quot;);
+        System.out.println(&quot;Ingrese la enfermedad:&quot;);
+        enfermedad = entrada.nextInt();
+        System.out.println(&quot;Ingrese el nombre del paciente: &quot;);
+        nombre = entrada.next();
+        System.out.println(&quot;Ingrese la edad del paciente: &quot;);
+        edad = entrada.nextInt();
+        System.out.println(&quot;Ingrese los días internados del paciente: &quot;);
+        dias = entrada.nextInt();
+
+        switch (enfermedad) {
+            case (1):
+                costo = dias * 25;
+                break;
+            case (2):
+                costo = dias * 16;
+                break;
+            case (3):
+                costo = dias * 20;
+                break;
+            case (4):
+                costo = dias * 30;
+                break;
+            default:
+                System.out.println(&quot;Opción no válida&quot;);
+                costo = dias;
+        }
+        if (edad &gt;= 14 &amp;&amp; edad &lt;= 22) {
+            costoTotal = costo * 1.10;
+            System.out.println(&quot;El costo total por los días en el hospital es: &quot; +
+            costoTotal);
+        } else {
+            System.out.println(&quot;El costo total por los dias en el hospital es: &quot; +
+            costo);
+        }
+    }
+
+}</code></pre></details></div></section>
+<section class="sec"><h3>U2 · Libro · Cap. 3 · MIENTRAS (WHILE) (ejercicios 1 a 8)</h3><div class="body"><p class="sub">Fuente: libro «Introducción a la programación». Aquí van enunciado y solución en Java; en el apartado Libro tienes además el español estructurado, el PSeInt y el resultado.</p><h4>Ejercicio 1 · Numeros impar</h4><p>Escribir un algoritmo para imprimir los primeros 50 números impares.</p><details><summary>Ver solución en Java</summary><pre><code>// Imprime los 50 primeros números impares.
+package EstructuraRepeticion;
+
+public class Numeros_Impar {
+
+    public static void main(String[] args) {
+        int numero = 1;
+        int contador = 0;
+        while (contador &lt; 50) {
+            System.out.println(numero);
+            numero = numero + 2;
+            contador = contador +1;
+        }
+    }
+}</code></pre></details><h4>Ejercicio 2 · Viaticos viaje</h4><p>Supongamos que debemos obtener la suma de los gastos que hicimos en nuestro último viaje, pero no sabemos exactamente cuántos fueron. Construye un algoritmo para conocer cuántos gastos se realizaron.</p><details><summary>Ver solución en Java</summary><pre><code>// Construye un algoritmo para conocer cuántos gastos se realizaron.
+package EstructuraRepeticion;
+
+import java.util.Scanner;
+
+public class Viaticos_Viaje {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int gasto = 0, total = 0;
+
+        System.out.println(&quot;Ingresa el gasto: &quot;);
+        gasto = entrada.nextInt();
+
+        if (gasto == 0) {
+            System.out.println(&quot;No hubo gastos&quot;);
+        }
+        while (gasto != 0) {
+            total = total + gasto;
+            System.out.println(&quot;El total es: $&quot; + total);
+            System.out.println(&quot;¿Hay más gastos? Ingresa la cantidad&quot;);
+            gasto = entrada.nextInt();
+            if (gasto == 0) {
+                System.out.println(&quot;Ya no Hay Gastos&quot;);
+            }
+        }
+        System.out.println(&quot;El total es: $&quot; + total);
+
+    }
+
+}</code></pre></details><h4>Ejercicio 3 · Proceso cubo numeros naturales</h4><p>Escriba un algoritmo dado un grupo de números naturales positivos, calcule e imprima el cubo de estos números.</p><details><summary>Ver solución en Java</summary><pre><code>// Calcula el cubo de los números ingresados.
+package EstructuraRepeticion;
+
+import java.util.Scanner;
+public class Cubo_Numeros {
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double numero = 0;
+        double cubo = 0;
+        System.out.println(&quot;Ingrese el número natural:&quot;);
+        numero = entrada.nextDouble();
+        if ((numero &lt; 0) || (numero &gt; 9)) {
+            System.out.println(&quot;El número no es natural&quot;);
+        }
+        while ((numero &gt;= 0) &amp;&amp; (numero &lt;= 9)) {
+            cubo = Math.pow(numero, 3);
+            System.out.println(&quot;El cubo del número es: &quot; + cubo);
+            System.out.println(&quot;Ingresa otro número natural: &quot;);
+            numero = entrada.nextDouble();
+            if ((numero &lt; 0) || (numero &gt; 9)) {
+                System.out.println(&quot;El número no es natural&quot;);
+            }
+        }
+    }
+
+}</code></pre></details><h4>Ejercicio 4 · Proceso aumento sueldo grupo</h4><p>Calcule el aumento de sueldo para un grupo de empleados de una empresa teniendo en cuenta el siguiente criterio, si sueldo es inferior a 1000, aumento del 15%, si sueldo es mayor o igual a 1000, aumento del 12%. Imprima el sueldo nuevo del trabajador y el total de nómina de la empresa, considerando este nuevo aumento.</p><details><summary>Ver solución en Java</summary><pre><code>/* Calcule el aumento de sueldo para un grupo de empleados de una empresa teniendo
+ * en cuenta el siguiente criterio, si sueldo es inferior a 1,000 aumento del 15%,
+ * si sueldo es mayor o igual a 1000 aumento del 12%.
+ */
+package EstructuraRepeticion;
+
+import java.util.Scanner;
+
+public class Aumento_Sueldo_Grupo {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double trabajadores, sueldo, sueldoNuevo, nomina;
+
+        System.out.println(&quot;¿Cuántos trabajadores tiene el grupo?&quot;);
+        trabajadores = entrada.nextDouble();
+        while (trabajadores &gt; 0) {
+            System.out.println(&quot;¿Cuál es el sueldo actual?&quot;);
+            sueldo = entrada.nextDouble();
+            if (sueldo &lt; 1000) {
+                sueldoNuevo = sueldo * 1.15;
+                nomina = sueldoNuevo * trabajadores;
+                System.out.println(&quot;El nuevo sueldo del grupo de trabajadores es: $&quot;
+                + sueldoNuevo);
+                System.out.println(&quot;El total de la nómina es: &quot; +
+                nomina);
+            } else {
+                if (sueldo &gt;= 1000) {
+                    sueldoNuevo = sueldo * 1.12;
+                    nomina = sueldoNuevo * trabajadores;
+                    System.out.println(&quot;El nuevo sueldo del grupo de trabajadores es: $&quot; +
+                    sueldoNuevo);
+                    System.out.println(&quot;El total de la nómina es: $&quot; + nomina);
+                }
+            }
+            System.out.println(&quot;---&quot;);
+            System.out.println(&quot;¿Cuántos trabajadores tiene el grupo?&quot;);
+            trabajadores = entrada.nextDouble();
+        }
+    }
+
+}</code></pre></details><h4>Ejercicio 5 · Opcion Continuar</h4><p>Realiza un algoritmo que permita al usuario continuar dentro del sistema. Donde pregunte:</p><details><summary>Ver solución en Java</summary><pre><code>/*Realiza un algoritmo que permita al usuario continuar dentro del sistema. Donde pregunte:
+¿Desea continuar?»; y como respuesta: S/N
+ */
+package EstructuraRepeticion;
+
+import java.util.Scanner;
+
+public class Opcion_Continuar {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner (System.in);
+        int opcion = 0;
+
+        while (opcion != 2) {
+            System.out.println(&quot;¿Desea Continuar?&quot;);
+            System.out.println(&quot;(1) Si (2)No&quot;);
+            opcion = entrada.nextInt();
+        }
+    }
+
+}</code></pre></details><h4>Ejercicio 6 · Suma numeros</h4><p>Hacer un algoritmo para calcular la suma de los primeros cien números.</p><details><summary>Ver solución en Java</summary><pre><code>// Crear un algoritmo que me diga los números del 1 al 100.
+
+package EstructuraRepeticion;
+
+public class Suma_Numeros {
+
+    public static void main(String[] args) {
+        int numero, suma;
+        numero = 1;
+        suma = 0;
+        while (numero &lt;= 100) {
+            suma += numero;
+            numero++;
+        }
+        System.out.println(&quot;La suma de los primeros 100 números es: &quot; +
+        suma);
+    }
+}</code></pre></details><h4>Ejercicio 7 · Uno al mil</h4><p>Crear un algoritmo que me diga los números del 1 al 1000.</p><details><summary>Ver solución en Java</summary><pre><code>// Crear un algoritmo que muestre los números del 1 al 1000.
+package EstructuraRepeticion;
+
+public class Numeros_Al_Mil {
+
+    public static void main(String[] args) {
+        int numero = 1;
+        while (numero &lt;= 1000) {
+            System.out.println(numero);
+            numero++;
+        }
+    }
+
+}</code></pre></details><h4>Ejercicio 8 · Serie Numeros</h4><p>Escriba un algoritmo que obtenga la suma e imprima los términos de la siguiente serie: 2, 5, 7, 10, 12, 15, 17…1800</p><details><summary>Ver solución en Java</summary><pre><code>1 /* Suma e imprime los números de una serie siguiendo el patrón de n+2 y n+3, al igual
+que imprime la suma de todos los términos de la serie,
+ */
+package EstructuraRepeticion;
+
+public class Serie_Numeros {
+
+    public static void main(String[] args) {
+        System.out.println(&quot;A continuación se imprime una serie de n+2, n+3&quot;);
+        int serie, contador;
+        serie = 0;
+        contador = 0;
+        while (serie &lt; 1800) {
+            serie = serie + 2;
+            contador = contador + serie;
+            System.out.println(serie);
+            serie = serie + 3;
+            contador = contador + serie;
+            System.out.println(serie);
+        }
+        System.out.println(&quot;La suma de todos los términos de la serie es: &quot; +
+        contador);
+
+    }
+
+}</code></pre></details></div></section>
+<section class="sec"><h3>U2 · Libro · Cap. 3 · PARA (FOR) (ejercicios 1 a 5)</h3><div class="body"><p class="sub">Fuente: libro «Introducción a la programación». Aquí van enunciado y solución en Java; en el apartado Libro tienes además el español estructurado, el PSeInt y el resultado.</p><h4>Ejercicio 1 · Factorial numero</h4><p>Escribe un algoritmo que imprima la factorial de un número dado por el usuario.</p><details><summary>Ver solución en Java</summary><pre><code>/*Realizar un algoritmo para hallar el Factorial_Numero de cualquier número.
+ */
+package EstructuraRepeticion;
+
+import java.util.Scanner;
+
+public class Factorial_Numero {
+
+    public static void main(String[] args) {
+        int numero;
+        int resultado = 1;
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println(&quot;Ingresa el número del cual desea obtener su factorial: &quot;);
+        numero = entrada.nextInt();
+
+        for (int i = 1; i &lt;= numero; i++) {
+            resultado = i * resultado;
+        }
+        System.out.println(&quot;El factorial del número ingresado es: &quot; + resultado);
+    }
+
+}</code></pre></details><h4>Ejercicio 2 · Serie al cien</h4><p>Crea un algoritmo que imprima en pantalla los números del 1 al 100.</p><details><summary>Ver solución en Java</summary><pre><code>//Imprime en pantalla los primeros 100 números
+package EstructuraRepeticion;
+
+public class Serie_Al_Cien {
+
+    public static void main(String[] args) {
+        for (int numero = 1; numero &lt;= 100; numero++) {
+            System.out.println(numero);
+        }
+    }
+}</code></pre></details><h4>Ejercicio 3 · Tabla multiplicar</h4><p>Crea un algoritmo que calcule la tabla de multiplicar de cualquier número dado por el usuario.</p><details><summary>Ver solución en Java</summary><pre><code>/* Crear un algoritmo que calcule la tabla de multiplicar de cualquier
+ * número dado por el usuario.
+ */
+package EstructuraRepeticion;
+
+import java.util.Scanner;
+
+public class Tabla_Multiplicar {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int numero, resultado;
+
+        System.out.println(&quot;Ingresa la tabla de multiplicar a mostrar: &quot;);
+        numero = entrada.nextInt();
+
+        for (int contador = 1; contador &lt;= 10; contador++) {
+            resultado = contador * numero;
+            System.out.println(numero + &quot; X &quot; + contador + &quot; = &quot;
+            + resultado);
+        }
+    }
+
+}</code></pre></details><h4>Ejercicio 4 · Suma cien</h4><p>Escribe un algoritmo que calcule e imprima la suma de los primeros cien números.</p><details><summary>Ver solución en Java</summary><pre><code>/*Realiza un algoritmo para calcular la suma de los primeros cien números
+ */
+package EstructuraRepeticion;
+
+public class Suma_Cien {
+    public static void main(String[] args) {
+        int suma = 0;
+        for (int contador = 1; contador &lt;= 100; contador++) {
+            suma = suma + contador;
+        }
+        System.out.println(&quot;La suma de los primeros cien números es: &quot; +
+        suma);
+    }
+
+}</code></pre></details><h4>Ejercicio 5 · Tablas multiplicar</h4><p>Escribe un algoritmo que imprima en pantalla las tablas de multiplicar de los números del 1 al 9.</p><details><summary>Ver solución en Java</summary><pre><code>// Escribe un algoritmo que imprima en pantalla las tablas de multiplicar de
+// los números del 1 al 9.
+package EstructuraRepeticion;
+
+public class Tablas_Multiplicar {
+
+    public static void main(String[] args) {
+        int resultado = 1;
+
+        for (int tabla = 1; tabla &lt; 10; tabla++) {
+            for (int contador = 1; contador &lt;= 10; contador++) {
+                resultado = tabla * contador;
+                System.out.println(tabla + &quot; X &quot; + contador + &quot; = &quot; +
+                resultado);
+            }
+            //Línea divisora para el formato de la salida.
+            System.out.println(&quot;&quot;);
+        }
+    }
+
+}</code></pre></details></div></section>
+<section class="sec"><h3>U2 · Libro · Cap. 3 · PARA + SI (ejercicio 1)</h3><div class="body"><p class="sub">Fuente: libro «Introducción a la programación». Aquí van enunciado y solución en Java; en el apartado Libro tienes además el español estructurado, el PSeInt y el resultado.</p><h4>Ejercicio 1 · Media pares impares</h4><p>Realizar un algoritmo para calcular la media de los números pares e impares, sólo se ingresarán 10 números.</p><details><summary>Ver solución en Java</summary><pre><code>/* Realizar un algoritmo para calcular la media de los números pares e impares,
+ * sólo se ingresará diez números.
+ */
+package EstructuraRepeticion;
+
+import java.util.Scanner;
+
+public class Media_Pares_Impares {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int numero, sumaPar = 0, sumaImpar = 0;
+
+        for (int contador = 0; contador &lt; 10; contador++) {
+            System.out.println(&quot;Ingresa un número entero: &quot;);
+            numero = entrada.nextInt();
+
+            if (numero % 2 == 0) {
+                sumaPar += numero;
+            } else {
+                sumaImpar += numero;
+            }
+        }
+        sumaPar = sumaPar / 10;
+        sumaImpar = sumaImpar / 10;
+        System.out.println(&quot;La media de los números pares ingresados es: &quot; +
+        sumaPar);
+        System.out.println(&quot;La media de los números impares ingresados es: &quot; +
+        sumaImpar);
+
+    }
+
+}</code></pre></details></div></section>
+<section class="sec"><h3>U2 · Libro · Cap. 3 · ARREGLOS (ejercicios 1 a 7)</h3><div class="body"><p class="sub">Fuente: libro «Introducción a la programación». Aquí van enunciado y solución en Java; en el apartado Libro tienes además el español estructurado, el PSeInt y el resultado.</p><h4>Ejercicio 1 · Mes lluvias</h4><p>En el centro meteorológico de Argentina se llevan los promedios mensuales de las lluvias caídas en las principales regiones del país. Existen 3 regiones importantes denominadas norte, centro y sur. Realice un algoritmo para calcular lo siguiente: Promedio anual de la región Centro. El mes con menor lluvia en la región sur. La región con mayor lluvia.</p><details><summary>Ver solución en Java</summary><pre><code>/* Realice un algoritmo para calcular lo siguiente a partir de lo
+ * ingresado por el usuario:
+ *    Promedio anual de la región Centro.
+ *    El mes con menor lluvia en la región sur.
+ *    La región con mayor lluvia.
+ */
+package Arreglos;
+
+import java.util.Scanner;
+
+public class Mes_Lluvias {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        double sumaCentro = 0;
+        int auxMes = 0;
+        int auxMayor = 0;
+        int auxMenor = 100;
+        String region = &quot;&quot;;
+        String[] mes = {&quot;Enero&quot;, &quot;Febrero&quot;, &quot;Marzo&quot;, &quot;Abril&quot;,
+            &quot;Mayo&quot;, &quot;Junio&quot;, &quot;Julio&quot;, &quot;Agosto&quot;,
+            &quot;Septiembre&quot;, &quot;Octubre&quot;, &quot;Noviembre&quot;, &quot;Diciembre&quot;};
+        int[] norte = new int[12];
+        int[] centro = new int[12];
+        int[] sur = new int[12];
+
+        System.out.println(&quot;Los porcentajes de lluvias van del 0% al 100%.&quot;);
+        for (int i = 0; i &lt; 12; i++) {
+            System.out.println(&quot;Ingresa el porcentaje de lluvias de la zona Norte:&quot;);
+            norte[i] = entrada.nextInt();
+            if (auxMayor &lt; norte[i]) {
+                auxMayor = norte[i];
+                region = &quot;Zona Norte&quot;;
+            }
+        }
+        for (int i = 0; i &lt; 12; i++) {
+            System.out.println(&quot;Ingresa el porcentaje de lluvias de la zona Centro:&quot;);
+            centro[i] = entrada.nextInt();
+            sumaCentro = sumaCentro + centro[i];
+            if (auxMayor &lt; centro[i]) {
+                auxMayor = centro[i];
+                region = &quot;Zona Centro&quot;;
+            }
+        }
+        for (int i = 0; i &lt; 12; i++) {
+            System.out.println(&quot;Ingresa el porcentaje de lluvias de la zona Sur:&quot;);
+            sur[i] = entrada.nextInt();
+            if (auxMenor &gt; sur[i]) {
+                auxMenor = sur[i];
+                auxMes = i;
+            }
+            if (auxMayor &lt; sur[i]) {
+                auxMayor = sur[i];
+                region = &quot;Zona Sur&quot;;
+            }
+        }
+        System.out.println(&quot;Promedio anual de la región Centro: &quot; + (sumaCentro
+        / 12));
+        System.out.println(&quot;El mes con menor lluvia de la región Sur es: &quot; +
+        mes[auxMes]);
+        System.out.println(&quot;La región con más lluvia es: &quot; + region);
+    }
+
+}</code></pre></details><h4>Ejercicio 2 · Llamadas</h4><p>Realice un algoritmo para calcular lo que hay que pagar por un conjunto de llamadas telefónicas. Por cada llamada se ingresa el tipo (Internacional, Nacional, Local) y la duración en minutos. El criterio que se sigue para calcular el costo de cada llamada es el siguiente: Internacional: 3 primeros minutos $7.59, cada minuto adicional es de $3.03. Nacional: 3 Primeros minutos $1.20, cada minuto adicional $0.48 Local: Las primeras 50 llamadas no se cobran, luego cada llamada cuesta $0.60.</p><details><summary>Ver solución en Java</summary><pre><code>/* Realice un algoritmo para calcular lo que hay que pagar por un conjunto de llamadas
+telefónicas.   */
+package Arreglos;
+
+import java.util.Scanner;
+
+public class Llamadas {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int internacional, nacional, local, extra;
+        double sumaInter = 0, sumaNacio = 0, sumaLocal = 0;
+
+        System.out.println(&quot;Ingresa el número de llamadas internacionales: &quot;);
+        internacional = entrada.nextInt();
+        int[] llamadaInter = new int[internacional];
+        System.out.println(&quot;Ingresa el número de llamadas nacionales: &quot;);
+        nacional = entrada.nextInt();
+        int[] llamadaNacio = new int[nacional];
+        System.out.println(&quot;Ingresa el número de llamadas locales: &quot;);
+        local = entrada.nextInt();
+        int[] llamadaLocal = new int[local];
+
+        for (int i = 0; i &lt; internacional; i++) {
+            System.out.println(&quot;Ingresa los minutos de la llamada internacional: &quot;);
+            llamadaInter[i] = entrada.nextInt();
+            if (3 &gt;= llamadaInter[i]) {
+                sumaInter = sumaInter + 7.59;
+            } else {
+                extra = llamadaInter[i] - 3;
+                sumaInter += 7.59 + (extra * 3.03);
+            }
+        }
+        for (int j = 0; j &lt; nacional; j++) {
+            System.out.println(&quot;Ingresa los minutos de la llamada Nacional: &quot;);
+            llamadaNacio[j] = entrada.nextInt();
+            if (3 &gt;= llamadaNacio[j]) {
+                sumaNacio = sumaNacio + 1.20;
+            } else {
+                extra = llamadaNacio[j] - 3;
+                sumaNacio += 1.20 + (extra * 0.48);
+            }
+        }
+        for (int i = 0; i &lt; local; i++) {
+            System.out.println(&quot;Ingresa los minutos de la llamada Local: &quot;);
+            llamadaLocal[i] = entrada.nextInt();
+            if (50 &lt; llamadaLocal[i]) {
+                extra = llamadaLocal[i] - 50;
+                sumaLocal += (extra * 0.60);
+            }
+        }
+
+        System.out.println(&quot;Total a pagar por llamadas Internacionales: &quot; +
+        sumaInter);
+        System.out.println(&quot;Total a pagar por llamadas Nacionales: &quot; +
+        sumaNacio);
+        System.out.println(&quot;Total a pagar por llamadas Locales: &quot; + sumaLocal);
+        System.out.println(&quot;Total a pagar por todas las llamadas: &quot; + (sumaInter +
+        sumaNacio + sumaLocal));
+    }
+
+}</code></pre></details><h4>Ejercicio 3 · Sueldos</h4><p>Se tienen los sueldos de un grupo de 5 empleados de una empresa y necesitamos saber cuántos de estos empleados tienen un sueldo superior al promedio del grupo.</p><details><summary>Ver solución en Java</summary><pre><code>// Define cuantos de los 5 empleados ingresados tiene un sueldo mayor a la media.
+package Arreglos;
+
+import java.util.Scanner;
+
+public class sueldos {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int sumaSueldo = 0, sumaEmp = 0;
+        double media;
+
+        int[] empleados = new int[5];
+
+        for (int i = 0; i &lt; 5; i++) {
+            System.out.println(&quot;Ingresa el sueldo del trabajador: &quot;);
+            empleados[i] = entrada.nextInt();
+            sumaSueldo = sumaSueldo + empleados[i];
+        }
+        media = sumaSueldo / 5;
+        for (int i = 0; i &lt; 5; i++) {
+            if (empleados[i] &gt; media) {
+                sumaEmp += 1;
+            }
+        }
+
+        System.out.println(&quot;Número de trabajadores superiores al promedio: &quot;
+        + sumaEmp);
+    }
+
+}</code></pre></details><h4>Ejercicio 4 · Cereales</h4><p>En un arreglo unidimensional se ha almacenado el número total de toneladas de cereales cosechadas durante cada mes del año anterior. Construye un algoritmo que proporcione la siguiente información: El promedio anual de toneladas de cosechas Cuántos meses tuvieron una cosecha superior al promedio anual. Cuántos meses tuvieron una cosecha inferior al promedio anual.</p><details><summary>Ver solución en Java</summary><pre><code>/* Construye un algoritmo que proporcione la siguiente información:
+ * El promedio anual de toneladas de cosechas
+ * Cuántos meses tuvieron una cosecha superior al promedio anual.
+ * Cuántos meses tuvieron una cosecha inferior al promedio anual.
+ */
+package Arreglos;
+import java.util.Scanner;
+
+public class Cereales {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int sumaTonelada = 0;
+        int mayorMedia = 0;
+        int menorMedia = 0;
+        double media;
+        int[] toneladas = new int[12];
+        for (int i = 0; i &lt; 12; i++) {
+            System.out.println(&quot;Ingrese las toneladas del mes:&quot;);
+            toneladas[i] = entrada.nextInt();
+            sumaTonelada = sumaTonelada + toneladas[i];
+        }
+        media = sumaTonelada / 12;
+        for (int i = 0; i &lt; 12; i++) {
+            if (toneladas[i] &gt; media) {
+                mayorMedia = mayorMedia + 1;
+            } else {
+                menorMedia = menorMedia + 1;
+            }
+        }
+        System.out.println(&quot;Promedio de toneladas en el año: &quot; + media);
+        System.out.println(&quot;Superiores a la media: &quot; + mayorMedia);
+        System.out.println(&quot;Inferiores a la media: &quot; + menorMedia);
+    }
+}</code></pre></details><h4>Ejercicio 5 · Ventas</h4><p>Realice un algoritmo con arreglos unidimensionales para las ventas de todo un mes. La tienda desea conocer aquellas ventas de mayores a $ 1000 y aquéllas que son entre $800 y $1000 y las que son inferiores a $800.</p><details><summary>Ver solución en Java</summary><pre><code>/* Realice un algoritmo con arreglos unidimensionales para las ventas de todo un mes.
+ * La tienda desea conocer aquellas ventas de mayores a $ 1 000 y aquellas que son
+ * entre $800 y $1000 y las que son inferiores a $800.
+ */
+package Arreglos;
+
+import java.util.Scanner;
+
+public class Ventas {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int mayores = 0, entre = 0, menores = 0;
+        int cantidad;
+        System.out.println(&quot;Ingresa el total de ventas del mes:&quot;);
+        cantidad = entrada.nextInt();
+        int[] ventas = new int[cantidad];
+
+        for (int i = 0; i &lt; cantidad; i++) {
+            System.out.println(&quot;Ingresa el monto de la venta:&quot;);
+            ventas[i] = entrada.nextInt();
+
+            if (ventas[i] &lt;= 1000) {
+                if (ventas[i] &gt;= 800) {
+                    entre += 1;
+                } else {
+                    menores += 1;
+                }
+            } else {
+                mayores += 1;
+            }
+        }
+        System.out.println(&quot;Ventas mayores a $1000 :&quot; + mayores);
+        System.out.println(&quot;Ventas entre $1000 y $800: &quot; + entre);
+        System.out.println(&quot;Ventas menores a $800: &quot; + menores);
+    }
+}</code></pre></details><h4>Ejercicio 6 · Suma arreglos</h4><p>Hacer la suma de dos arreglos unidimensionales, elemento a elemento y almacenar el resultado en un tercer arreglo.</p><details><summary>Ver solución en Java</summary><pre><code>/*Hacer la suma de dos arreglos unidimensionales elemento a elemento y almacenar
+el resultado en un tercer arreglo
+ */
+package Arreglos;
+
+import java.util.Scanner;
+
+public class Suma_Arreglos {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        int tamanio;
+        System.out.println(&quot;Ingresa el número de elementos del arreglo: &quot;);
+        tamanio = entrada.nextInt();
+        int[] arreglo1 = new int[tamanio];
+        int[] arreglo2 = new int[tamanio];
+        int[] arreglo3 = new int[tamanio];
+
+        for (int i = 0; i &lt; tamanio; i++) {
+            System.out.println(&quot;Ingresa el valor del primer arreglo: &quot;);
+            arreglo1[i] = entrada.nextInt();
+            System.out.println(&quot;Ingresa el valor del segundo arreglo: &quot;);
+            arreglo2[i] = entrada.nextInt();
+            arreglo3[i] = arreglo1[i] + arreglo2[i];
+        }
+
+        for (int i = 0; i &lt; tamanio; i++) {
+            System.out.println(&quot;La suma de los valores del primer y segundo arreglo es: &quot;
+            + arreglo3[i]);
+        }
+    }
+
+}</code></pre></details><h4>Ejercicio 7 · Suma par</h4><p>Construye un arreglo unidimensional que calcule la suma de los números pares comprendidos entre 50 y 100.</p><details><summary>Ver solución en Java</summary><pre><code>/*Construye un arreglo unidimensional que calcule la suma de los números pare
+comprendidos entre 50 y 100.
+ */
+package Arreglos;
+
+public class Suma_Par {
+
+    public static void main(String[] args) {
+        int[] pares = new int[26];
+        int sumaPar = 0;
+        int contador = 0;
+
+        for (int i = 50; i &lt; 101; i++) {
+
+            if (i % 2 == 0) {
+                pares[contador] = i;
+                sumaPar += i;
+                contador++;
+                System.out.println(i);
+            }
+        }
+        System.out.println(&quot;La suma de números impares es: &quot; + sumaPar);
+    }
+
+}</code></pre></details></div></section>
+</div>
 <div class="tabpane" id="ej-U3" data-label="U3 · Funciones">
-<section class="sec"><h3>Ejercicios resueltos del profesor</h3><div class="body">
-<h4>Área y perímetro de un rectángulo (con Scanner)</h4>
-<details><summary>Ver solución</summary>
-<pre><code>import java.util.Scanner;
+<section class="sec"><h3>U3 · Profesor · Ejercicios resueltos con métodos</h3><div class="body"><h4>Ejercicio 1 · Área y perímetro de un rectángulo con métodos</h4><p>Crea dos métodos, calcularArea(base, altura) y calcularPerimetro(base, altura), que devuelvan un entero. En main pide base y altura con Scanner y muestra el área y el perímetro.</p><details><summary>Ver solución</summary><pre><code>import java.util.Scanner;
 
 public class FuncionArea {
     public static int calcularArea(int base, int altura) {
@@ -2608,10 +3616,7 @@ public class FuncionArea {
         perimetro = calcularPerimetro(base, altura);
         System.out.println("Longitud del perímetro es: " + perimetro);
     }
-}</code></pre></details>
-<h4>Mostrar el mayor de dos números</h4>
-<details><summary>Ver solución</summary>
-<pre><code>import java.util.Scanner;
+}</code></pre></details><h4>Ejercicio 2 · Mostrar el mayor de dos números</h4><p>Crea un método mostrarMayor(a, b) que muestre cuál de los dos enteros es mayor o avise si son iguales. En main pide los dos números con Scanner.</p><details><summary>Ver solución</summary><pre><code>import java.util.Scanner;
 
 public class NumeroMayor {
     public static void mostrarMayor(int a, int b) {
@@ -2632,8 +3637,8 @@ public class NumeroMayor {
         num2 = teclado.nextInt();
         mostrarMayor(num1, num2);
     }
-}</code></pre></details>
-</div></section><section class="sec"><h3>Suma con función: PSeInt vs Java</h3><div class="body">
+}</code></pre></details></div></section>
+<section class="sec"><h3>U3 · Profesor · Suma con función: PSeInt vs Java</h3><div class="body">
 <p><b>Objetivo:</b> pedir dos enteros, llamar a una función que los sume y mostrar el resultado. El programa principal lee y muestra; la función calcula.</p>
 <h4>PSeInt</h4>
 <pre><code>Funcion resultado &lt;- Sumar(a, b)
@@ -2685,27 +3690,10 @@ public class Principal {
 <tr><td><code>Escribir "La suma es: ", suma</code></td><td><code>System.out.println("La suma es: " + suma);</code></td></tr>
 </table>
 <p>Ejemplo de ejecución con 5 y 3: <code>La suma es: 8</code>.</p>
-</div></section><section class="sec"><h3>Ejercicios para practicar</h3><div class="body">
-<div class="ex">
-<ol>
-<li><code>cuadrado(int numero)</code> → devuelve el número multiplicado por sí mismo.</li>
-<li><code>mayor(int a, int b)</code> → devuelve el mayor.</li>
-<li><code>esPositivo(int numero)</code> → devuelve si es mayor que cero.</li>
-<li><code>mostrarTabla(int numero)</code> → imprime su tabla de multiplicar del 1 al 10.</li>
-<li><code>calcularMedia(double a, double b, double c)</code> → devuelve la media.</li>
-</ol>
+</div></section><section class="sec"><h3>U3 · Profesor · Ejercicios para practicar</h3><div class="body"><p class="sub">Enunciados del profesor; las soluciones son mías.</p><h4>Práctica 1 · Método cuadrado(int numero)</h4><p>Devuelve el número multiplicado por sí mismo.</p><details><summary>Mi propuesta de solución (inténtalo antes; no es oficial)</summary><pre><code>static int cuadrado(int n) { return n * n; }</code></pre></details><h4>Práctica 2 · Método mayor(int a, int b)</h4><p>Devuelve el mayor de los dos.</p><details><summary>Mi propuesta de solución (inténtalo antes; no es oficial)</summary><pre><code>static int mayor(int a, int b) { return a &gt; b ? a : b; }</code></pre></details><h4>Práctica 3 · Método esPositivo(int numero)</h4><p>Devuelve si el número es mayor que cero.</p><details><summary>Mi propuesta de solución (inténtalo antes; no es oficial)</summary><pre><code>static boolean esPositivo(int n) { return n &gt; 0; }</code></pre></details><h4>Práctica 4 · Método mostrarTabla(int numero)</h4><p>Imprime su tabla de multiplicar del 1 al 10.</p><details><summary>Mi propuesta de solución (inténtalo antes; no es oficial)</summary><pre><code>static void mostrarTabla(int n) {
+    for (int i = 1; i &lt;= 10; i++) System.out.println(n + &quot; x &quot; + i + &quot; = &quot; + n * i);
+}</code></pre></details><h4>Práctica 5 · Método calcularMedia(double a, double b, double c)</h4><p>Devuelve la media de los tres valores.</p><details><summary>Mi propuesta de solución (inténtalo antes; no es oficial)</summary><pre><code>static double calcularMedia(double a, double b, double c) { return (a + b + c) / 3; }</code></pre></details></div></section>
 </div>
-<details><summary>Ver soluciones (inténtalo antes)</summary>
-<pre><code>static int cuadrado(int n)            { return n * n; }
-static int mayor(int a, int b)        { return a &gt; b ? a : b; }
-static boolean esPositivo(int n)      { return n &gt; 0; }
-static void mostrarTabla(int n) {
-    for (int i = 1; i &lt;= 10; i++) System.out.println(n + " x " + i + " = " + n * i);
-}
-static double calcularMedia(double a, double b, double c) { return (a + b + c) / 3; }</code></pre>
-<p class="sub">Soluciones escritas por mí a partir de los enunciados del profesor; no son material oficial.</p>
-</details>
-</div></section></div>
 <h2 class="tema" id="libro">Libro · Introducción a la programación</h2>
 <p class="sub">Problemario de algoritmos paso a paso, pruebas de escritorio y codificación en Java. J. Pino Herrera, P. Martínez Moreno, J. A. Vergara Camacho y G. Contreras Vega (Universidad Veracruzana, 2020). Cada ejercicio trae enunciado, español estructurado, PSeInt, Java y el resultado de la ejecución.</p>
 <section class="sec"><h3>Índice del libro</h3><div class="body"><pre><code>CAPÍTULO 1. Estructura lineal (p. 17)
