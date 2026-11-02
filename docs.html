@@ -64,6 +64,7 @@ body.admin .item button{display:inline-block}
 <div class="hero"><div class="wrap"><a class="back" id="bk" href="index.html">← Todas las asignaturas</a><h1 id="ti">Mis documentos</h1><p id="su">Teoría y apuntes que añades tú mismo</p></div></div>
 <div class="wrap">
 <div class="bar"><select id="fs" aria-label="Asignatura"></select><button id="adm" type="button">Modo administrador</button></div>
+<form class="adm" id="lg" style="display:none" onsubmit="return false"><div class="row"><input type="password" id="pw" placeholder="Contraseña de administrador" autocomplete="current-password"><button class="p" id="go" type="submit">Entrar</button></div><div id="lgm" style="color:var(--suave)"></div></form>
 <div class="adm" id="panel">
  <div class="row"><select id="as" aria-label="Asignatura del documento"></select><input type="text" id="au" list="uds" placeholder="Unidad (p. ej. Unidad 2)"><datalist id="uds"><option value="Unidad 1"><option value="Unidad 1.2 Internet"><option value="Unidad 1.3 Marcas y XML"><option value="Unidad 2"><option value="Unidad 3"><option value="Preparación exámenes"></datalist></div>
  <div class="row"><input type="file" id="af" accept=".docx,.md,.markdown,.txt,.html,.htm" multiple><button class="p" id="ad" type="button">Añadir documento(s)</button></div>
@@ -110,7 +111,7 @@ async function render(){
  $("#bk").textContent=cur?"← "+sj(cur).name:"← Todas las asignaturas";$("#bk").href=cur?cur+"/index.html":"index.html";
  const M=L.filter(x=>!cur||x.s===cur).sort((a,b)=>(a.s+a.u+a.title).localeCompare(b.s+b.u+b.title));
  const box=$("#lista");box.textContent="";
- if(!M.length){const p=document.createElement("p");p.textContent="Aún no hay documentos. Pulsa «Modo administrador» para añadir el primero.";p.style.color="var(--suave)";box.append(p)}
+ if(!M.length){const p=document.createElement("p");p.textContent="Aún no hay documentos. Si eres el administrador, pulsa «Modo administrador» para añadir el primero.";p.style.color="var(--suave)";box.append(p)}
  let last="";
  for(const d of M){const k=(sj(d.s)||{}).name+" · "+d.u;
   if(k!==last){const h=document.createElement("h3");h.textContent=k;box.append(h);last=k}
@@ -125,7 +126,11 @@ async function render(){
  $("#fs").value=cur;$("#as").value=cur||"programacion";
  $("#fs").onchange=()=>{cur=$("#fs").value;history.replaceState(null,"","docs.html"+(cur?"?s="+cur:""));render()};
  if(sessionStorage.getItem("adm")==="1")document.body.classList.add("admin");
- $("#adm").onclick=()=>{const on=document.body.classList.toggle("admin");sessionStorage.setItem("adm",on?"1":"0")};
+ const SALT="c08edb87b3a2d619beef48c0f3e46043",HASH="fcee7fbf0b3abcc4a60821369d2962630b7f57a0364b0e9a9fc4f57e6382f153";
+ const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+ async function okpw(p){try{const k=await crypto.subtle.importKey("raw",new TextEncoder().encode(p),"PBKDF2",false,["deriveBits"]);const salt=new Uint8Array(SALT.match(/../g).map(h=>parseInt(h,16)));return hex(await crypto.subtle.deriveBits({name:"PBKDF2",salt,iterations:200000,hash:"SHA-256"},k,256))===HASH}catch(e){return false}}
+ $("#adm").onclick=()=>{if(document.body.classList.contains("admin")){document.body.classList.remove("admin");sessionStorage.setItem("adm","0");return}const f=$("#lg");f.style.display=f.style.display==="none"?"block":"none";$("#pw").focus()};
+ $("#lg").onsubmit=async e=>{e.preventDefault();if(await okpw($("#pw").value)){document.body.classList.add("admin");sessionStorage.setItem("adm","1");$("#lg").style.display="none";$("#pw").value="";$("#lgm").textContent=""}else{$("#lgm").textContent="Contraseña incorrecta."}};
  $("#ad").onclick=async()=>{const fs=[...$("#af").files];if(!fs.length){$("#msg").textContent="Elige primero algún archivo.";return}
   const u=$("#au").value.trim()||"Sin unidad";let n=0;
   for(const f of fs){try{const html=await conv(f);await put({id:"d"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),s:$("#as").value,u,title:f.name.replace(/\.[^.]+$/,""),html,ts:Date.now()});n++}catch(e){$("#msg").textContent="No se pudo leer "+f.name+": "+e.message}}
