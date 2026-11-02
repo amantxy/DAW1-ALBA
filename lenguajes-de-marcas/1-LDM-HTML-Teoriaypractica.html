@@ -10,7 +10,7 @@
 /* Layout: cabecera con cuenta atras, pestañas fijas y un panel por herramienta */
 :root{
   --bg:#F3F5F7; --surface:#FFFFFF; --ink:#14202B; --muted:#5A6B79; --line:#D5DCE2;
-  --accent:#0B6B6B; --accent-ink:#FFFFFF; --accent-soft:#DDEFEF;
+  --accent:#C2410C; --accent-ink:#FFFFFF; --accent-soft:#FDE8DA;
   --good:#1F7A4A; --good-soft:#DDF1E5; --bad:#B3261E; --bad-soft:#F8DEDB; --warn:#9A5B00; --warn-soft:#FBEBCB;
   --code-bg:#EEF1F4; --code-ink:#7A1F2B;
   --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
@@ -19,14 +19,15 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0E1519; --surface:#16212A; --ink:#E6EDF2; --muted:#93A4B2; --line:#2A3945;
-  --accent:#4FC3C3; --accent-ink:#06191A; --accent-soft:#143335;
+  --accent:#FF9A55; --accent-ink:#1F0E04; --accent-soft:#3A2114;
   --good:#5BD08C; --good-soft:#143826; --bad:#FF8A80; --bad-soft:#3E1C1A; --warn:#F2B35A; --warn-soft:#3A2B0F;
   --code-bg:#0B1115; --code-ink:#F2A7B0; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0E1519; --surface:#16212A; --ink:#E6EDF2; --muted:#93A4B2; --line:#2A3945;
-  --accent:#4FC3C3; --accent-ink:#06191A; --accent-soft:#143335;
+  --accent:#FF9A55; --accent-ink:#1F0E04; --accent-soft:#3A2114;
   --good:#5BD08C; --good-soft:#143826; --bad:#FF8A80; --bad-soft:#3E1C1A; --warn:#F2B35A; --warn-soft:#3A2B0F;
   --code-bg:#0B1115; --code-ink:#F2A7B0; color-scheme:dark}
+.hubback{display:inline-block;margin:10px 0 0;color:var(--accent);font:600 14px var(--f-body);text-decoration:none;padding:8px 0}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
 .wrap{max-width:920px;margin:0 auto}
@@ -116,6 +117,7 @@ input.gap.ko{background:var(--bad-soft);border-color:var(--bad)}
 </style>
 <body>
 <div class="wrap">
+<a href="index.html" class="hubback">← Lenguajes de Marcas · carpetas</a>
 <header class="top">
   <div>
     <h1>Examen de Lenguajes de Marcas</h1>
@@ -1015,7 +1017,7 @@ function refRender(){const q=$("#refQ").value.trim().toLowerCase();const b=$("#r
  if(!b.children.length)b.append(el("tr",{},el("td",{colspan:"2",class:"muted",text:"Sin resultados."})))}
 $("#refQ").oninput=refRender;refRender();
 
-showTab(store.get("tab","plan"));
+{const h=(location.hash||"").slice(1);showTab($("#tabs button[data-tab='"+h+"']")?h:store.get("tab","plan"))}window.addEventListener("hashchange",()=>{const h=(location.hash||"").slice(1);if($("#tabs button[data-tab='"+h+"']"))showTab(h)});
 </script>
 
 </body>

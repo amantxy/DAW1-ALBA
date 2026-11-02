@@ -74,6 +74,7 @@ nav a.act{color:var(--acc);border-color:var(--acc);font-weight:600}
 </head>
 <body>
 <header>
+<a href="index.html" style="color:inherit;font-weight:600;text-decoration:none;white-space:nowrap">← Carpetas</a>
 <h1>Programación · DAW 1</h1>
 <input id="q" type="search" placeholder="Buscar (p. ej. switch, return, int…)">
 <button id="mn" aria-label="Menú">☰ Menú</button>
@@ -8719,7 +8720,7 @@ nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)retur
       h2=temaOf(t);show(h2);show(t);
       nextUntil(t,function(n){return n.tagName==="H2"||n.classList.contains("chap")}).forEach(function(n){show(n);if(n.tagName==="SECTION")n.classList.add("closed")});
     } else if(t.classList.contains("tabpane")){
-      h2=temaOf(t);show(h2);show($("#etabs"));show(t);
+      showPane(t.id.slice(3));h2=temaOf(t);show(h2);show($("#etabs"));show(t);
       $$("section.sec",t).forEach(function(s){show(s);s.classList.add("closed")});
     } else {
       var pane=t.closest(".tabpane");
@@ -8739,7 +8740,7 @@ nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)retur
     if(s){var d=s.parentNode;d.open=true}
   },true);
   $("#q").addEventListener("input",function(e){if(!e.target.value.trim()){var hs=(location.hash||"#ut1").slice(1);view(document.getElementById(hs)?hs:"ut1")}});
-  var first=(location.hash||"").slice(1);view(document.getElementById(first)?first:"ut1");
+  var first=(location.hash||"").slice(1);view(document.getElementById(first)?first:"ut1");window.addEventListener("hashchange",function(){var h=(location.hash||"").slice(1);if(document.getElementById(h))view(h)});
 })();
 // toggle all
 var allOpen=true;
