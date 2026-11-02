@@ -40,7 +40,7 @@ div.t{opacity:.5;border-style:dashed}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
 .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
-button,select,input[type=text]{font:inherit;min-height:44px;border-radius:10px;border:1px solid var(--linea);background:var(--hoja);color:var(--tinta);padding:8px 14px}
+button,select,input[type=text],input[type=password]{font:inherit;min-height:44px;border-radius:10px;border:1px solid var(--linea);background:var(--hoja);color:var(--tinta);padding:8px 14px}
 button{cursor:pointer;font-weight:600}
 button.p{background:var(--c);color:#fff;border-color:var(--c)}
 @media (prefers-color-scheme:dark){button.p{color:#0b1220}}
@@ -50,93 +50,146 @@ body.admin .adm{display:block}
 .adm .row>*{flex:1 1 180px}
 .item{display:flex;gap:10px;align-items:center;background:var(--hoja);border:1px solid var(--linea);border-left:6px solid var(--c);border-radius:10px;padding:10px 14px;margin:8px 0}
 .item a{flex:1;color:inherit;text-decoration:none;min-width:0}
-.item b{display:block}.item span{color:var(--suave);font-size:.85rem}
+.item b{display:block;overflow-wrap:anywhere}.item span{color:var(--suave);font-size:.85rem}
 .item button{min-height:40px;display:none}
 body.admin .item button{display:inline-block}
+.tag{display:inline-block;font:700 .7rem ui-monospace,monospace;background:var(--cs);color:var(--c);border-radius:6px;padding:1px 6px;margin-right:6px}
 #lector{background:var(--hoja);border:1px solid var(--linea);border-radius:12px;padding:20px max(16px,3vw);overflow-wrap:anywhere;line-height:1.65}
 #lector h1,#lector h2,#lector h3{color:var(--c)}
-#lector img{max-width:100%;height:auto}
+#lector img,#lector canvas{max-width:100%;height:auto;display:block;margin:0 auto 12px}
 #lector table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
 #lector td,#lector th{border:1px solid var(--linea);padding:6px 10px}
 #lector pre,#lector code{background:var(--cs);border-radius:6px;padding:2px 6px;white-space:pre-wrap}
+#tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+#tools a{display:inline-block;padding:10px 14px;border:1px solid var(--linea);border-radius:10px;color:inherit;text-decoration:none;font-weight:600;background:var(--hoja)}
+body.reading .bar,body.reading .adm{display:none!important}
 #msg{color:var(--suave);margin:8px 0}
+dialog{border:1px solid var(--linea);border-radius:14px;background:var(--hoja);color:var(--tinta);padding:20px;width:min(92vw,380px)}
+dialog::backdrop{background:rgb(0 0 0/.5)}
+dialog input{width:100%;margin:6px 0}
+dialog .row{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
+#pe{color:#c0392b;min-height:1.2em;font-size:.9rem}
 </style></head><body>
-<div class="hero"><div class="wrap"><a class="back" id="bk" href="index.html">← Todas las asignaturas</a><h1 id="ti">Mis documentos</h1><p id="su">Teoría y apuntes que añades tú mismo</p></div></div>
+<div class="hero"><div class="wrap"><a class="back" id="bk" href="index.html">← Todas las asignaturas</a><h1 id="ti">Mis documentos</h1><p id="su">Teoría y apuntes: PDF, Word, imágenes, Markdown y HTML</p></div></div>
 <div class="wrap">
 <div class="bar"><select id="fs" aria-label="Asignatura"></select><button id="adm" type="button">Modo administrador</button></div>
-<form class="adm" id="lg" style="display:none" onsubmit="return false"><div class="row"><input type="password" id="pw" placeholder="Contraseña de administrador" autocomplete="current-password"><button class="p" id="go" type="submit">Entrar</button></div><div id="lgm" style="color:var(--suave)"></div></form>
 <div class="adm" id="panel">
  <div class="row"><select id="as" aria-label="Asignatura del documento"></select><input type="text" id="au" list="uds" placeholder="Unidad (p. ej. Unidad 2)"><datalist id="uds"><option value="Unidad 1"><option value="Unidad 1.2 Internet"><option value="Unidad 1.3 Marcas y XML"><option value="Unidad 2"><option value="Unidad 3"><option value="Preparación exámenes"></datalist></div>
- <div class="row"><input type="file" id="af" accept=".docx,.md,.markdown,.txt,.html,.htm" multiple><button class="p" id="ad" type="button">Añadir documento(s)</button></div>
- <div class="row"><button id="ex" type="button">Descargar copia de seguridad</button><button id="im" type="button">Restaurar copia</button><input type="file" id="imf" accept=".json" hidden></div>
- <div id="msg">Formatos: Word (.docx), Markdown, texto y HTML. Los documentos se guardan solo en este navegador y dispositivo; usa la copia de seguridad para llevarlos a otro.</div>
+ <div class="row"><input type="file" id="af" accept=".pdf,.docx,.png,.jpg,.jpeg,.gif,.webp,.md,.markdown,.txt,.html,.htm" multiple><button class="p" id="ad" type="button">Añadir documento(s)</button></div>
+ <div class="row"><button id="ex" type="button">Copia de seguridad</button><button id="im" type="button">Restaurar copia</button><button id="cp" type="button">Cambiar contraseña</button><button id="lk" type="button">Salir del modo administrador</button><input type="file" id="imf" accept=".json" hidden></div>
+ <div id="msg">Formatos: PDF, Word (.docx), PNG, JPG, GIF, WEBP, Markdown, texto y HTML. Se guardan solo en este navegador; usa la copia de seguridad para llevarlos a otro dispositivo.</div>
 </div>
 <div id="lista"></div>
+<div id="tools" hidden></div>
 <article id="lector" hidden></article>
 </div>
+<dialog id="pw"><form method="dialog" id="pf"><b id="pt">Contraseña</b><input type="password" id="p1" autocomplete="current-password" placeholder="Contraseña"><input type="password" id="p2" autocomplete="new-password" placeholder="Repite la contraseña" hidden><div id="pe"></div><div class="row"><button type="button" id="pc">Cancelar</button><button class="p" type="submit">Entrar</button></div></form></dialog>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 const SJ=[{"slug": "programacion", "name": "Programaci\u00f3n", "c": "#2563eb", "cd": "#6ea8ff"}, {"slug": "lenguajes-de-marcas", "name": "Lenguajes de Marcas", "c": "#ea580c", "cd": "#ff9a55"}, {"slug": "bases-de-datos", "name": "Bases de Datos", "c": "#059669", "cd": "#34d399"}, {"slug": "sistemas-informaticos", "name": "Sistemas Inform\u00e1ticos", "c": "#7c3aed", "cd": "#b794ff"}, {"slug": "transformacion", "name": "Transformaci\u00f3n", "c": "#db2777", "cd": "#ff7ab8"}, {"slug": "entornos-de-desarrollo", "name": "Entornos de Desarrollo", "c": "#0891b2", "cd": "#4fd1e8"}, {"slug": "ingles-profesional", "name": "Ingl\u00e9s Profesional", "c": "#ca8a04", "cd": "#f5c542"}];
 const $=s=>document.querySelector(s);
 const dark=matchMedia("(prefers-color-scheme: dark)").matches;
-let DB;
+let DB,urls=[];
 function open_(){return new Promise((ok,ko)=>{const r=indexedDB.open("daw1-docs",1);r.onupgradeneeded=()=>r.result.createObjectStore("d",{keyPath:"id"});r.onsuccess=()=>{DB=r.result;ok()};r.onerror=()=>ko(r.error)})}
 const tx=m=>DB.transaction("d",m).objectStore("d");
 const all=()=>new Promise(ok=>{const r=tx("readonly").getAll();r.onsuccess=()=>ok(r.result||[])});
-const put=d=>new Promise(ok=>{tx("readwrite").put(d).onsuccess=ok});
+const put=d=>new Promise((ok,ko)=>{const r=tx("readwrite").put(d);r.onsuccess=ok;r.onerror=()=>ko(r.error)});
 const del=id=>new Promise(ok=>{tx("readwrite").delete(id).onsuccess=ok});
+/* ---- contraseña (se guarda solo su hash, en este navegador) ---- */
+const enc=new TextEncoder();
+const b64=u=>btoa(String.fromCharCode(...new Uint8Array(u)));
+const unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function hash(pw,salt){const k=await crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveBits"]);return b64(await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt,iterations:200000},k,256))}
+function getH(){try{return JSON.parse(localStorage.getItem("adm-h"))}catch(e){return null}}
+function ask(mode){return new Promise(res=>{const d=$("#pw");const nw=mode!=="enter";
+ $("#pt").textContent=mode==="enter"?"Contraseña de administrador":mode==="create"?"Crea tu contraseña de administrador":"Nueva contraseña";
+ $("#p2").hidden=!nw;$("#p1").autocomplete=nw?"new-password":"current-password";$("#p1").value=$("#p2").value="";$("#pe").textContent="";
+ $("#pf button.p").textContent=nw?"Guardar":"Entrar";
+ const done=v=>{d.close();$("#pf").onsubmit=null;$("#pc").onclick=null;res(v)};
+ $("#pc").onclick=()=>done(null);
+ $("#pf").onsubmit=async e=>{e.preventDefault();const a=$("#p1").value;
+  if(nw){if(a.length<6){$("#pe").textContent="Mínimo 6 caracteres.";d.showModal();return}if(a!==$("#p2").value){$("#pe").textContent="No coinciden.";d.showModal();return}
+   const salt=crypto.getRandomValues(new Uint8Array(16));localStorage.setItem("adm-h",JSON.stringify({s:b64(salt),h:await hash(a,salt)}));return done(true)}
+  const h=getH();if(h&&await hash(a,unb64(h.s))===h.h)return done(true);
+  await new Promise(r=>setTimeout(r,1000));$("#pe").textContent="Contraseña incorrecta.";d.showModal()};
+ d.showModal();setTimeout(()=>$("#p1").focus(),50)})}
+function setAdmin(on){document.body.classList.toggle("admin",on);sessionStorage.setItem("adm",on?"1":"0")}
+async function unlock(){if(!window.crypto||!crypto.subtle){alert("Este navegador no permite crear contraseñas aquí (hace falta HTTPS).");return false}
+ return await ask(getH()?"enter":"create")}
+/* ---- conversión ---- */
 function clean(h){const d=new DOMParser().parseFromString(h,"text/html");d.querySelectorAll("script,iframe,object,embed,link,meta,style,form,base").forEach(n=>n.remove());d.querySelectorAll("*").forEach(n=>{[...n.attributes].forEach(a=>{if(/^on/i.test(a.name)||/^\s*javascript:/i.test(a.value))n.removeAttribute(a.name)})});return d.body.innerHTML}
 const esc=t=>t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 async function conv(f){const n=f.name.toLowerCase();
- if(n.endsWith(".docx")){if(typeof mammoth==="undefined")throw new Error("no se pudo cargar el lector de Word (¿sin conexión?)")}
- if(n.endsWith(".docx"))return clean((await mammoth.convertToHtml({arrayBuffer:await f.arrayBuffer()})).value);
+ if(n.endsWith(".pdf"))return{kind:"pdf",blob:f};
+ if(/\.(png|jpe?g|gif|webp)$/.test(n))return{kind:"img",blob:f};
+ if(n.endsWith(".docx")){if(typeof mammoth==="undefined")throw new Error("no se pudo cargar el lector de Word (¿sin conexión?)");return{kind:"html",blob:f,html:clean((await mammoth.convertToHtml({arrayBuffer:await f.arrayBuffer()})).value)}}
  const t=await f.text();
- if(/\.(md|markdown)$/.test(n)){if(typeof marked==="undefined")throw new Error("no se pudo cargar el lector de Markdown (¿sin conexión?)");return clean(marked.parse(t))}
- if(false)return clean(marked.parse(t));
- if(/\.html?$/.test(n))return clean(t);
- return "<pre>"+esc(t)+"</pre>"}
-const sj=slug=>SJ.find(s=>s.slug===slug);
-function color(slug){const s=sj(slug);if(s)document.documentElement.style.setProperty("--c",dark?s.cd:s.c)}
+ if(/\.(md|markdown)$/.test(n)){if(typeof marked==="undefined")throw new Error("no se pudo cargar el lector de Markdown (¿sin conexión?)");return{kind:"html",html:clean(marked.parse(t))}}
+ if(/\.html?$/.test(n))return{kind:"html",html:clean(t)};
+ return{kind:"html",html:"<pre>"+esc(t)+"</pre>"}}
+const sj=slug=>SJ.find(s=>s.slug===slug)||SJ[0];
+function color(slug){if(slug)document.documentElement.style.setProperty("--c",dark?sj(slug).cd:sj(slug).c)}
 const q=new URLSearchParams(location.search);
 let cur=q.get("s")||"";
+const TAG={pdf:"PDF",img:"IMG",html:"DOC"};
+async function showPdf(box,blob){
+ if(typeof pdfjsLib==="undefined"){const u=URL.createObjectURL(blob);urls.push(u);box.innerHTML='<p>No se pudo cargar el visor de PDF. <a href="'+u+'" target="_blank" rel="noopener">Abrir el PDF</a></p>';return}
+ pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+ try{const pdf=await pdfjsLib.getDocument({data:await blob.arrayBuffer()}).promise;
+  const w=Math.max(280,box.clientWidth-8)*Math.min(devicePixelRatio||1,2);
+  for(let i=1;i<=pdf.numPages;i++){const pg=await pdf.getPage(i);const v0=pg.getViewport({scale:1});const vp=pg.getViewport({scale:w/v0.width});
+   const c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;box.append(c);await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise}}
+ catch(e){box.append("No se pudo mostrar el PDF: "+e.message)}}
 async function render(){
+ urls.forEach(URL.revokeObjectURL);urls=[];
  const id=location.hash.slice(1);const L=await all();
- $("#lista").hidden=!!id;$("#lector").hidden=!id;
+ document.body.classList.toggle("reading",!!id);$("#lista").hidden=!!id;$("#lector").hidden=!id;$("#tools").hidden=!id;
  if(id){const d=L.find(x=>x.id===id);color(d?d.s:cur);
-  $("#ti").textContent=d?d.title:"Documento no encontrado";$("#su").textContent=d?(sj(d.s)||{}).name+" · "+d.u:"";
+  $("#ti").textContent=d?d.title:"Documento no encontrado";$("#su").textContent=d?sj(d.s).name+" · "+d.u:"";
   $("#bk").textContent="← Mis documentos";$("#bk").href="docs.html"+(cur?"?s="+cur:"");
-  $("#lector").innerHTML=d?d.html:"<p>No existe en este navegador.</p>";return}
+  const lec=$("#lector"),tl=$("#tools");lec.textContent="";tl.textContent="";
+  if(!d){lec.textContent="No existe en este navegador.";return}
+  if(d.blob){const u=URL.createObjectURL(d.blob);urls.push(u);const a=document.createElement("a");a.href=u;a.download=d.name||d.title;a.textContent="Descargar original";tl.append(a);
+   if(d.kind!=="html"){const b=document.createElement("a");b.href=u;b.target="_blank";b.rel="noopener";b.textContent="Abrir en pestaña nueva";tl.append(b)}}
+  else tl.hidden=true;
+  if(d.kind==="img"){const i=new Image();i.alt=d.title;i.src=urls[0];lec.append(i)}
+  else if(d.kind==="pdf"){await showPdf(lec,d.blob)}
+  else lec.innerHTML=d.html;
+  return}
  color(cur);$("#ti").textContent=cur?sj(cur).name+" · mis documentos":"Mis documentos";
  $("#bk").textContent=cur?"← "+sj(cur).name:"← Todas las asignaturas";$("#bk").href=cur?cur+"/index.html":"index.html";
+ $("#su").textContent="Teoría y apuntes: PDF, Word, imágenes, Markdown y HTML";
  const M=L.filter(x=>!cur||x.s===cur).sort((a,b)=>(a.s+a.u+a.title).localeCompare(b.s+b.u+b.title));
  const box=$("#lista");box.textContent="";
- if(!M.length){const p=document.createElement("p");p.textContent="Aún no hay documentos. Si eres el administrador, pulsa «Modo administrador» para añadir el primero.";p.style.color="var(--suave)";box.append(p)}
+ if(!M.length){const p=document.createElement("p");p.textContent="Aún no hay documentos. Pulsa «Modo administrador» para añadir el primero.";p.style.color="var(--suave)";box.append(p)}
  let last="";
- for(const d of M){const k=(sj(d.s)||{}).name+" · "+d.u;
+ for(const d of M){const k=sj(d.s).name+" · "+d.u;
   if(k!==last){const h=document.createElement("h3");h.textContent=k;box.append(h);last=k}
   const r=document.createElement("div");r.className="item";r.style.setProperty("--c",dark?sj(d.s).cd:sj(d.s).c);
   const a=document.createElement("a");a.href="docs.html"+(cur?"?s="+cur:"")+"#"+d.id;
-  const b=document.createElement("b");b.textContent=d.title;const sp=document.createElement("span");sp.textContent=new Date(d.ts).toLocaleDateString("es-ES");a.append(b,sp);
+  const b=document.createElement("b");const tg=document.createElement("i");tg.className="tag";tg.textContent=TAG[d.kind]||"DOC";tg.style.fontStyle="normal";b.append(tg,d.title);
+  const sp=document.createElement("span");sp.textContent=new Date(d.ts).toLocaleDateString("es-ES");a.append(b,sp);
   const x=document.createElement("button");x.textContent="Borrar";x.onclick=async()=>{if(confirm("¿Borrar «"+d.title+"»?")){await del(d.id);render()}};
   r.append(a,x);box.append(r)}
 }
+const blobToData=b=>new Promise(ok=>{const r=new FileReader();r.onload=()=>ok(r.result);r.readAsDataURL(b)});
 (async()=>{await open_();
- for(const sel of ["#fs","#as"]){const e=$(sel);if(sel==="#fs"){e.add(new Option("Todas las asignaturas",""))}SJ.forEach(s=>e.add(new Option(s.name,s.slug)))}
+ for(const sel of ["#fs","#as"]){const e=$(sel);if(sel==="#fs")e.add(new Option("Todas las asignaturas",""));SJ.forEach(s=>e.add(new Option(s.name,s.slug)))}
  $("#fs").value=cur;$("#as").value=cur||"programacion";
  $("#fs").onchange=()=>{cur=$("#fs").value;history.replaceState(null,"","docs.html"+(cur?"?s="+cur:""));render()};
- if(sessionStorage.getItem("adm")==="1")document.body.classList.add("admin");
- const SALT="c08edb87b3a2d619beef48c0f3e46043",HASH="fcee7fbf0b3abcc4a60821369d2962630b7f57a0364b0e9a9fc4f57e6382f153";
- const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
- async function okpw(p){try{const k=await crypto.subtle.importKey("raw",new TextEncoder().encode(p),"PBKDF2",false,["deriveBits"]);const salt=new Uint8Array(SALT.match(/../g).map(h=>parseInt(h,16)));return hex(await crypto.subtle.deriveBits({name:"PBKDF2",salt,iterations:200000,hash:"SHA-256"},k,256))===HASH}catch(e){return false}}
- $("#adm").onclick=()=>{if(document.body.classList.contains("admin")){document.body.classList.remove("admin");sessionStorage.setItem("adm","0");return}const f=$("#lg");f.style.display=f.style.display==="none"?"block":"none";$("#pw").focus()};
- $("#lg").onsubmit=async e=>{e.preventDefault();if(await okpw($("#pw").value)){document.body.classList.add("admin");sessionStorage.setItem("adm","1");$("#lg").style.display="none";$("#pw").value="";$("#lgm").textContent=""}else{$("#lgm").textContent="Contraseña incorrecta."}};
+ if(sessionStorage.getItem("adm")==="1"&&getH())setAdmin(true);
+ $("#adm").onclick=async()=>{if(document.body.classList.contains("admin"))return setAdmin(false);if(await unlock())setAdmin(true)};
+ $("#lk").onclick=()=>setAdmin(false);
+ $("#cp").onclick=async()=>{if(await ask("change"))$("#msg").textContent="Contraseña cambiada."};
  $("#ad").onclick=async()=>{const fs=[...$("#af").files];if(!fs.length){$("#msg").textContent="Elige primero algún archivo.";return}
   const u=$("#au").value.trim()||"Sin unidad";let n=0;
-  for(const f of fs){try{const html=await conv(f);await put({id:"d"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),s:$("#as").value,u,title:f.name.replace(/\.[^.]+$/,""),html,ts:Date.now()});n++}catch(e){$("#msg").textContent="No se pudo leer "+f.name+": "+e.message}}
-  $("#af").value="";$("#msg").textContent=n+" documento(s) añadido(s).";render()};
- $("#ex").onclick=async()=>{const b=new Blob([JSON.stringify(await all())],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="daw1-documentos.json";a.click()};
+  for(const f of fs){try{const c=await conv(f);await put(Object.assign({id:"d"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),s:$("#as").value,u,title:f.name.replace(/\.[^.]+$/,""),name:f.name,ts:Date.now()},c));n++}catch(e){$("#msg").textContent="No se pudo añadir "+f.name+": "+e.message}}
+  $("#af").value="";if(n)$("#msg").textContent=n+" documento(s) añadido(s).";render()};
+ $("#ex").onclick=async()=>{const L=await all();for(const d of L)if(d.blob){d.data=await blobToData(d.blob);delete d.blob}
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(L)],{type:"application/json"}));a.download="daw1-documentos.json";a.click()};
  $("#im").onclick=()=>$("#imf").click();
- $("#imf").onchange=async e=>{try{const L=JSON.parse(await e.target.files[0].text());for(const d of L)if(d.id&&d.html)await put(d);$("#msg").textContent=L.length+" documento(s) restaurado(s).";render()}catch(x){$("#msg").textContent="Copia no válida."}};
+ $("#imf").onchange=async e=>{try{const L=JSON.parse(await e.target.files[0].text());for(const d of L){if(!d.id)continue;if(d.data){d.blob=await (await fetch(d.data)).blob();delete d.data}await put(d)}$("#msg").textContent=L.length+" documento(s) restaurado(s).";render()}catch(x){$("#msg").textContent="Copia no válida."}};
  addEventListener("hashchange",render);render()})();
 </script></body></html>
