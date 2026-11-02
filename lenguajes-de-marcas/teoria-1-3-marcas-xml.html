@@ -1,0 +1,188 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unidad 1.3 · Lenguajes de marcas y XML</title><style>
+:root{--bg:#f6f3ef;--hoja:#fff;--tinta:#1d1812;--suave:#6a5d50;--linea:#e6dccf;--c:#c2410c;--cs:#fdeee3}
+@media (prefers-color-scheme:dark){:root{--bg:#15110d;--hoja:#1e1812;--tinta:#efe6db;--suave:#b3a493;--linea:#3a2e22;--c:#ff9a55;--cs:#3a2114;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tinta);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.hero{background:var(--c);color:#fff;padding:22px 0 20px}@media (prefers-color-scheme:dark){.hero{color:#1f0e04}}
+.wrap{max-width:860px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 60px max(16px,env(safe-area-inset-left))}
+.hero .wrap{padding-bottom:0}.hero h1{margin:4px 0 0;font-size:clamp(1.4rem,4.5vw,2rem);line-height:1.2}
+.back{color:inherit;font-weight:600;text-decoration:none;font-size:.92rem;display:inline-block;padding:6px 0}
+nav.toc{background:var(--hoja);border:1px solid var(--linea);border-radius:12px;margin:18px 0;padding:6px 16px}
+nav.toc summary{cursor:pointer;font-weight:700;color:var(--c);padding:10px 0;min-height:44px}
+nav.toc a{display:block;padding:7px 0;color:inherit;text-decoration:none;border-top:1px solid var(--linea)}
+nav.toc a:hover{color:var(--c)}
+h2{color:var(--c);margin:2.2em 0 .4em;padding-top:.4em;border-top:2px solid var(--linea);font-size:1.4rem;scroll-margin-top:8px}
+h3{margin:1.5em 0 .3em;font-size:1.1rem}
+code{background:var(--cs);border-radius:5px;padding:1px 6px;font:.88em ui-monospace,Consolas,monospace;overflow-wrap:anywhere}
+pre{background:var(--cs);border:1px solid var(--linea);border-left:4px solid var(--c);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.5}
+pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+.call{background:var(--cs);border:1px dashed var(--c);border-radius:10px;padding:12px 16px;margin:14px 0}
+.tw{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.95rem;background:var(--hoja)}
+th,td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--cs)}
+ul{padding-left:1.3em}li{margin:.25em 0}
+a.next{display:inline-block;margin-top:30px;padding:12px 18px;border-radius:10px;background:var(--c);color:#fff;text-decoration:none;font-weight:600}
+@media (prefers-color-scheme:dark){a.next{color:#1f0e04}}
+</style></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Lenguajes de Marcas · carpetas</a><h1>Unidad 1.3 · Lenguajes de marcas y XML</h1></div></div><div class="wrap"><nav class="toc"><details><summary>Índice de la unidad</summary><a href="#s0">1. Introducción</a><a href="#s1">2. Qué es un lenguaje de marcado</a><a href="#s2">3. Metalenguaje</a><a href="#s3">4. Clasificación de los lenguajes de marcas</a><a href="#s4">5. Origen y evolución: de GML a HTML y XML</a><a href="#s5">6. HTML, XML y Markdown</a><a href="#s6">7. XML: estructura y sintaxis</a><a href="#s7">8. Reglas de un XML bien formado</a><a href="#s8">9. Espacios de nombres (namespaces)</a><a href="#s9">10. Ventajas de XML</a><a href="#s10">11. Herramientas de edición y visualización</a><a href="#s11">12. Los lenguajes del curso</a><a href="#s12">13. Recursos para practicar</a><a href="#s13">Ideas clave</a></details></nav><h2 id="s0">1. Introducción</h2>
+<p>Casi cualquier documento que un programa envía, guarda o intercambia (una página web, un fichero de configuración, los datos de una tienda) necesita una estructura reconocible por personas y máquinas. <b>Los lenguajes de marcas</b> resuelven ese problema. Esta unidad tiene dos partes: una introducción a la familia (qué son, clasificación, historia, HTML, XML y Markdown) y <b>XML</b>, el más importante de la asignatura: estructura, sintaxis y reglas de un documento correcto.</p>
+<h2 id="s1">2. Qué es un lenguaje de marcado</h2>
+<p>Es un conjunto de reglas para combinar el texto de un documento con <b>marcas</b> (etiquetas) que añaden información sobre ese texto: su estructura, su significado o su presentación. <b>La marca no es el contenido, sino una anotación sobre él</b>; en XML y HTML va entre <code>&lt;</code> y <code>&gt;</code>. Suelen aparecer <b>por parejas</b>, apertura y cierre.</p>
+<pre><code>&lt;titulo&gt;El ingenioso hidalgo don Quijote de la Mancha&lt;/titulo&gt;</code></pre>
+<p>Un programa sabe que ese texto es un título solo reconociendo la etiqueta, sin «entender» español.</p>
+<h3>Un sistema de codificación</h3>
+<p>Detrás de cualquier lenguaje de marcado hay un <b>sistema de codificación</b>: reglas para representar datos y caracteres de forma que una computadora los interprete y procese, no solo los muestre. Define cómo se asigna cada símbolo a una secuencia de bits.</p>
+<h3>Marcado y programación</h3>
+<p>Un lenguaje de marcado <b>no es un lenguaje de programación</b>: no tiene variables, bucles ni operaciones; describe la estructura. Se combinan con normalidad (un HTML incluye JavaScript, un XML se procesa con Python o Java). El lenguaje debe ser independiente de quien lo interprete: <b>el intérprete decide cómo representar las marcas</b>. Por eso una misma página se ve algo distinta según el navegador.</p>
+<div class="call">Actividad 1 · Busca los lenguajes de marcas más conocidos (HTML, XML, Markdown, LaTeX, YAML, SVG, BBCode) y anota para qué se usa cada uno.</div>
+<h2 id="s2">3. Metalenguaje</h2>
+<p>Un <b>metalenguaje</b> es un lenguaje que sirve para definir otros lenguajes: no fija un conjunto cerrado de etiquetas, sino las reglas para crear las propias.</p>
+<ul>
+<li><b>SGML y XML son metalenguajes</b>.</li>
+<li><b>HTML no lo es</b>: es un lenguaje concreto con un vocabulario cerrado (<code>&lt;p&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;img&gt;</code>…), definido en su día con SGML y luego con XML (XHTML).</li>
+</ul>
+<p>Si XML es la gramática que permite crear idiomas, HTML es un idioma concreto ya escrito con ella.</p>
+<div class="call">Actividad 2 · Busca otro metalenguaje además de SGML y XML, y un archivo .xml real: fíjate en etiquetas, anidamiento y atributos.</div>
+<h2 id="s3">4. Clasificación de los lenguajes de marcas</h2>
+<h3>De presentación (o de procedimiento)</h3>
+<p>Las marcas indican <b>cómo debe mostrarse</b> el texto: negrita, tamaño, color. Ejemplo histórico: <b>RTF</b>. Limitación: mezclan contenido y formato, lo que dificulta reutilizar la información.</p>
+<pre><code>{\rtf1\ansi Este texto tiene \b una palabra en negrita\b0  y el resto en normal. }</code></pre>
+<p><code>\b</code> y <code>\b0</code> activan y desactivan la negrita: para RTF lo mismo que <code>&lt;b&gt;</code> y <code>&lt;/b&gt;</code> para HTML.</p>
+<h3>Descriptivos (o declarativos)</h3>
+<p>Las marcas describen <b>qué es</b> cada parte del contenido, no su aspecto. <b>XML</b> es el ejemplo de referencia. Ventaja: el mismo documento puede presentarse de formas distintas.</p>
+<pre><code>&lt;libro&gt;
+  &lt;titulo&gt;El Quijote&lt;/titulo&gt;
+  &lt;autor&gt;Cervantes&lt;/autor&gt;
+&lt;/libro&gt;</code></pre>
+<h3>Híbridos</h3>
+<p>Combinan ambos enfoques. <b>HTML</b> es el ejemplo típico: etiquetas descriptivas (<code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;table&gt;</code>) y, sobre todo en versiones antiguas, de presentación (<code>&lt;b&gt;</code>, <code>&lt;font&gt;</code>, <code>align="center"</code>). Las versiones modernas delegan la presentación en CSS.</p>
+<div class="call">Actividad 4 · Clasifica: a) <code>&lt;precio&gt;19.90&lt;/precio&gt; → descriptiva</code>; b) <code>&lt;b&gt;oferta&lt;/b&gt; → presentación</code>; c) <code>&lt;direccion&gt;…&lt;/direccion&gt; → descriptiva</code>; d) <code>&lt;h2&gt;</code> dentro de HTML → híbrido. (Razona cada una tú antes de mirar.)</div>
+<h2 id="s4">5. Origen y evolución: de GML a HTML y XML</h2>
+<div class="tw"><table><thead><tr><th>Año</th><th>Hito</th></tr></thead><tbody><tr><td>Años 70</td><td>IBM desarrolla <b>GML</b> (Generalized Markup Language)</td></tr><tr><td>1986</td><td>La ISO estandariza <b>SGML</b> (ISO 8879), metalenguaje sucesor de GML</td></tr><tr><td>1989-1991</td><td>Tim Berners-Lee crea <b>HTML</b> como aplicación concreta de SGML</td></tr><tr><td>1998</td><td>El W3C publica <b>XML 1.0</b>, simplificación de SGML pensada para la Web</td></tr></tbody></table></div>
+<ul>
+<li><b>GML (años 70, IBM)</b>: nació por la falta de compatibilidad entre aplicaciones, cada una con sus marcas. Lo desarrollaron Charles Goldfarb, Edward Mosher y Raymond Lorie (sus iniciales dan nombre al lenguaje). Independizaba el documento del dispositivo y usaba marcas descriptivas.</li>
+<li><b>SGML (1986)</b>: no es un lenguaje, sino un <b>metalenguaje</b> (ISO 8879). Muy potente pero complejo; se usó en editoriales, administraciones e industria aeronáutica.</li>
+<li><b>HTML (1989-1991)</b>: aplicación concreta de SGML con un vocabulario ya cerrado, pensado para hipertexto.</li>
+<li><b>XML (1998)</b>: SGML era demasiado complejo para la Web y HTML demasiado rígido (no permitía etiquetas propias). XML conserva lo esencial de SGML, simplificado, para que lo procesen máquinas y lo lean personas, orientado al <b>intercambio de datos</b> entre sistemas.</li>
+</ul>
+<div class="call">Actividad 5 · Busca cómo eran al principio un documento GML de los 70, una página HTML de 1991-1993 y un XML de finales de los 90.</div>
+<h2 id="s5">6. HTML, XML y Markdown</h2>
+<h3>HTML</h3>
+<p>Lenguaje de marcado más conocido para crear páginas web: define títulos, párrafos, imágenes, enlaces… Se ve en profundidad en la Unidad 2.</p>
+<pre><code>&lt;h1&gt;Título del artículo&lt;/h1&gt;
+&lt;p&gt;Este es un párrafo de ejemplo.&lt;/p&gt;
+&lt;h2&gt;Listado de elementos:&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Encabezados&lt;/li&gt;
+  &lt;li&gt;Párrafos&lt;/li&gt;
+  &lt;li&gt;Listas&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<p>Para ver el HTML real de una página: clic derecho → «Ver código fuente» (o Ctrl+U).</p>
+<h3>XML</h3>
+<p><b>XML (Extensible Markup Language)</b> estructura y almacena datos de forma <b>jerárquica</b>. A diferencia de HTML, no tiene etiquetas predefinidas: quien escribe el documento decide qué etiquetas usar.</p>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;profesor&gt;
+  &lt;nombre&gt;Andrea&lt;/nombre&gt;
+  &lt;apellidos&gt;Lluch Cruz&lt;/apellidos&gt;
+  &lt;fecha-de-nacimiento&gt;
+    &lt;dia&gt;28&lt;/dia&gt;
+    &lt;mes&gt;2&lt;/mes&gt;
+    &lt;año&gt;2030&lt;/año&gt;
+  &lt;/fecha-de-nacimiento&gt;
+&lt;/profesor&gt;</code></pre>
+<h3>Markdown</h3>
+<p>Lenguaje de marcado <b>ligero</b> con <b>sintaxis mínima</b>: basta un símbolo al principio de una línea o rodear una palabra con asteriscos para obtener un encabezado, una negrita o una lista. Lo usan WordPress, GitHub (README) y herramientas de documentación técnica.</p>
+<pre><code># Título del artículo
+Este es un párrafo de ejemplo.
+## Listado de elementos:
+- Encabezados
+- Párrafos
+- Listas</code></pre>
+<p>Los tres ejemplos describen el mismo contenido con tres sintaxis distintas: tienen en común marcar la estructura y se diferencian en cómo.</p>
+<div class="call">Actividad 6 · Pide a una IA un currículum breve en Markdown, guárdalo como .md y ábrelo con VS Code (vista previa con Ctrl+Shift+V).</div>
+<div class="call">Actividad 7 · Busca dos lenguajes de marcas distintos de HTML, XML y Markdown (LaTeX, YAML, SVG, BBCode): de qué tipo es cada uno y para qué se usa.</div>
+<h2 id="s6">7. XML: estructura y sintaxis</h2>
+<p>Un documento XML se construye con tres piezas: <b>elementos</b> (etiqueta de apertura y de cierre, con texto u otros elementos anidados), <b>atributos</b> (pares <code>nombre="valor"</code> en la etiqueta de apertura) y <b>valores</b>. El resultado es un <b>árbol</b> con <b>un único elemento raíz</b>.</p>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;biblioteca&gt;
+    &lt;libro idioma="es"&gt;
+        &lt;titulo&gt;El Quijote&lt;/titulo&gt;
+        &lt;autor&gt;Miguel de Cervantes&lt;/autor&gt;
+    &lt;/libro&gt;
+&lt;/biblioteca&gt;</code></pre>
+<p>Aquí: raíz <code>biblioteca</code>, hijo <code>libro</code> con el atributo <code>idioma</code>, y dos elementos de texto.</p>
+<h2 id="s7">8. Reglas de un XML bien formado</h2>
+<p>Para que un programa lo lea sin errores, el documento debe estar <b>bien formado</b>:</p>
+<ul>
+<li>Un <b>único elemento raíz</b>.</li>
+<li>Toda etiqueta que se abre <b>debe cerrarse</b>.</li>
+<li>Las etiquetas <b>no pueden cruzarse</b>.</li>
+<li>El valor de un atributo <b>va siempre entre comillas</b>.</li>
+<li>XML <b>distingue mayúsculas de minúsculas</b>: <code>&lt;Libro&gt;</code> y <code>&lt;libro&gt;</code> son distintas.</li>
+</ul>
+<pre><code>✔ Correcto:    &lt;a&gt;&lt;b&gt;texto&lt;/b&gt;&lt;/a&gt;
+✘ Incorrecto:  &lt;a&gt;&lt;b&gt;texto&lt;/a&gt;&lt;/b&gt;      (las etiquetas se cruzan)
+
+✘ Incorrecto:  &lt;telefono&gt;600123456
+✔ Correcto:    &lt;telefono&gt;600123456&lt;/telefono&gt;</code></pre>
+<p><b>Bien formado no es lo mismo que válido</b>: un documento válido, además, cumple un esquema (<b>DTD o XSD</b>) que fija qué elementos puede tener y en qué orden (unidad posterior).</p>
+<h2 id="s8">9. Espacios de nombres (namespaces)</h2>
+<p>Dos documentos pueden usar la misma etiqueta con significados distintos (<code>&lt;titulo&gt;</code> de un libro o de una película). Los <b>namespaces</b> evitan la ambigüedad asociando un prefijo a cada vocabulario con el atributo <b>xmlns</b>.</p>
+<pre><code>&lt;biblioteca
+    xmlns:libro="http://ejemplo.org/libros"
+    xmlns:pelicula="http://ejemplo.org/peliculas"&gt;
+
+    &lt;libro:titulo&gt;El Quijote&lt;/libro:titulo&gt;
+    &lt;pelicula:titulo&gt;El Quijote (1992)&lt;/pelicula:titulo&gt;
+&lt;/biblioteca&gt;</code></pre>
+<h2 id="s9">10. Ventajas de XML</h2>
+<ul>
+<li><b>Es extensible</b>: se pueden añadir etiquetas nuevas sin rehacer lo ya construido.</li>
+<li><b>Se procesa con un analizador (parser) estándar</b>: sirve para cualquier XML bien formado, sin programa distinto para cada vocabulario.</li>
+<li><b>Mejora la compatibilidad entre aplicaciones</b>: sin importar la plataforma (p. ej. una aplicación en Linux con PostgreSQL y otra en Windows con SQL Server).</li>
+<li><b>Transforma datos en información</b>: cada dato lleva un significado y un contexto mediante su etiqueta, y el mismo documento se puede estructurar de formas distintas.</li>
+</ul>
+<h2 id="s10">11. Herramientas de edición y visualización</h2>
+<p>Un XML es <b>texto plano</b>: sirve cualquier editor.</p>
+<ul>
+<li><b>Editores genéricos con resaltado de sintaxis</b>: Visual Studio Code, Notepad++, Sublime Text.</li>
+<li><b>Editores XML especializados con validación</b>: Oxygen XML Editor, XMLSpy.</li>
+<li><b>Navegadores</b> (Chrome, Firefox…): muestran el .xml en vista de árbol.</li>
+<li><b>Librerías de los lenguajes de programación</b> para leer y generar XML.</li>
+</ul>
+<h2 id="s11">12. Los lenguajes del curso</h2>
+<div class="tw"><table><thead><tr><th>Lenguaje</th><th>Qué resuelve</th><th>Se estudia en</th></tr></thead><tbody><tr><td>XML</td><td>Estructura de datos con etiquetas a medida</td><td>Unidad 1 (y 5-7: esquemas, transformación, consulta)</td></tr><tr><td>HTML</td><td>Estructura del contenido de una página web</td><td>Unidad 2</td></tr><tr><td>CSS</td><td>Aspecto visual de lo que HTML estructura</td><td>Unidad 3</td></tr><tr><td>JavaScript</td><td>Comportamiento e interactividad</td><td>Unidad 4</td></tr><tr><td>JSON</td><td>Intercambio de datos ligero entre sistemas</td><td>Unidad 4</td></tr></tbody></table></div>
+<ul>
+<li><b>HTML</b>: lenguaje híbrido que define qué es cada parte de la página.</li>
+<li><b>CSS</b> (Cascading Style Sheets): <b>no es un lenguaje de marcas</b> (no usa <code>&lt;</code> <code>&gt;</code>), pero define el aspecto visual de lo que HTML marca; separa contenido y presentación.</li>
+</ul>
+<pre><code>h2 {
+  color: #1F4E79;
+  font-size: 1.5rem;
+}</code></pre>
+<ul>
+<li><b>JavaScript</b>: <b>lenguaje de programación completo</b>, con variables, condicionales, bucles y funciones; da comportamiento a la página y se usa para leer y generar JSON.</li>
+</ul>
+<pre><code>document.querySelector("h2").textContent = "Servicios actualizados";</code></pre>
+<ul>
+<li><b>JSON</b> (JavaScript Object Notation): tampoco es un lenguaje de marcas; usa pares clave-valor entre llaves y cumple el mismo papel que XML con una sintaxis más ligera.</li>
+</ul>
+<pre><code>{
+  "nombre": "Andrea",
+  "apellidos": "Lluch Cruz",
+  "fechaNacimiento": { "dia": 28, "mes": 2, "anio": 2030 }
+}</code></pre>
+<h2 id="s12">13. Recursos para practicar</h2>
+<ul>
+<li><b>W3Schools · Tutorial de XML</b> (w3schools.com/xml): la referencia de la unidad. Introduction, How to use, Tree, Syntax, Elements: la base. Attributes: escribe un elemento con dos atributos sin mirar. Namespace, Display, HttpRequest, Parser: lectura rápida. DOM y XPath: primera toma de contacto. XSLT, XQuery, Xlink, Validator, DTD, Schema: unidades posteriores.</li>
+<li><b>Vídeos</b>: «XML — Explicación completa en 8 minutos» e «Introducción a XML — Tutorial básico en español» (YouTube).</li>
+<li><b>Markdown Tutorial</b> (markdowntutorial.com): interactivo, 15-20 minutos.</li>
+<li><b>Documentación</b>: W3C XML 1.0 (w3.org/TR/xml), Wikipedia «Lenguaje de marcado» y «SGML», y los apuntes sio2sio2.github.io/LM.</li>
+</ul>
+<h2 id="s13">Ideas clave</h2>
+<ul>
+<li>Un lenguaje de marcado combina contenido y marcas que aportan información sobre él; no es un lenguaje de programación.</li>
+<li>Se clasifican en <b>de presentación, descriptivos e híbridos</b>.</li>
+<li><b>GML</b> (IBM, años 70) → <b>SGML</b> (ISO, 1986), el metalenguaje del que nacieron <b>HTML</b> (1989-1991) y <b>XML</b> (W3C, 1998).</li>
+<li>HTML, XML y Markdown: mismo objetivo, sintaxis distintas.</li>
+<li>XML: elementos, atributos y valores, en árbol con un único elemento raíz; ser <b>válido</b> exige además cumplir un esquema (DTD o XSD).</li>
+<li>Los <b>namespaces</b> evitan la ambigüedad entre etiquetas del mismo nombre.</li>
+<li>El resto de la asignatura gira en torno a HTML, CSS, JavaScript y JSON.</li>
+</ul><a class="next" href="index.html">Volver a las carpetas</a></div></body></html>

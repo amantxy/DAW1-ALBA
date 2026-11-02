@@ -1,0 +1,158 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unidad 1.2 · Cómo funciona Internet</title><style>
+:root{--bg:#f6f3ef;--hoja:#fff;--tinta:#1d1812;--suave:#6a5d50;--linea:#e6dccf;--c:#c2410c;--cs:#fdeee3}
+@media (prefers-color-scheme:dark){:root{--bg:#15110d;--hoja:#1e1812;--tinta:#efe6db;--suave:#b3a493;--linea:#3a2e22;--c:#ff9a55;--cs:#3a2114;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tinta);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.hero{background:var(--c);color:#fff;padding:22px 0 20px}@media (prefers-color-scheme:dark){.hero{color:#1f0e04}}
+.wrap{max-width:860px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 60px max(16px,env(safe-area-inset-left))}
+.hero .wrap{padding-bottom:0}.hero h1{margin:4px 0 0;font-size:clamp(1.4rem,4.5vw,2rem);line-height:1.2}
+.back{color:inherit;font-weight:600;text-decoration:none;font-size:.92rem;display:inline-block;padding:6px 0}
+nav.toc{background:var(--hoja);border:1px solid var(--linea);border-radius:12px;margin:18px 0;padding:6px 16px}
+nav.toc summary{cursor:pointer;font-weight:700;color:var(--c);padding:10px 0;min-height:44px}
+nav.toc a{display:block;padding:7px 0;color:inherit;text-decoration:none;border-top:1px solid var(--linea)}
+nav.toc a:hover{color:var(--c)}
+h2{color:var(--c);margin:2.2em 0 .4em;padding-top:.4em;border-top:2px solid var(--linea);font-size:1.4rem;scroll-margin-top:8px}
+h3{margin:1.5em 0 .3em;font-size:1.1rem}
+code{background:var(--cs);border-radius:5px;padding:1px 6px;font:.88em ui-monospace,Consolas,monospace;overflow-wrap:anywhere}
+pre{background:var(--cs);border:1px solid var(--linea);border-left:4px solid var(--c);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.5}
+pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+.call{background:var(--cs);border:1px dashed var(--c);border-radius:10px;padding:12px 16px;margin:14px 0}
+.tw{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.95rem;background:var(--hoja)}
+th,td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--cs)}
+ul{padding-left:1.3em}li{margin:.25em 0}
+a.next{display:inline-block;margin-top:30px;padding:12px 18px;border-radius:10px;background:var(--c);color:#fff;text-decoration:none;font-weight:600}
+@media (prefers-color-scheme:dark){a.next{color:#1f0e04}}
+</style></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Lenguajes de Marcas · carpetas</a><h1>Unidad 1.2 · Cómo funciona Internet</h1></div></div><div class="wrap"><nav class="toc"><details><summary>Índice de la unidad</summary><a href="#s0">1. Qué es Internet</a><a href="#s1">2. La capa física</a><a href="#s2">3. La topología de una red</a><a href="#s3">4. La capa de red: IP y enrutamiento</a><a href="#s4">5. Qué se envía por Internet</a><a href="#s5">6. La capa de transporte</a><a href="#s6">7. HTTP y la capa de aplicación</a><a href="#s7">8. El DNS</a><a href="#s8">9. Ejemplo completo: una petición HTTP</a><a href="#s9">10. Resumen</a></details></nav><h2 id="s0">1. Qué es Internet</h2>
+<p>Internet es una <b>red mundial de redes</b>: millones de redes más pequeñas (casas, empresas, universidades, operadores) conectadas mediante reglas comunes, los <b>protocolos</b>. Cualquier equipo puede hablar con cualquier otro sin importar fabricante, sistema operativo o país. Es un acuerdo técnico, no un objeto ni un lugar.</p>
+<h3>¿Por qué nace Internet?</h3>
+<p>En <b>1964</b>, Paul Baran propuso trocear la información en <b>paquetes</b> que viajan por caminos distintos, para que la red sobreviviera aunque fallaran partes (las redes telefónicas eran centralizadas). La idea se probó en <b>ARPANET</b>, red del Departamento de Defensa de EE. UU., cuyo primer enlace se estableció el 29 de octubre de 1969.</p>
+<h3>¿Qué es la WWW?</h3>
+<p>Es <b>uno de los servicios que funcionan sobre Internet</b>. La inventó Tim Berners-Lee en 1989, en el CERN, como un sistema de documentos enlazados (hipertexto). Hicieron falta tres piezas: <b>HTML</b> (forma del contenido), <b>HTTP</b> (transporte) y <b>URL</b> (nombre de cada recurso). El correo, la mensajería o las videollamadas también viajan por Internet, pero no son la web.</p>
+<h3>¿Qué NO es Internet?</h3>
+<ul>
+<li><b>No es la web</b>: es un servicio dentro de Internet.</li>
+<li><b>No es el wifi</b>: es solo una forma de conectarse (también cable o red móvil).</li>
+<li><b>No es «la nube»</b>: son ordenadores reales de otras empresas.</li>
+<li><b>No es un solo ordenador ni una empresa</b>: nadie es dueño de Internet en conjunto.</li>
+</ul>
+<div class="call">Actividad · Investiga: busca 10 hitos en la evolución de Internet desde 1969 hasta hoy.</div>
+<h3>Subredes y redes privadas</h3>
+<ul>
+<li><b>Subred</b>: trozo más pequeño dentro de una red mayor, creado para organizar el tráfico (administración, desarrollo, invitados).</li>
+<li><b>Red privada</b>: no es accesible directamente desde Internet. Sus equipos usan direcciones que solo valen dentro de ella y salen por un punto compartido, normalmente el router.</li>
+</ul>
+<h2 id="s1">2. La capa física</h2>
+<p>Para que dos equipos se comuniquen hace falta un <b>medio físico</b> (cable o aire). Elementos mínimos:</p>
+<ul>
+<li><b>Medio físico</b> (cable o aire).</li>
+<li><b>Tarjeta de red</b> en cada equipo, con una dirección física de fábrica: la <b>dirección MAC</b>, que identifica al equipo dentro de la red local.</li>
+<li><b>Switch</b>: entrega cada señal solo al equipo cuya MAC coincide con el destino, en vez de repetirla a todos.</li>
+</ul>
+<h3>Tipos de comunicación</h3>
+<div class="tw"><table><thead><tr><th>Tipo</th><th>Descripción</th><th>Ejemplo</th></tr></thead><tbody><tr><td>Simplex</td><td>Un solo sentido, siempre</td><td>Emisora de radio</td></tr><tr><td>Half-duplex</td><td>Ambos extremos, pero no a la vez</td><td>Walkie-talkie</td></tr><tr><td>Full-duplex</td><td>Ambos extremos a la vez</td><td>Llamada de teléfono</td></tr></tbody></table></div>
+<h3>Tecnologías</h3>
+<ul>
+<li><b>Cobre (Ethernet)</b>: la más extendida en redes locales.</li>
+<li><b>Fibra óptica</b>: pulsos de luz; núcleo de las conexiones de larga distancia y los cables submarinos.</li>
+<li><b>Wifi (IEEE 802.11)</b>: sin cables en un espacio reducido.</li>
+<li><b>Redes móviles (4G, 5G)</b>: cobertura inalámbrica a más distancia.</li>
+</ul>
+<div class="call">Todo esto es la <b>capa de acceso a la red</b>, la más baja de las cuatro de TCP/IP. Resuelve que la señal llegue del equipo A al B dentro de la misma red local.</div>
+<h2 id="s2">3. La topología de una red</h2>
+<p>Es la forma en que están organizadas las conexiones entre los equipos: qué está conectado a qué.</p>
+<div class="tw"><table><thead><tr><th>Topología</th><th>Ventaja principal</th><th>Desventaja principal</th></tr></thead><tbody><tr><td>Bus</td><td>Cableado mínimo y fácil de instalar</td><td>Si el cable central falla, cae toda la red</td></tr><tr><td>Estrella</td><td>Un fallo en un equipo no afecta a los demás</td><td>Si falla el switch central, cae toda la red</td></tr><tr><td>Anillo</td><td>Reparto ordenado de la señal</td><td>Un solo enlace roto puede cortar la cadena</td></tr><tr><td>Malla</td><td>Muy resistente: hay rutas alternativas</td><td>Cablear y mantener tantas conexiones es caro</td></tr></tbody></table></div>
+<p>La <b>malla</b> es la que mejor describe cómo están conectados los routers de Internet: la red sobrevive aunque falle un cable submarino o un nodo, como preveía Baran.</p>
+<h2 id="s3">4. La capa de red: IP y enrutamiento</h2>
+<p>La MAC solo sirve en la red local. Para llegar a otra red hace falta un sistema de direcciones <b>global</b> que indique en qué red está cada equipo: el <b>protocolo IP</b>.</p>
+<h3>Direcciones IP: clases y tipos</h3>
+<div class="tw"><table><thead><tr><th>Clase</th><th>Primer octeto</th><th>Uso típico</th></tr></thead><tbody><tr><td>A</td><td>1 – 126</td><td>Redes enormes: pocas redes con muchísimos equipos</td></tr><tr><td>B</td><td>128 – 191</td><td>Redes medianas: universidades, grandes empresas</td></tr><tr><td>C</td><td>192 – 223</td><td>Redes pequeñas: hogares y oficinas</td></tr></tbody></table></div>
+<p>Las clases D y E están reservadas para multidifusión y uso experimental. Además toda IP es <b>pública</b> (única en Internet) o <b>privada</b> (solo dentro de una red privada). Rangos privados:</p>
+<ul>
+<li><b>10.0.0.0 – 10.255.255.255</b></li>
+<li><b>172.16.0.0 – 172.31.255.255</b></li>
+<li><b>192.168.0.0 – 192.168.255.255</b> (la usan por defecto casi todos los routers domésticos)</li>
+</ul>
+<h3>Aspecto de una IP y máscara de red</h3>
+<p>Una IPv4 son cuatro números entre 0 y 255 separados por puntos, por ejemplo <code>192.168.1.10</code>: 32 bits en cuatro octetos.</p>
+<p>La <b>máscara de red</b> indica qué parte de la IP identifica la red (o subred) y cuál al equipo. Con <code>255.255.255.0</code> (/24), los tres primeros números son la red y el último el equipo; los equipos con los mismos tres primeros números están en la misma subred.</p>
+<h3>DHCP</h3>
+<p>Protocolo que asigna automáticamente IP, máscara, puerta de enlace y DNS al conectarse a la red. En casa, el router hace de servidor DHCP.</p>
+<h3>IPv6</h3>
+<p>IPv4 tiene 32 bits: algo menos de <b>4300 millones</b> de direcciones. La IANA agotó la asignación de bloques nuevos en <b>febrero de 2011</b>. A corto plazo se usa <b>NAT</b> (muchos equipos de una red privada comparten una IP pública); la solución definitiva es <b>IPv6</b>, con direcciones de 128 bits. Conviven hoy.</p>
+<div class="call">Actividad 1 · Ejecuta <code>ipconfig /all</code> (Windows) o <code>ip addr</code> (Linux): localiza tu IP, tu máscara y la puerta de enlace, y comprueba si tu IP es privada o pública.</div>
+<h3>Router y enrutamiento</h3>
+<p>El <b>router</b> conecta redes distintas y decide, paquete a paquete, hacia dónde reenviarlo. El primer router que atraviesa un paquete es tu <b>puerta de enlace</b> (gateway). Cada router mira la IP de destino y elige el siguiente salto <b>sin conocer la ruta completa</b>, como una oficina de correos.</p>
+<h3>Cómo viaja un paquete</h3>
+<ul>
+<li>1. Tu equipo comprueba si la IP de destino está en tu propia red (según la máscara).</li>
+<li>2. Si no, envía el paquete a su puerta de enlace.</li>
+<li>3. El router lo reenvía a otro router, normalmente del proveedor (ISP).</li>
+<li>4. Salta de router en router hasta la red del servidor.</li>
+<li>5. El último router lo entrega al servidor, identificado en su red local por su MAC.</li>
+</ul>
+<div class="call">Todo esto es la <b>capa de Internet (red)</b> de TCP/IP: encontrar el camino entre dos redes cualesquiera del mundo.</div>
+<h2 id="s4">5. Qué se envía por Internet</h2>
+<p>Se envían pequeños trozos de datos empaquetados con información de control.</p>
+<ul>
+<li><b>Paquete</b>: lleva una <b>cabecera</b> (origen, destino, número de orden) y los <b>datos</b>. En una red local, en la capa de enlace, se llama <b>trama</b>.</li>
+<li><b>Protocolo</b>: conjunto de reglas que ambas partes aceptan seguir (formato de los mensajes, orden, confirmación). IP en la capa de red, TCP o UDP en la de transporte, HTTP en la de aplicación.</li>
+<li><b>Encapsulación</b>: cada capa envuelve el paquete de la superior con su propia cabecera, sin tocar lo que ya llevaba (sobre dentro de sobre). Al llegar se deshace en orden inverso.</li>
+</ul>
+<h2 id="s5">6. La capa de transporte</h2>
+<p>Falta saber <b>a qué programa</b> del equipo de destino se entregan los datos y <b>cómo asegurar</b> que el envío llega completo. La capa de transporte añade un <b>número de puerto</b> a cada paquete, que identifica el programa receptor. Según el protocolo, también puede numerar paquetes, confirmar la recepción y reenviar lo perdido.</p>
+<div class="tw"><table><thead><tr><th></th><th>TCP</th><th>UDP</th></tr></thead><tbody><tr><td>Fiabilidad</td><td>Confirma y reenvía lo perdido</td><td>Sin confirmación ni reenvío</td></tr><tr><td>Orden</td><td>Garantiza el orden</td><td>No lo garantiza</td></tr><tr><td>Velocidad</td><td>Más lento</td><td>Más rápido</td></tr><tr><td>Usos</td><td>Web (HTTP), correo, transferencia de archivos</td><td>Videollamadas, streaming en directo, juegos</td></tr></tbody></table></div>
+<p>TCP es como un paquete postal certificado; UDP, como una postal normal.</p>
+<h3>Handshake</h3>
+<p>El <b>triple apretón de manos</b> con que TCP abre una conexión: el cliente envía <b>SYN</b>, el servidor responde <b>SYN-ACK</b> y el cliente cierra con <b>ACK</b>. Solo después viajan los datos.</p>
+<h2 id="s6">7. HTTP y la capa de aplicación</h2>
+<ul>
+<li><b>Orígenes</b>: HTTP nace con la web, entre 1989 y 1991, diseñado por Tim Berners-Lee en el CERN. Evolucionó (HTTP/1.1, 2, 3), pero su idea central, petición y respuesta, no cambió.</li>
+<li><b>Qué es</b>: protocolo de la capa de aplicación con el que un cliente pide un recurso a un servidor y este responde con el recurso o con un error.</li>
+<li><b>HTTPS</b>: HTTP con dos añadidos: <b>cifra los datos en tránsito</b> y <b>verifica la identidad del servidor</b> con un certificado.</li>
+<li><b>Independencia</b>: HTTP solo necesita que el transporte le garantice un canal fiable; no le importa si viajó por wifi, fibra o red móvil.</li>
+<li><b>Puertos</b>: HTTP usa por convención el <b>80</b> y HTTPS el <b>443</b>.</li>
+</ul>
+<h3>Petición y respuesta</h3>
+<pre><code>GET /wiki/Internet HTTP/1.1
+Host: es.wikipedia.org</code></pre>
+<pre><code>HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;...&lt;/html&gt;</code></pre>
+<p>El cliente envía un método (normalmente <b>GET</b>), la ruta y cabeceras; el servidor responde con un código de estado (<b>200</b> si todo fue bien, <b>404</b> si no existe), cabeceras y contenido.</p>
+<h3>Recursos estáticos</h3>
+<p>Archivos que el servidor entrega tal cual: HTML, imágenes, CSS, JavaScript. Los dinámicos los construye el servidor en el momento (por ejemplo, consultando una base de datos).</p>
+<h3>Protocolo frente a contenido</h3>
+<p><b>HTTP</b> es el sistema de transporte (el sobre); <b>HTML</b> es el contenido (la carta). HTTP no sabe si dentro hay HTML, una imagen u otra cosa. Muchas <b>API REST</b> responden con <b>JSON</b>: por ejemplo <code>api.github.com/users/octocat</code> devuelve JSON con el mismo HTTP, el puerto 443 y el mismo modelo, sin una sola etiqueta HTML.</p>
+<h3>HTML, CSS y JavaScript</h3>
+<ul>
+<li><b>HTML</b>: lenguaje de marcas que estructura el contenido (título, párrafo, enlace).</li>
+<li><b>CSS</b>: define <b>cómo se ve</b> lo que HTML estructura. Aporta diseño adaptable, coherencia y mantenimiento, accesibilidad y rendimiento (la hoja se guarda en caché).</li>
+<li><b>JavaScript</b>: lenguaje de programación que se ejecuta en el navegador (y en servidores con Node.js). Permite reaccionar y actuar: responder a un clic, validar un formulario, modificar la página sin recargarla, pedir datos a un servidor.</li>
+</ul>
+<div class="call">Actividad 2 · Visita <code>https://api.github.com/users/octocat</code> y, con F12 → Red, comprueba el código de estado y que Content-Type es application/json.</div>
+<div class="call">Todo lo que se estudia en el módulo (HTML, CSS, JavaScript, JSON, XML) ocurre en la <b>capa de aplicación</b>, la más alta de las cuatro.</div>
+<h2 id="s7">8. El DNS</h2>
+<p>El <b>DNS</b> (Domain Name System) traduce nombres de dominio (es.wikipedia.org) en direcciones IP (91.198.174.192): la agenda de contactos de Internet.</p>
+<ul>
+<li><b>¿Por qué no usar las IP?</b> Un nombre es más fácil de recordar, y la IP real puede cambiar (mantenimiento, balanceo de carga, cambio de proveedor) sin que el usuario lo note.</li>
+<li><b>Complejidad</b>: es un sistema <b>jerárquico y distribuido</b>, sin base de datos central; la respuesta se construye preguntando escalón a escalón.</li>
+<li><b>Caché</b>: los resultados se guardan un tiempo en el navegador, el sistema operativo y el DNS del proveedor, así que casi nunca se recorre toda la jerarquía.</li>
+</ul>
+<h2 id="s8">9. Ejemplo completo: una petición HTTP</h2>
+<ul>
+<li>1. Escribes <code>es.wikipedia.org/wiki/Internet</code> y pulsas Intro.</li>
+<li>2. El navegador pregunta al <b>DNS</b> la IP del servidor.</li>
+<li>3. Tu equipo ve que no está en tu red: el paquete sale por la <b>puerta de enlace</b> y viaja de router en router.</li>
+<li>4. Se abre una conexión <b>TCP</b> al puerto 443 con el <b>triple apretón de manos</b>.</li>
+<li>5. El navegador envía la <b>petición HTTP(S)</b>.</li>
+<li>6. El servidor la recibe, localiza el recurso y prepara la respuesta.</li>
+<li>7. Envía la respuesta: <b>código de estado</b> (200) y contenido, normalmente HTML.</li>
+<li>8. La respuesta se divide en paquetes numerados que pueden llegar en distinto orden.</li>
+<li>9. En tu equipo se reordenan; el navegador interpreta el HTML, aplica el CSS, ejecuta el JavaScript y dibuja la página.</li>
+<li>10. Por cada imagen, hoja de estilos, script o API de la página se repite del paso 2 al 9.</li>
+</ul>
+<div class="call">Actividad 3 · Con F12 → Red, carga una página y anota código de estado, Content-Type, tamaño y tiempo de la primera petición; compáralos con los de una imagen o una llamada a una API.</div>
+<h2 id="s9">10. Resumen</h2>
+<div class="tw"><table><thead><tr><th>Capa TCP/IP</th><th>Qué resuelve</th><th>Protocolos / elementos</th></tr></thead><tbody><tr><td>Acceso a la red</td><td>Que la señal llegue en la red local</td><td>Ethernet, wifi, MAC, switch</td></tr><tr><td>Internet (red)</td><td>Encontrar el camino entre redes</td><td>IP, máscara, DHCP, routers</td></tr><tr><td>Transporte</td><td>Entregar al programa correcto, con o sin garantías</td><td>TCP, UDP, puertos, handshake</td></tr><tr><td>Aplicación</td><td>Dar formato y sentido a la información</td><td>HTTP/HTTPS, DNS, HTML, CSS, JS</td></tr></tbody></table></div>
+<p>Todo el recorrido, del cable a la pantalla, tarda casi siempre <b>menos de un segundo</b>. Ninguna capa necesita saber cómo trabajan las demás.</p><a class="next" href="index.html">Volver a las carpetas</a></div></body></html>
