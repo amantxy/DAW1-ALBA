@@ -47,6 +47,17 @@ details{margin:6px 0}summary{cursor:pointer;color:var(--mut);font-size:.88rem}
 .hide{display:none!important}
 footer{max-width:1100px;margin:0 auto;padding:16px;color:var(--mut);font-size:.82rem}
 @media(max-width:800px){.wrap{grid-template-columns:1fr}nav{display:none}header input{max-width:none}}
+
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+.bar select,.inp,.ta{font:inherit;font-size:.9rem;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.inp{min-width:220px}.inp.short{min-width:90px;width:110px}.inp.gap{min-width:0;padding:1px 4px;font:inherit;font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--card)}
+.ta{width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;margin:8px 0}
+.fcard{min-height:150px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;padding:20px;background:var(--accbg);border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:1.05rem;margin:8px 0}
+.fcard small{color:var(--mut);font-size:.75rem}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:9px 12px}
+.opt.good{border-color:var(--ok);background:var(--accbg)}.opt.bad{border-color:var(--warn)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}
+.ex textarea,.ex pre{margin-top:6px}
 </style>
 </head>
 <body>
@@ -170,6 +181,299 @@ final double PI = 3.141592;</code></pre>
 <pre><code>int a = (int) 2.6;   // a vale 2</code></pre>
 </div></section>
 
+
+<section class="sec"><h3>Introducción a la programación (conceptos)</h3><div class="body">
+<p class="sub">Fuente: Introduccion_a_la_Programacion_Informatica.docx</p>
+<p><b>Programar</b> es transformar una solución lógica en instrucciones que un ordenador pueda ejecutar. Las instrucciones deben ser precisas: qué datos usar, qué operaciones, en qué orden, qué decisiones y qué resultado.</p>
+<pre><code>Problema → Análisis → Algoritmo → Código fuente → Ejecución → Resultado</code></pre>
+<table>
+<tr><th>Concepto</th><th>Qué es</th></tr>
+<tr><td>Programa</td><td>Conjunto organizado de instrucciones para resolver una tarea.</td></tr>
+<tr><td>Programación</td><td>Proceso completo: analizar, diseñar, crear el algoritmo, codificar, ejecutar, depurar, mantener.</td></tr>
+<tr><td>Lenguaje de programación</td><td>Símbolos, palabras reservadas y reglas sintácticas para expresar instrucciones.</td></tr>
+<tr><td>Código fuente</td><td>Texto con las instrucciones escritas en un lenguaje (<code>.java</code>, <code>.py</code>…).</td></tr>
+</table>
+<h4>Modelo Entrada → Proceso → Salida</h4>
+<p>Ejemplo: precio final con descuento. <b>Entrada:</b> precio y % descuento. <b>Proceso:</b> calcular el descuento y restarlo. <b>Salida:</b> precio final.</p>
+<h4>Fases</h4>
+<ol><li>Análisis del problema</li><li>Diseño de la solución</li><li>Codificación</li><li>Pruebas (valores normales, límites y casos especiales)</li><li>Corrección de errores (<b>depuración / debugging</b>)</li><li>Mantenimiento</li></ol>
+<h4>Algoritmo</h4>
+<p>Secuencia <b>ordenada, precisa y finita</b> de instrucciones que resuelve un problema. Debe ser preciso, ordenado, finito y definido; con los mismos datos de entrada da el mismo resultado.</p>
+<pre><code>Inicio
+  Leer nota1
+  Leer nota2
+  Leer nota3
+  suma = nota1 + nota2 + nota3
+  media = suma / 3
+  Mostrar media
+Fin</code></pre>
+<h4>Pseudocódigo</h4>
+<p>Representa algoritmos con expresiones parecidas al lenguaje natural pero estructuradas, sin ser de ningún lenguaje concreto. Permite centrarse en la lógica, detectar errores antes de programar y comunicar soluciones. Palabras habituales: <code>Inicio, Fin, Leer, Escribir, Si, Entonces, SiNo, FinSi, Mientras, FinMientras, Para, FinPara</code>.</p>
+<h4>Lenguaje máquina</h4>
+<p>El procesador solo entiende binario (0 y 1). Un <b>bit</b> es la unidad mínima; <b>8 bits = 1 byte</b>.</p>
+<pre><code>Lenguaje máquina → Lenguaje ensamblador → Lenguajes de alto nivel</code></pre>
+<table>
+<tr><th>Característica</th><th>Bajo nivel</th><th>Alto nivel</th></tr>
+<tr><td>Cercanía al hardware</td><td>Muy alta</td><td>Baja</td></tr>
+<tr><td>Facilidad de lectura</td><td>Baja</td><td>Alta</td></tr>
+<tr><td>Desarrollo</td><td>Más complejo</td><td>Más sencillo</td></tr>
+<tr><td>Portabilidad</td><td>Baja</td><td>Alta</td></tr>
+<tr><td>Control del hardware</td><td>Alto</td><td>Menor</td></tr>
+<tr><td>Ejemplos</td><td>Ensamblador</td><td>Python, Java, PHP</td></tr>
+</table>
+<h4>Compilador vs intérprete</h4>
+<table>
+<tr><th>Característica</th><th>Compilador</th><th>Intérprete</th></tr>
+<tr><td>Traducción</td><td>Antes de ejecutar</td><td>Durante la ejecución</td></tr>
+<tr><td>Resultado</td><td>Puede generar un ejecutable</td><td>Requiere intérprete</td></tr>
+<tr><td>Errores</td><td>En la compilación</td><td>Pueden salir al ejecutar</td></tr>
+<tr><td>Velocidad</td><td>Normalmente alta</td><td>Puede ser menor</td></tr>
+</table>
+<div class="tip"><b>Java es mixto:</b> Código Java → Compilador → <b>Bytecode</b> → <b>Máquina Virtual Java (JVM)</b> → Ejecución. Otros entornos usan compilación <b>JIT</b> (Just In Time).</div>
+</div></section>
+
+<section class="sec"><h3>PSeInt: guía de pseudocódigo (UT 1)</h3><div class="body">
+<p class="sub">Fuente: guia_pseint_2016-6-10 UT1.pdf</p>
+<h4>Forma general</h4>
+<pre><code>Proceso SinTitulo
+    accion 1;
+    accion 2;
+FinProceso</code></pre>
+<p>Cada instrucción termina en <code>;</code>. Las acciones incluyen entrada/salida, asignaciones, condicionales y bucles.</p>
+<h4>Tipos de datos</h4>
+<ul>
+<li><b>Numérico</b> (enteros y decimales; el decimal con punto): <code>12  0  -2.3  3.14</code></li>
+<li><b>Lógico</b>: <code>VERDADERO</code> / <code>FALSO</code></li>
+<li><b>Carácter / cadena</b>: entre comillas <code>"hola"</code> o <code>'hola'</code></li>
+</ul>
+<p>El tipo se determina automáticamente al crear la variable (con <code>Leer</code> o <code>&lt;-</code>) y no puede cambiar durante la ejecución. Los identificadores: solo letras, números y <code>_</code>, empezando por letra.</p>
+<h4>Arreglos (arrays)</h4>
+<p>Estructuras homogéneas bajo un mismo nombre. Es obligatorio dimensionarlos antes de usarlos:</p>
+<pre><code>Dimension identificador(max1, ..., maxN);</code></pre>
+<h4>Operadores</h4>
+<table>
+<tr><th>Tipo</th><th>Operador</th><th>Significado</th></tr>
+<tr><td rowspan="6">Relacionales</td><td><code>&gt;</code></td><td>Mayor que</td></tr>
+<tr><td><code>&lt;</code></td><td>Menor que</td></tr>
+<tr><td><code>=</code></td><td>Igual que</td></tr>
+<tr><td><code>&lt;=</code></td><td>Menor o igual</td></tr>
+<tr><td><code>&gt;=</code></td><td>Mayor o igual</td></tr>
+<tr><td><code>&lt;&gt;</code></td><td>Distinto</td></tr>
+<tr><td rowspan="3">Lógicos</td><td><code>&amp;</code> ó <code>Y</code></td><td>Conjunción (y)</td></tr>
+<tr><td><code>|</code> ó <code>O</code></td><td>Disyunción (o)</td></tr>
+<tr><td><code>~</code> ó <code>NO</code></td><td>Negación</td></tr>
+<tr><td rowspan="3">Algebraicos</td><td><code>+ - * /</code></td><td>Suma, resta, multiplicación, división</td></tr>
+<tr><td><code>^</code></td><td>Potenciación (<code>3.41 * radio ^ 2</code>)</td></tr>
+<tr><td><code>%</code> ó <code>MOD</code></td><td>Módulo (resto de la división entera)</td></tr>
+</table>
+<p>La jerarquía es la del álgebra; los paréntesis la alteran.</p>
+<h4>Funciones matemáticas (un solo parámetro numérico)</h4>
+<table>
+<tr><th>Función</th><th>Significado</th></tr>
+<tr><td>RC(X)</td><td>Raíz cuadrada (X no negativo)</td></tr>
+<tr><td>ABS(X)</td><td>Valor absoluto</td></tr>
+<tr><td>LN(X)</td><td>Logaritmo natural</td></tr>
+<tr><td>EXP(X)</td><td>Exponencial</td></tr>
+<tr><td>SEN(X), COS(X), TAN(X)</td><td>Seno, coseno, tangente</td></tr>
+<tr><td>TRUNC(X)</td><td>Parte entera</td></tr>
+<tr><td>REDON(X)</td><td>Entero más cercano</td></tr>
+<tr><td>AZAR(X)</td><td>Entero aleatorio entre 0 y X-1</td></tr>
+</table>
+<h4>Entrada, proceso y salida</h4>
+<pre><code>Leer variable1, variable2;            // entrada (teclado)
+variable &lt;- expresión;                 // asignación: primero se evalúa la derecha
+Escribir expr1, expr2;                // salida (pantalla)</code></pre>
+<div class="tip">En la asignación, el tipo de la variable y el de la expresión deben coincidir.</div>
+</div></section>
+
+<section class="sec"><h3>Java: estructura básica, salida y entrada</h3><div class="body">
+<p class="sub">Fuente: Estructura básica de un programa en Java.pdf</p>
+<pre><code>public class HolaMundo {
+    public static void main(String[] args) {
+        System.out.println("Hola Mundo");
+    }
+}</code></pre>
+<ul>
+<li>Todo programa Java está dentro de una <b>clase</b>. El nombre de la clase pública debe coincidir con el del archivo (<code>HolaMundo.java</code>).</li>
+<li><code>main</code>: punto de entrada. <code>public</code> (accesible), <code>static</code> (sin crear objeto), <code>void</code> (no devuelve nada), <code>String[] args</code> (parámetros de la línea de comandos).</li>
+<li>Las llaves <code>{ }</code> delimitan la clase y el método.</li>
+</ul>
+<h4>Salida</h4>
+<pre><code>System.out.println("Hola");   // con salto de línea
+System.out.print("Hola ");    // sin salto de línea
+System.out.print("Mundo");    // Hola Mundo</code></pre>
+<h4>Entrada con Scanner</h4>
+<pre><code>import java.util.Scanner;
+
+public class EntradaSalida {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Escribe tu nombre: ");
+        String nombre = sc.nextLine();      // línea de texto
+        System.out.print("Escribe tu edad: ");
+        int edad = sc.nextInt();            // entero
+        System.out.print("Escribe tu altura (ej: 1.75): ");
+        double altura = sc.nextDouble();    // decimal
+
+        System.out.println("\n--- RESULTADOS ---");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Edad: " + edad + " años");
+        System.out.println("Altura: " + altura + " m");
+        sc.close();                         // buena práctica
+    }
+}</code></pre>
+<table>
+<tr><th>Método</th><th>Lee</th></tr>
+<tr><td><code>nextLine()</code></td><td>Una línea completa de texto</td></tr>
+<tr><td><code>nextInt()</code></td><td>Un entero</td></tr>
+<tr><td><code>nextDouble()</code></td><td>Un decimal</td></tr>
+<tr><td><code>nextBoolean()</code></td><td>true / false</td></tr>
+</table>
+</div></section>
+
+<section class="sec"><h3>Ejercicios resueltos UT 1</h3><div class="body">
+<p class="sub">Fuentes: EjerciciosUnidad1.docx, EjerciciosBásicosU1.pdf, CirculoJava.pdf, EcuacionesSegundoGrado.pdf. Inténtalos antes de abrir la solución (también tienes versión interactiva en «Práctica interactiva»).</p>
+<h4>1. Longitud de la circunferencia (Java)</h4>
+<details><summary>Ver solución</summary>
+<pre><code>public static void main(String[] args) {
+    float radio = 5;
+    final float PI = 3.1416f;
+    float longitud = 2 * PI * radio;
+    System.out.println(longitud);
+}</code></pre></details>
+<h4>2. Evaluar expresiones (a = 12, b = 4, c = 2)</h4>
+<table>
+<tr><th></th><th>Expresión</th><th>Resultado</th></tr>
+<tr><td>a</td><td><code>a + b * c</code></td><td>20</td></tr>
+<tr><td>b</td><td><code>(a + b) * c</code></td><td>32</td></tr>
+<tr><td>c</td><td><code>a - b / c</code></td><td>10</td></tr>
+<tr><td>d</td><td><code>(a - b) / c</code></td><td>4</td></tr>
+<tr><td>e</td><td><code>a + b * c - 5</code></td><td>15</td></tr>
+<tr><td>f</td><td><code>(a + b) * (c + 3)</code></td><td>80</td></tr>
+</table>
+<h4>3. Expresiones booleanas (a = 12, b = 6, c = 3)</h4>
+<table>
+<tr><th></th><th>Expresión</th><th>Resultado</th></tr>
+<tr><td>a</td><td><code>a &gt; b &amp;&amp; b &gt; c</code></td><td>true</td></tr>
+<tr><td>b</td><td><code>a &lt; b || c &lt; b</code></td><td>true</td></tr>
+<tr><td>c</td><td><code>(a + b) &gt; 15 &amp;&amp; c == 3</code></td><td>true</td></tr>
+<tr><td>d</td><td><code>a / b == c || a &gt; 10</code></td><td>true</td></tr>
+<tr><td>e</td><td><code>(a - b) * c == 18 &amp;&amp; b &gt; c</code></td><td>true</td></tr>
+<tr><td>f</td><td><code>a % b == 0 &amp;&amp; c != 3</code></td><td>false</td></tr>
+</table>
+<h4>4. Área de un trapecio</h4>
+<details><summary>Ver solución</summary>
+<pre><code>float baseMayor = 10, baseMenor = 6, altura = 4;
+float area = (baseMayor + baseMenor) * altura / 2;
+System.out.println(area);   // 32.0</code></pre></details>
+<h4>5. Área de un rombo (con Scanner)</h4>
+<details><summary>Ver solución</summary>
+<pre><code>Scanner teclado = new Scanner(System.in);
+double diagonalMayor, diagonalMenor, area;
+System.out.println("Diagonal mayor ");
+diagonalMayor = teclado.nextDouble();
+System.out.println("Diagonal menor ");
+diagonalMenor = teclado.nextDouble();
+area = (diagonalMayor * diagonalMenor) / 2;
+System.out.println("El área el rombo es " + area);</code></pre></details>
+<h4>6. Fahrenheit → Celsius</h4>
+<details><summary>Ver solución</summary>
+<pre><code>public class Temperatura {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        double fahrenheit, celsius;
+        System.out.print("Introduce la temperatura en grados Fahrenheit: ");
+        fahrenheit = teclado.nextDouble();
+        celsius = (fahrenheit - 32) * 5 / 9;
+        System.out.println("La temperatura en grados Celsius es: " + celsius);
+    }
+}</code></pre></details>
+<h4>7. PSeInt: círculo y rectángulo</h4>
+<details><summary>Ver solución</summary>
+<pre><code>Algoritmo Círculo
+    Definir r Como Entero
+    Definir v,l Como Real
+    Escribir "Introducir el radio "
+    Leer r
+    l = 2 * PI * r;      // longitud de la circunferencia
+    v = PI * r ^ 2;      // área del círculo
+    Escribir "Longitud de la circunferencia ", l;
+    Escribir "Área del círculo ", v;
+FinAlgoritmo
+
+Algoritmo Rectangulo
+    Definir base, altura, area, perimetro Como Real
+    Escribir "Ingrese la base del rectángulo:"
+    Leer base
+    Escribir "Ingrese la altura del rectángulo:"
+    Leer altura
+    area = base * altura
+    perimetro = 2 * base + 2 * altura
+    Escribir "El área del rectángulo es: ", area
+    Escribir "El perímetro del rectángulo es: ", perimetro
+FinAlgoritmo</code></pre>
+<p class="sub">En el documento del profesor el segundo resultado del círculo se llama «volumen»; es en realidad el área (π·r²).</p></details>
+<h4>8. Círculo en Java</h4>
+<p>Enunciado: calcular longitud (perímetro) y área de una circunferencia, con el radio introducido por el usuario (puede tener decimales). El PDF del profesor trae solo el enunciado.</p>
+<details><summary>Mi propuesta de solución (no es oficial)</summary>
+<pre><code>Scanner teclado = new Scanner(System.in);
+System.out.print("Radio: ");
+double radio = teclado.nextDouble();
+double longitud = 2 * Math.PI * radio;
+double area = Math.PI * radio * radio;
+System.out.println("Longitud: " + longitud);
+System.out.println("Área: " + area);</code></pre></details>
+<h4>9. Ecuación de segundo grado</h4>
+<p>Fórmula: x = (−b ± √(b² − 4ac)) / 2a</p>
+<details><summary>Ver solución</summary>
+<pre><code>Scanner sc = new Scanner(System.in);
+double a, b, c, x1, x2;
+System.out.println("=== Resolver ecuación de segundo grado ===");
+System.out.print("Introduce el valor de a: "); a = sc.nextDouble();
+System.out.print("Introduce el valor de b: "); b = sc.nextDouble();
+System.out.print("Introduce el valor de c: "); c = sc.nextDouble();
+if (a == 0) {
+    System.out.println("No es una ecuación de segundo grado (a no puede ser 0).");
+} else {
+    if (b * b - 4 * a * c &lt; 0) {
+        System.out.println("No tiene solución");
+    } else {
+        x1 = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        x2 = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        System.out.println("x1 = " + x1);
+        System.out.println("x2 = " + x2);
+    }
+}
+sc.close();</code></pre></details>
+</div></section>
+
+<section class="sec"><h3>Libro «Introducción a la programación»: estructura lineal (cap. 1)</h3><div class="body">
+<p class="sub">Fuente: Introduccion-a-la-programacion-17-74 UT1.pdf (58 páginas). Resumen; el archivo completo tiene cada ejercicio en español estructurado, prueba de escritorio, PSeInt y Java.</p>
+<ul>
+<li>El <b>análisis</b> es lo más importante: ¿qué tenemos? ¿qué necesitamos? Después la estructura, la indentación y las buenas prácticas.</li>
+<li><b>Buenas prácticas:</b> nombre del algoritmo alusivo, variables con nombres descriptivos, orden (comentarios → nombre → definición de variables → inicializar a 0 o <code>""</code>), sangría en las estructuras.</li>
+<li><b>Variable:</b> valor que cambia pero siempre del mismo tipo. <b>Constante:</b> no cambia (p. ej. <code>PI</code> = 3.1416).</li>
+<li><b>Tipos de datos:</b> entero, real, cadena, booleano, fecha.</li>
+<li><b>Prueba de escritorio:</b> simular a mano el algoritmo línea a línea con una tabla de una columna por variable; conviene probar valores correctos e incorrectos.</li>
+<li><b>PSeInt</b> es una herramienta para aprender algoritmos (funciones: MOD, RC/RAIZ, ABS, EXP, TRUNC, REDON, AZAR).</li>
+</ul>
+<h4>Ejercicios del capítulo (fórmulas)</h4>
+<table>
+<tr><th>Nº</th><th>Problema</th><th>Cálculo</th></tr>
+<tr><td>1</td><td>Ganancia de una inversión</td><td><code>ganancia = capital * dias * 0.02</code> (4200 · 30 · 0.02 = 2520)</td></tr>
+<tr><td>2</td><td>Arena para revocar una pared</td><td><code>arena = largo * ancho * 0.5</code> (10 · 5 · 0.5 = 25)</td></tr>
+<tr><td>3</td><td>Cono</td><td>aBase = π·r²; aLado = π·r·g; aTotal = aBase + aLado; volumen = aBase·altura/3</td></tr>
+<tr><td>4</td><td>Esfera</td><td>área = 4·π·r²; volumen = 4·π·r³/3</td></tr>
+<tr><td>5</td><td>Cubo</td><td>aBase = L²; aLado = 4·L²; aTotal = 6·L²; volumen = L³</td></tr>
+<tr><td>6</td><td>Perímetro de un triángulo (coordenadas)</td><td>suma de 3 distancias <code>Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2))</code></td></tr>
+<tr><td>7</td><td>Superficie de un triángulo (coordenadas)</td><td>((x1·y2 + x2·y3 + x3·y1) − (x1·y3 + x3·y2 + x2·y1)) / 2</td></tr>
+<tr><td>8</td><td>Prisma pentagonal</td><td>aBase = per·apo/2; aLado = per·alt; aTotal = 2·aBase + aLado; volumen = aBase·alt</td></tr>
+<tr><td>9</td><td>Monto de un capital</td><td><code>monto = capital * (1 + interes / 100)</code></td></tr>
+</table>
+<div class="tip">La lectura del libro se detiene en el ejercicio 9 de esta copia; el resto del capítulo no pude extraerlo completo.</div>
+</div></section>
+
 <!-- ================= UT 2 ================= -->
 <h2 class="tema" id="ut2">UT 2 · Estructuras de control</h2>
 <p class="sub">Fuente: U2 Estructuras de control.pdf del profesor.</p>
@@ -289,6 +593,623 @@ static double calcularAreaRectangulo(double base, double altura) {
 }</code></pre>
 <p><b>Ventajas:</b> reutilizar código, evitar repeticiones, organizar el programa y dividir un problema en partes.</p>
 <div class="ex"><b>Ejercicios propuestos:</b> <code>esPar</code>, <code>calcularAreaTriangulo</code>, <code>mostrarTabla</code>, <code>mayorDeTres</code>. (Ver más en UT 3.)</div>
+</div></section>
+
+
+<section class="sec"><h3>PSeInt: estructuras de control (guía UT 2)</h3><div class="body">
+<p class="sub">Fuente: guia_pseint_2016-11-20.pdf</p>
+<h4>Si-Entonces</h4>
+<pre><code>Si &lt;condición&gt; Entonces
+    &lt;instrucciones&gt;
+Sino
+    &lt;instrucciones&gt;
+FinSi</code></pre>
+<p><code>Entonces</code> siempre aparece; <code>Sino</code> es opcional. La condición debe ser una expresión lógica (Verdadero/Falso).</p>
+<h4>Selección múltiple (Según)</h4>
+<pre><code>Segun &lt;variable&gt; Hacer
+    1: &lt;instrucciones&gt;
+    2, 3: &lt;instrucciones&gt;
+    De Otro Modo: &lt;instrucciones&gt;
+FinSegun</code></pre>
+<p>Depende del valor de una variable numérica. Cada opción lleva uno o varios números separados por comas. <code>De Otro Modo</code> es opcional.</p>
+<h4>Mientras Hacer (while)</h4>
+<pre><code>Mientras &lt;condición&gt; Hacer
+    &lt;instrucciones&gt;
+FinMientras</code></pre>
+<p>Evalúa antes; el cuerpo puede no ejecutarse nunca. Si la condición siempre es verdadera: <b>ciclo infinito</b>, así que el cuerpo debe modificar las variables de la condición.</p>
+<h4>Repetir Hasta Que (do-while)</h4>
+<pre><code>Repetir
+    &lt;instrucciones&gt;
+Hasta Que &lt;condición&gt;</code></pre>
+<p>Evalúa al final: el cuerpo se ejecuta <b>al menos una vez</b> y se repite <b>hasta que</b> la condición sea verdadera. (Ojo: es lo contrario que el <code>while</code> de Java, que repite mientras es verdadera.)</p>
+<h4>Para (for)</h4>
+<pre><code>Para &lt;variable&gt; &lt;- &lt;inicial&gt; Hasta &lt;final&gt; Con Paso &lt;paso&gt; Hacer
+    &lt;instrucciones&gt;
+FinPara</code></pre>
+<p>Si se omite <code>Con Paso</code>, se incrementa de 1 en 1.</p>
+<h4>Observaciones</h4>
+<ul>
+<li>Comentarios con <code>//</code> (no vale <code>/* */</code>).</li>
+<li>No puede haber instrucciones fuera del proceso (sí comentarios).</li>
+<li>Las estructuras pueden anidarse, pero la interna debe empezar y acabar dentro de la externa.</li>
+<li>Los tipos no se declaran, se infieren. Constantes de texto entre comillas <code>"</code>; decimales con punto; lógicas <code>Verdadero</code> y <code>Falso</code>.</li>
+</ul>
+<h4>Ejecución paso a paso y prueba de escritorio</h4>
+<p>PSeInt permite ejecutar línea a línea («Primer Paso» / «Avanzar un paso»), pausar, evaluar variables o expresiones («Evaluar…») y ver la <b>Prueba de Escritorio</b>: una tabla con el valor de las variables tras cada línea.</p>
+<h4>Ejemplos que incluye PSeInt</h4>
+<ul>
+<li><b>AdivinaNumero:</b> adivinar un número aleatorio (<code>azar(100)+1</code>) en 10 intentos con <code>Mientras … Y intentos&gt;0</code>.</li>
+<li><b>Mayores:</b> los dos mayores de una lista de N datos (usa <code>Dimension datos[200]</code> y <code>Para</code>).</li>
+<li><b>Triángulo:</b> comprueba si 3 lados forman un triángulo rectángulo (Pitágoras) y calcula el área.</li>
+<li><b>OrdenaLista:</b> ordena nombres alfabéticamente (selección del menor).</li>
+<li><b>Promedio:</b> acumulador + <code>Para</code>.</li>
+</ul>
+<pre><code>// Promedio
+Proceso Promedio
+    Escribir "Ingrese la cantidad de datos:";
+    Leer n;
+    acum &lt;- 0;
+    Para i &lt;- 1 Hasta n Hacer
+        Escribir "Ingrese el dato ", i, ":";
+        Leer dato;
+        acum &lt;- acum + dato;
+    FinPara
+    prom &lt;- acum / n;
+    Escribir "El promedio es: ", prom;
+FinProceso</code></pre>
+</div></section>
+
+<section class="sec"><h3>Patrones de bucles: contador, acumulador, máximo/mínimo</h3><div class="body">
+<ul>
+<li><b>Contador:</b> <code>total++;</code> (suma 1 cada vez).</li>
+<li><b>Acumulador:</b> <code>suma += valor;</code></li>
+<li><b>Máximo/mínimo:</b> inicializar con un valor extremo (<code>max = -9999</code>, <code>min = 9999</code>) o con el primer dato, y comparar en cada vuelta.</li>
+<li><b>Lectura adelantada:</b> leer antes del bucle y volver a leer al final del cuerpo.</li>
+<li><b>Centinela:</b> valor que solo sirve para terminar (0, 99…) y <b>no entra en los cálculos</b>.</li>
+<li><b>Media con decimales:</b> <code>media = (double) suma / total;</code> (si no, división entera).</li>
+</ul>
+<pre><code>int edad, total = 0, suma = 0;
+edad = teclado.nextInt();            // lectura adelantada
+while (edad != 0) {
+    suma += edad;
+    total++;
+    edad = teclado.nextInt();
+}
+double media = (double) suma / total;</code></pre>
+</div></section>
+
+<section class="sec"><h3>Ejercicios resueltos UT 2: if / if-else / operadores lógicos</h3><div class="body">
+<p class="sub">Fuente: EjerciciosUnidad2.docx (60 páginas). Intenta cada ejercicio antes de abrir la solución.</p>
+<h4>1. Mayor de edad</h4>
+<p>Mostrar «Es mayor de edad» si <code>edad</code> ≥ 18.</p>
+<details><summary>Solución</summary><pre><code>int edad = 10;
+if (edad &gt;= 18) {
+    System.out.println("Es mayor de edad");
+}</code></pre></details>
+<h4>2. Descuento del 10 %</h4>
+<p>Si el precio (float) es superior a 100 €, aplicar 10 % de descuento y mostrar el precio final.</p>
+<details><summary>Solución</summary><pre><code>float precio = 150;
+float descuento;
+if (precio &gt; 100) {
+    descuento = precio * 10 / 100;
+    precio = precio - descuento;
+}
+System.out.println("Precio final: " + precio + " euros");</code></pre></details>
+<h4>3. Mostrar el mayor</h4>
+<details><summary>Solución</summary><pre><code>int a = 10, b = 20;
+if (a &gt; b) { System.out.println(a); }
+else          { System.out.println(b); }</code></pre></details>
+<h4>4. Días de un año (bisiesto si es divisible entre 4)</h4>
+<details><summary>Solución</summary><pre><code>int anno = 2000;
+int n_dias = 365;
+if (anno % 4 == 0) {
+    n_dias++;          // equivale a n_dias = n_dias + 1
+}
+System.out.println(n_dias);</code></pre></details>
+<h4>5. Atracción: 12 años o más Y altura ≥ 1,40</h4>
+<details><summary>Solución</summary><pre><code>int edad = 11;
+float altura = 1.50f;
+if (edad &gt;= 12 &amp;&amp; altura &gt;= 1.40f) {
+    System.out.println("Puede ingresar");
+} else {
+    System.out.println("No puede ingresar");
+}</code></pre></details>
+<h4>6. Temperatura fuera de rango (&lt; 0 o &gt; 40)</h4>
+<details><summary>Solución</summary><pre><code>if (temperatura &lt; 0 || temperatura &gt; 40) {
+    System.out.println("Temperatura fuera de rango");
+}</code></pre></details>
+<h4>7. Acceso gratuito (menos de 6 años O 65 o más)</h4>
+<details><summary>Solución</summary><pre><code>if (edad &lt; 6 || edad &gt;= 65) {
+    System.out.println("Acceso gratuito");
+}</code></pre></details>
+<h4>8. Aprobar: examen ≥ 5 Y ejercicios ≥ 5</h4>
+<details><summary>Solución</summary><pre><code>if (examen &gt;= 5 &amp;&amp; ejercicios &gt;= 5) {
+    System.out.println("Aprobado");
+}</code></pre></details>
+<h4>9. Museo gratis si edad &lt; 18 O es estudiante (boolean)</h4>
+<details><summary>Solución</summary><pre><code>boolean estudiante = true;
+if (edad &lt; 18 || estudiante) {
+    System.out.println("Entrada gratuita");
+}</code></pre></details>
+<h4>10. Préstamo de libros (if anidado)</h4>
+<p>&lt; 14 años: «No puede realizar el préstamo sin autorización». ≥ 14 y &lt; 3 libros: «Puede llevarse otro libro». ≥ 14 y ≥ 3 libros: «No puede llevarse más libros».</p>
+<details><summary>Solución</summary><pre><code>if (edad &lt; 14) {
+    System.out.println("No se puede realizar el préstamo sin autorización");
+} else {
+    if (prestados &lt; 3) {
+        System.out.println("Puede llevarse otro libro");
+    } else {
+        System.out.println("No se puede llevarse más libros");
+    }
+}</code></pre></details>
+<h4>11–12. Zona VIP</h4>
+<p>&lt; 18: «No puede acceder: debe ser mayor de edad». ≥ 18 con entrada VIP: «Puede acceder a la zona VIP». ≥ 18 sin VIP: «No puede acceder: necesita una entrada VIP».</p>
+<details><summary>Solución</summary><pre><code>if (edad &lt; 18) {
+    System.out.println("No puede acceder, es menor");
+} else {
+    if (entrada) System.out.println("Puede acceder");
+    else         System.out.println("No puede acceder, no tiene entrada");
+}</code></pre></details>
+</div></section>
+
+<section class="sec"><h3>Ejercicios resueltos UT 2: switch</h3><div class="body">
+<h4>13. Nota → texto (0-4 Suspenso, 5-6 Aprobado, 7-8 Notable, 9-10 Sobresaliente)</h4>
+<details><summary>Solución clásica (con fall-through)</summary><pre><code>int nota = 7;
+switch (nota) {
+    case 0: case 1: case 2: case 3: case 4:
+        System.out.println("Suspenso"); break;
+    case 5: case 6:
+        System.out.println("Aprobado"); break;
+    case 7: case 8:
+        System.out.println("Notable"); break;
+    case 9: case 10:
+        System.out.println("Sobresaliente"); break;
+    default:
+        System.out.println("NOTA NO VÁLIDA");
+}</code></pre></details>
+<details><summary>Alternativa moderna (->)</summary><pre><code>switch (nota) {
+    case 0, 1, 2, 3, 4 -&gt; System.out.println("Suspenso");
+    case 5, 6          -&gt; System.out.println("Aprobado");
+    case 7, 8          -&gt; System.out.println("Notable");
+    case 9, 10         -&gt; System.out.println("Sobresaliente");
+    default            -&gt; System.out.println("NOTA NO VÁLIDA");
+}</code></pre></details>
+<h4>15–16. Menú 1-4 con switch</h4>
+<p>1 «Consultar saldo», 2 «Realizar ingreso», 3 «Realizar retirada», 4 «Salir», otro «Opción no válida».</p>
+<details><summary>Solución</summary><pre><code>Scanner teclado = new Scanner(System.in);
+System.out.print("Introduce una opción entre 1 y 4: ");
+int opcion = teclado.nextInt();
+switch (opcion) {
+    case 1 -&gt; System.out.println("Consultar saldo");
+    case 2 -&gt; System.out.println("Realizar ingreso");
+    case 3 -&gt; System.out.println("Realizar retirada");
+    case 4 -&gt; System.out.println("Salir");
+    default -&gt; System.out.println("Opción no válida");
+}</code></pre></details>
+</div></section>
+
+<section class="sec"><h3>Ejercicios resueltos UT 2: do-while y menús</h3><div class="body">
+<h4>17. Repetir hasta que el valor sea distinto de 0</h4>
+<details><summary>Solución</summary><pre><code>int numero;
+do {
+    System.out.print("Introduce un número entero distinto de 0: ");
+    numero = teclado.nextInt();
+} while (numero == 0);
+System.out.println("Número introducido: " + numero);</code></pre></details>
+<h4>18. Repetir mientras no esté entre 1 y 4</h4>
+<details><summary>Solución</summary><pre><code>do {
+    System.out.print("Introduce un número entre 1 y 4: ");
+    numero = teclado.nextInt();
+} while (numero &lt; 1 || numero &gt; 4);</code></pre></details>
+<h4>19. Par o impar hasta que se introduzca 0</h4>
+<details><summary>Solución</summary><pre><code>do {
+    System.out.print("Introduce un número: ");
+    numero = teclado.nextInt();
+    if (numero != 0) {
+        if (numero % 2 == 0) System.out.println("El número es par");
+        else                 System.out.println("El número es impar");
+    }
+} while (numero != 0);</code></pre></details>
+<h4>20–21. Menú repetido hasta «4. Salir»</h4>
+<details><summary>Solución</summary><pre><code>int opcion;
+do {
+    System.out.println("1. Consultar datos");
+    System.out.println("2. Añadir datos");
+    System.out.println("3. Eliminar datos");
+    System.out.println("4. Salir");
+    System.out.print("Elige una opción: ");
+    opcion = teclado.nextInt();
+    switch (opcion) {
+        case 1 -&gt; System.out.println("Has elegido consultar datos");
+        case 2 -&gt; System.out.println("Has elegido añadir datos");
+        case 3 -&gt; System.out.println("Has elegido eliminar datos");
+        case 4 -&gt; System.out.println("Fin del programa");
+        default -&gt; System.out.println("Opción no válida");
+    }
+} while (opcion != 4);</code></pre></details>
+</div></section>
+
+<section class="sec"><h3>Ejercicios resueltos UT 2: while (contadores y acumuladores)</h3><div class="body">
+<h4>22. Aprobados y suspensos hasta introducir un 0</h4>
+<details><summary>Solución PSeInt y Java</summary><pre><code>Algoritmo sin_titulo
+    Definir nota, aprobados, suspensos Como Entero
+    aprobados &lt;- 0
+    suspensos &lt;- 0
+    Escribir "introducir nota "
+    Leer nota
+    Mientras nota &lt;&gt; 0 Hacer
+        Si nota &gt;= 5 Entonces
+            aprobados &lt;- aprobados + 1
+        SiNo
+            suspensos &lt;- suspensos + 1
+        FinSi
+        Escribir "introducir nota "
+        Leer nota
+    FinMientras
+    Escribir "Alumnos aprobados ", aprobados
+    Escribir "Alumnos suspensos ", suspensos
+FinAlgoritmo</code></pre>
+<pre><code>int nota, aprobados = 0, suspensos = 0;
+nota = teclado.nextInt();
+while (nota != 0) {
+    if (nota &gt;= 5) aprobados++;
+    else            suspensos++;
+    nota = teclado.nextInt();
+}</code></pre></details>
+<h4>23. Temperatura máxima y mínima (termina con 99)</h4>
+<details><summary>Solución PSeInt y Java</summary><pre><code>Algoritmo sin_titulo
+    Definir temperatura, maxima, minima Como Entero;
+    maxima &lt;- -9999
+    minima &lt;- 9999
+    Repetir
+        Escribir "Introducir temperatura &lt;&lt;99 para Salir&gt;&gt;"
+        Leer temperatura
+        Si temperatura &lt;&gt; 99 Entonces
+            Si temperatura &gt; maxima Entonces
+                maxima &lt;- temperatura
+            FinSi
+            Si temperatura &lt; minima Entonces
+                minima &lt;- temperatura
+            FinSi
+        FinSi
+    Hasta Que temperatura = 99
+    Escribir "Temperatura máxima ", maxima
+    Escribir "Temperatura mínima ", minima
+FinAlgoritmo</code></pre>
+<pre><code>int temperatura, maxima = -9999, minima = 9999;
+do {
+    temperatura = teclado.nextInt();
+    if (temperatura != 99) {
+        if (temperatura &gt; maxima) maxima = temperatura;
+        if (temperatura &lt; minima) minima = temperatura;
+    }
+} while (temperatura != 99);</code></pre></details>
+<h4>27. Edades: mayor, menor, total y media (termina con 0)</h4>
+<details><summary>Solución Java</summary><pre><code>int edad, mayor = 0, menor = 200, total = 0, suma = 0;
+double media;
+edad = teclado.nextInt();
+while (edad != 0) {
+    if (edad &gt; mayor) mayor = edad;
+    if (edad &lt; menor) menor = edad;
+    suma += edad;     // acumulador
+    total++;          // contador
+    edad = teclado.nextInt();
+}
+media = (double) suma / total;</code></pre></details>
+<h4>31. Ventas: mayor, menor, nº, total, media, &gt;100 €, &lt;50 € y objetivo 1000 €</h4>
+<details><summary>Solución Java</summary><pre><code>double venta, mayorVenta = 0, menorVenta = 9999, totalVenta = 0, media;
+int totalNventas = 0, sup100 = 0, inf50 = 0;
+venta = teclado.nextDouble();
+while (venta != 0) {
+    totalNventas++;
+    totalVenta += venta;
+    if (venta &gt; mayorVenta) mayorVenta = venta;
+    if (venta &lt; menorVenta) menorVenta = venta;
+    if (venta &gt; 100) sup100++;
+    if (venta &lt; 50)  inf50++;
+    venta = teclado.nextDouble();
+}
+media = totalVenta / totalNventas;
+if (totalVenta &gt; 1000) System.out.println("objetivo cumplido");
+else                   System.out.println("objetivo NO cumplido");</code></pre></details>
+<h4>Valor máximo de una serie (termina con 0)</h4>
+<details><summary>Solución PSeInt</summary><pre><code>Algoritmo valorMaximo
+    Definir v, maximo como Entero
+    Escribir "valor "
+    Leer v              // Lectura adelantada
+    maximo = v
+    Mientras v &lt;&gt; 0 Hacer
+        si v &gt; maximo Entonces
+            maximo &lt;- v
+        FinSi
+        Escribir "valor "
+        Leer v
+    FinMientras
+    Escribir "El valor máximo es " maximo
+FinAlgoritmo</code></pre></details>
+<h4>Edades de alumnos: nº, suma, media y mayores de edad</h4>
+<details><summary>Solución PSeInt</summary><pre><code>Algoritmo sin_titulo
+    Definir media Como Real
+    suma &lt;- 0
+    contador &lt;- 0
+    mayoredad &lt;- 0
+    Escribir "Edad: "
+    Leer edad
+    Mientras edad &lt;&gt; 0 Hacer
+        suma &lt;- suma + edad
+        contador &lt;- contador + 1
+        si edad &gt;= 18 Entonces
+            mayoredad &lt;- mayoredad + 1
+        FinSi
+        Escribir "Edad: "
+        Leer edad
+    FinMientras
+    Si contador &lt;&gt; 0 Entonces
+        media &lt;- suma / contador
+        Escribir "El numero de edades es ", contador
+        Escribir "La suma de las edades es ", suma
+        Escribir "la media de las edades es ", media
+        Escribir "El número de mayores de edad es ", mayoredad
+    SiNo
+        Escribir "No se ha introducido valor"
+    FinSi
+FinAlgoritmo</code></pre></details>
+<h4>Notas por categoría (termina con 0)</h4>
+<p>Enunciado del profesor: contar cuántos alumnos sacaron Sobresaliente (9, 10), Notable (7, 8), Suficiente (5, 6), Suspendieron (&lt; 5) y Aprobaron (≥ 5). El PDF no incluye texto de solución.</p>
+</div></section>
+
+<section class="sec"><h3>Ejercicios resueltos UT 2: for</h3><div class="body">
+<h4>36. Temperaturas de 7 días: media, días &gt; 25 ºC y días &lt; 10 ºC</h4>
+<details><summary>Solución</summary><pre><code>double temperatura, suma = 0, media;
+int sup25 = 0, inf10 = 0;
+for (int i = 1; i &lt;= 7; i++) {
+    System.out.print("Introduce la temperatura del día " + i + ": ");
+    temperatura = teclado.nextDouble();
+    suma = suma + temperatura;
+    if (temperatura &gt; 25) sup25++;
+    if (temperatura &lt; 10) inf10++;
+}
+media = suma / 7;</code></pre></details>
+<h4>Números intermedios entre dos números (en cualquier orden)</h4>
+<details><summary>Solución PSeInt</summary><pre><code>Algoritmo Numeros_Intermedios
+    Definir num1, num2, i Como Entero
+    Escribir "Ingrese el primer número:"
+    Leer num1
+    Escribir "Ingrese el segundo número:"
+    Leer num2
+    si num1 &lt; num2 Entonces
+        Para i &lt;- num1 Hasta num2 Con Paso 1 Hacer
+            Escribir i
+        FinPara
+    SiNo
+        Para i &lt;- num2 Hasta num1 Con Paso 1 Hacer
+            Escribir i
+        FinPara
+    FinSi
+FinAlgoritmo</code></pre></details>
+<h4>Enunciados propuestos (sin solución en los archivos)</h4>
+<ul>
+<li>Tabla de multiplicar de un número.</li>
+<li>Mostrar los números pares desde 2 hasta el número introducido.</li>
+<li>Factorial de un número (5! = 5 × 4 × 3 × 2 × 1 = 120).</li>
+</ul>
+<details><summary>Mi propuesta (no es oficial)</summary><pre><code>// Tabla de multiplicar
+for (int i = 1; i &lt;= 10; i++) System.out.println(n + " x " + i + " = " + n * i);
+// Pares hasta n
+for (int i = 2; i &lt;= n; i += 2) System.out.println(i);
+// Factorial
+long f = 1;
+for (int i = 2; i &lt;= n; i++) f *= i;
+System.out.println(f);</code></pre></details>
+</div></section>
+
+<section class="sec"><h3>Ejercicios tipo examen UT 2</h3><div class="body">
+<h4>Presupuesto de un jardín</h4>
+<p>Longitud, anchura y precio/m². Superficie = longitud × anchura; importe inicial = superficie × precio. Si el importe inicial supera 300 €, descuento del 10 %; si no, 0 €. Mostrar superficie, importe inicial, descuento e importe final. (Ej.: 10 × 4 a 8 €/m² → 40 m², 320 €, 32 €, 288 €.)</p>
+<details><summary>Solución del profesor</summary><pre><code>superficie = longitud * anchura;
+importeInicial = superficie * precio;
+if (importeInicial &gt; 300) descuento = importeInicial * 0.10;
+else                      descuento = 0;
+importeFinal = importeInicial - descuento;</code></pre>
+<p class="sub">La solución del archivo añade además una condición extra (si el importe está entre 270 y 300 el final es 270) que no está en el enunciado de este ejercicio; consúltalo con el profesor si te preguntan por ello.</p></details>
+<h4>Actividad con edad, altura y autorización</h4>
+<p>Participa quien tenga ≥ 12 años y altura ≥ 1,40. Si no cumple: «No puede participar» (prioridad). Si cumple y es menor de 18: «Puede participar» con autorización o «Necesita autorización». Si es mayor de edad: «Puede participar». Un único resultado.</p>
+<details><summary>Solución</summary><pre><code>if (edad &gt;= 12 &amp;&amp; altura &gt;= 1.40) {
+    if (edad &gt;= 18) {
+        System.out.println("PUEDE PARTICIPAR");
+    } else if (autorizado) {
+        System.out.println("PUEDE PARTICIPAR");
+    } else {
+        System.out.println("NECESITA AUTORIZACIÓN");
+    }
+} else {
+    System.out.println("NO PUEDE PARTICIPAR");
+}</code></pre>
+<p class="sub">Atención: la solución del profesor usa <code>altura &gt; 1.40</code>, pero el enunciado dice «al menos 1,40» (≥). En el PSeInt sí usa <code>altura &lt; 1.40</code> para rechazar.</p></details>
+<h4>Menú de servicios (switch + do-while)</h4>
+<p>Opciones: 1 horario («Horario de 09:00 a 20:00»), 2 coste de reserva (pedir horas entre 1 y 5 hasta que sean válidas; 12,50 €/hora), 3 normas («Es obligatorio presentar identificación»), 4 salir («Fin del programa»). Otra opción: «Opción no válida». Puntuación del ejercicio: 2,50 puntos.</p>
+<details><summary>Solución</summary><pre><code>int opcion, horas;
+double coste;
+do {
+    System.out.println("MENÚ DE SERVICIOS");
+    System.out.println("1. Consultar horario");
+    System.out.println("2. Calcular coste de una reserva");
+    System.out.println("3. Consultar normas");
+    System.out.println("4. Salir");
+    System.out.print("Elige una opción: ");
+    opcion = teclado.nextInt();
+    switch (opcion) {
+        case 1:
+            System.out.println("Horario de 09:00 a 20:00");
+            break;
+        case 2:
+            do {
+                System.out.print("Introduce el número de horas: ");
+                horas = teclado.nextInt();
+                if (horas &lt; 1 || horas &gt; 5) System.out.println("Número de horas incorrecto");
+            } while (horas &lt; 1 || horas &gt; 5);
+            coste = horas * 12.50;
+            System.out.println("Coste de la reserva: " + coste + " euros");
+            break;
+        case 3:
+            System.out.println("Es obligatorio presentar identificación");
+            break;
+        case 4:
+            System.out.println("Fin del programa");
+            break;
+        default:
+            System.out.println("Opción no válida");
+    }
+} while (opcion != 4);</code></pre></details>
+<h4>Beca de estudios (if anidados / else if)</h4>
+<p>Requisitos en este orden: edad ≥ 16 («No cumple la edad mínima»), nota media ≥ 7 («No cumple la nota mínima»), ingresos ≤ 18.000 € («Supera el límite de ingresos»); si cumple todo: «Beca concedida». Un solo mensaje.</p>
+<details><summary>Solución</summary><pre><code>if (edad &lt; 16) {
+    System.out.println("No cumple la edad mínima");
+} else if (nota &lt; 7) {
+    System.out.println("No cumple la nota mínima");
+} else if (ingresos &gt; 18000) {
+    System.out.println("Supera el límite de ingresos");
+} else {
+    System.out.println("Beca concedida");
+}</code></pre></details>
+<h4>Presupuesto de pintura</h4>
+<p>Longitud y altura de una pared y precio/m². Si el importe inicial supera 240 €, descuento del 10 %; si no, 0 €. (8 × 4 a 10 €/m² → 32 m², 320 €, 32 €, 288 €.)</p>
+<details><summary>Solución PSeInt</summary><pre><code>superficie &lt;- long * altura
+importeInicial &lt;- superficie * precio
+Si importeInicial &gt; 240 Entonces
+    descuento &lt;- importeInicial * 0.10
+SiNo
+    descuento &lt;- 0
+FinSi
+importeFinal &lt;- importeInicial - descuento</code></pre></details>
+<h4>Acceso a un taller (edad, nota, autorización)</h4>
+<p>Orden: edad &lt; 16 → «No cumple la edad mínima»; nota &lt; 6 → «No supera la prueba»; menor de 18 → «Acceso permitido» con autorización o «Necesita autorización»; 18 o más → «Acceso permitido».</p>
+<details><summary>Solución Java</summary><pre><code>if (edad &lt; 16) {
+    System.out.println("No cumple la edad mínima");
+} else if (nota &lt; 6) {
+    System.out.println("No supera la prueba");
+} else if (edad &lt; 18) {
+    if (autorizacion) System.out.println("Acceso permitido");
+    else              System.out.println("Necesita autorización");
+} else {
+    System.out.println("Acceso permitido");
+}</code></pre></details>
+<h4>Menú con casco (se repite hasta una opción válida)</h4>
+<p>1 «Horario de 09:00 a 19:00», 2 «Es obligatorio utilizar casco», 3 «Fin del programa»; otra: «Opción no válida».</p>
+<details><summary>Solución Java</summary><pre><code>do {
+    System.out.println("1. Consultar horario");
+    System.out.println("2. Consultar normas");
+    System.out.println("3. Salir");
+    System.out.print("Introduce una opción: ");
+    opcion = teclado.nextInt();
+    switch (opcion) {
+        case 1: System.out.println("Horario de 09:00 a 19:00"); break;
+        case 2: System.out.println("Es obligatorio utilizar casco"); break;
+        case 3: System.out.println("Fin del programa"); break;
+        default: System.out.println("Opción no válida");
+    }
+} while (opcion != 3);</code></pre></details>
+<h4>Registro de edades (con caso sin datos)</h4>
+<p>Leer edades hasta 0. Mostrar nº de edades, mayor, menor, media con decimales y cuántas son ≥ 18. Si el primer dato es 0: solo «No se han introducido datos».</p>
+<details><summary>Solución Java</summary><pre><code>int edad, contador = 0, suma = 0, mayor, menor, mayores18 = 0;
+double media;
+edad = teclado.nextInt();
+if (edad == 0) {
+    System.out.println("No se han introducido datos");
+} else {
+    mayor = edad;
+    menor = edad;
+    while (edad != 0) {
+        contador++;
+        suma += edad;
+        if (edad &gt; mayor) mayor = edad;
+        if (edad &lt; menor) menor = edad;
+        if (edad &gt;= 18) mayores18++;
+        edad = teclado.nextInt();
+    }
+    media = (double) suma / contador;
+    System.out.println("Número de edades: " + contador);
+    System.out.println("Edad mayor: " + mayor);
+    System.out.println("Edad menor: " + menor);
+    System.out.println("Media: " + media);
+    System.out.println("Personas de 18 años o más: " + mayores18);
+}</code></pre></details>
+<h4>Examen 2: temperaturas de un paciente (matriz 4 días × 3 tomas)</h4>
+<p>Tomas a las 08:00, 14:00 y 22:00 durante 4 días. Indicar la temperatura más alta (día y hora) y la media de cada día.</p>
+<details><summary>Solución del profesor</summary><pre><code>final int DIAS = 4;
+final int TOMAS = 3;
+String[] horas = {"08:00", "14:00", "22:00"};
+float[][] temp = {
+    {36.7f, 37.5f, 37.0f},
+    {37.1f, 38.2f, 37.8f},
+    {36.8f, 37.6f, 37.2f},
+    {37.0f, 38.5f, 38.0f}
+};
+float max = temp[0][0];
+int diaMax = 0, horaMax = 0;
+System.out.println("Día 08:00 14:00 22:00 Media");
+for (int d = 0; d &lt; DIAS; d++) {          // media por día
+    float sumaDia = 0;
+    System.out.print((d + 1) + " ");
+    for (int h = 0; h &lt; TOMAS; h++) {
+        float t = temp[d][h];
+        sumaDia += t;
+        if (t &gt; max) { max = t; diaMax = d; horaMax = h; }
+        System.out.print(t + " ");
+    }
+    float mediaDia = sumaDia / TOMAS;
+    System.out.println(mediaDia);
+}
+for (int h = 0; h &lt; TOMAS; h++) {          // media por hora
+    float sumaHora = 0;
+    for (int d = 0; d &lt; DIAS; d++) sumaHora += temp[d][h];
+    System.out.println("Media de las " + horas[h] + ": " + sumaHora / DIAS);
+}</code></pre>
+<p class="sub">Usa un array bidimensional y dos <code>for</code> anidados. El código del profesor calcula el máximo y su posición (<code>diaMax</code>, <code>horaMax</code>) pero no llega a imprimirlo: faltaría un <code>println</code> final.</p></details>
+</div></section>
+
+<section class="sec"><h3>Ejercicios propuestos para el primer examen (enunciados)</h3><div class="body">
+<p class="sub">Fuente: EjerciciosPropuestoPrimerExamen.pdf (solo enunciados)</p>
+<ol>
+<li>Aceptar dos números enteros y mostrar la media aritmética.</li>
+<li>Introducir tres números y mostrar el menor.</li>
+<li>Introducir dos números y mostrar todos los intermedios (ambos incluidos), en cualquier orden: 5 y 10 → 5,6,7,8,9,10; 8 y 2 → 2,3,4,5,6,7,8.</li>
+<li>Pedir los coeficientes de una ecuación de segundo grado y mostrar sus soluciones reales; si no existen, indicarlo.</li>
+<li>Escribir todos los múltiplos de 5 menores que 50.</li>
+<li>Escribir 5 números por teclado y mostrar la media.</li>
+<li>Escribir 6 notas por teclado y mostrar el número de suspensos.</li>
+<li>Pedir una temperatura en Celsius y mostrar su equivalente en Fahrenheit.</li>
+</ol>
+<details><summary>Mis propuestas de solución (no son oficiales)</summary><pre><code>// 2. menor de tres
+int menor = a;
+if (b &lt; menor) menor = b;
+if (c &lt; menor) menor = c;
+
+// 5. múltiplos de 5 menores que 50
+for (int i = 5; i &lt; 50; i += 5) System.out.println(i);
+
+// 6. media de 5 números
+double suma = 0;
+for (int i = 0; i &lt; 5; i++) suma += teclado.nextDouble();
+System.out.println(suma / 5);
+
+// 7. suspensos de 6 notas
+int suspensos = 0;
+for (int i = 0; i &lt; 6; i++) if (teclado.nextDouble() &lt; 5) suspensos++;
+
+// 8. Celsius → Fahrenheit
+double f = c * 9 / 5 + 32;</code></pre></details>
+</div></section>
+
+<section class="sec"><h3>Libro «Introducción a la programación»: estructuras selectivas (cap. 2)</h3><div class="body">
+<p class="sub">Fuente: Libro-completo-Introduccion-a-la-programacion-75-295.pdf (221 páginas; solo pude extraer el inicio del capítulo 2).</p>
+<ul>
+<li>Tres tipos: <b>SI simple</b>, <b>SINO (SI doble)</b> y <b>SI anidado (SI múltiple)</b>.</li>
+<li>Operadores de comparación: <code>=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>&lt;&gt;</code> (distinto).</li>
+<li>Operadores lógicos: <code>Y</code> / <code>&amp;</code>, <code>O</code> / <code>|</code>, <code>NO</code> / <code>~</code>.</li>
+<li>SI simple: solo si la condición (por ejemplo <code>sueldo &lt; 1000</code>) es verdadera se ejecuta lo de dentro.</li>
+</ul>
+<div class="tip">El resto de este libro (hasta la página 295 del original) no está volcado aquí. Si el profesor lo pide para el examen, dímelo y lo leo por capítulos.</div>
 </div></section>
 
 <!-- ================= UT 3 ================= -->
@@ -576,11 +1497,55 @@ static double calcularMedia(double a, double b, double c) { return (a + b + c) /
 </details>
 </div></section>
 
+
+<h2 class="tema" id="practica">Práctica interactiva</h2>
+<p class="sub">Flashcards, test, predicción de salidas, huecos de código y ejercicios de escritura. Tu progreso se guarda en este navegador.</p>
+
+<section class="sec" id="p-flash"><h3>Flashcards</h3><div class="body">
+<div class="bar">
+<select id="fc-tema"><option value="all">Todos los temas</option><option value="UT1">UT 1</option><option value="UT2">UT 2</option><option value="UT3">UT 3</option></select>
+<label><input type="checkbox" id="fc-unk"> solo las que no sé</label>
+<button id="fc-shuf">Barajar</button>
+<span id="fc-stat" class="sub"></span>
+</div>
+<div id="fc-card" class="fcard" tabindex="0" role="button" aria-label="Girar tarjeta"><div id="fc-text"></div><small id="fc-side">Pregunta · pulsa para girar</small></div>
+<div class="bar">
+<button id="fc-prev">← Anterior</button>
+<button id="fc-no">No la sé</button>
+<button id="fc-yes">La sé ✓</button>
+<button id="fc-next">Siguiente →</button>
+</div>
+</div></section>
+
+<section class="sec" id="p-quiz"><h3>Test de opción múltiple</h3><div class="body">
+<div class="bar"><select id="qz-tema"><option value="all">Todos los temas</option><option value="UT1">UT 1</option><option value="UT2">UT 2</option><option value="UT3">UT 3</option></select><button id="qz-start">Empezar / reiniciar</button><span id="qz-score" class="sub"></span></div>
+<div id="qz-box"></div>
+</div></section>
+
+<section class="sec" id="p-pred"><h3>¿Qué imprime este código?</h3><div class="body">
+<p class="sub">Escribe exactamente lo que saldría por pantalla (los espacios sobrantes no importan).</p>
+<div id="pr-list"></div>
+</div></section>
+
+<section class="sec" id="p-expr"><h3>Expresiones de UT 1 (a = 12, b = 6, c = 3)</h3><div class="body">
+<p class="sub">Del ejercicio del profesor. Escribe el resultado (número, <code>true</code> o <code>false</code>). Cuidado: la división entre enteros trunca.</p>
+<div id="ex-list"></div>
+</div></section>
+
+<section class="sec" id="p-gaps"><h3>Completa los huecos</h3><div class="body">
+<div id="gp-list"></div>
+</div></section>
+
+<section class="sec" id="p-write"><h3>Escribe tu solución (solución bloqueada hasta que lo intentes)</h3><div class="body">
+<p class="sub">Escribe tu código. «Comprobar» busca los elementos clave que debería contener; no ejecuta Java. Cuando hayas escrito un intento, se desbloquea la solución del profesor.</p>
+<div id="wr-list"></div>
+</div></section>
+
 </main>
 </div>
 <footer>
 Contenido basado en los materiales publicados por el profesor en <i>Programación 1 DAM</i> (Google Sites): UT 1, UT 2 y UT 3.
-Última actualización: 2 nov 2026. Pendiente de añadir: material nuevo que suba el profesor (ver lista de archivos en README).
+Última actualización: 2 nov 2026. Incluye los archivos de UT 1, UT 2 y UT 3 (ver README para el detalle y lo que falta).
 </footer>
 <script>
 (function(){
@@ -627,6 +1592,304 @@ $("#th").onclick=function(){
 };
 try{var t=localStorage.getItem("th");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}
 })();
+</script>
+<script>
+(function(){
+var $=function(s,r){return (r||document).querySelector(s)};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
+function store(k,v){try{if(v===undefined){var r=localStorage.getItem(k);return r?JSON.parse(r):null}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+function norm(s){return String(s).replace(/\s+/g,' ').trim()}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+
+/* ---------- FLASHCARDS ---------- */
+var CARDS=[
+["UT1","¿Cómo se ejecuta el programa en NetBeans?","Run Project (F6)."],
+["UT1","¿Qué es el método main?","El punto de entrada: public static void main(String[] args). Java empieza a ejecutar por ahí."],
+["UT1","Reglas de un identificador en Java","Empieza por letra, _ o $; después letras, dígitos, _ o $; no puede ser palabra reservada; distingue mayúsculas; sin longitud máxima."],
+["UT1","¿Qué es la notación Camel?","Primera palabra en minúscula y las siguientes con inicial mayúscula: notaMediaTercerTrimestre."],
+["UT1","Tipo byte: tamaño y rango","8 bits, de -128 a 127."],
+["UT1","Tipo short: tamaño y rango","16 bits, de -32768 a 32767."],
+["UT1","Tipo int: tamaño y rango","32 bits, de -2.147.483.648 a 2.147.483.647."],
+["UT1","Tipo long","64 bits, aprox. ±9.223.372.036.854.775.808."],
+["UT1","Diferencia entre float y double","float: 32 bits (≈ ±10^38); double: 64 bits (≈ ±10^308)."],
+["UT1","¿Qué pasa con byte b = 127; b++;?","Desbordamiento circular: b vale -128."],
+["UT1","¿Cómo se declara una constante?","Con final y en MAYÚSCULAS por convención: final double PI = 3.141592;"],
+["UT1","Los tres tipos de comentarios","// hasta fin de línea; /* ... */ varias líneas; /** ... */ documentación."],
+["UT1","¿Cuánto es 7 % 3?","1 (el resto de la división entera)."],
+["UT1","Diferencia entre = y ==","= asigna un valor; == compara si son iguales."],
+["UT1","Operadores lógicos de Java","&& (y), || (o), ! (no)."],
+["UT1","Operador ternario","condición ? valor1 : valor2"],
+["UT1","Orden de precedencia (de mayor a menor)","Postfijos, unarios prefijos, * / %, + -, relacionales, == !=, &&, ||, ternario, asignación."],
+["UT1","Ensanchamiento vs estrechamiento","Ensanchamiento: automático (3 → 3.0). Estrechamiento: casting explícito que trunca: int a = (int) 2.6; → 2."],
+["UT1","¿Qué es un algoritmo?","Secuencia ordenada, precisa y finita de instrucciones que resuelve un problema."],
+["UT1","Modelo Entrada → Proceso → Salida","Analizar qué datos recibe, qué operaciones hace y qué resultado produce."],
+["UT1","Compilador vs intérprete","Compilador: traduce antes de ejecutar. Intérprete: traduce durante la ejecución."],
+["UT1","¿Cómo ejecuta Java el código?","Código Java → compilador → bytecode → Máquina Virtual Java (JVM)."],
+["UT1","¿Qué es una prueba de escritorio?","Simular a mano el algoritmo línea a línea con una tabla (una columna por variable)."],
+["UT1","¿Qué clase se usa para leer del teclado?","Scanner: new Scanner(System.in); con nextInt(), nextDouble(), nextLine()."],
+["UT1","print vs println","println muestra y salta de línea; print no."],
+["UT1","Estructura de un programa PSeInt","Proceso/Algoritmo nombre ... FinProceso/FinAlgoritmo; cada instrucción acaba en ;"],
+["UT1","Asignación en PSeInt","variable <- expresión;"],
+["UT1","Potencia y resto en PSeInt","^ para potencia; % o MOD para el resto."],
+["UT2","Escala if-else: ¿cuándo se ejecuta cada rama?","Se evalúan en orden; se ejecuta solo la primera cuya condición sea verdadera; else si ninguna."],
+["UT2","¿Qué expresiones admite un switch clásico?","int, byte, short, char y String."],
+["UT2","¿Qué pasa si falta break en un case?","Fall-through: se siguen ejecutando los case siguientes."],
+["UT2","Switch moderno","case 1, 2 -> ... ; no necesita break."],
+["UT2","while: ¿cuándo evalúa la condición y cuántas veces puede ejecutarse?","Antes de cada vuelta; puede ejecutarse 0 veces."],
+["UT2","do-while: ¿cuándo evalúa y qué lleva al final?","Después del cuerpo (al menos 1 vez) y termina con ;"],
+["UT2","Partes de un for","for (inicialización; condición; incremento)"],
+["UT2","break vs continue","break sale del bucle/switch; continue salta a la siguiente iteración."],
+["UT2","Contador vs acumulador","Contador: total++ (suma 1). Acumulador: suma += valor."],
+["UT2","¿Cómo calcular una media con decimales?","(double) suma / total; si no, la división entera trunca."],
+["UT2","Lectura adelantada","Leer antes del bucle y volver a leer al final de cada vuelta."],
+["UT2","Centinela","Valor (0, 99...) que solo sirve para terminar la entrada y no entra en los cálculos."],
+["UT2","Repetir ... Hasta Que (PSeInt)","Equivale a do-while pero repite HASTA que la condición sea verdadera."],
+["UT2","Para (PSeInt)","Para i <- 1 Hasta n Con Paso 1 Hacer ... FinPara"],
+["UT2","Según (PSeInt)","Equivale al switch: Segun var Hacer 1: ... De Otro Modo: ... FinSegun"],
+["UT3","Partes de un método","modificadores tipoRetorno nombre(parámetros) { ... return ...; }"],
+["UT3","Parámetros vs argumentos","Parámetros: variables de la declaración. Argumentos: valores que se pasan al llamar."],
+["UT3","¿Qué hace return?","Devuelve un valor y termina el método. En void se puede usar return; para salir antes."],
+["UT3","Mostrar vs devolver","println escribe en pantalla; return entrega el resultado al código que llamó."],
+["UT3","static vs instancia","static se llama con la clase (Calculadora.multiplicar(3,4)); de instancia necesita un objeto."],
+["UT3","Sobrecarga de métodos","Mismo nombre con distinto número, tipo u orden de parámetros. Cambiar solo el tipo de retorno no vale."],
+["UT3","Ámbito de una variable","Parámetros y variables locales solo existen dentro de su método."],
+["UT3","Paso de argumentos en Java","Siempre por valor. Con arrays/objetos se copia la referencia (el contenido sí puede cambiar)."],
+["UT3","Recursividad","Un método que se llama a sí mismo; necesita un caso base (factorial(0) = 1)."],
+["UT3","Errores frecuentes con métodos","No devolver valor, confundir imprimir con devolver, argumentos incorrectos, método de instancia desde main sin objeto, declarar un método dentro de otro."]
+];
+var fc={list:[],i:0,back:false,known:store('fc-known')||{}};
+function fcBuild(){
+  var t=$('#fc-tema').value,u=$('#fc-unk').checked;
+  fc.list=CARDS.map(function(c,i){return {i:i,t:c[0],q:c[1],a:c[2]}}).filter(function(c){return (t==='all'||c.t===t)&&(!u||!fc.known[c.i])});
+  fc.i=0;fc.back=false;fcShow();
+}
+function fcShow(){
+  var n=Object.keys(fc.known).filter(function(k){return fc.known[k]}).length;
+  $('#fc-stat').textContent=fc.list.length?('Tarjeta '+(fc.i+1)+' de '+fc.list.length+' · sabidas: '+n+'/'+CARDS.length):'No hay tarjetas con este filtro.';
+  if(!fc.list.length){$('#fc-text').textContent='—';return}
+  var c=fc.list[fc.i];
+  $('#fc-text').textContent=fc.back?c.a:c.q;
+  $('#fc-side').textContent=(fc.back?'Respuesta':'Pregunta')+' · '+c.t+' · pulsa para girar';
+}
+function fcMove(d){if(!fc.list.length)return;fc.i=(fc.i+d+fc.list.length)%fc.list.length;fc.back=false;fcShow()}
+function fcMark(v){if(!fc.list.length)return;fc.known[fc.list[fc.i].i]=v;store('fc-known',fc.known);if($('#fc-unk').checked){fcBuild()}else fcMove(1)}
+$('#fc-card').onclick=function(){if(fc.list.length){fc.back=!fc.back;fcShow()}};
+$('#fc-card').onkeydown=function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();this.click()}};
+$('#fc-prev').onclick=function(){fcMove(-1)};$('#fc-next').onclick=function(){fcMove(1)};
+$('#fc-yes').onclick=function(){fcMark(true)};$('#fc-no').onclick=function(){fcMark(false)};
+$('#fc-tema').onchange=fcBuild;$('#fc-unk').onchange=fcBuild;
+$('#fc-shuf').onclick=function(){fcBuild();fc.list=shuffle(fc.list);fc.i=0;fcShow()};
+fcBuild();
+
+/* ---------- QUIZ ---------- */
+var QZ=[
+["UT1","¿Cuál es un identificador válido en Java?",["2nota","nota_final","class","mi-nota"],1,"Empieza por letra, solo usa letras, dígitos, _ o $, y no es palabra reservada."],
+["UT1","¿Qué valor tiene un byte 127 tras sumarle 1?",["128","127","-128","0"],2,"Los enteros son circulares: pasa de 127 a -128."],
+["UT1","¿Qué hace int a = (int) 2.6; ?",["a vale 3","a vale 2","a vale 2.6","Error de compilación"],1,"El casting a int trunca los decimales."],
+["UT1","Resultado de 7 % 3",["2","1","0","2.33"],1,"El resto de 7 entre 3 es 1."],
+["UT1","¿Cuál es la forma correcta de declarar una constante?",["const double PI = 3.14;","final double PI = 3.14;","static PI = 3.14;","double final PI = 3.14;"],1,"En Java se usa final (const está reservada pero sin uso)."],
+["UT1","Con a=12, b=4, c=2, ¿cuánto vale a + b * c?",["32","20","24","16"],1,"Primero la multiplicación: 4*2 = 8; 12+8 = 20."],
+["UT1","Con a=12, b=6, c=3, ¿cuánto vale a / b == c || a > 10?",["false","true","Error","12"],1,"12/6 = 2 ≠ 3 (false), pero 12 > 10 es true; false || true = true."],
+["UT1","¿Qué lleva el compilador de Java como resultado?",["Código máquina directo","Bytecode para la JVM","Código fuente","Pseudocódigo"],1,"Java compila a bytecode que ejecuta la Máquina Virtual Java."],
+["UT1","¿Qué método de Scanner lee un número decimal?",["nextLine()","nextInt()","nextDouble()","nextBoolean()"],2,"nextDouble() lee un decimal."],
+["UT2","¿Qué pasa si en un switch clásico falta el break?",["Error de compilación","Se ejecutan también los case siguientes","Se salta al default","Nada"],1,"Es el fall-through."],
+["UT2","¿Qué bucle se ejecuta siempre al menos una vez?",["while","for","do-while","Ninguno"],2,"El do-while evalúa la condición al final."],
+["UT2","¿Cuántas veces se ejecuta for (int i=1; i<=5; i++)?",["4","5","6","Infinitas"],1,"i toma 1, 2, 3, 4 y 5."],
+["UT2","¿Qué hace continue dentro de un bucle?",["Sale del bucle","Salta a la siguiente iteración","Termina el programa","Repite el programa"],1,"break sale; continue pasa a la siguiente vuelta."],
+["UT2","Si suma=7 y total=2 son int, ¿qué da suma / total?",["3.5","3","4","Error"],1,"División entera: 3. Para decimales: (double) suma / total."],
+["UT2","En PSeInt, Repetir ... Hasta Que cond repite…",["mientras cond sea verdadera","hasta que cond sea verdadera","solo una vez","nunca"],1,"Sale cuando la condición es verdadera (al revés que el while)."],
+["UT2","¿Qué evita que un while(true) sea infinito?",["Nada, siempre lo es","Modificar dentro del cuerpo las variables de la condición","Poner ; al final","Usar print"],1,"El cuerpo debe cambiar algo para que la condición se vuelva falsa."],
+["UT2","Para terminar de leer notas con un 0 que no cuente en los cálculos, el 0 es…",["una variable","un centinela","un acumulador","una constante"],1,"El centinela solo sirve para terminar la entrada."],
+["UT2","¿Qué es un acumulador?",["Una variable que suma 1 cada vez","Una variable que suma el valor leído cada vez","Un tipo de bucle","Una constante"],1,"Contador suma 1; acumulador suma el valor (suma += valor)."],
+["UT3","En sumar(int a, int b), a y b son…",["argumentos","parámetros","retornos","clases"],1,"Parámetros en la declaración; argumentos al llamar."],
+["UT3","¿Qué indica void?",["Devuelve un entero","No devuelve ningún valor","Es privado","Es estático"],1,"Un método void no devuelve nada."],
+["UT3","¿Se pueden sobrecargar dos métodos que solo difieren en el tipo de retorno?",["Sí","No","Solo si son static","Solo en main"],1,"Debe cambiar el número, tipo u orden de los parámetros."],
+["UT3","void cambiar(int n){ n = 100; } con valor=5; cambiar(valor); ¿cuánto vale valor?",["100","5","0","Error"],1,"Java pasa por valor: se copia el int."],
+["UT3","¿Cuál es el caso base de un factorial recursivo?",["n == 1000","n == 0 → devuelve 1","n < 0","n == 2"],1,"factorial(0) = 1 detiene las llamadas."],
+["UT3","Desde main (static), ¿cómo llamas a un método de instancia?",["Directamente por su nombre","Creando un objeto y usando objeto.metodo()","Con la clase: Clase.metodo()","No se puede"],1,"Necesitas un objeto: Persona p = new Persona(); p.saludar();"]
+];
+var qz={list:[],i:0,ok:0,done:false};
+function qzStart(){
+  var t=$('#qz-tema').value;
+  qz.list=shuffle(QZ.filter(function(q){return t==='all'||q[0]===t}));qz.i=0;qz.ok=0;qz.done=false;qzShow();
+}
+function qzShow(){
+  var box=$('#qz-box');box.textContent='';
+  if(qz.i>=qz.list.length){
+    $('#qz-score').textContent='';
+    box.appendChild(el('p','','Resultado: '+qz.ok+' de '+qz.list.length+(qz.ok===qz.list.length?' · ¡perfecto!':'.')));
+    return;
+  }
+  var q=qz.list[qz.i];
+  $('#qz-score').textContent='Pregunta '+(qz.i+1)+'/'+qz.list.length+' · aciertos: '+qz.ok;
+  box.appendChild(el('p','',q[1]));
+  var fb=el('div','tip');fb.style.display='none';
+  var answered=false;
+  q[2].forEach(function(o,k){
+    var b=el('button','opt',o);
+    b.onclick=function(){
+      if(answered)return;answered=true;
+      var good=k===q[3];if(good)qz.ok++;
+      Array.prototype.forEach.call(box.querySelectorAll('.opt'),function(x,n){if(n===q[3])x.classList.add('good');else if(n===k)x.classList.add('bad')});
+      fb.textContent=(good?'Correcto. ':'No. ')+q[4];fb.style.display='block';
+      var nx=el('button','',qz.i+1<qz.list.length?'Siguiente':'Ver resultado');nx.onclick=function(){qz.i++;qzShow()};
+      box.appendChild(nx);
+    };
+    box.appendChild(b);
+  });
+  box.appendChild(fb);
+}
+$('#qz-start').onclick=qzStart;$('#qz-tema').onchange=qzStart;qzStart();
+
+/* ---------- PREDICCIÓN DE SALIDA ---------- */
+var PR=[
+["int x = 10;\nx += 5;\nx *= 2;\nSystem.out.println(x);","30"],
+["for (int i = 1; i <= 5; i++) {\n  if (i == 3) continue;\n  System.out.print(i + \" \");\n}","1 2 4 5"],
+["int a = 7;\nSystem.out.println(a / 2 + \" \" + a % 2 + \" \" + (double) a / 2);","3 1 3.5"],
+["byte b = 127;\nb++;\nSystem.out.println(b);","-128"],
+["int i = 0;\nwhile (i < 3) { i++; }\nSystem.out.println(i);","3"],
+["int i = 5;\ndo { i--; } while (i > 5);\nSystem.out.println(i);","4"],
+["System.out.println(2 + 3 + \"x\" + 2 + 3);","5x23"],
+["int n = 0;\nfor (int i = 0; i < 10; i += 3) n += i;\nSystem.out.println(n);","18"],
+["System.out.println((int) 2.9 + \" \" + (int) -2.9);","2 -2"],
+["int d = 2;\nswitch (d) {\n  case 1: System.out.print(\"A\");\n  case 2: System.out.print(\"B\");\n  case 3: System.out.print(\"C\"); break;\n  default: System.out.print(\"D\");\n}","BC"],
+["int a = 5;\nint b = a++ + ++a;\nSystem.out.println(a + \" \" + b);","7 12"],
+["static int f(int n) { return n == 0 ? 1 : n * f(n - 1); }\n// main:\nSystem.out.println(f(4));","24"],
+["static int sumar(int a, int b) { return a + b; }\nstatic double sumar(double a, double b) { return a + b; }\n// main:\nSystem.out.println(sumar(2, 3) + \" \" + sumar(2.5, 3.5));","5 6.0"],
+["int[] d = {1, 2, 3};\nstatic void cambiar(int[] x) { x[0] = 100; }\n// main:\ncambiar(d);\nSystem.out.println(d[0]);","100"]
+];
+(function(){
+  var L=$('#pr-list');
+  PR.forEach(function(p,n){
+    var w=el('div','ex');
+    w.appendChild(el('b','','Ejercicio '+(n+1)));
+    var pre=el('pre');var code=el('code','',p[0]);pre.appendChild(code);w.appendChild(pre);
+    var inp=el('input');inp.type='text';inp.placeholder='Salida…';inp.className='inp';
+    var b=el('button','','Comprobar'),r=el('span','sub','');r.style.marginLeft='8px';
+    b.onclick=function(){
+      var ok=norm(inp.value)===norm(p[1]);
+      r.textContent=ok?'✓ Correcto':'✗ No. Salida esperada: '+p[1];
+      r.style.color=ok?'var(--ok)':'var(--warn)';
+    };
+    w.appendChild(inp);w.appendChild(b);w.appendChild(r);L.appendChild(w);
+  });
+})();
+
+/* ---------- EXPRESIONES ---------- */
+var EX=[
+["a > b && b > c","true"],["a < b || c < b","true"],["(a + b) > 15 && c == 3","true"],
+["a / b == c || a > 10","true"],["(a - b) * c == 18 && b > c","true"],["a % b == 0 && c != 3","false"],
+["a + b * c","30"],["(a + b) / c","6"],["a - b / c","10"],["a % c + b","6"],["a / c * c","12"],["b / c + a % c","2"]
+];
+(function(){
+  var L=$('#ex-list');
+  EX.forEach(function(p){
+    var w=el('div','row');
+    w.appendChild(el('code','',p[0]+'  →'));
+    var inp=el('input');inp.type='text';inp.className='inp short';
+    var b=el('button','','OK'),r=el('span','sub','');
+    b.onclick=function(){var ok=norm(inp.value).toLowerCase()===p[1];r.textContent=ok?'✓':'✗ '+p[1];r.style.color=ok?'var(--ok)':'var(--warn)'};
+    w.appendChild(inp);w.appendChild(b);w.appendChild(r);L.appendChild(w);
+  });
+})();
+
+/* ---------- HUECOS ---------- */
+var GP=[
+["Lectura de un entero","Scanner sc = ___ Scanner(System.in);\nint edad = sc.___();",["new","nextInt"]],
+["Constante","___ double PI = 3.141592;",["final"]],
+["if / else","if (nota >= 5) {\n  System.out.println(\"Aprobado\");\n} ___ {\n  System.out.println(\"Suspenso\");\n}",["else"]],
+["switch con break","switch (opcion) {\n  case 1: System.out.println(\"Uno\"); ___;\n  case 2: System.out.println(\"Dos\"); break;\n  ___: System.out.println(\"Otro\");\n}",["break","default"]],
+["do-while","int n;\n___ {\n  n = sc.nextInt();\n} while (n == 0)___",["do",";"]],
+["for","for (int i = 1; i ___ 10; i___) {\n  System.out.println(i);\n}",["<=","++"]],
+["Media con decimales","double media = (___) suma / total;",["double"]],
+["Método con retorno","public static ___ cuadrado(int n) {\n  ___ n * n;\n}",["int","return"]],
+["Método void","public static ___ saludar() {\n  System.out.println(\"Hola\");\n}",["void"]],
+["Recursión","public static int factorial(int n) {\n  if (n == 0) {\n    return ___;\n  }\n  return n * factorial(n ___ 1);\n}",["1","-"]]
+];
+(function(){
+  var L=$('#gp-list');
+  GP.forEach(function(g,n){
+    var w=el('div','ex');w.appendChild(el('b','',(n+1)+'. '+g[0]));
+    var parts=g[1].split('___'),pre=el('pre'),code=el('code');pre.appendChild(code);
+    var inputs=[];
+    parts.forEach(function(s,k){
+      code.appendChild(document.createTextNode(s));
+      if(k<parts.length-1){var i=el('input');i.type='text';i.className='inp gap';i.style.width=(Math.max(g[2][k].length,3)+2)+'ch';inputs.push(i);code.appendChild(i)}
+    });
+    w.appendChild(pre);
+    var b=el('button','','Comprobar'),r=el('span','sub','');r.style.marginLeft='8px';
+    b.onclick=function(){
+      var bad=0;
+      inputs.forEach(function(i,k){var ok=i.value.trim()===g[2][k];i.style.borderColor=ok?'var(--ok)':'var(--warn)';if(!ok)bad++});
+      r.textContent=bad?('Revisa '+bad+' hueco'+(bad>1?'s':'')):'✓ Todo correcto';r.style.color=bad?'var(--warn)':'var(--ok)';
+    };
+    w.appendChild(b);w.appendChild(r);L.appendChild(w);
+  });
+})();
+
+/* ---------- ESCRIBE TU SOLUCIÓN ---------- */
+// [tema, enunciado, claves (regex string, descripción), solución]
+var WR=[
+["UT1","Calcula la longitud de la circunferencia de radio 5 usando una constante PI = 3.1416.",
+ [["final","constante con final"],["2\\s*\\*\\s*PI\\s*\\*\\s*radio|PI\\s*\\*\\s*2\\s*\\*\\s*radio","fórmula 2·PI·radio"],["println","mostrar el resultado"]],
+ "float radio = 5;\nfinal float PI = 3.1416f;\nfloat longitud = 2 * PI * radio;\nSystem.out.println(longitud);"],
+["UT1","Pide una temperatura en Fahrenheit y muéstrala en Celsius: C = (F - 32) · 5 / 9.",
+ [["Scanner","leer con Scanner"],["nextDouble","leer un decimal"],["-\\s*32","restar 32"],["5\\s*/\\s*9","multiplicar por 5/9"]],
+ "Scanner teclado = new Scanner(System.in);\ndouble fahrenheit = teclado.nextDouble();\ndouble celsius = (fahrenheit - 32) * 5 / 9;\nSystem.out.println(\"Celsius: \" + celsius);"],
+["UT2","Mostrar «Acceso gratuito» si la edad es menor de 6 o de 65 en adelante.",
+ [["if","condición if"],["<\\s*6","edad < 6"],["\\|\\|","operador O (||)"],[">=\\s*65","edad >= 65"]],
+ "if (edad < 6 || edad >= 65) {\n    System.out.println(\"Acceso gratuito\");\n}"],
+["UT2","Menú 1-4 con switch moderno: 1 Consultar saldo, 2 Realizar ingreso, 3 Realizar retirada, 4 Salir; otro: Opción no válida.",
+ [["switch","usar switch"],["default","rama default"],["case\\s*1","case 1"],["case\\s*4","case 4"]],
+ "int opcion = teclado.nextInt();\nswitch (opcion) {\n    case 1 -> System.out.println(\"Consultar saldo\");\n    case 2 -> System.out.println(\"Realizar ingreso\");\n    case 3 -> System.out.println(\"Realizar retirada\");\n    case 4 -> System.out.println(\"Salir\");\n    default -> System.out.println(\"Opción no válida\");\n}"],
+["UT2","Pide un número hasta que sea distinto de 0 (usa do-while).",
+ [["do\\s*\\{","do {"],["while\\s*\\(","while (…)"],["==\\s*0","comparar con 0"],["nextInt","leer entero"]],
+ "int numero;\ndo {\n    System.out.print(\"Introduce un número distinto de 0: \");\n    numero = teclado.nextInt();\n} while (numero == 0);"],
+["UT2","Lee notas hasta que se introduzca 0 y cuenta aprobados (≥ 5) y suspensos (< 5). El 0 no cuenta.",
+ [["while\\s*\\(","bucle while"],["!=\\s*0","centinela distinto de 0"],["\\+\\+|\\+=\\s*1|=\\s*\\w+\\s*\\+\\s*1","contadores"],["nextInt|nextDouble","lectura (y relectura dentro del bucle)"]],
+ "int nota, aprobados = 0, suspensos = 0;\nnota = teclado.nextInt();\nwhile (nota != 0) {\n    if (nota >= 5) aprobados++;\n    else suspensos++;\n    nota = teclado.nextInt();\n}\nSystem.out.println(\"Aprobados: \" + aprobados);\nSystem.out.println(\"Suspensos: \" + suspensos);"],
+["UT2","Lee edades hasta 0 y muestra la media con decimales (el 0 no cuenta).",
+ [["while","bucle"],["suma\\s*\\+=|suma\\s*=\\s*suma\\s*\\+","acumulador"],["\\(\\s*double\\s*\\)","casting a double"],["/","división suma/total"]],
+ "int edad, total = 0, suma = 0;\nedad = teclado.nextInt();\nwhile (edad != 0) {\n    suma += edad;\n    total++;\n    edad = teclado.nextInt();\n}\ndouble media = (double) suma / total;\nSystem.out.println(\"Media: \" + media);"],
+["UT2","Con un for, lee 7 temperaturas y muestra la media y cuántas superan los 25 grados.",
+ [["for\\s*\\(","bucle for"],["<=\\s*7|<\\s*8","7 vueltas"],[">\\s*25","comparar con 25"],["/\\s*7","dividir entre 7"]],
+ "double temperatura, suma = 0;\nint sup25 = 0;\nfor (int i = 1; i <= 7; i++) {\n    temperatura = teclado.nextDouble();\n    suma += temperatura;\n    if (temperatura > 25) sup25++;\n}\nSystem.out.println(\"Media: \" + suma / 7);\nSystem.out.println(\"Días > 25: \" + sup25);"],
+["UT3","Crea un método esPar(int numero) que devuelva si el número es par.",
+ [["boolean","tipo boolean"],["static","static"],["return","return"],["%\\s*2","resto entre 2"]],
+ "public static boolean esPar(int numero) {\n    return numero % 2 == 0;\n}"],
+["UT3","Crea mayor(int a, int b) que devuelva el mayor de los dos.",
+ [["static\\s+int\\s+mayor","firma static int mayor"],["return","return"],[">","comparación"]],
+ "public static int mayor(int a, int b) {\n    return a > b ? a : b;\n}"],
+["UT3","Crea mostrarTabla(int numero) que imprima su tabla de multiplicar del 1 al 10.",
+ [["void","void"],["for","bucle for"],["println","imprimir"],["\\*","multiplicar"]],
+ "public static void mostrarTabla(int numero) {\n    for (int i = 1; i <= 10; i++) {\n        System.out.println(numero + \" x \" + i + \" = \" + numero * i);\n    }\n}"],
+["UT3","Crea calcularMedia(double a, double b, double c) que devuelva la media de tres valores.",
+ [["double\\s+calcularMedia","firma double calcularMedia"],["return","return"],["/\\s*3","dividir entre 3"]],
+ "public static double calcularMedia(double a, double b, double c) {\n    return (a + b + c) / 3;\n}"]
+];
+(function(){
+  var L=$('#wr-list');
+  WR.forEach(function(p,n){
+    var w=el('div','ex');
+    w.appendChild(el('b','',(n+1)+'. ['+p[0]+'] '));w.appendChild(document.createTextNode(p[1]));
+    var ta=el('textarea');ta.rows=5;ta.className='ta';ta.placeholder='Escribe aquí tu código…';ta.spellcheck=false;w.appendChild(ta);
+    var chk=el('button','','Comprobar'),sol=el('button','','Ver solución'),res=el('div','sub');
+    sol.disabled=true;sol.title='Escribe un intento primero';
+    var solbox=el('pre');solbox.style.display='none';solbox.appendChild(el('code','',p[3]));
+    ta.oninput=function(){sol.disabled=ta.value.trim().length<15};
+    chk.onclick=function(){
+      var t=ta.value,lines=[],miss=0;
+      p[2].forEach(function(k){var ok=new RegExp(k[0]).test(t);if(!ok)miss++;lines.push((ok?'✓ ':'✗ ')+k[1])});
+      res.textContent=(miss?'Te falta algo: ':'Tiene todos los elementos clave: ')+lines.join(' · ');
+      res.style.color=miss?'var(--warn)':'var(--ok)';
+    };
+    sol.onclick=function(){solbox.style.display=solbox.style.display==='none'?'block':'none'};
+    var bar=el('div','bar');bar.appendChild(chk);bar.appendChild(sol);
+    w.appendChild(bar);w.appendChild(res);w.appendChild(solbox);L.appendChild(w);
+  });
+})();
+})();
+
 </script>
 </body>
 </html>
