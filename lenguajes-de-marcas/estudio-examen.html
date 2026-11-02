@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen Lenguajes de Marcas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: cabecera con cuenta atras, pestañas fijas y un panel por herramienta */
+:root{
+  --bg:#F3F5F7; --surface:#FFFFFF; --ink:#14202B; --muted:#5A6B79; --line:#D5DCE2;
+  --accent:#0B6B6B; --accent-ink:#FFFFFF; --accent-soft:#DDEFEF;
+  --good:#1F7A4A; --good-soft:#DDF1E5; --bad:#B3261E; --bad-soft:#F8DEDB; --warn:#9A5B00; --warn-soft:#FBEBCB;
+  --code-bg:#EEF1F4; --code-ink:#7A1F2B;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1519; --surface:#16212A; --ink:#E6EDF2; --muted:#93A4B2; --line:#2A3945;
+  --accent:#4FC3C3; --accent-ink:#06191A; --accent-soft:#143335;
+  --good:#5BD08C; --good-soft:#143826; --bad:#FF8A80; --bad-soft:#3E1C1A; --warn:#F2B35A; --warn-soft:#3A2B0F;
+  --code-bg:#0B1115; --code-ink:#F2A7B0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1519; --surface:#16212A; --ink:#E6EDF2; --muted:#93A4B2; --line:#2A3945;
+  --accent:#4FC3C3; --accent-ink:#06191A; --accent-soft:#143335;
+  --good:#5BD08C; --good-soft:#143826; --bad:#FF8A80; --bad-soft:#3E1C1A; --warn:#F2B35A; --warn-soft:#3A2B0F;
+  --code-bg:#0B1115; --code-ink:#F2A7B0; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:920px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+code,pre,textarea.code{font-family:var(--f-mono)}
+p code,li code,td code,.q code{background:var(--code-bg);color:var(--code-ink);padding:1px 5px;border-radius:4px;font-size:.88em}
+header.top{padding-top:22px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between}
+header.top h1{font-size:clamp(26px,5vw,38px)}
+header.top .sub{color:var(--muted);margin:4px 0 0}
+.count{display:flex;gap:8px;align-items:stretch}
+.count div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 12px;text-align:center;min-width:64px}
+.count b{display:block;font:600 24px/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.count span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.theme{background:none;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:0 12px;cursor:pointer;font:inherit}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:4px;overflow-x:auto;margin-top:16px;padding:8px 0;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav.tabs button{flex:none;background:none;border:0;color:var(--muted);padding:8px 14px;border-radius:8px;cursor:pointer;font:500 14px var(--f-body)}
+nav.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+button:focus-visible,summary:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+section.panel{padding-top:22px}
+section.panel[hidden]{display:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:9px 16px;font:500 14px var(--f-body);cursor:pointer}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.muted{color:var(--muted)}
+/* plan */
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0 4px}
+.progress i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.days{display:grid;gap:12px;margin-top:16px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.day summary{cursor:pointer;padding:14px 16px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;list-style:none}
+.day summary::-webkit-details-marker{display:none}
+.day .when{font:500 12px var(--f-mono);color:var(--muted);min-width:78px}
+.day h3{font-size:18px;flex:1;min-width:180px}
+.day .pct{font:500 12px var(--f-mono);color:var(--accent)}
+.day.today{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.day .body{padding:0 16px 14px;border-top:1px solid var(--line)}
+.day .body h4{margin:14px 0 4px;font:600 12px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.task{display:flex;gap:10px;align-items:flex-start;padding:5px 0}
+.task input{margin-top:4px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.task label{cursor:pointer}
+.task input:checked+label{color:var(--muted);text-decoration:line-through}
+.goto{font:500 13px var(--f-body);color:var(--accent);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
+/* flashcards */
+.fc-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:5px 12px;font:500 13px var(--f-body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.flash{min-height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;padding:26px 20px;cursor:pointer;user-select:none}
+.flash .tag{font:500 11px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.flash .big{font:600 22px/1.3 var(--f-display);max-width:34em}
+.flash .ans{font-size:16px;max-width:38em;text-align:left;white-space:pre-line}
+.flash.back{background:var(--accent-soft);border-color:var(--accent)}
+.fc-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;margin-top:12px;align-items:center}
+/* test */
+.q h3{font-size:19px;margin:6px 0 14px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:10px 14px;font:inherit;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.ok{background:var(--good-soft);border-color:var(--good)}
+.opt.ko{background:var(--bad-soft);border-color:var(--bad)}
+.expl{margin-top:12px;padding:10px 14px;border-radius:8px;background:var(--warn-soft);color:var(--ink)}
+.score{font:700 44px/1 var(--f-display);color:var(--accent)}
+/* practica */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:700px){.split{grid-template-columns:1fr}}
+.split>*{min-width:0}
+textarea.code{width:100%;min-height:260px;resize:vertical;background:var(--code-bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:13px;line-height:1.5;tab-size:2}
+iframe.prev{width:100%;min-height:260px;height:100%;border:1px solid var(--line);border-radius:8px;background:#fff}
+.checks{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:4px}
+.checks li{padding:5px 10px;border-radius:6px;font-size:14px}
+.checks li.ok{background:var(--good-soft)}
+.checks li.ko{background:var(--bad-soft)}
+.ex-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.ex-list .chip.done::after{content:" ✓"}
+/* chuleta */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+.search{width:100%;padding:10px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;margin-bottom:12px}
+input.gap{font:500 14px var(--f-mono);background:var(--code-bg);color:var(--ink);border:1px solid var(--line);border-bottom:2px solid var(--accent);border-radius:4px;padding:1px 6px;min-width:4ch}
+input.gap.ok{background:var(--good-soft);border-color:var(--good)}
+input.gap.ko{background:var(--bad-soft);border-color:var(--bad)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<body>
+<div class="wrap">
+<header class="top">
+  <div>
+    <h1>Examen de Lenguajes de Marcas</h1>
+    <p class="sub">Unidades 1.2 Internet, 1.3 XML y 2 HTML · lunes 9 de noviembre</p>
+  </div>
+  <div class="row">
+    <div class="count" id="count" aria-live="off"></div>
+    <button class="theme" id="themeBtn" type="button" aria-label="Cambiar tema claro u oscuro">Tema</button>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" id="tabs" aria-label="Herramientas de estudio">
+  <button role="tab" data-tab="plan" aria-selected="true">Plan de 6 días</button>
+  <button role="tab" data-tab="cards" aria-selected="false">Flashcards</button>
+  <button role="tab" data-tab="test" aria-selected="false">Test teórico</button>
+  <button role="tab" data-tab="lab" aria-selected="false">Práctica HTML</button>
+  <button role="tab" data-tab="gaps" aria-selected="false">Huecos</button>
+  <button role="tab" data-tab="ref" aria-selected="false">Etiquetas</button>
+</nav>
+
+<section class="panel" id="p-plan">
+  <div class="card">
+    <div class="row" style="justify-content:space-between"><b>Progreso del plan</b><span class="muted" id="planTxt"></span></div>
+    <div class="progress"><i id="planBar"></i></div>
+    <p class="muted" style="margin:6px 0 0">Marca cada tarea al terminarla. Se guarda en este navegador. Cada día suma unas 2 horas y media; el domingo es simulacro.</p>
+  </div>
+  <div class="days" id="days"></div>
+</section>
+
+<section class="panel" id="p-cards" hidden>
+  <div class="fc-tools" id="fcFilters"></div>
+  <div class="card flash" id="flash" tabindex="0" role="button" aria-label="Girar tarjeta"></div>
+  <div class="fc-nav">
+    <span class="muted" id="fcPos"></span>
+    <div class="row">
+      <button class="btn ghost" id="fcPrev" type="button">Anterior</button>
+      <button class="btn ghost" id="fcShuf" type="button">Barajar</button>
+      <button class="btn ghost" id="fcFlip" type="button">Girar</button>
+      <button class="btn" id="fcNext" type="button">Siguiente</button>
+    </div>
+  </div>
+  <div class="row" style="margin-top:12px" id="fcRate" hidden>
+    <span class="muted">Después de girar:</span>
+    <button class="btn ghost" id="fcKnow" type="button">La sabía</button>
+    <button class="btn ghost" id="fcLearn" type="button">Repasar luego</button>
+    <span class="muted" id="fcStat"></span>
+  </div>
+</section>
+
+<section class="panel" id="p-test" hidden>
+  <div id="quizBox"></div>
+</section>
+
+<section class="panel" id="p-lab" hidden>
+  <div class="row" style="justify-content:space-between;margin-bottom:8px"><b id="exCount"></b>
+    <div class="row"><span id="examClock" style="font:600 20px var(--f-mono)"></span><button class="btn ghost" id="examBtn" type="button">Modo examen (45 min)</button></div></div>
+  <div class="ex-list" id="exGroups"></div>
+  <div class="ex-list" id="exList"></div>
+  <div class="card">
+    <h3 id="exTitle"></h3>
+    <p id="exText" style="margin:8px 0 0"></p>
+  </div>
+  <div class="split" style="margin-top:12px">
+    <div>
+      <label for="code" class="muted" style="font-size:13px">Tu código</label>
+      <textarea class="code" id="code" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+    </div>
+    <div>
+      <span class="muted" style="font-size:13px">Vista previa</span>
+      <iframe class="prev" id="prev" title="Vista previa del código" sandbox="allow-scripts"></iframe>
+    </div>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <button class="btn" id="exCheck" type="button">Comprobar</button>
+    <button class="btn ghost" id="exSol" type="button">Ver solución</button>
+    <button class="btn ghost" id="exReset" type="button">Empezar de nuevo</button>
+  </div>
+  <ul class="checks" id="checks"></ul>
+  <pre id="solBox" hidden class="card" style="overflow-x:auto;font-size:13px;margin-top:10px"></pre>
+</section>
+
+<section class="panel" id="p-gaps" hidden>
+  <p class="muted" style="margin-top:0">Completa los huecos de memoria y comprueba. Es la forma más rápida de fijar etiquetas, atributos y datos de teoría.</p>
+  <div class="ex-list" id="gapSel"></div>
+  <pre class="card" id="gapBox" style="white-space:pre-wrap;font-size:14px;line-height:2.1;overflow-x:auto"></pre>
+  <div class="row" style="margin-top:10px"><button class="btn" id="gapCheck" type="button">Comprobar</button><button class="btn ghost" id="gapShow" type="button">Ver respuestas</button><button class="btn ghost" id="gapReset" type="button">Vaciar</button><b id="gapRes" aria-live="polite"></b></div>
+</section>
+
+<section class="panel" id="p-ref" hidden>
+  <label for="refQ" class="muted" style="font-size:13px">Buscar etiqueta, atributo o concepto</label>
+  <input class="search" id="refQ" type="search" placeholder="Por ejemplo: radio, colspan, viewport">
+  <div class="tw"><table><thead><tr><th>Elemento</th><th>Para qué sirve</th></tr></thead><tbody id="refBody"></tbody></table></div>
+</section>
+</div>
+<script>
+const EXAM = new Date(2026, 10, 9, 9, 0, 0); // 9 de noviembre de 2026
+const DAYS = [
+ {id:"d1", date:"2026-11-03", w:"Mar 3 nov", t:"Internet: capas, IP y HTTP", tasks:[
+  ["Lee la Parte A del PDF (unidad 1.2) con calma",null],
+  ["Haz las flashcards de la categoría Internet hasta saber 80 %","cards"],
+  ["Test teórico: bloque Internet (primeras 10 preguntas)","test"],
+  ["Abre un terminal y mira tu IP y máscara (ipconfig /all o ip addr)",null],
+  ["Escribe de memoria las 4 capas con sus protocolos y el handshake",null]]},
+ {id:"d2", date:"2026-11-04", w:"Mié 4 nov", t:"Lenguajes de marcas y XML", tasks:[
+  ["Lee la Parte B del PDF (unidad 1.3)",null],
+  ["Flashcards de XML y lenguajes de marcas","cards"],
+  ["Práctica: los dos ejercicios del grupo XML (corregir y escribir)","lab"],
+  ["Huecos: «XML bien formado» e «Historia de los lenguajes»","gaps"],
+  ["Test teórico: bloque XML (preguntas 11 a 18)","test"],
+  ["Clasifica 6 marcas en presentación, descriptiva o híbrida sin mirar",null]]},
+ {id:"d3", date:"2026-11-05", w:"Jue 5 nov", t:"HTML I: esqueleto, texto, enlaces, imágenes, tablas, listas", tasks:[
+  ["Lee en el PDF los apartados 1 a 16 de la Parte C",null],
+  ["Práctica: grupos Básico y Tablas y listas (todos los ejercicios)","lab"],
+  ["Huecos: Esqueleto, Enlaces, Rutas, Imagen, Tabla y Listas","gaps"],
+  ["Flashcards de HTML básico","cards"],
+  ["Escribe el esqueleto HTML5 de memoria 3 veces",null],
+  ["Repite el ejercicio 5 (las tres formas de CSS)","lab"]]},
+ {id:"d4", date:"2026-11-06", w:"Vie 6 nov", t:"HTML II: formularios completos", tasks:[
+  ["Lee en el PDF los apartados 17 a 29 de la Parte C (formularios)",null],
+  ["Práctica: todos los ejercicios del grupo Formularios","lab"],
+  ["Huecos: Formulario, Tipos de input y Atributos de campo","gaps"],
+  ["Prueba tu formulario en https://httpbingo.org/post y mira qué campos llegan",null],
+  ["Flashcards de formularios","cards"],
+  ["Test teórico: bloque HTML (preguntas 19 a 30)","test"]]},
+ {id:"d5", date:"2026-11-07", w:"Sáb 7 nov", t:"HTML III: head, semántica, widgets, multimedia", tasks:[
+  ["Lee en el PDF los apartados 30 a 38 de la Parte C",null],
+  ["Práctica: grupos Estructura y Corrige el error","lab"],
+  ["Huecos: Semántica y Head y móvil","gaps"],
+  ["Flashcards de HTML avanzado","cards"],
+  ["Escribe una página completa con header, nav, main, article, aside y footer sin ayuda",null],
+  ["Valida una de tus páginas en validator.w3.org",null]]},
+ {id:"d6", date:"2026-11-08", w:"Dom 8 nov", t:"Simulacro y repaso final", tasks:[
+  ["Test teórico completo, 30 preguntas, sin mirar apuntes","test"],
+  ["Simulacro A en modo examen (45 min), sin ver la solución","lab"],
+  ["Simulacro B en modo examen (45 min), sin ver la solución","lab"],
+  ["Repite los huecos que más te cuesten","gaps"],
+  ["Lee la sección de errores típicos del PDF",null],
+  ["Imprime la chuleta de una página (última hoja del PDF)",null],
+  ["Prepara VS Code y el material, y duerme bien",null]]}
+];
+// [categoria, anverso, reverso]
+const CARDS = [
+ ["Internet","¿Qué es Internet?","Una red mundial de redes conectadas con protocolos comunes. No es la web, ni el wifi, ni «la nube»."],
+ ["Internet","¿Qué es la WWW?","Un servicio dentro de Internet (Berners-Lee, 1989, CERN) con tres piezas: HTML, HTTP y URL."],
+ ["Internet","Cuatro capas de TCP/IP","Acceso a la red, Internet (red), Transporte y Aplicación."],
+ ["Internet","¿Qué es la dirección MAC?","La dirección física de fábrica de la tarjeta de red. Identifica al equipo solo dentro de su red local."],
+ ["Internet","Simplex, half-duplex y full-duplex","Simplex: un solo sentido (radio).\nHalf-duplex: ambos sentidos pero no a la vez (walkie-talkie).\nFull-duplex: ambos a la vez (teléfono)."],
+ ["Internet","Topologías de red y su punto débil","Bus: falla el cable central.\nEstrella: falla el switch central.\nAnillo: un enlace roto corta la cadena.\nMalla: muy resistente pero cara. Es la de Internet."],
+ ["Internet","Clases de IP y rangos privados","A: 1-126. B: 128-191. C: 192-223.\nPrivadas: 10.0.0.0-10.255.255.255, 172.16.0.0-172.31.255.255, 192.168.0.0-192.168.255.255."],
+ ["Internet","¿Qué hace la máscara de red?","Indica qué parte de la IP es la red y cuál es el equipo. Con 255.255.255.0 (/24) los tres primeros números son la red."],
+ ["Internet","¿Qué es DHCP?","Protocolo que asigna IP, máscara, puerta de enlace y DNS automáticamente al conectarse. En casa lo hace el router."],
+ ["Internet","¿Por qué existe IPv6?","IPv4 (32 bits, unos 4300 millones) se agotó en 2011. NAT es el parche; IPv6 (128 bits) la solución."],
+ ["Internet","Router y puerta de enlace","El router conecta redes y reenvía paquetes al siguiente salto. La puerta de enlace es el primer router que atraviesa un paquete."],
+ ["Internet","Paquete, trama y encapsulación","Paquete: cabecera + datos. En la red local se llama trama. Cada capa envuelve lo anterior con su cabecera, como sobres dentro de sobres."],
+ ["Internet","TCP frente a UDP","TCP: confirma, reenvía y ordena; más lento (web, correo).\nUDP: sin garantías pero rápido (videollamadas, streaming, juegos)."],
+ ["Internet","Handshake de TCP","SYN, SYN-ACK, ACK: tres mensajes antes de enviar datos."],
+ ["Internet","Puertos de HTTP y HTTPS","HTTP: 80. HTTPS: 443."],
+ ["Internet","HTTPS frente a HTTP","HTTPS cifra los datos en tránsito y verifica la identidad del servidor con un certificado."],
+ ["Internet","Petición y respuesta HTTP","Petición: método (GET), ruta y cabeceras. Respuesta: código de estado (200 OK, 404), cabeceras y contenido."],
+ ["Internet","HTTP frente a HTML","HTTP es el transporte (el sobre). HTML es el contenido (la carta). HTTP también puede llevar JSON."],
+ ["Internet","¿Qué hace el DNS?","Traduce nombres de dominio en IP. Es jerárquico, distribuido y usa caché."],
+ ["XML","Metalenguaje","Lenguaje que sirve para definir otros lenguajes. SGML y XML lo son. HTML no."],
+ ["XML","Clasificación de lenguajes de marcas","Presentación (cómo se ve, RTF), descriptivos (qué es, XML) e híbridos (HTML)."],
+ ["XML","Cronología","GML (años 70, IBM), SGML (1986, ISO 8879), HTML (1989-1991, Berners-Lee), XML 1.0 (1998, W3C)."],
+ ["XML","¿Por qué nació XML?","SGML era demasiado complejo para la Web y HTML demasiado rígido: no permitía etiquetas propias."],
+ ["XML","Reglas de un XML bien formado","Un único elemento raíz; toda etiqueta se cierra; las etiquetas no se cruzan; atributos entre comillas; distingue mayúsculas y minúsculas."],
+ ["XML","Bien formado frente a válido","Bien formado: cumple la sintaxis. Válido: además cumple un esquema (DTD o XSD)."],
+ ["XML","¿Para qué sirven los namespaces?","Evitan ambigüedad entre etiquetas con el mismo nombre. Se declaran con xmlns:prefijo=\"uri\"."],
+ ["XML","Ventajas de XML","Extensible; un analizador estándar sirve para todos; compatibilidad entre aplicaciones; convierte datos en información."],
+ ["HTML","Esqueleto HTML5","<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>…</title>\n</head>\n<body> … </body>\n</html>"],
+ ["HTML","¿Para qué sirve meta charset?","Define la codificación (UTF-8) para mostrar bien tildes, ñ y emojis. Va al principio del head."],
+ ["HTML","Elemento frente a etiqueta; etiquetas vacías","Elemento: apertura + contenido + cierre. Vacías (sin cierre): br, hr, img, input, meta, link."],
+ ["HTML","¿Por qué un Intro del código no se ve?","HTML colapsa espacios y saltos de línea en un solo espacio. Usa <br> o un nuevo <p>."],
+ ["HTML","Atributos globales importantes","id (único), class (agrupa, repetible), style, title, lang."],
+ ["HTML","Tres formas de enlazar CSS","Inline (style=\"\"), interna (<style> en head) y externa (<link rel=\"stylesheet\" href>), que es la recomendada."],
+ ["HTML","Tres formas de indicar un color","Nombre (tomato), rgb(31,78,121) y hexadecimal (#1F4E79)."],
+ ["HTML","Tipos de enlace","target=\"_blank\" (pestaña nueva), mailto:, tel:, #id (interno), download (descarga)."],
+ ["HTML","Rutas relativas y absolutas","foto.jpg: misma carpeta. img/foto.jpg: subcarpeta. ../foto.jpg: carpeta anterior. /img/foto.jpg: raíz del sitio. Absoluta: https://…"],
+ ["HTML","Atributos de img","src (ruta), alt (texto alternativo, obligatorio), width y height. Con un solo tamaño se mantiene la proporción."],
+ ["HTML","Mapa de imagen","usemap=\"#nombre\" en la img y <map name=\"nombre\"> con <area shape coords href>. Las coordenadas son píxeles sobre el tamaño real."],
+ ["HTML","Imágenes responsivas","<picture> con varios <source media srcset> y, al final, un <img> de reserva."],
+ ["HTML","Elementos de una tabla","table, caption (título), tr (fila), th (encabezado), td (dato). colspan une columnas; rowspan une filas."],
+ ["HTML","Tres tipos de lista","ol (ordenada), ul (viñetas), dl (definiciones con dt término y dd definición). Elementos con li."],
+ ["HTML","class frente a id","class agrupa y se repite; id identifica un único elemento y no se repite."],
+ ["HTML","Bloque frente a en línea","Bloque: línea nueva y todo el ancho (p, div, h1, ul, table). En línea: solo su contenido (span, a, strong, em, img)."],
+ ["Formularios","method get frente a post","get: datos visibles en la URL (búsquedas). post: datos ocultos en el cuerpo (contraseñas, formularios largos)."],
+ ["Formularios","¿Cómo se asocia label con input?","label for=\"x\" e input id=\"x\" deben coincidir. Nunca se escribe texto dentro de input."],
+ ["Formularios","Tipos de input de texto","text, password, email (valida), tel (no valida: usar pattern), url (valida), search."],
+ ["Formularios","Tipos de input de fecha","date, time, month, week y datetime-local (sin zona horaria). Admiten min, max y step."],
+ ["Formularios","checkbox frente a radio","checkbox: varias marcables, independientes. radio: una sola dentro del grupo con el mismo name; necesita value."],
+ ["Formularios","readonly frente a disabled","readonly: no se edita pero SÍ se envía. disabled: gris y NO se envía."],
+ ["Formularios","value frente a placeholder","value es un valor real que se envía. placeholder es una pista que desaparece y nunca se envía."],
+ ["Formularios","¿Qué pasa si falta name?","El campo no se envía con el formulario."],
+ ["Formularios","select frente a datalist","select: solo opciones fijas. datalist: sugerencias, el usuario puede escribir otra cosa. Se une con list e id."],
+ ["Formularios","Botones de formulario","submit (envía), reset (borra), button (necesita JS), image (envía, con imagen). <button> sin type es submit."],
+ ["Formularios","formaction, formmethod, formtarget","Cambian action, method o target solo para el botón submit que los lleva."],
+ ["HTML avanzado","Etiquetas semánticas HTML5","header, nav, main (solo uno), section, article, aside, footer, search. No cambian el aspecto, solo el significado."],
+ ["HTML avanzado","Meta viewport","<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">: usa el ancho real del móvil y zoom al 100 %."],
+ ["HTML avanzado","progress frente a meter","progress: tarea en curso (value, max). meter: medida dentro de un rango conocido (value, min, max)."],
+ ["HTML avanzado","details y summary","Bloque desplegable sin JavaScript. summary es lo único visible cuando está cerrado; open lo abre."],
+ ["HTML avanzado","dialog y canvas","dialog: ventana modal (showModal() con JS). canvas: lienzo en el que se dibuja solo con JavaScript."],
+ ["HTML avanzado","audio y video","Con controls y uno o varios <source src type>. Vídeo: MP4, WebM, Ogg. Audio: MP3, WAV, Ogg."],
+ ["HTML avanzado","iframe","Incrusta otra página: src, width, height, title (siempre), loading=\"lazy\", allowfullscreen."],
+ ["HTML avanzado","Entidades HTML","&lt; &gt; &amp; &copy; &euro; &nbsp;. Numéricas: &#8364; o &#x20AC;. Los emojis van directos en UTF-8."]
+];
+// [pregunta, [opciones], indice correcto, explicacion]
+const QUIZ = [
+ ["¿Qué es la web respecto a Internet?",["Lo mismo que Internet","Un servicio que funciona sobre Internet","Una red física distinta","El nombre del wifi"],1,"La web es un servicio más, igual que el correo o la mensajería."],
+ ["¿Qué identifica la dirección MAC?",["Un equipo en cualquier red del mundo","Un programa dentro del equipo","Un equipo dentro de su red local","Un dominio"],2,"La MAC solo vale en la red local. Para salir se usa la IP."],
+ ["¿Cuál es una dirección IP privada?",["172.32.0.5","192.168.1.10","11.0.0.1","192.169.1.1"],1,"Rangos privados: 10.x.x.x, 172.16 a 172.31 y 192.168.x.x."],
+ ["Con la máscara 255.255.255.0, ¿qué parte de 192.168.1.10 es el equipo?",["192","192.168","192.168.1","10"],3,"/24: los tres primeros números son la red y el último es el equipo."],
+ ["¿Qué clase es la IP 150.10.0.1?",["A","B","C","D"],1,"Clase B: primer octeto de 128 a 191."],
+ ["¿Qué protocolo asigna IP automáticamente?",["DNS","DHCP","TCP","HTTP"],1,"DHCP da IP, máscara, puerta de enlace y DNS."],
+ ["¿Para qué usarías UDP en vez de TCP?",["Transferir un contrato fiable","Videollamada en directo","Enviar un correo","Descargar un programa"],1,"UDP prioriza la fluidez frente a la fiabilidad."],
+ ["¿Cuál es el orden del handshake de TCP?",["ACK, SYN, SYN-ACK","SYN, SYN-ACK, ACK","SYN, ACK, FIN","GET, 200, ACK"],1,"SYN, SYN-ACK y ACK."],
+ ["¿Qué puerto usa HTTPS por defecto?",["21","80","443","8080"],2,"HTTP usa el 80 y HTTPS el 443."],
+ ["¿Qué hace el DNS?",["Cifra la comunicación","Traduce nombres de dominio en IP","Asigna direcciones MAC","Reenvía paquetes"],1,"Es la agenda de contactos de Internet."],
+ ["Un metalenguaje es...",["Un lenguaje de programación","Un lenguaje para definir otros lenguajes","Una versión de HTML","Un editor de texto"],1,"SGML y XML son metalenguajes."],
+ ["¿Cuál es un lenguaje de marcas de presentación?",["XML","RTF","SGML","JSON"],1,"RTF mezcla contenido y formato."],
+ ["HTML se clasifica como lenguaje...",["Descriptivo","De presentación","Híbrido","De programación"],2,"Tiene etiquetas descriptivas (h1, p) y de presentación (b, font)."],
+ ["¿En qué año publicó el W3C XML 1.0?",["1970","1986","1991","1998"],3,"1998. SGML es de 1986 y HTML de 1989-1991."],
+ ["¿Cuál es un XML bien formado?",["<a><b>x</a></b>","<a><b>x</b></a>","<a><b>x</b>","<a><b>x</b></a><c/>"],1,"Las etiquetas no pueden cruzarse y debe haber una sola raíz."],
+ ["¿Qué es un XML válido?",["El que tiene una sola raíz","El que se abre en el navegador","El que además cumple un esquema DTD o XSD","El que tiene atributos"],2,"Bien formado es sintaxis; válido es cumplir el esquema."],
+ ["En XML, <Libro> y <libro>...",["Son la misma etiqueta","Son etiquetas distintas","Dan error siempre","Solo cambian el color"],1,"XML distingue mayúsculas y minúsculas."],
+ ["¿Para qué sirven los namespaces?",["Para dar estilo","Para evitar ambigüedad entre etiquetas del mismo nombre","Para validar","Para comprimir"],1,"Se declaran con xmlns:prefijo."],
+ ["¿Qué atributo asocia un label con su campo?",["name","id del label","for","form-id"],2,"label for=\"x\" con input id=\"x\"."],
+ ["¿Cuántos <h1> debería tener una página?",["Ninguno","Uno","Seis","Los que quiera"],1,"El título principal es único."],
+ ["¿Cuál de estas etiquetas es vacía?",["<p>","<img>","<strong>","<a>"],1,"img, br, hr, input, meta y link no se cierran."],
+ ["¿Qué ruta apunta a la carpeta anterior?",["foto.jpg","/foto.jpg","../foto.jpg","./foto.jpg"],2,"../ sube un nivel."],
+ ["¿Qué hace colspan=\"2\"?",["Duplica la fila","La celda ocupa 2 columnas","La celda ocupa 2 filas","Añade dos bordes"],1,"rowspan es el que ocupa filas."],
+ ["¿Qué lista usarías para los pasos de una receta?",["ul","ol","dl","table"],1,"Cuando el orden importa se usa ol."],
+ ["Un grupo de radio funciona si los botones comparten...",["id","value","name","class"],2,"Mismo name para que solo se pueda marcar uno."],
+ ["¿Qué campo NO se envía con el formulario?",["readonly","hidden","disabled","required"],2,"disabled no se envía. readonly sí."],
+ ["¿Qué tipo de input NO valida el formato por defecto?",["email","url","tel","number"],2,"Los teléfonos varían por país; se usa pattern."],
+ ["¿Qué etiqueta es de bloque?",["span","strong","a","div"],3,"div es de bloque; las otras son en línea."],
+ ["¿Cuál es la forma recomendada de enlazar CSS?",["style en cada etiqueta","<style> en el head","<link rel=\"stylesheet\"> a un archivo","<font>"],2,"Separa contenido y presentación."],
+ ["Un dialog con el atributo open...",["Se muestra como ventana modal","Se muestra como bloque normal de la página","No se ve","Se cierra solo"],1,"Para la ventana modal real hace falta showModal() con JavaScript."]
+];
+
+const EXERCISES = [
+ {t:"1. Esqueleto de una página",
+  txt:"Crea el esqueleto HTML5 en español con codificación UTF-8, un título para la pestaña, un h1 y un párrafo en el body.",
+  start:"",
+  checks:[
+   ["Empieza con <!DOCTYPE html>",(d,r)=>/^\s*<!doctype html>/i.test(r)],
+   ["html con lang=\"es\"",d=>d.documentElement.getAttribute("lang")==="es"],
+   ["meta charset UTF-8 en el head",d=>{const m=d.head.querySelector("meta[charset]");return !!m&&/utf-8/i.test(m.getAttribute("charset"))}],
+   ["title con texto",d=>!!d.title.trim()],
+   ["h1 y p dentro del body",d=>!!d.body.querySelector("h1")&&!!d.body.querySelector("p")]],
+  sol:"<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Mi primera página</title>\n</head>\n<body>\n  <h1>Hola</h1>\n  <p>Mi primer párrafo.</p>\n</body>\n</html>"},
+ {t:"2. Texto y enlaces",
+  txt:"En un body: un h1; un párrafo con una palabra importante (strong), otra con énfasis (em) y un salto de línea; un enlace a https://www.w3schools.com que abra en pestaña nueva; un enlace de correo; un enlace interno a una sección h2 con id=\"contacto\".",
+  start:"<!DOCTYPE html>\n<html lang=\"es\">\n<head><meta charset=\"UTF-8\"><title>Texto</title></head>\n<body>\n\n</body>\n</html>",
+  checks:[
+   ["Hay un h1",d=>!!d.querySelector("h1")],
+   ["strong y em dentro de p",d=>!!d.querySelector("p strong")&&!!d.querySelector("p em")],
+   ["Hay un br",d=>!!d.querySelector("br")],
+   ["Enlace a w3schools con target=\"_blank\"",d=>!!d.querySelector("a[href*='w3schools.com'][target='_blank']")],
+   ["Enlace mailto:",d=>!!d.querySelector("a[href^='mailto:']")],
+   ["h2 con id=\"contacto\"",d=>!!d.querySelector("h2#contacto")],
+   ["Enlace interno href=\"#contacto\"",d=>!!d.querySelector("a[href='#contacto']")]],
+  sol:"<h1>Mi página</h1>\n<p>Esto es <strong>importante</strong> y esto tiene <em>énfasis</em>.<br>Nueva línea.</p>\n<a href=\"https://www.w3schools.com\" target=\"_blank\">W3Schools</a>\n<a href=\"mailto:yo@correo.es\">Escríbeme</a>\n<a href=\"#contacto\">Ir a contacto</a>\n<h2 id=\"contacto\">Contacto</h2>"},
+ {t:"3. Imágenes y rutas",
+  txt:"Inserta una imagen imagenes/perfil.jpg con texto alternativo y ancho 200. Añade un enlace de descarga a apuntes.pdf y un enlace a ../index.html. Añade un mapa de imagen con una zona rectangular.",
+  start:"<!DOCTYPE html>\n<html lang=\"es\">\n<head><meta charset=\"UTF-8\"><title>Imágenes</title></head>\n<body>\n\n</body>\n</html>",
+  checks:[
+   ["img con src=\"imagenes/perfil.jpg\"",d=>!!d.querySelector("img[src='imagenes/perfil.jpg']")],
+   ["img con alt no vacío",d=>{const i=d.querySelector("img");return !!i&&(i.getAttribute("alt")||"").trim()!==""}],
+   ["img con width=\"200\"",d=>!!d.querySelector("img[width='200']")],
+   ["Enlace a apuntes.pdf con download",d=>!!d.querySelector("a[href='apuntes.pdf'][download]")],
+   ["Enlace a ../index.html",d=>!!d.querySelector("a[href='../index.html']")],
+   ["img con usemap y un map con area rect",d=>!!d.querySelector("img[usemap]")&&!!d.querySelector("map area[shape='rect']")]],
+  sol:"<img src=\"imagenes/perfil.jpg\" alt=\"Foto de perfil\" width=\"200\" usemap=\"#plano\">\n<map name=\"plano\">\n  <area shape=\"rect\" coords=\"0,0,100,100\" href=\"a.html\" alt=\"Zona A\">\n</map>\n<a href=\"apuntes.pdf\" download>Descargar apuntes</a>\n<a href=\"../index.html\">Volver</a>"},
+ {t:"4. Listas y tabla",
+  txt:"Crea una lista ordenada de 3 pasos, una lista de viñetas de 2 elementos, una lista de definiciones con un término, y una tabla con título, al menos 2 encabezados y una celda que ocupe 2 columnas.",
+  start:"<!DOCTYPE html>\n<html lang=\"es\">\n<head><meta charset=\"UTF-8\"><title>Listas</title></head>\n<body>\n\n</body>\n</html>",
+  checks:[
+   ["ol con 3 li",d=>d.querySelectorAll("ol > li").length===3],
+   ["ul con 2 li",d=>d.querySelectorAll("ul > li").length===2],
+   ["dl con dt y dd",d=>!!d.querySelector("dl dt")&&!!d.querySelector("dl dd")],
+   ["table con caption",d=>!!d.querySelector("table caption")],
+   ["Al menos 2 th",d=>d.querySelectorAll("table th").length>=2],
+   ["Una celda con colspan=\"2\"",d=>!!d.querySelector("td[colspan='2'],th[colspan='2']")]],
+  sol:"<ol><li>Uno</li><li>Dos</li><li>Tres</li></ol>\n<ul><li>A</li><li>B</li></ul>\n<dl><dt>HTML</dt><dd>Lenguaje de marcas</dd></dl>\n<table border=\"1\">\n  <caption>Horario</caption>\n  <tr><th>Hora</th><th>Lunes</th></tr>\n  <tr><td colspan=\"2\">Lenguajes de Marcas</td></tr>\n</table>"},
+ {t:"5. CSS de tres formas, class e id",
+  txt:"Aplica CSS de las tres formas: una hoja externa (estilos.css), una regla interna para h1 en un style del head y un color en línea en un párrafo. Añade un elemento con class=\"aviso\" y otro con id=\"principal\".",
+  start:"<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>CSS</title>\n</head>\n<body>\n\n</body>\n</html>",
+  checks:[
+   ["link rel=\"stylesheet\" con href",d=>!!d.querySelector("link[rel='stylesheet'][href]")],
+   ["style interno con regla para h1",d=>{const s=d.head.querySelector("style");return !!s&&/h1\s*\{/.test(s.textContent)}],
+   ["Párrafo con style=\"color…\" en línea",d=>!!d.querySelector("p[style*='color']")],
+   ["Elemento con class=\"aviso\"",d=>!!d.querySelector(".aviso")],
+   ["Elemento con id=\"principal\"",d=>!!d.querySelector("#principal")]],
+  sol:"<head>\n  <meta charset=\"UTF-8\">\n  <title>CSS</title>\n  <link rel=\"stylesheet\" href=\"estilos.css\">\n  <style>\n    h1 { color: navy; }\n  </style>\n</head>\n<body>\n  <h1>Título</h1>\n  <p style=\"color: #B00020;\">Rojo en línea</p>\n  <p class=\"aviso\">Aviso</p>\n  <div id=\"principal\">Contenido</div>\n</body>"},
+ {t:"6. Formulario de inscripción",
+  txt:"Crea un formulario por POST con: nombre (text con label y placeholder), contraseña (mínimo 8), email obligatorio, teléfono de 9 dígitos con pattern, edad (number con min y max), fecha, un select con optgroup, dos checkbox (uno obligatorio), tres radio del mismo grupo, un campo oculto, un textarea y los botones enviar y borrar.",
+  start:"<!DOCTYPE html>\n<html lang=\"es\">\n<head><meta charset=\"UTF-8\"><title>Inscripción</title></head>\n<body>\n<form action=\"https://httpbingo.org/post\" method=\"post\">\n\n</form>\n</body>\n</html>",
+  checks:[
+   ["form con method=\"post\" y action",d=>!!d.querySelector("form[method='post'][action]")],
+   ["Cada label for coincide con un id",d=>{const l=[...d.querySelectorAll("label[for]")];return l.length>=3&&l.every(x=>d.getElementById(x.getAttribute("for")))}],
+   ["Texto con name y placeholder",d=>!!d.querySelector("input[type='text'][name][placeholder]")],
+   ["password con minlength=\"8\"",d=>!!d.querySelector("input[type='password'][minlength='8']")],
+   ["email con required",d=>!!d.querySelector("input[type='email'][required]")],
+   ["tel con pattern",d=>!!d.querySelector("input[type='tel'][pattern]")],
+   ["number con min y max",d=>!!d.querySelector("input[type='number'][min][max]")],
+   ["Campo date",d=>!!d.querySelector("input[type='date']")],
+   ["select con optgroup y option",d=>!!d.querySelector("select optgroup option")],
+   ["2 checkbox y al menos uno required",d=>d.querySelectorAll("input[type='checkbox']").length>=2&&!!d.querySelector("input[type='checkbox'][required]")],
+   ["3 radio con el mismo name",d=>{const r=[...d.querySelectorAll("input[type='radio']")];return r.length>=3&&new Set(r.map(x=>x.name)).size===1&&r[0].name!==""}],
+   ["Campo hidden con name",d=>!!d.querySelector("input[type='hidden'][name]")],
+   ["textarea",d=>!!d.querySelector("textarea")],
+   ["Botones submit y reset",d=>!!d.querySelector("[type='submit']")&&!!d.querySelector("[type='reset']")]],
+  sol:"<form action=\"https://httpbingo.org/post\" method=\"post\">\n  <label for=\"n\">Nombre:</label>\n  <input type=\"text\" id=\"n\" name=\"nombre\" placeholder=\"Tu nombre\">\n  <label for=\"c\">Contraseña:</label>\n  <input type=\"password\" id=\"c\" name=\"clave\" minlength=\"8\">\n  <label for=\"e\">Correo:</label>\n  <input type=\"email\" id=\"e\" name=\"email\" required>\n  <label for=\"t\">Teléfono:</label>\n  <input type=\"tel\" id=\"t\" name=\"tel\" pattern=\"[0-9]{9}\">\n  <label for=\"a\">Edad:</label>\n  <input type=\"number\" id=\"a\" name=\"edad\" min=\"14\" max=\"99\">\n  <label for=\"f\">Fecha:</label>\n  <input type=\"date\" id=\"f\" name=\"fecha\">\n  <label for=\"s\">Curso:</label>\n  <select id=\"s\" name=\"curso\">\n    <optgroup label=\"Grado\"><option value=\"dam\">DAM</option><option value=\"daw\">DAW</option></optgroup>\n  </select>\n  <input type=\"checkbox\" id=\"k1\" name=\"acepto\" required><label for=\"k1\">Acepto</label>\n  <input type=\"checkbox\" id=\"k2\" name=\"boletin\"><label for=\"k2\">Boletín</label>\n  <input type=\"radio\" id=\"r1\" name=\"turno\" value=\"m\"><label for=\"r1\">Mañana</label>\n  <input type=\"radio\" id=\"r2\" name=\"turno\" value=\"t\"><label for=\"r2\">Tarde</label>\n  <input type=\"radio\" id=\"r3\" name=\"turno\" value=\"n\"><label for=\"r3\">Noche</label>\n  <input type=\"hidden\" name=\"origen\" value=\"web\">\n  <textarea name=\"msg\" rows=\"3\"></textarea>\n  <input type=\"submit\" value=\"Enviar\">\n  <input type=\"reset\" value=\"Borrar\">\n</form>"},
+ {t:"7. Estructura semántica",
+  txt:"Monta una página con header (con un nav de enlaces), main (con un article y un aside) y footer. Añade un bloque desplegable con details y summary.",
+  start:"<!DOCTYPE html>\n<html lang=\"es\">\n<head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Blog</title></head>\n<body>\n\n</body>\n</html>",
+  checks:[
+   ["header con nav y al menos un enlace",d=>!!d.querySelector("header nav a")],
+   ["Un único main",d=>d.querySelectorAll("main").length===1],
+   ["article dentro de main",d=>!!d.querySelector("main article")],
+   ["aside dentro de main",d=>!!d.querySelector("main aside")],
+   ["footer",d=>!!d.querySelector("footer")],
+   ["details con summary",d=>!!d.querySelector("details > summary")]],
+  sol:"<header>\n  <h1>Mi Blog</h1>\n  <nav><a href=\"#\">Inicio</a> <a href=\"#\">Sobre mí</a></nav>\n</header>\n<main>\n  <article><h2>Artículo</h2><p>Texto.</p></article>\n  <aside><p>Dato relacionado.</p></aside>\n</main>\n<details><summary>¿Dudas?</summary><p>Respuesta.</p></details>\n<footer><p>&copy; 2026</p></footer>"},
+ {t:"8. Multimedia y widgets",
+  txt:"Añade un vídeo con controles y dos formatos de origen, un audio con controles, un iframe con título, una barra progress con value y max, un meter, un dialog con open y un canvas con id.",
+  start:"<!DOCTYPE html>\n<html lang=\"es\">\n<head><meta charset=\"UTF-8\"><title>Multimedia</title></head>\n<body>\n\n</body>\n</html>",
+  checks:[
+   ["video con controls y 2 source",d=>{const v=d.querySelector("video[controls]");return !!v&&v.querySelectorAll("source").length>=2}],
+   ["audio con controls",d=>!!d.querySelector("audio[controls]")],
+   ["iframe con title",d=>!!d.querySelector("iframe[title]")],
+   ["progress con value y max",d=>!!d.querySelector("progress[value][max]")],
+   ["meter con value",d=>!!d.querySelector("meter[value]")],
+   ["dialog con open",d=>!!d.querySelector("dialog[open]")],
+   ["canvas con id",d=>!!d.querySelector("canvas[id]")]],
+  sol:"<video width=\"320\" height=\"180\" controls>\n  <source src=\"v.mp4\" type=\"video/mp4\">\n  <source src=\"v.webm\" type=\"video/webm\">\n</video>\n<audio controls><source src=\"a.mp3\" type=\"audio/mpeg\"></audio>\n<iframe src=\"https://example.com\" title=\"Ejemplo\" width=\"300\" height=\"150\"></iframe>\n<progress value=\"70\" max=\"100\"></progress>\n<meter value=\"7\" min=\"0\" max=\"10\"></meter>\n<dialog open><p>Aviso</p></dialog>\n<canvas id=\"lienzo\" width=\"200\" height=\"100\"></canvas>"},
+ {t:"Editor libre",
+  txt:"Prueba lo que quieras. Aquí no hay comprobaciones, solo vista previa.",
+  start:"<!DOCTYPE html>\n<html lang=\"es\">\n<head><meta charset=\"UTF-8\"><title>Pruebas</title></head>\n<body>\n  <h1>Hola</h1>\n</body>\n</html>",
+  checks:[],sol:""}
+];
+const S=(l,sel)=>[l,d=>!!d.querySelector(sel)];
+const N=(l,sel,n)=>[l,d=>d.querySelectorAll(sel).length>=n];
+const R=(l,re)=>[l,(d,r)=>re.test(r)];
+const cnt=(r,t)=>{const a=(r.match(new RegExp("<"+t+"[\\s>]","gi"))||[]).length,b=(r.match(new RegExp("</"+t+">","gi"))||[]).length;return a===b};
+const DOC=(b,h="")=>'<!DOCTYPE html>\n<html lang="es">\n<head><meta charset="UTF-8"><title>Prueba</title>'+h+'</head>\n<body>\n'+b+'\n</body>\n</html>';
+const NEWEX=[
+{g:"Corrige el error",s:"Error: etiquetas",t:"Corrige: etiquetas cruzadas y sin cerrar",txt:"Este código tiene etiquetas sin cerrar y cruzadas. Corrígelo sin borrar el contenido.",
+ start:DOC('<h1>Mi página\n<p>Un párrafo con <strong>texto importante</p></strong>\n<p>Otro párrafo con <em>énfasis\n<ul>\n<li>Uno\n<li>Dos</li>\n</ul>'),
+ checks:[["h1, p, strong, em y li están cerradas",(d,r)=>["h1","p","strong","em","li"].every(t=>cnt(r,t))],["No hay cierres cruzados",(d,r)=>!/<\/p>\s*<\/strong>/.test(r)&&!/<\/p>\s*<\/em>/.test(r)],R("Conservas el texto «texto importante»",/texto importante/),N("Dos li dentro de ul","ul > li",2)],
+ sol:DOC('<h1>Mi página</h1>\n<p>Un párrafo con <strong>texto importante</strong></p>\n<p>Otro párrafo con <em>énfasis</em></p>\n<ul>\n<li>Uno</li>\n<li>Dos</li>\n</ul>')},
+{g:"Corrige el error",s:"Error: esqueleto",t:"Corrige: esqueleto mal montado",txt:"Faltan piezas del esqueleto y hay elementos en el sitio equivocado. Déjalo como un HTML5 correcto en español, preparado para móvil.",
+ start:'<html>\n<head>\n<h1>Hola</h1>\n</head>\n<body>\n<title>Mi página</title>\n<p>Texto con ñ y tildes: canción</p>\n</body>\n</html>',
+ checks:[R("Empieza con <!DOCTYPE html>",/^\s*<!doctype html>/i),["html con lang=\"es\"",d=>d.documentElement.getAttribute("lang")==="es"],S("meta charset en el head","head meta[charset]"),S("meta viewport","head meta[name='viewport']"),S("title dentro del head","head title"),["h1 dentro del body",d=>!!d.body.querySelector("h1")&&!d.head.querySelector("h1")]],
+ sol:'<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Mi página</title>\n</head>\n<body>\n<h1>Hola</h1>\n<p>Texto con ñ y tildes: canción</p>\n</body>\n</html>'},
+{g:"Corrige el error",s:"Error: formulario",t:"Corrige: formulario con fallos típicos",txt:"Arregla: un label que no coincide con su campo, un input con texto dentro y cierre, un campo sin name, y radios que no forman un grupo.",
+ start:DOC('<form action="https://httpbingo.org/post" method="post">\n  <label for="nombre">Nombre</label>\n  <input type="text" id="nom" name="nombre">\n  <label for="correo">Correo</label>\n  <input type="email" id="correo">Escribe tu correo</input>\n  <p>Turno:</p>\n  <input type="radio" id="m" name="turno1" value="m"><label for="m">Mañana</label>\n  <input type="radio" id="t" name="turno2" value="t"><label for="t">Tarde</label>\n  <input type="checkbox" id="ok" name="acepto"> Acepto\n  <input type="submit" value="Enviar">\n</form>'),
+ checks:[["Cada label for coincide con un id",d=>{const l=[...d.querySelectorAll("label[for]")];return l.length>=3&&l.every(x=>d.getElementById(x.getAttribute("for")))}],R("No hay </input>",/^(?![\s\S]*<\/input>)/i),["Todos los campos tienen name",d=>[...d.querySelectorAll("input")].filter(i=>!["submit","reset","button"].includes(i.type)).every(i=>i.getAttribute("name"))],["Los radios comparten name",d=>{const r=[...d.querySelectorAll("input[type='radio']")];return r.length>=2&&new Set(r.map(x=>x.name)).size===1}],["El checkbox tiene un label asociado",d=>!!d.querySelector("label[for='ok']")]],
+ sol:DOC('<form action="https://httpbingo.org/post" method="post">\n  <label for="nom">Nombre</label>\n  <input type="text" id="nom" name="nombre">\n  <label for="correo">Correo</label>\n  <input type="email" id="correo" name="correo">\n  <p>Turno:</p>\n  <input type="radio" id="m" name="turno" value="m"><label for="m">Mañana</label>\n  <input type="radio" id="t" name="turno" value="t"><label for="t">Tarde</label>\n  <input type="checkbox" id="ok" name="acepto"><label for="ok">Acepto</label>\n  <input type="submit" value="Enviar">\n</form>')},
+{g:"Corrige el error",s:"Error: tabla",t:"Corrige: tabla e imagen",txt:"La primera fila debe ser de encabezados (th), todas las filas deben sumar 3 columnas, la tabla necesita título y la imagen necesita texto alternativo.",
+ start:DOC('<table border="1">\n  <tr><td>Día</td><td>Mañana</td><td>Tarde</td></tr>\n  <tr><td>Lunes</td><td>Marcas</td></tr>\n  <tr><td colspan="3">Martes</td><td>Libre</td></tr>\n</table>\n<img src="foto.jpg">'),
+ checks:[N("Tres th en la primera fila","tr:first-child th",3),["Todas las filas suman 3 columnas",d=>{const t=[...d.querySelectorAll("tr")];return t.length>=3&&t.every(tr=>[...tr.children].reduce((a,c)=>a+(+c.getAttribute("colspan")||1),0)===3)}],S("caption","table caption"),["img con alt no vacío",d=>{const i=d.querySelector("img");return !!i&&(i.getAttribute("alt")||"").trim()!==""}]],
+ sol:DOC('<table border="1">\n  <caption>Horario</caption>\n  <tr><th>Día</th><th>Mañana</th><th>Tarde</th></tr>\n  <tr><td>Lunes</td><td>Marcas</td><td>Libre</td></tr>\n  <tr><td colspan="3">Martes</td></tr>\n</table>\n<img src="foto.jpg" alt="Foto del aula">')},
+{g:"XML",s:"XML: corrige",xml:true,t:"Corrige este XML mal formado",txt:"Hay un atributo sin comillas, una etiqueta con distinta mayúscula, un elemento sin cerrar y un segundo elemento raíz. Corrígelo para que sea bien formado y deje los dos libros dentro de biblioteca.",
+ start:'<?xml version="1.0" encoding="UTF-8"?>\n<biblioteca>\n  <libro idioma=es>\n    <titulo>El Quijote</Titulo>\n    <autor>Cervantes\n  </libro>\n</biblioteca>\n<libro idioma="es"><titulo>Otro</titulo></libro>',
+ checks:[["El XML está bien formado",d=>!d.querySelector("parsererror")],["La raíz es biblioteca",d=>d.documentElement.nodeName==="biblioteca"],["Dos libro dentro de biblioteca con idioma=\"es\"",d=>d.querySelectorAll("biblioteca > libro[idioma='es']").length>=2],["Se conserva el autor Cervantes",d=>/Cervantes/.test(d.documentElement.textContent)]],
+ sol:'<?xml version="1.0" encoding="UTF-8"?>\n<biblioteca>\n  <libro idioma="es">\n    <titulo>El Quijote</titulo>\n    <autor>Cervantes</autor>\n  </libro>\n  <libro idioma="es">\n    <titulo>Otro</titulo>\n  </libro>\n</biblioteca>'},
+{g:"XML",s:"XML: escribe",xml:true,t:"Escribe un XML bien formado",txt:"Con declaración XML, raíz tienda con xmlns:p, dos producto con atributo id, cada uno con nombre y precio, y un elemento con el prefijo p: dentro de la tienda.",
+ start:'<?xml version="1.0" encoding="UTF-8"?>\n',
+ checks:[R("Empieza con la declaración XML",/^\s*<\?xml version="1\.0"/),["Está bien formado",d=>!d.querySelector("parsererror")],["La raíz es tienda",d=>d.documentElement.nodeName==="tienda"],["Dos producto con atributo id",d=>d.querySelectorAll("producto[id]").length>=2],["Cada producto tiene nombre y precio",d=>{const p=[...d.querySelectorAll("producto")];return p.length>=2&&p.every(x=>x.querySelector("nombre")&&x.querySelector("precio"))}],R("Declara xmlns:p=\"…\"",/xmlns:p="[^"]+"/),R("Usa un elemento con prefijo p:",/<p:\w+/)],
+ sol:'<?xml version="1.0" encoding="UTF-8"?>\n<tienda xmlns:p="http://ejemplo.org/promos">\n  <producto id="1"><nombre>Cuaderno</nombre><precio>2.50</precio></producto>\n  <producto id="2"><nombre>Lápiz</nombre><precio>0.80</precio></producto>\n  <p:oferta>Segundo lápiz gratis</p:oferta>\n</tienda>'},
+{g:"Básico",s:"Tarjeta de perfil",t:"Tarjeta de perfil",txt:"Un div con class=\"tarjeta\" que contenga un h2, una imagen con alt, un párrafo con un span, una lista de 3 aficiones y un enlace a tu web.",
+ start:DOC(''),
+ checks:[S("div.tarjeta","div.tarjeta"),S("h2 dentro de la tarjeta","div.tarjeta h2"),["img con alt dentro de la tarjeta",d=>{const i=d.querySelector("div.tarjeta img");return !!i&&(i.getAttribute("alt")||"").trim()!==""}],S("p con span","div.tarjeta p span"),N("Lista de 3 li","div.tarjeta li",3),S("Enlace con href","div.tarjeta a[href]")],
+ sol:DOC('<div class="tarjeta">\n  <h2>Ana López</h2>\n  <img src="ana.jpg" alt="Foto de Ana" width="120">\n  <p>Estudio <span>Lenguajes de Marcas</span>.</p>\n  <ul><li>Leer</li><li>Correr</li><li>Dibujar</li></ul>\n  <a href="https://ejemplo.org">Mi web</a>\n</div>')},
+{g:"Básico",s:"Formato de texto",t:"Formato de texto completo",txt:"Escribe una página con: blockquote, q, sub (H2O), sup (m2), del e ins, mark, small, pre con dos líneas y code.",
+ start:DOC(''),checks:[S("blockquote","blockquote"),S("q","q"),S("sub","sub"),S("sup","sup"),S("del","del"),S("ins","ins"),S("mark","mark"),S("small","small"),["pre con saltos de línea",d=>{const p=d.querySelector("pre");return !!p&&/\n/.test(p.textContent.trim())}],S("code","code")],
+ sol:DOC('<blockquote>La práctica hace al maestro.</blockquote>\n<p>Dijo: <q>HTML es fácil</q>. Agua: H<sub>2</sub>O. Área: m<sup>2</sup>.</p>\n<p>Precio <del>20€</del> <ins>15€</ins>. <mark>Importante</mark> <small>Condiciones</small></p>\n<pre>línea 1\n   línea 2</pre>\n<p>Usa <code>&lt;p&gt;</code>.</p>')},
+{g:"Tablas y listas",s:"Horario rowspan",t:"Horario con rowspan y colspan",txt:"Tabla con caption, al menos 3 filas, 3 th en la cabecera, una celda con rowspan=\"2\" y otra con colspan=\"2\".",
+ start:DOC(''),checks:[S("caption","table caption"),N("Al menos 3 tr","tr",3),N("Al menos 3 th","th",3),S("rowspan=\"2\"","[rowspan='2']"),S("colspan=\"2\"","[colspan='2']")],
+ sol:DOC('<table border="1">\n <caption>Horario</caption>\n <tr><th>Hora</th><th>Lunes</th><th>Martes</th></tr>\n <tr><td rowspan="2">9:00</td><td>Marcas</td><td>Inglés</td></tr>\n <tr><td colspan="2">Programación</td></tr>\n</table>')},
+{g:"Estructura",s:"Menú con anclas",t:"Menú con enlaces internos",txt:"Un nav con una lista de 3 enlaces internos (#) y 3 section, cada una con un h2 y un id que coincida con su enlace.",
+ start:DOC(''),checks:[N("3 enlaces # dentro de nav > ul > li","nav ul li a[href^='#']",3),["Cada enlace apunta a un id existente",d=>{const a=[...d.querySelectorAll("nav a[href^='#']")];return a.length>=3&&a.every(x=>d.getElementById(x.getAttribute("href").slice(1)))}],N("3 section con h2","section h2",3)],
+ sol:DOC('<nav><ul>\n<li><a href="#a">A</a></li><li><a href="#b">B</a></li><li><a href="#c">C</a></li>\n</ul></nav>\n<section id="a"><h2>A</h2></section>\n<section id="b"><h2>B</h2></section>\n<section id="c"><h2>C</h2></section>')},
+{g:"Estructura",s:"Currículum",t:"Currículum completo",txt:"Página completa: esqueleto con viewport y favicon; header con h1; main con section de Formación (tabla con caption) y Experiencia (lista ordenada); enlace mailto y tel; imagen con alt; footer con © como entidad.",
+ start:"",checks:[R("DOCTYPE",/^\s*<!doctype html>/i),["lang es",d=>d.documentElement.getAttribute("lang")==="es"],S("charset","meta[charset]"),S("viewport","meta[name='viewport']"),S("title con texto","title"),S("favicon","link[rel='icon']"),S("header con h1","header h1"),N("2 section con h2 en main","main section h2",2),S("tabla con caption","table caption"),S("ol con li","ol li"),S("mailto","a[href^='mailto:']"),S("tel","a[href^='tel:']"),["img con alt",d=>{const i=d.querySelector("img");return !!i&&(i.getAttribute("alt")||"").trim()!==""}],S("footer","footer"),R("Entidad &copy;",/&copy;|&#169;|&#xA9;/i)],
+ sol:'<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>CV de Ana</title>\n<link rel="icon" href="favicon.ico">\n</head>\n<body>\n<header><h1>Ana López</h1><img src="ana.jpg" alt="Foto de Ana" width="100"></header>\n<main>\n<section><h2>Formación</h2>\n<table border="1"><caption>Estudios</caption><tr><th>Año</th><th>Título</th></tr><tr><td>2026</td><td>DAM</td></tr></table></section>\n<section><h2>Experiencia</h2><ol><li>Prácticas</li><li>Freelance</li></ol></section>\n</main>\n<footer><a href="mailto:ana@correo.es">Correo</a> <a href="tel:+34600000000">Teléfono</a> <p>&copy; 2026</p></footer>\n</body>\n</html>'}
+];
+NEWEX.push(
+{g:"Formularios",s:"Contacto",t:"Formulario de contacto",txt:"Formulario por POST con nombre, email obligatorio, teléfono opcional con pattern, select con motivo (3 opciones), textarea con rows y botón de enviar. Todos los campos con label asociado.",
+ start:DOC('<form action="https://httpbingo.org/post" method="post">\n\n</form>'),
+ checks:[S("form method post","form[method='post']"),["Todos los label coinciden con un id",d=>{const l=[...d.querySelectorAll("label[for]")];return l.length>=5&&l.every(x=>d.getElementById(x.getAttribute("for")))}],S("text con name","input[type='text'][name]"),S("email required","input[type='email'][required][name]"),S("tel con pattern","input[type='tel'][pattern][name]"),N("select con 3 option","select option",3),S("textarea con rows","textarea[rows][name]"),S("submit","[type='submit']")],
+ sol:DOC('<form action="https://httpbingo.org/post" method="post">\n<label for="n">Nombre</label><input type="text" id="n" name="nombre">\n<label for="e">Email</label><input type="email" id="e" name="email" required>\n<label for="t">Teléfono</label><input type="tel" id="t" name="tel" pattern="[0-9]{9}">\n<label for="m">Motivo</label><select id="m" name="motivo"><option>Duda</option><option>Queja</option><option>Otro</option></select>\n<label for="x">Mensaje</label><textarea id="x" name="mensaje" rows="4"></textarea>\n<input type="submit" value="Enviar">\n</form>')},
+{g:"Formularios",s:"Valoración",t:"Formulario de valoración",txt:"Valoración con range de 1 a 5 (min, max, step), pregunta sí/no con radio, número de visitas con number, comentario con textarea y botones enviar y borrar.",
+ start:DOC('<form action="https://httpbingo.org/post" method="post">\n\n</form>'),
+ checks:[S("range con min, max y step","input[type='range'][min='1'][max='5'][step]"),["2 radio con el mismo name y value",d=>{const r=[...d.querySelectorAll("input[type='radio'][value]")];return r.length>=2&&new Set(r.map(x=>x.name)).size===1&&r[0].name!==""}],S("number con min","input[type='number'][min][name]"),S("textarea","textarea[name]"),S("submit","[type='submit']"),S("reset","[type='reset']")],
+ sol:DOC('<form action="https://httpbingo.org/post" method="post">\n<label for="v">Valoración</label><input type="range" id="v" name="val" min="1" max="5" step="1">\n<input type="radio" id="s" name="rec" value="si"><label for="s">Sí</label>\n<input type="radio" id="no" name="rec" value="no"><label for="no">No</label>\n<label for="k">Visitas</label><input type="number" id="k" name="visitas" min="0">\n<textarea name="coment"></textarea>\n<input type="submit" value="Enviar"><input type="reset" value="Borrar">\n</form>')},
+{g:"Formularios",s:"Fechas y más",t:"Fechas, color, archivo y sugerencias",txt:"Campos date (con max), time, month, week, datetime-local, color con value hexadecimal, file que acepte imágenes y múltiples, y un input text conectado a un datalist de 3 opciones.",
+ start:DOC('<form action="https://httpbingo.org/post" method="post">\n\n</form>'),
+ checks:[S("date con max","input[type='date'][max]"),S("time","input[type='time']"),S("month","input[type='month']"),S("week","input[type='week']"),S("datetime-local","input[type='datetime-local']"),S("color con value #","input[type='color'][value^='#']"),S("file con accept y multiple","input[type='file'][accept][multiple]"),["input list conectado a datalist con 3 option",d=>{const i=d.querySelector("input[list]");if(!i)return false;const l=d.getElementById(i.getAttribute("list"));return !!l&&l.tagName==="DATALIST"&&l.querySelectorAll("option").length>=3}]],
+ sol:DOC('<form action="https://httpbingo.org/post" method="post">\n<input type="date" name="d" max="2030-12-31">\n<input type="time" name="t"><input type="month" name="m"><input type="week" name="w">\n<input type="datetime-local" name="dt">\n<input type="color" name="c" value="#1F4E79">\n<input type="file" name="f" accept="image/*" multiple>\n<input type="text" name="nav" list="navs">\n<datalist id="navs"><option value="Chrome"><option value="Firefox"><option value="Edge"></datalist>\n</form>')},
+{g:"Formularios",s:"Botones",t:"Botones y formaction",txt:"Dentro de un form: un textarea, un button submit \"Publicar\", un button submit \"Borrador\" con formaction=\"/borrador\", un button reset y un button submit con formnovalidate. Fuera del form, un button type=\"button\".",
+ start:DOC('<form action="/publicar" method="post">\n\n</form>'),
+ checks:[S("textarea dentro del form","form textarea"),S("button submit","form button[type='submit']"),S("button con formaction=\"/borrador\"","button[formaction='/borrador']"),S("button reset","form button[type='reset']"),S("button con formnovalidate","button[formnovalidate]"),["Un button type=\"button\" fuera del form",d=>[...d.querySelectorAll("button[type='button']")].some(b=>!b.closest("form"))]],
+ sol:DOC('<form action="/publicar" method="post">\n<textarea name="texto"></textarea>\n<button type="submit">Publicar</button>\n<button type="submit" formaction="/borrador">Borrador</button>\n<button type="reset">Borrar</button>\n<button type="submit" formnovalidate>Guardar sin validar</button>\n</form>\n<button type="button">Ayuda</button>')},
+{g:"Simulacro",s:"Simulacro A",t:"Simulacro A: web de una cafetería",txt:"Página completa y en español, con viewport y hoja de estilos externa. Header con h1 y nav con 2 enlaces internos. Section #menu con tabla (caption, th, un colspan). Section #contacto con formulario POST (label, email obligatorio, textarea, submit). Aside con una lista de definiciones. Imagen con alt. Footer con © como entidad.",
+ start:"",checks:[R("DOCTYPE",/^\s*<!doctype html>/i),["lang es y charset UTF-8",d=>d.documentElement.getAttribute("lang")==="es"&&!!d.querySelector("meta[charset]")],S("viewport","meta[name='viewport']"),S("title con texto","title"),S("link a hoja de estilos","link[rel='stylesheet'][href]"),S("header con h1","header h1"),["nav con 2 enlaces internos válidos",d=>{const a=[...d.querySelectorAll("nav a[href^='#']")];return a.length>=2&&a.every(x=>d.getElementById(x.getAttribute("href").slice(1)))}],S("section#menu","section#menu"),S("tabla con caption, th y colspan","#menu table caption, #menu table th, #menu [colspan]"),["tabla con caption, th y colspan a la vez",d=>!!d.querySelector("#menu table caption")&&!!d.querySelector("#menu table th")&&!!d.querySelector("#menu [colspan]")],S("section#contacto con form POST","#contacto form[method='post']"),["labels asociados en el formulario",d=>{const l=[...d.querySelectorAll("#contacto label[for]")];return l.length>=2&&l.every(x=>d.getElementById(x.getAttribute("for")))}],S("email required","#contacto input[type='email'][required]"),S("textarea y submit","#contacto textarea, #contacto [type='submit']"),S("aside con dl","aside dl dt"),["img con alt",d=>{const i=d.querySelector("img");return !!i&&(i.getAttribute("alt")||"").trim()!==""}],S("footer","footer"),R("Entidad &copy;",/&copy;|&#169;|&#xA9;/i)],
+ sol:'<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Café Marcas</title>\n<link rel="stylesheet" href="estilos.css">\n</head>\n<body>\n<header><h1>Café Marcas</h1>\n<nav><a href="#menu">Menú</a> <a href="#contacto">Contacto</a></nav></header>\n<main>\n<section id="menu"><h2>Menú</h2>\n<img src="cafe.jpg" alt="Taza de café">\n<table border="1"><caption>Precios</caption><tr><th>Producto</th><th>Precio</th></tr><tr><td>Café</td><td>1,50 &euro;</td></tr><tr><td colspan="2">Desayuno completo</td></tr></table></section>\n<section id="contacto"><h2>Contacto</h2>\n<form action="https://httpbingo.org/post" method="post">\n<label for="e">Correo</label><input type="email" id="e" name="email" required>\n<label for="m">Mensaje</label><textarea id="m" name="msg"></textarea>\n<input type="submit" value="Enviar">\n</form></section>\n</main>\n<aside><dl><dt>Espresso</dt><dd>Café corto e intenso.</dd></dl></aside>\n<footer><p>&copy; 2026 Café Marcas</p></footer>\n</body>\n</html>'},
+{g:"Simulacro",s:"Simulacro B",t:"Simulacro B: blog con multimedia",txt:"Página completa con head correcto (charset, viewport, description, title, favicon). Header con nav. Main con 2 article (cada uno con h2, p con strong, y uno con blockquote), una lista ordenada, un details con summary, un video con controls y 2 source, un progress, un meter y un enlace de descarga. Footer con entidad &copy;.",
+ start:"",checks:[R("DOCTYPE",/^\s*<!doctype html>/i),["lang es",d=>d.documentElement.getAttribute("lang")==="es"],S("charset","head meta[charset]"),S("viewport","head meta[name='viewport']"),S("description","head meta[name='description'][content]"),S("title","head title"),S("favicon","link[rel='icon']"),S("header con nav y enlace","header nav a"),N("2 article con h2","main article h2",2),S("p con strong","article p strong"),S("blockquote","blockquote"),S("ol con li","ol li"),S("details con summary","details summary"),["video con controls y 2 source",d=>{const v=d.querySelector("video[controls]");return !!v&&v.querySelectorAll("source[src][type]").length>=2}],S("progress con value y max","progress[value][max]"),S("meter con value","meter[value]"),S("enlace con download","a[href][download]"),S("footer","footer"),R("Entidad &copy;",/&copy;|&#169;|&#xA9;/i)],
+ sol:'<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<meta name="description" content="Blog de apuntes">\n<title>Mi Blog</title>\n<link rel="icon" href="favicon.ico">\n</head>\n<body>\n<header><nav><a href="#">Inicio</a></nav></header>\n<main>\n<article><h2>Uno</h2><p>Texto <strong>clave</strong>.</p><blockquote>Cita larga.</blockquote></article>\n<article><h2>Dos</h2><p>Texto.</p></article>\n<ol><li>Paso 1</li><li>Paso 2</li></ol>\n<details><summary>Más info</summary><p>Detalle.</p></details>\n<video controls width="320"><source src="v.mp4" type="video/mp4"><source src="v.webm" type="video/webm"></video>\n<progress value="40" max="100"></progress> <meter value="7" min="0" max="10"></meter>\n<a href="apuntes.pdf" download>Descargar</a>\n</main>\n<footer><p>&copy; 2026</p></footer>\n</body>\n</html>'}
+);
+(function(){
+ const libre=EXERCISES.pop();
+ const grp={0:"Básico",1:"Básico",2:"Básico",3:"Tablas y listas",4:"Básico",5:"Formularios",6:"Estructura",7:"Estructura"};
+ EXERCISES.forEach((e,i)=>{e.g=grp[i]||"Básico";e.s="Ejercicio "+(i+1)});
+ EXERCISES.push(...NEWEX);libre.g="Libre";libre.s="Editor libre";EXERCISES.push(libre);
+})();
+
+// Huecos: {{respuesta|alternativa}}
+const GAPS=[
+ ["Esqueleto HTML5","<!DOCTYPE {{html}}>\n<{{html}} lang=\"{{es}}\">\n<head>\n  <meta {{charset}}=\"UTF-8\">\n  <{{title}}>Mi web</{{title}}>\n</head>\n<{{body}}>\n</{{body}}>\n</html>"],
+ ["Enlaces","<{{a}} {{href}}=\"https://www.w3schools.com\" {{target}}=\"{{_blank}}\">Ir</a>\n<a href=\"{{mailto:}}yo@correo.es\">Correo</a>\n<a href=\"{{#}}contacto\">Ir a contacto</a>\n<a href=\"apuntes.pdf\" {{download}}>Descargar</a>"],
+ ["Rutas","Misma carpeta: foto.jpg\nSubcarpeta: {{imagenes}}/foto.jpg\nCarpeta anterior: {{../}}foto.jpg\nRaíz del sitio: {{/}}imagenes/foto.jpg"],
+ ["Imagen","<{{img}} {{src}}=\"gato.jpg\" {{alt}}=\"Un gato\" {{width}}=\"300\">"],
+ ["Tabla","<table>\n  <{{caption}}>Horario</{{caption}}>\n  <{{tr}}>\n    <{{th}}>Día</{{th}}>\n    <td {{colspan}}=\"2\">Lunes</td>\n  </tr>\n</table>"],
+ ["Listas","<{{ol}}>  lista ordenada: el orden importa\n<{{ul}}>  lista de viñetas\n<{{dl}}>  lista de definiciones con <{{dt}}> (término) y <{{dd}}> (definición)\n<{{li}}>  elemento de ol o ul"],
+ ["Formulario","<form action=\"/enviar\" {{method}}=\"{{post}}\">\n  <label {{for}}=\"n\">Nombre</label>\n  <input type=\"text\" {{id}}=\"n\" {{name}}=\"nombre\" {{required}}>\n  <input type=\"{{submit}}\" value=\"Enviar\">\n</form>"],
+ ["Tipos de input","Selector de color: type=\"{{color}}\"\nDeslizador: type=\"{{range}}\"\nUna sola opción de un grupo: type=\"{{radio}}\"\nVarias casillas: type=\"{{checkbox}}\"\nCampo que no se ve pero se envía: type=\"{{hidden}}\"\nFecha y hora sin zona horaria: type=\"{{datetime-local}}\""],
+ ["Atributos de campo","Texto de ejemplo que no se envía: {{placeholder}}\nSe ve y se envía, pero no se edita: {{readonly}}\nGris y no se envía: {{disabled}}\nLimita los caracteres: {{maxlength}}\nExpresión regular: {{pattern}}"],
+ ["Semántica","<{{header}}>…</header>\n<{{nav}}>…</nav>\n<{{main}}>  solo uno por página\n<{{article}}>  contenido independiente\n<{{aside}}>  contenido relacionado\n<{{footer}}>…</footer>"],
+ ["Head y móvil","<meta name=\"{{viewport}}\" content=\"width={{device-width}}, initial-scale={{1.0}}\">\n<meta name=\"{{description}}\" content=\"Resumen para buscadores\">\n<link rel=\"{{icon}}\" href=\"favicon.ico\">\n<link rel=\"{{stylesheet}}\" href=\"estilos.css\">"],
+ ["XML bien formado","<?xml version=\"{{1.0}}\" encoding=\"UTF-8\"?>\n<biblioteca>   <!-- único elemento {{raíz|raiz}} -->\n  <libro idioma={{\"es\"|'es'}}>\n    <titulo>El Quijote</{{titulo}}>\n  </libro>\n</{{biblioteca}}>"],
+ ["Redes","HTTP usa el puerto {{80}} y HTTPS el {{443}}.\nEl handshake de TCP es SYN, {{SYN-ACK}}, ACK.\nLa máscara /24 equivale a {{255.255.255.0}}.\nEl protocolo que traduce nombres en IP es {{DNS}}.\nEl que asigna IP automáticamente es {{DHCP}}.\nEl sentido de comunicación del teléfono es {{full-duplex|full duplex}}."],
+ ["Historia de los lenguajes","GML nació en los años 70 en {{IBM}}.\nSGML se estandarizó en {{1986}} (ISO 8879).\nHTML lo creó Tim {{Berners-Lee}}.\nXML 1.0 lo publicó el {{W3C}} en {{1998}}.\nXML y SGML son {{metalenguajes|metalenguaje}}."]
+];
+const REF = [
+ ["<!DOCTYPE html>","Declara que el documento es HTML5"],["<html lang>","Elemento raíz; lang indica el idioma"],["<head>","Cabecera: metadatos, título y enlaces; no se ve"],
+ ["<meta charset>","Codificación de caracteres (UTF-8)"],["<meta name=\"viewport\">","Ajusta la página a pantallas de móvil"],["<meta name=\"description\">","Resumen para buscadores"],
+ ["<title>","Título de la pestaña"],["<body>","Contenido visible"],["<h1> a <h6>","Encabezados, de mayor a menor importancia"],["<p>","Párrafo"],["<br>","Salto de línea (vacía)"],["<hr>","Línea horizontal (vacía)"],
+ ["<strong> / <em>","Importancia / énfasis con significado"],["<b> <i> <u>","Negrita, cursiva, subrayado solo visuales"],["<mark> / <small>","Resaltado / texto pequeño"],["<sub> / <sup>","Subíndice / superíndice"],
+ ["<del> / <ins>","Texto eliminado / insertado"],["<blockquote> / <q>","Cita larga / cita corta"],["<pre> / <code>","Texto preformateado / fragmento de código"],["<!-- -->","Comentario, el navegador lo ignora"],
+ ["style, <style>, <link rel=stylesheet>","CSS inline, interno y externo (recomendado)"],["<a href>","Enlace: target, mailto:, tel:, #id, download"],["<img src alt>","Imagen; width y height; alt obligatorio"],
+ ["<picture> <source>","Imagen distinta según pantalla (media, srcset)"],["<map> <area>","Zonas pulsables de una imagen (usemap)"],["<link rel=icon>","Favicon"],
+ ["<ul> <ol> <li>","Lista de viñetas / ordenada / elemento"],["<dl> <dt> <dd>","Lista de definiciones: término y definición"],["<table> <caption> <tr> <th> <td>","Tabla: título, fila, encabezado, dato"],
+ ["colspan / rowspan","Celda que ocupa varias columnas / filas"],["<div> / <span>","Contenedor genérico de bloque / en línea"],["class / id","Grupo repetible / identificador único"],
+ ["<form action method>","Formulario; get en la URL, post oculto; target, novalidate"],["<label for>","Texto asociado a un campo por id"],["input text password email tel url search","Campos de texto; email y url validan, tel no"],
+ ["input number range","Numéricos con min, max y step"],["input date time month week datetime-local","Fechas y horas"],["input color checkbox radio file hidden","Color, casilla, opción única, archivo, oculto"],
+ ["input submit reset button image","Botones: enviar, borrar, JS, imagen"],["<select> <option> <optgroup>","Desplegable y grupos de opciones"],["<datalist> + list","Sugerencias con escritura libre"],["<textarea rows cols>","Texto de varias líneas"],
+ ["<button type>","Botón; sin type es submit"],["<output>","Resultado de un cálculo del formulario"],["name","Nombre con el que viaja el dato; sin él no se envía"],["value / placeholder","Valor real enviado / pista que no se envía"],
+ ["required / readonly / disabled","Obligatorio / se ve y se envía / gris y no se envía"],["pattern / min / max / step","Restricciones del valor"],["autocomplete / autofocus / multiple","Autorrelleno / foco inicial / varios valores"],
+ ["formaction formmethod formtarget formnovalidate","Cambian el comportamiento solo para un botón"],["<header> <nav> <main> <section> <article> <aside> <footer> <search>","Etiquetas semánticas HTML5"],
+ ["<iframe>","Incrusta otra página: src, title, loading, allowfullscreen"],["<details> <summary>","Bloque desplegable; open lo abre"],["<progress> / <meter>","Tarea en curso / medida en un rango"],
+ ["<dialog>","Ventana modal; showModal() con JS"],["<canvas>","Lienzo para dibujar con JS"],["<audio> / <video> + <source>","Multimedia con controls"],["&lt; &gt; &amp; &copy; &euro; &nbsp;","Entidades HTML; también &#8364; y &#x20AC;"]
+];
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const store={get(k,d){try{const v=localStorage.getItem("lm:"+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("lm:"+k,JSON.stringify(v))}catch(e){}}};
+const el=(t,a={},...c)=>{const e=document.createElement(t);for(const[k,v]of Object.entries(a)){if(k==="class")e.className=v;else if(k==="text")e.textContent=v;else e.setAttribute(k,v)}c.forEach(x=>e.append(x));return e};
+
+/* tema */
+(function(){const t=store.get("theme",null);if(t)document.documentElement.setAttribute("data-theme",t);
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme: dark)").matches);const n=dark?"light":"dark";r.setAttribute("data-theme",n);store.set("theme",n)}})();
+
+/* pestañas */
+function showTab(id){$$("#tabs button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===id)));$$("section.panel").forEach(p=>p.hidden=p.id!=="p-"+id);store.set("tab",id)}
+$$("#tabs button").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+
+/* cuenta atras */
+function tick(){const ms=EXAM-new Date();const c=$("#count");c.replaceChildren();
+ if(ms<=0){c.append(el("div",{},el("b",{text:"Hoy"}),el("span",{text:"examen"})));return}
+ const d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);
+ [[d,"días"],[h,"horas"],[m,"min"]].forEach(([v,l])=>c.append(el("div",{},el("b",{text:String(v)}),el("span",{text:l}))))}
+tick();setInterval(tick,30000);
+
+/* plan */
+const done=store.get("done",{});
+function planRender(){
+ const box=$("#days");box.replaceChildren();const today=new Date().toISOString().slice(0,10);let tot=0,ok=0;
+ DAYS.forEach(d=>{
+  const n=d.tasks.length;const k=d.tasks.filter((_,i)=>done[d.id+i]).length;tot+=n;ok+=k;
+  const det=el("details",{class:"day"+(d.date===today?" today":"")});
+  if(d.date===today||(k<n&&!box.querySelector("details[open]")&&d.date>=today))det.open=true;
+  det.append(el("summary",{},el("span",{class:"when",text:d.w}),el("h3",{text:d.t}),el("span",{class:"pct",text:k+"/"+n})));
+  const body=el("div",{class:"body"});
+  d.tasks.forEach(([txt,go],i)=>{
+   const id="t-"+d.id+i;const row=el("div",{class:"task"});
+   const cb=el("input",{type:"checkbox",id});cb.checked=!!done[d.id+i];
+   cb.onchange=()=>{done[d.id+i]=cb.checked;store.set("done",done);planRender()};
+   row.append(cb,el("label",{for:id,text:txt}));
+   if(go){const g=el("button",{class:"goto",type:"button",text:"Abrir"});g.onclick=()=>showTab(go);row.append(g)}
+   body.append(row)});
+  det.append(body);box.append(det)});
+ $("#planTxt").textContent=ok+" de "+tot+" tareas";$("#planBar").style.width=(tot?ok/tot*100:0)+"%"}
+planRender();
+
+/* flashcards */
+let cat="Todas",deck=[],pos=0,back=false,known=store.get("known",{});
+const cats=["Todas","Internet","XML","HTML","Formularios","HTML avanzado","Repasar"];
+function cardKey(c){return c[1]}
+function buildDeck(){deck=CARDS.filter(c=>cat==="Todas"||(cat==="Repasar"?known[cardKey(c)]===0:c[0]===cat));pos=0;back=false}
+function fcFilters(){const w=$("#fcFilters");w.replaceChildren();cats.forEach(c=>{const b=el("button",{class:"chip",type:"button","aria-pressed":String(c===cat),text:c});b.onclick=()=>{cat=c;buildDeck();fcFilters();fcShow()};w.append(b)})}
+function fcShow(){const f=$("#flash");f.replaceChildren();f.classList.toggle("back",back);$("#fcRate").hidden=!back||!deck.length;
+ if(!deck.length){f.append(el("div",{class:"big",text:"No hay tarjetas en esta categoría."}));$("#fcPos").textContent="";return}
+ const c=deck[pos];f.append(el("div",{class:"tag",text:c[0]+(back?" · respuesta":" · pregunta")}));
+ f.append(back?el("div",{class:"ans",text:c[2]}):el("div",{class:"big",text:c[1]}));
+ $("#fcPos").textContent=(pos+1)+" de "+deck.length;
+ const kn=Object.values(known).filter(v=>v===1).length,lr=Object.values(known).filter(v=>v===0).length;$("#fcStat").textContent=kn+" sabidas · "+lr+" por repasar"}
+function flip(){back=!back;fcShow()}
+function move(d){if(!deck.length)return;pos=(pos+d+deck.length)%deck.length;back=false;fcShow()}
+$("#flash").onclick=flip;$("#flash").onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flip()}};
+$("#fcFlip").onclick=flip;$("#fcNext").onclick=()=>move(1);$("#fcPrev").onclick=()=>move(-1);
+$("#fcShuf").onclick=()=>{for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]]}pos=0;back=false;fcShow()};
+function rate(v){if(!deck.length)return;known[cardKey(deck[pos])]=v;store.set("known",known);if(cat==="Repasar"&&v===1){buildDeck();fcShow()}else move(1)}
+$("#fcKnow").onclick=()=>rate(1);$("#fcLearn").onclick=()=>rate(0);
+fcFilters();buildDeck();fcShow();
+
+/* test */
+let qi=0,sc=0,answered=false,wrong=[];
+function quizStart(list){window._qlist=list;qi=0;sc=0;wrong=[];quizShow()}
+function quizShow(){
+ const box=$("#quizBox");box.replaceChildren();const L=window._qlist||QUIZ;
+ if(qi>=L.length){
+  const c=el("div",{class:"card"});c.append(el("div",{class:"muted",text:"Resultado"}),el("div",{class:"score",text:sc+" / "+L.length}),
+   el("p",{text:sc>=L.length*0.8?"Nivel de aprobado alto. Repite solo lo que fallaste.":"Repasa las flashcards de lo que fallaste y repite el test."}));
+  const r=el("div",{class:"row"});const a=el("button",{class:"btn",type:"button",text:"Repetir todo"});a.onclick=()=>quizStart(QUIZ);r.append(a);
+  if(wrong.length){const b=el("button",{class:"btn ghost",type:"button",text:"Repetir solo las falladas ("+wrong.length+")"});b.onclick=()=>quizStart(wrong.slice());r.append(b)}
+  c.append(r);box.append(c);store.set("best",Math.max(store.get("best",0),Math.round(sc/L.length*100)));return}
+ const q=L[qi];answered=false;
+ const card=el("div",{class:"card q"});
+ card.append(el("div",{class:"muted",text:"Pregunta "+(qi+1)+" de "+L.length+" · mejor resultado: "+store.get("best",0)+" %"}),el("h3",{text:q[0]}));
+ const o=el("div",{class:"opts"});
+ q[1].forEach((t,i)=>{const b=el("button",{class:"opt",type:"button",text:t});b.onclick=()=>{
+  if(answered)return;answered=true;
+  $$(".opt").forEach((x,j)=>{x.disabled=true;if(j===q[2])x.classList.add("ok")});
+  if(i===q[2])sc++;else{b.classList.add("ko");wrong.push(q)}
+  card.append(el("div",{class:"expl",text:(i===q[2]?"Correcto. ":"Incorrecto. ")+q[3]}));
+  const nx=el("button",{class:"btn",type:"button",text:qi+1>=L.length?"Ver resultado":"Siguiente"});nx.style.marginTop="12px";nx.onclick=()=>{qi++;quizShow()};card.append(nx);nx.focus()};o.append(b)});
+ card.append(o);box.append(card)}
+quizStart(QUIZ);
+
+/* practica */
+let ex=0,grp="Todos";const exDone=store.get("exDone2",{});
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+function exList(){
+ const g=$("#exGroups");g.replaceChildren();["Todos",...new Set(EXERCISES.map(e=>e.g))].forEach(n=>{const b=el("button",{class:"chip",type:"button","aria-pressed":String(n===grp),text:n});b.onclick=()=>{grp=n;exList()};g.append(b)});
+ const w=$("#exList");w.replaceChildren();
+ EXERCISES.forEach((e,i)=>{if(grp!=="Todos"&&e.g!==grp)return;const b=el("button",{class:"chip"+(exDone[i]?" done":""),type:"button","aria-pressed":String(i===ex),text:e.s});b.onclick=()=>exLoad(i);w.append(b)});
+ const tot=EXERCISES.filter(e=>e.checks.length).length;$("#exCount").textContent=Object.keys(exDone).length+" de "+tot+" ejercicios superados"}
+function preview(){const f=$("#prev"),e=EXERCISES[ex],v=$("#code").value;try{f.srcdoc=e.xml?'<pre style="font:13px monospace;white-space:pre-wrap;margin:8px">'+esc(v)+'</pre>':v}catch(x){}}
+function exLoad(i){ex=i;const e=EXERCISES[i];$("#exTitle").textContent=e.t;$("#exText").textContent=e.txt;
+ $("#code").value=store.get("code2-"+i,e.start);$("#checks").replaceChildren();$("#solBox").hidden=true;$("#exSol").hidden=!e.sol;$("#exCheck").hidden=!e.checks.length;exList();preview()}
+let pt;$("#code").oninput=()=>{store.set("code2-"+ex,$("#code").value);clearTimeout(pt);pt=setTimeout(preview,350)};
+$("#code").onkeydown=e=>{if(e.key==="Tab"){e.preventDefault();const t=e.target,s=t.selectionStart;t.value=t.value.slice(0,s)+"  "+t.value.slice(t.selectionEnd);t.selectionStart=t.selectionEnd=s+2}};
+$("#exCheck").onclick=()=>{const e=EXERCISES[ex],raw=$("#code").value;const d=new DOMParser().parseFromString(raw,e.xml?"application/xml":"text/html");const ul=$("#checks");ul.replaceChildren();let ok=0;
+ e.checks.forEach(([l,fn])=>{let r=false;try{r=!!fn(d,raw)}catch(x){}if(r)ok++;ul.append(el("li",{class:r?"ok":"ko",text:(r?"Bien: ":"Falta: ")+l}))});
+ const n=e.checks.length;ul.prepend(el("li",{class:ok===n?"ok":"ko",text:ok+" de "+n+" comprobaciones superadas"}));
+ if(ok===n){exDone[ex]=true;store.set("exDone2",exDone);exList()}};
+let tm=null,tEnd=0;
+function stopClock(){clearInterval(tm);tm=null;$("#examBtn").textContent="Modo examen (45 min)";$("#examClock").textContent=""}
+$("#exSol").onclick=()=>{const b=$("#solBox");if(tm){b.hidden=false;b.textContent="Modo examen: la solución está bloqueada hasta que pares el reloj.";return}b.textContent=EXERCISES[ex].sol;b.hidden=!b.hidden};
+$("#exReset").onclick=()=>{store.set("code2-"+ex,EXERCISES[ex].start);exLoad(ex)};
+$("#examBtn").onclick=()=>{if(tm){stopClock();return}tEnd=Date.now()+45*60000;$("#examBtn").textContent="Parar el reloj";
+ const t=()=>{const s=Math.max(0,Math.round((tEnd-Date.now())/1000));$("#examClock").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");if(!s)stopClock()};t();tm=setInterval(t,1000)};
+exLoad(0);
+
+/* huecos */
+let gp=0;
+function gapRender(){
+ const sel=$("#gapSel");if(!sel.children.length){GAPS.forEach((g,i)=>{const b=el("button",{class:"chip",type:"button",text:g[0]});b.onclick=()=>{gp=i;gapRender()};sel.append(b)})}
+ [...sel.children].forEach((b,i)=>b.setAttribute("aria-pressed",String(i===gp)));
+ const box=$("#gapBox");box.replaceChildren();$("#gapRes").textContent="";
+ const txt=GAPS[gp][1];const re=/\{\{(.+?)\}\}/g;let last=0,m,k=0;
+ while((m=re.exec(txt))){box.append(document.createTextNode(txt.slice(last,m.index)));
+  const inp=el("input",{type:"text",class:"gap",id:"gap"+k,"data-a":m[1],autocomplete:"off",autocapitalize:"off",spellcheck:"false","aria-label":"Hueco "+(k+1)});
+  inp.style.width=Math.max(4,Math.min(...m[1].split("|").map(x=>x.length))+2)+"ch";box.append(inp);last=m.index+m[0].length;k++}
+ box.append(document.createTextNode(txt.slice(last)))}
+const norm=s=>s.trim().toLowerCase().replace(/\s+/g," ");
+$("#gapCheck").onclick=()=>{let ok=0,n=0;$$("#gapBox input.gap").forEach(i=>{n++;const good=i.dataset.a.split("|").map(norm).includes(norm(i.value));i.classList.toggle("ok",good);i.classList.toggle("ko",!good);if(good)ok++});
+ $("#gapRes").textContent=ok+" de "+n+" huecos correctos"+(ok===n?". Completo.":".")};
+$("#gapShow").onclick=()=>{$$("#gapBox input.gap").forEach(i=>{i.value=i.dataset.a.split("|")[0]})};
+$("#gapReset").onclick=gapRender;
+gapRender();
+
+/* referencia */
+function refRender(){const q=$("#refQ").value.trim().toLowerCase();const b=$("#refBody");b.replaceChildren();
+ REF.filter(r=>!q||(r[0]+" "+r[1]).toLowerCase().includes(q)).forEach(r=>b.append(el("tr",{},el("td",{},el("code",{text:r[0]})),el("td",{text:r[1]}))));
+ if(!b.children.length)b.append(el("tr",{},el("td",{colspan:"2",class:"muted",text:"Sin resultados."})))}
+$("#refQ").oninput=refRender;refRender();
+
+showTab(store.get("tab","plan"));
+</script>
+
+</body>
+</html>
