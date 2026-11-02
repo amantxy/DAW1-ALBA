@@ -864,6 +864,992 @@ if (a == 0) {
 sc.close();</code></pre></details>
 </div></section></div>
 <div class="tabpane" id="ej-U2" data-label="U2 · Estructuras de control">
+<section class="sec"><h3>Docx del profesor (1/4): if, if-else y operadores lógicos</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>1. Mayor de edad</h4><div style="white-space:pre-line">Escribir un ejercicio en java en que se muestre el mensaje “ es mayor de edad”, si la variable edad es mayor o igual a
+18</div><details><summary>Java</summary><pre><code>public class Mavenproject5 {
+    public static void main(String[] args) {
+        int edad = 10;
+        if(edad &gt;= 18 )
+        {
+            System.out.println(&quot;Es mayor de edad&quot;);
+        }
+    }
+}</code></pre></details><h4>2. Descuento del 10 % si el precio supera 100 €</h4><div style="white-space:pre-line">Crea un programa en Java que almacene el precio de un producto en una variable de tipo float.
+Si el precio es superior a 100 euros, se aplicará un descuento del 10 %.
+El programa deberá mostrar el precio final del producto.</div><details><summary>Java</summary><pre><code>public class Ejercicio4 {
+    public static void main(String[] args) {
+        float precio = 150;
+        float descuento;
+        if (precio &gt; 100) {
+            descuento = precio * 10 / 100;
+            precio = precio - descuento;
+        }
+        System.out.println(&quot;Precio final: &quot; + precio + &quot; euros&quot;);
+    }
+}</code></pre></details><h4>3. Imprimir el mayor de dos números</h4><div style="white-space:pre-line">Imprimir el valor que tenga la variable mayor</div><details><summary>Java</summary><pre><code>public class Valormayor {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 20;
+        if(a&gt;b){
+            System.out.println(a);
+        }
+        else{
+            System.out.println(b);
+        }
+    }
+}</code></pre></details><h4>4. Año bisiesto: número de días</h4><div style="white-space:pre-line">Muestra el número de días de un año teniendo en cuenta que puede ser bisiesto. Si es divisible entre 4 el año es
+bisiesto.</div><details><summary>Java</summary><pre><code>public class Bisiesto {
+    public static void main(String[] args) {
+        int anno = 2000;
+        int n_dias = 365;
+        if(anno%4==0){ // si se cumple el año es bisiesto
+            n_dias++;
+            // equivale n_dias = n_dias + 1
+        }
+        System.out.println(n_dias);
+    }
+}</code></pre></details><h4>5. Entrada a una atracción (edad y altura)</h4><div style="white-space:pre-line">Entrada a una atracción
+Una atracción permite subir únicamente a personas que tengan 12 años o más y midan al menos 1,40 metros.
+Guarda la edad y la altura en variables y determina si la persona puede subir.</div><details><summary>Java</summary><pre><code>public class Atraccion {
+    public static void main(String[] args) {
+        int edad = 11;
+        float altura = 1.50f;
+        if(edad &gt;= 12 &amp;&amp; altura &gt;= 1.40f){
+            System.out.println(&quot;Puede ingresar&quot;);
+        }else{
+            System.out.println(&quot;No puede ingresar&quot;);
+        }
+    }
+}</code></pre></details><h4>6. Temperatura fuera de rango</h4><div style="white-space:pre-line">Temperatura fuera de rango
+Guarda una temperatura en una variable. Muestra un aviso si la temperatura es menor de 0 °C o mayor de 40 °C</div><details><summary>Java</summary><pre><code>public class Temperatura {
+    public static void main(String[] args) {
+        int temperatura = 50;
+        if(temperatura &lt; 0 || temperatura &gt; 40){
+            System.out.println(&quot;Temperatura fuera de rango&quot;);
+        }
+    }
+}</code></pre></details><h4>7. Acceso gratuito (menos de 6 o 65 o más)</h4><div style="white-space:pre-line">Crea un programa en Java que almacene la edad de una persona en una variable.
+El programa deberá mostrar &quot;Acceso gratuito&quot; si la persona:
+• Tiene menos de 6 años.
+• O tiene 65 años o más.</div><details><summary>Java</summary><pre><code>public class Mavenproject7 {
+    public static void main(String[] args) {
+        int edad = 75;
+        if(edad &lt; 6 || edad &gt;= 65){
+            System.out.println(&quot;Acceso gratuito&quot;);
+        }
+    }
+}</code></pre></details><h4>8. Aprobar con examen y prácticas ≥ 5</h4><div style="white-space:pre-line">Crea un programa en Java que almacene en dos variables la nota del examen y la nota de los
+ejercicios prácticos.
+El alumno aprobará la asignatura si cumple las dos condiciones siguientes:
+ La nota del examen es igual o superior a 5.
+ La nota de los ejercicios prácticos es igual o superior a 5.</div><details><summary>Java</summary><pre><code>public class Mavenproject8 {
+    public static void main(String[] args) {
+        int examen = 6;
+        int ejercicios = 3;
+        if(examen &gt;= 5 &amp;&amp; ejercicios &gt;= 5){
+            System.out.println(&quot;Aprobado&quot;);
+        }
+    }
+}</code></pre></details><h4>9. Entrada gratuita al museo</h4><div style="white-space:pre-line">Crea un programa en Java que almacene en variables la edad de una persona y si es
+estudiante.
+La entrada al museo será gratuita si la persona cumple al menos una de estas condiciones:
+ Tiene menos de 18 años.
+ Es estudiante.</div><details><summary>Java</summary><pre><code>public class Mavenproject10 {
+    public static void main(String[] args) {
+        int edad = 18;
+        boolean estudiante = true;
+        if (edad &lt; 18 || estudiante){
+            System.out.println(&quot;Entrada gratuita&quot;);
+        }
+    }
+}</code></pre></details><h4>10. Préstamo de libros en una biblioteca</h4><div style="white-space:pre-line">Crea un programa que determine si una persona puede llevarse un libro prestado de una biblioteca.
+El programa deberá:
+1. Guardar la edad de la persona en una variable.
+2. Guardar el número de libros que ya tiene prestados en otra variable.
+3. Comprobar primero si la persona tiene 14 años o más.
+4. Mostrar uno de estos mensajes:
+o Si tiene menos de 14 años: «No puede realizar el préstamo sin autorización».
+o Si tiene 14 años o más y menos de 3 libros prestados: «Puede llevarse otro libro».
+o Si tiene 14 años o más pero ya tiene 3 o más libros prestados: «No puede llevarse más
+libros».</div><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    int edad = 15;
+    int prestados = 3;
+    if (edad &lt; 14){
+        System.out.println(&quot;No se puede realizar el préstamo sin autorización&quot;);
+    }
+    else{
+        if(prestados&lt;3){
+            System.out.println(&quot;Puede llevarse otro libro&quot;);
+        }
+        else{
+            System.out.println(&quot;No se puede llevarse más libros&quot;);
+        }
+    }
+}</code></pre></details><h4>11. Acceso a la zona VIP</h4><div style="white-space:pre-line">Crea un programa que determine si una persona puede acceder a una zona VIP de un evento.
+El programa deberá:
+1. Guardar la edad de la persona en una variable.
+2. Comprobar primero si tiene 18 años o más.
+3. Comprobar si dispone de entrada VIP.
+4. Mostrar uno de estos mensajes:
+o Si tiene 18 años o más y dispone de entrada VIP: «Puede acceder a la zona VIP».
+o Si tiene 18 años o más pero no dispone de entrada VIP: «No puede acceder:
+necesita una entrada VIP».
+o Si tiene menos de 18 años: «No puede acceder: debe ser mayor de edad».</div><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    int edad = 20;
+    boolean entrada = false;
+    if (edad &lt; 18){
+        System.out.println(&quot;No puede acceder, es menor&quot;);
+    }else{
+        if(entrada){
+            System.out.println(&quot;Puede acceder&quot;);
+        } else {
+            System.out.println(&quot;No puede acceder, no tiene entrada&quot;);
+        }
+    }
+}</code></pre></details></div></section>
+<section class="sec"><h3>Docx del profesor (2/4): switch</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>12. Nota → Suspenso / Aprobado / Notable / Sobresaliente</h4><div style="white-space:pre-line">Crea un programa en java que según sea el contenido de una nota muestre
+0 a 4 -&gt; Suspenso
+5 y 6 -&gt; Aprobado
+7 y 8 -&gt; Notable
+9 y 10 -&gt; Sobresaliente</div><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    int nota = 7;
+    switch(nota){
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+            System.out.println(&quot;Suspenso&quot;);
+            break;
+        case 5:
+        case 6:
+            System.out.println(&quot;Aprobado&quot;);
+            break;
+        case 7:
+        case 8:
+            System.out.println(&quot;Notable&quot;);
+            break;
+        case 9:
+        case 10:
+            System.out.println(&quot;Sobresaliente&quot;);
+            break;
+        default:
+            System.out.println(&quot;NOTA NO VÁLIDA&quot;);
+    }
+}</code></pre></details><details><summary>Java (alternativa)</summary><pre><code>public static void main(String[] args) {
+    int nota = 7;
+    switch(nota){
+        case 0, 1, 2, 3, 4 -&gt; System.out.println(&quot;Suspenso&quot;);
+        case 5, 6 -&gt; System.out.println(&quot;Aprobado&quot;);
+        case 7, 8 -&gt; System.out.println(&quot;Notable&quot;);
+        case 9, 10 -&gt; System.out.println(&quot;Sobresaliente&quot;);
+        default -&gt; System.out.println(&quot;NOTA NO VÁLIDA&quot;);
+    }
+}</code></pre></details><h4>13. Menú bancario con switch (1 a 4)</h4><div style="white-space:pre-line">Crea un programa que lea por teclado una variable un número entero comprendido entre 1 y 4.
+Utiliza una estructura switch-case para mostrar una opción diferente según el valor de la variable:
+ 1 → &quot;Consultar saldo&quot;
+ 2 → &quot;Realizar ingreso&quot;
+ 3 → &quot;Realizar retirada&quot;
+ 4 → &quot;Salir&quot;
+Si el número introducido no está comprendido entre 1 y 4, deberá mostrar:
+&quot;Opción no válida&quot;</div><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    System.out.print(&quot;Introduce una opción entre 1 y 4: &quot;);
+    int opcion = teclado.nextInt();
+    switch (opcion) {
+        case 1 -&gt; System.out.println(&quot;Consultar saldo&quot;);
+        case 2 -&gt; System.out.println(&quot;Realizar ingreso&quot;);
+        case 3 -&gt; System.out.println(&quot;Realizar retirada&quot;);
+        case 4 -&gt; System.out.println(&quot;Salir&quot;);
+        default -&gt; System.out.println(&quot;Opción no válida&quot;);
+    }
+}</code></pre></details></div></section>
+<section class="sec"><h3>Docx del profesor (3/4): do-while, while y for</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>14. Repetir hasta un valor distinto de 0</h4><div style="white-space:pre-line">Escribir un programa en java que acepte un valor entero por teclado y se repita la petición hasta que el valor sea
+distinto de cero.</div><details><summary>Java</summary><pre><code>public class Main {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        int numero;
+        do {
+            System.out.print(&quot;Introduce un número entero distinto de 0: &quot;);
+            numero = teclado.nextInt();
+        } while (numero == 0);
+        System.out.println(&quot;Número introducido: &quot; + numero);
+    }
+}</code></pre></details><h4>15. Repetir hasta un número entre 1 y 4</h4><div style="white-space:pre-line">Realizar un programa que repita la introducción de un número mientras no esté comprendido entre 1 y 4</div><details><summary>Java</summary><pre><code>import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        int numero;
+        do {
+            System.out.print(&quot;Introduce un número entre 1 y 4: &quot;);
+            numero = teclado.nextInt();
+        } while (numero &lt; 1 || numero &gt; 4);
+        System.out.println(&quot;Número válido: &quot; + numero);
+    }
+}</code></pre></details><h4>16. Par o impar hasta introducir 0</h4><div style="white-space:pre-line">Aceptar un número.
+El programa hace decir si el número es par o impar.
+Repetir aceptar el número hasta que sea igual a cero.</div><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    int numero;
+    do {
+        System.out.print(&quot;Introduce un número: &quot;);
+        numero = teclado.nextInt();
+        if (numero != 0) {
+            if (numero % 2 == 0) {
+                System.out.println(&quot;El número es par&quot;);
+            } else {
+                System.out.println(&quot;El número es impar&quot;);
+            }
+        }
+    } while (numero != 0);
+}</code></pre></details><h4>17. Menú repetido hasta elegir Salir</h4><div style="white-space:pre-line">Crea un programa en Java que muestre repetidamente el siguiente menú:
+1. Consultar datos
+2. Añadir datos
+3. Eliminar datos
+4. Salir
+El programa deberá pedir al usuario que elija una opción y mostrar un mensaje indicando la
+opción seleccionada.
+Si se introduce un valor distinto de 1, 2, 3 o 4, deberá mostrar el mensaje «Opción no válida».
+El menú deberá seguir apareciendo hasta que el usuario seleccione la opción 4. Salir, momento
+en el que finalizará el programa.</div><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    int opcion;
+    do {
+        System.out.println(&quot;1. Consultar datos&quot;);
+        System.out.println(&quot;2. Añadir datos&quot;);
+        System.out.println(&quot;3. Eliminar datos&quot;);
+        System.out.println(&quot;4. Salir&quot;);
+        System.out.print(&quot;Elige una opción: &quot;);
+        opcion = teclado.nextInt();
+        switch (opcion) {
+            case 1 -&gt; System.out.println(&quot;Has elegido consultar datos&quot;);
+            case 2 -&gt; System.out.println(&quot;Has elegido añadir datos&quot;);
+            case 3 -&gt; System.out.println(&quot;Has elegido eliminar datos&quot;);
+            case 4 -&gt; System.out.println(&quot;Fin del programa&quot;);
+            default -&gt; System.out.println(&quot;Opción no válida&quot;);
+        }
+    } while (opcion != 4);
+}</code></pre></details><h4>18. Notas hasta 0: aprobados y suspensos</h4><div style="white-space:pre-line">Leer notas de los alumnos hasta que se introduzca un cero
+Mostrar cuantos alumnos:
+Aprobaron (mayor o igual que 5)
+Suspendieron (menor que 5)</div><details><summary>PSeInt</summary><pre><code>Algoritmo sin_titulo
+    Definir nota Como Entero
+    Definir aprobados Como Entero
+    Definir suspensos Como Entero
+    aprobados &lt;- 0
+    suspensos &lt;- 0
+    Escribir &quot;introducir nota &quot;
+    Leer nota
+    Mientras nota &lt;&gt; 0 Hacer
+        Si nota &gt;= 5 Entonces
+            aprobados &lt;- aprobados + 1
+        SiNo
+            suspensos &lt;- suspensos + 1
+        FinSi
+        Escribir &quot;introducir nota &quot;
+        Leer nota
+    FinMientras
+    Escribir &quot;Alumnos aprobados &quot;, aprobados
+    Escribir &quot;Alumnos suspensos &quot;, suspensos
+FinAlgoritmo</code></pre></details><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    int nota;
+    int aprobados=0;
+    int suspensos=0;
+    System.out.println(&quot;Introduzca la nota &lt;-0 para salir-&gt;&quot;);
+    nota = teclado.nextInt();
+    while (nota !=0){
+        if(nota &gt;= 5){
+            aprobados ++;
+        } else{
+            suspensos ++;
+        }
+        System.out.println(&quot;Introduzca la nota &lt;-0 para salir-&gt;&quot;);
+        nota = teclado.nextInt();
+    }
+    System.out.println(&quot;Alumnos aprobados &quot; + aprobados);
+    System.out.println(&quot;Alumnos suspensos &quot; + suspensos);
+}</code></pre></details><h4>19. Temperaturas hasta 99: máxima y mínima</h4><div style="white-space:pre-line">Leer temperaturas hasta que se introduzca el valor 99.
+Al finalizar, el programa deberá mostrar:
+La temperatura más alta introducida.
+La temperatura más baja introducida.
+El valor 99 se utilizará únicamente para finalizar la introducción de datos y no debe tenerse en cuenta como
+temperatura.</div><details><summary>PSeInt</summary><pre><code>Algoritmo sin_titulo
+    Definir temperatura, maxima, minima Como Entero;
+    maxima &lt;- -9999
+    minima &lt;- 9999
+    Repetir
+        Escribir &quot;Introducir temperatura &lt;&lt;99 para Salir&gt;&gt;&quot;
+        Leer temperatura
+        Si temperatura &lt;&gt; 99 Entonces
+            Si temperatura &gt; maxima Entonces
+                maxima &lt;- temperatura
+            FinSi
+            Si temperatura &lt; minima Entonces
+                minima &lt;- temperatura
+            FinSi
+        FinSi
+    Hasta Que temperatura = 99
+    Escribir &quot;Temperatura máxima &quot;, maxima
+    Escribir &quot;Temperatura mínima &quot;, minima
+FinAlgoritmo</code></pre></details><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    int temperatura, maxima, minima;
+    maxima = -9999;
+    minima = 9999;
+    do{
+        System.out.println(&quot;Introducir temperatura &lt;&lt;99 para salir&gt;&gt;&quot;);
+        temperatura = teclado.nextInt();
+        if(temperatura != 99){
+            if(temperatura &gt; maxima){
+                maxima = temperatura;
+            }
+            if(temperatura &lt; minima){
+                minima = temperatura;
+            }
+        }
+    }while(temperatura !=99);
+    System.out.println(&quot;Temperatura más alta &quot; + maxima);
+    System.out.println(&quot;Temperatura más baja &quot; + minima);
+}</code></pre></details><h4>20. Edades hasta 0: mayor, menor, total y media</h4><div style="white-space:pre-line">Crea un programa que lea edades hasta que se introduzca el valor 0.
+Al finalizar, el programa deberá mostrar:
+ La edad más alta introducida.
+ La edad más baja introducida.
+ El total de edades introducidas.
+ La media de todas las edades introducidas.
+El valor 0 se utilizará únicamente para finalizar la introducción de datos y no debe tenerse en
+cuenta en los cálculos.</div><details><summary>PSeInt</summary><pre><code>Algoritmo Edades
+    Definir edad, mayor_edad, menor_edad, total, suma Como Entero
+    // total es un contador para guardar el número de las edades
+    // suma será el acumulador para guardar la suma de las edades
+    Definir media Como Real
+    mayor_edad &lt;- 0
+    menor_edad &lt;- 200
+    total &lt;- 0
+    suma &lt;- 0
+    Escribir &quot;Introduce la edad &lt;&lt; 0 para salir &gt;&gt; &quot;
+    leer edad
+    Mientras edad &lt;&gt; 0
+        si edad &lt; menor_edad Entonces
+            menor_edad &lt;- edad
+        FinSi
+        si edad &gt; mayor_edad Entonces
+            mayor_edad &lt;- edad
+        FinSi
+        total &lt;- total + 1 // cuenta el numero de edades
+        suma &lt;- suma + edad // suma las edades
+        Escribir &quot;Introduce la edad &lt;&lt; 0 para salir &gt;&gt; &quot;
+        leer edad
+    FinMientras
+    Escribir &quot;La edad más alta es &quot;, mayor_edad
+    Escribir &quot;La edad más baja es &quot;, menor_edad
+    Escribir &quot;Total edades &quot;, total
+    media &lt;- suma / total
+    Escribir &quot;Media de edades: &quot; media
+FinAlgoritmo</code></pre></details><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    int edad=0, mayor=0, menor=200, total=0, suma=0;
+    double media=0.0;
+    System.out.println(&quot;Introduce la edad &lt;&lt; pulse 0 para salir &gt;&gt;&quot;);
+    edad = teclado.nextInt();
+    while(edad !=0){
+        if (edad &gt; mayor){
+            mayor = edad;
+        }
+        if (edad &lt; menor){
+            menor = edad;
+        }
+        suma += edad; // equivale a suma = suma + edad
+        total++; // equile a total = total + 1
+        System.out.println(&quot;Introduce la edad &lt;&lt; pulse 0 para salir &gt;&gt;&quot;);
+        edad = teclado.nextInt();
+    }
+    System.out.println(&quot;La edad más alta es &quot; + mayor);
+    System.out.println(&quot;La edad más baja es &quot; + menor);
+    System.out.println(&quot;El total de edades es &quot; + total);
+    media = (double) suma / total;
+    System.out.println(&quot;La media de las edades &quot; + media);
+}</code></pre></details><h4>21. Ventas hasta 0 con objetivo de 1000 €</h4><div style="white-space:pre-line">Crea un programa que lea el importe de varias ventas hasta que se introduzca el valor 0.
+Al finalizar, el programa deberá mostrar:
+ La venta de mayor importe.
+ La venta de menor importe.
+ El número total de ventas realizadas.
+ El importe total de todas las ventas.
+ El importe medio de las ventas.
+ Cuántas ventas han sido superiores a 100 €.
+ Cuántas ventas han sido inferiores a 50 €.
+El valor 0 se utilizará únicamente para finalizar la introducción de datos y no debe tenerse en
+cuenta en los cálculos.
+Además, si el importe total de las ventas supera los 1000 €, el programa mostrará:
+&quot;Objetivo de ventas alcanzado&quot;
+En caso contrario mostrará:
+&quot;Objetivo de ventas no alcanzado&quot;</div><details><summary>PSeInt</summary><pre><code>Algoritmo Ventas_
+    Definir venta, mayor_venta, menor_venta, totalNventas, media Como Real
+    Definir totalVentas, sup100, inf50 Como Entero
+    mayor_venta &lt;- 0
+    menor_venta &lt;- 99999
+    totalNventas &lt;- 0 // contador
+    totalVentas &lt;- 0 // acumulador
+    sup100 &lt;- 0 // contador
+    inf50 &lt;- 0 // contador
+    Escribir &quot;Introduce el importe de la venta &quot;
+    Leer venta
+    Mientras venta &lt;&gt; 0 Hacer
+        si venta &gt; mayor_venta
+            mayor_venta &lt;- venta
+        FinSi
+        si venta &lt; menor_venta
+            menor_venta &lt;- venta
+        FinSi
+        totalNventas &lt;- totalNventas + 1
+        totalVentas &lt;- totalventas + venta
+        media &lt;- totalventas / totalNventas
+        Si venta &gt; 100 Entonces
+            sup100 &lt;- sup100 + 1
+        FinSi
+        Si venta &lt; 50 Entonces
+            inf50 &lt;- inf50 + 1
+        FinSi
+        Escribir &quot;Introduce el importe de la venta &quot;
+        Leer venta
+    FinMientras
+    Escribir &quot;La mayor venta es &quot; , mayor_venta
+    Escribir &quot;La menor venta es &quot; , menor_venta
+    Escribir &quot;El total del número de ventas es &quot;, totalNventas
+    Escribir &quot;Las suma total de las ventas es &quot;, totalventas
+    Escribir &quot;El importe medio de las ventas es &quot;, media
+    Escribir &quot;Ventas superiores a 100 euros &gt; &quot;, sup100
+    Escribir &quot;Ventas inferiores a 50 euros &gt; &quot;, inf50
+    Si totalventas &gt; 1000
+        Escribir &quot;Objetivo cumplido&quot;
+    SiNo
+        Escribir &quot;Objetivo no cumplido&quot;
+    FinSi
+FinAlgoritmo</code></pre></details><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    double venta, mayorVenta = 0, menorVenta = 9999, totalVenta = 0, media;
+    int totalNventas=0, sup100 = 0, inf50 = 0;
+    System.out.println(&quot;Introduce el importe de la venta. Pulse 0 para salir&quot;);
+    venta = teclado.nextDouble();
+    while(venta!=0){
+        totalNventas ++; // contador
+        // Equivale a totalNventas = totalNventas + 1
+        totalVenta += venta; // Acumulador
+        // Equivale a totalVenta = totalVenta + venta;
+        if(venta &gt; mayorVenta){
+            mayorVenta = venta;
+        }
+        if(venta &lt; menorVenta){
+            menorVenta = venta;
+        }
+        if(venta &gt; 100){
+            sup100++;
+        }
+        if(venta &lt; 50){
+            inf50++;
+        }
+        System.out.println(&quot;Introduce el importe de la venta. Pulse 0 para salir&quot;);
+        venta = teclado.nextDouble();
+    }
+    System.out.println(&quot;El número de ventas realizadas son &quot; + totalNventas);
+    System.out.println(&quot;El tota de ventas realizadas son &quot; + totalVenta);
+    media = totalVenta/totalNventas;
+    System.out.println(&quot;La media es &quot; + media);
+    System.out.println(&quot;La mayor de las ventas es &quot; + mayorVenta);
+    System.out.println(&quot;La menor de las ventas es &quot; + menorVenta);
+    System.out.println(&quot;Hay &quot; + sup100 + &quot; ventas superiores a 100&quot;);
+    System.out.println(&quot;Hay &quot; + inf50 + &quot; ventas inferiores a 50&quot;);
+    if (totalVenta&gt; 1000)
+    System.out.println(&quot;objetivo cumplido&quot;);
+    else
+    System.out.println(&quot;objetivo NO cumplido&quot;);
+}</code></pre></details><h4>22. Temperaturas de 7 días (for)</h4><div style="white-space:pre-line">Crea un programa en Java que permita introducir las temperaturas registradas durante 7 días.
+El programa deberá mostrar al finalizar:
+ La temperatura media.
+ Cuántos días tuvieron una temperatura superior a 25 ºC.
+ Cuántos días tuvieron una temperatura inferior a 10 ºC.</div><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    double temperatura, suma = 0, media;
+    int sup25 = 0, inf10 = 0;
+    for (int i = 1; i &lt;= 7; i++) {
+        System.out.print(&quot;Introduce la temperatura del día &quot; + i + &quot;: &quot;);
+        temperatura = teclado.nextDouble();
+        suma = suma + temperatura;
+        if (temperatura &gt; 25) {
+            sup25 = sup25 + 1;
+        }
+        if (temperatura &lt; 10) {
+            inf10 = inf10 + 1;
+        }
+    }
+    media = suma / 7;
+    System.out.println(&quot;La temperatura media es &quot; + media);
+    System.out.println(&quot;Días con temperatura superior a 25 ºC: &quot; + sup25);
+    System.out.println(&quot;Días con temperatura inferior a 10 ºC: &quot; + inf10);
+}</code></pre></details></div></section>
+<section class="sec"><h3>Docx del profesor (4/4): ejercicios de examen</h3><div class="body"><p class="sub">Fuente: EjerciciosUnidad2.docx, completo y en el orden del documento.</p><h4>Examen · Presupuesto de un jardín</h4><div style="white-space:pre-line">Ejercicio 1. Presupuesto de un jardín
+Una empresa instala césped en jardines rectangulares. Solicita la longitud y la anchura del jardín
+en metros, y el precio por metro cuadrado. Puedes suponer que los tres valores son positivos.
+ Calcula la superficie con la fórmula superficie = longitud × anchura y el importe inicial como
+superficie × precio por metro cuadrado.
+ Si el importe inicial es superior a 300 euros, aplica un descuento del 10 %. Si es
+exactamente 300 euros o inferior, no apliques descuento.
+ Muestra la superficie, el importe inicial, el descuento en euros y el importe final.
+Ejemplo: longitud 10, anchura 4 y precio 8 → superficie 40 m²; importe inicial 320 €; descuento
+32 €; importe final 288 €. Con importe inicial 300 €, el descuento debe ser 0 €.</div><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    double longitud, anchura, precio;
+    double superficie, importeInicial, descuento, importeFinal;
+    System.out.print(&quot;Introduce la longitud &quot;);
+    longitud = teclado.nextDouble();
+    System.out.print(&quot;Introduce la anchura &quot;);
+    anchura = teclado.nextDouble();
+    System.out.print(&quot;Introduce precio por metro &quot;);
+    precio = teclado.nextDouble();
+    superficie = longitud * anchura;
+    importeInicial = superficie * precio;
+    if(importeInicial &gt; 300){
+        descuento = importeInicial * 0.10;
+    }else{
+        descuento = 0;
+    }
+    if(importeInicial &gt;= 270 &amp;&amp; importeInicial &lt;=300){
+        importeFinal = 270;
+    }else
+    {
+        importeFinal = importeInicial - descuento;
+    }
+    System.out.println(&quot;Superficie &quot; + superficie);
+    System.out.println(&quot;Importe inicial &quot; + importeInicial);
+    System.out.println(&quot;Descuento &quot; + descuento);
+    System.out.println(&quot;Importe final &quot; + importeFinal);
+}</code></pre></details><h4>Examen · Acceso a una actividad (edad, altura y autorización)</h4><div style="white-space:pre-line">Un centro organiza una actividad para personas de 12 años o más cuya altura sea al menos 1,40
+m. Solicita la edad como entero, la altura como decimal y si tiene autorización mediante un
+booleano (true o false). Puedes suponer edad y altura positivas.
+ Si no cumple la edad mínima o la altura mínima, muestra «No puede participar». Este
+resultado tiene prioridad sobre los demás.
+ Si cumple ambos requisitos y tiene menos de 18 años, solo podrá participar si tiene
+autorización. Muestra «Puede participar» o «Necesita autorización», según corresponda.
+ Si cumple ambos requisitos y tiene 18 años o más, muestra «Puede participar»,
+independientemente de la autorización. Emite un único resultado por ejecución.
+ Ejemplos
+ 12 años, 1,40 m y autorizado → Puede participar.
+ 17 años, 1,60 m y no autorizado → Necesita autorización.
+ 18 años, 1,39 m y autorizado → No puede participar.</div><details><summary>PSeInt</summary><pre><code>Algoritmo Acceso
+    Definir edad Como Entero
+    Definir altura Como Real
+    Definir autorizado Como Logico
+    // Introducir datos
+    Escribir &quot;Introduce la edad:&quot;
+    Leer edad
+    Escribir &quot;Introduce la altura en metros:&quot;
+    Leer altura
+    Escribir &quot;¿Tiene autorización? (Verdadero/Falso):&quot;
+    Leer autorizado
+    // Comprobar si puede participar
+    Si edad &lt; 12 O altura &lt; 1.40 Entonces
+        Escribir &quot;No puede participar&quot;
+    SiNo
+        Si edad &lt; 18 Entonces
+            Si autorizado Entonces
+                Escribir &quot;Puede participar&quot;
+            SiNo
+                Escribir &quot;Necesita autorización&quot;
+            FinSi
+        SiNo
+            Escribir &quot;Puede participar&quot;
+        FinSi
+    FinSi
+FinAlgoritmo</code></pre></details><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    int edad;
+    double altura;
+    boolean autorizado;
+    System.out.println(&quot;Introduce la edad&quot;);
+    edad = teclado.nextInt();
+    System.out.println(&quot;Introduce la altura&quot;);
+    altura = teclado.nextDouble();
+    System.out.println(&quot;¿Tiene autorización? (true/false)&quot;);
+    autorizado = teclado.nextBoolean();
+    if(edad &gt;= 12 &amp;&amp; altura &gt; 1.40){
+        if(edad &gt;= 18){
+            System.out.println(&quot;PUEDE PARTICIPAR&quot;);
+        } else{
+            if(autorizado){
+                System.out.println(&quot;PUEDE PARTICIPAR&quot;);
+            } else{
+                System.out.println(&quot;NECESITA AUTORIZACIÓN&quot;);
+            }
+        }
+    } else{
+        System.out.println(&quot;NO PUEDE PARTICIPAR&quot;);
+    }
+}</code></pre></details><h4>Examen · Menú de servicios (MenuServicios.java)</h4><div style="white-space:pre-line">Ejercicio 3. Menú de servicios
+Archivo: MenuServicios.java
+Crea un programa en Java que permita al usuario consultar información y calcular el precio de
+una reserva.
+Al comenzar, el programa mostrará el siguiente menú:
+MENÚ DE SERVICIOS
+1. Consultar horario
+2. Calcular coste de una reserva
+3. Consultar normas
+4. Salir
+El usuario deberá introducir un número para elegir una de las opciones.
+Funcionamiento del programa
+Opción 1. Consultar horario
+El programa mostrará el siguiente mensaje:
+«Horario de 09:00 a 20:00».
+Opción 2. Calcular coste de una reserva
+El programa solicitará al usuario el número de horas que desea reservar.
+ La reserva debe ser de un mínimo de 1 hora y un máximo de 5 horas.
+ Si introduce un número de horas fuera de ese intervalo, el programa deberá volver a
+solicitarlo hasta que sea correcto.
+ El precio de la reserva será de 12,50 € por hora.
+ El programa calculará y mostrará el importe total de la reserva.
+Por ejemplo, si el usuario reserva 3 horas, el coste será de 37,50 €.
+Opción 3. Consultar normas
+El programa mostrará el siguiente mensaje:
+«Es obligatorio presentar identificación».
+Opción 4. Salir
+El programa mostrará el mensaje:
+«Fin del programa»
+y finalizará su ejecución.
+Requisitos adicionales
+ El menú debe aparecer nuevamente después de realizar cualquiera de las opciones 1, 2 o
+3.
+ Si el usuario introduce una opción que no existe, el programa mostrará «Opción no válida»
+y volverá a presentar el menú.
+ El programa solamente finalizará cuando el usuario seleccione la opción 4.
+ Utiliza la estructura switch para gestionar las opciones del menú.
+Ejemplo de funcionamiento
+MENÚ DE SERVICIOS
+1. Consultar horario
+2. Calcular coste de una reserva
+3. Consultar normas
+4. Salir</div><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    int opcion, horas;
+    double coste;
+    do {
+        // Mostrar el menú
+        System.out.println(&quot;MENÚ DE SERVICIOS&quot;);
+        System.out.println(&quot;1. Consultar horario&quot;);
+        System.out.println(&quot;2. Calcular coste de una reserva&quot;);
+        System.out.println(&quot;3. Consultar normas&quot;);
+        System.out.println(&quot;4. Salir&quot;);
+        System.out.print(&quot;Elige una opción: &quot;);
+        opcion = teclado.nextInt();
+        switch (opcion) {
+            case 1:
+                System.out.println(&quot;Horario de 09:00 a 20:00&quot;);
+                break;
+            case 2:
+                // Solicitar horas hasta obtener un valor válido
+                do {
+                    System.out.print(&quot;Introduce el número de horas: &quot;);
+                    horas = teclado.nextInt();
+                    if (horas &lt; 1 || horas &gt; 5) {
+                        System.out.println(&quot;Número de horas incorrecto&quot;);
+                    }
+                } while (horas &lt; 1 || horas &gt; 5);
+                // Calcular el coste de la reserva
+                coste = horas * 12.50;
+                System.out.println(&quot;Coste de la reserva: &quot; + coste + &quot; euros&quot;);
+                break;
+            case 3:
+                System.out.println(&quot;Es obligatorio presentar identificación&quot;);
+                break;
+            case 4:
+                System.out.println(&quot;Fin del programa&quot;);
+                break;
+            default:
+                System.out.println(&quot;Opción no válida&quot;);
+        }
+    } while (opcion != 4);
+}</code></pre></details><p><b>Ejemplo de ejecución</b></p><pre><code>Elige una opción: 2
+Introduce el número de horas: 0
+Número de horas incorrecto.
+Introduce el número de horas: 6
+Número de horas incorrecto.
+Introduce el número de horas: 3
+Coste de la reserva: 37,50 €
+MENÚ DE SERVICIOS
+1. Consultar horario
+2. Calcular coste de una reserva
+3. Consultar normas
+4. Salir
+Elige una opción: 4
+Fin del programa
+Puntuación total: 2,50 puntos.</code></pre><h4>Examen · Solicitud de una beca (BecaEstudios.java)</h4><div style="white-space:pre-line">Ejercicio. Solicitud de una beca de estudios
+Archivo: BecaEstudios.java
+Un centro educativo ofrece becas para participar en un curso de programación.
+Para conseguir una beca, los solicitantes deben cumplir los siguientes requisitos:
+ Tener 16 años o más.
+ Haber obtenido una nota media igual o superior a 7.
+ Tener unos ingresos familiares iguales o inferiores a 18.000 € anuales.
+Crea un programa en Java que solicite la edad del estudiante, su nota media y los ingresos
+familiares anuales.
+El programa deberá comprobar los requisitos en el siguiente orden:
+1. Comprobar la edad. Si el estudiante tiene menos de 16 años, mostrará «No cumple la edad
+mínima».
+2. Comprobar la nota. Si cumple la edad mínima, comprobará su nota media. Si es inferior a
+7, mostrará «No cumple la nota mínima».
+3. Comprobar los ingresos. Si cumple los dos requisitos anteriores, comprobará los ingresos
+familiares. Si superan los 18.000 €, mostrará «Supera el límite de ingresos».
+4. Conceder la beca. Si cumple los tres requisitos, mostrará «Beca concedida».
+El programa deberá mostrar un único mensaje con el resultado de la solicitud.
+Importante: Resuelve el ejercicio utilizando estructuras if anidadas.
+Ejemplos de funcionamiento
+Edad Nota Ingresos Resultado
+15 9 12.000 € No cumple la edad mínima
+20 6,5 12.000 € No cumple la nota mínima
+20 8 20.000 € Supera el límite de ingresos
+18 7 18.000 € Beca concedida</div><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    int edad;
+    double nota, ingresos;
+    System.out.print(&quot;Introduce la edad del estudiante: &quot;);
+    edad = teclado.nextInt();
+    System.out.print(&quot;Introduce la nota media: &quot;);
+    nota = teclado.nextDouble();
+    System.out.print(&quot;Introduce los ingresos familiares anuales: &quot;);
+    ingresos = teclado.nextDouble();
+    // Comprobar los requisitos
+    if (edad &lt; 16) {
+        System.out.println(&quot;No cumple la edad mínima&quot;);
+    } else if (nota &lt; 7) {
+        System.out.println(&quot;No cumple la nota mínima&quot;);
+    } else if (ingresos &gt; 18000) {
+        System.out.println(&quot;Supera el límite de ingresos&quot;);
+    } else {
+        System.out.println(&quot;Beca concedida&quot;);
+    }
+    teclado.close();
+}</code></pre></details><h4>Examen B · Presupuesto de pintura</h4><div style="white-space:pre-line">Ejercicio 1 Presupuesto de pintura
+Solicita por teclado la longitud y la altura de una pared rectangular en metros y el precio por metro cuadrado.
+Puedes suponer que los tres valores son positivos.
+Calcula la superficie (longitud × altura) y el importe inicial (superficie × precio). Si el importe inicial es superior a 240
+€, aplica un descuento del 10 %. Si es igual o inferior a 240 €, el descuento será 0 €.
+Ejemplo: longitud 8 m, altura 4 m y precio 10 €/m² → superficie 32 m², importe inicial 320 €, descuento 32 € e
+importe final 288 €. Con un importe inicial de 240 €, el descuento es 0 €.</div><details><summary>PSeInt</summary><pre><code>Algoritmo PintarPared
+    Definir long, altura, precio Como Real
+    Definir superficie, importeInicial Como Real
+    Definir descuento, importeFinal Como Real
+    Escribir &quot;Introduce la longitud de la pared:&quot;
+    Leer long
+    Escribir &quot;Introduce la altura de la pared:&quot;
+    Leer altura
+    Escribir &quot;Introduce el precio por metro cuadrado:&quot;
+    Leer precio
+    superficie &lt;- long * altura
+    importeInicial &lt;- superficie * precio
+    Si importeInicial &gt; 240 Entonces
+        descuento &lt;- importeInicial * 0.10
+    SiNo
+        descuento &lt;- 0
+    FinSi
+    importeFinal &lt;- importeInicial - descuento
+    Escribir &quot;Superficie: &quot;, superficie, &quot; m2&quot;
+    Escribir &quot;Importe inicial: &quot;, importeInicial, &quot; euros&quot;
+    Escribir &quot;Descuento: &quot;, descuento, &quot; euros&quot;
+    Escribir &quot;Importe final: &quot;, importeFinal, &quot; euros&quot;
+FinAlgoritmo</code></pre></details><h4>Examen B · Acceso a un taller</h4><div style="white-space:pre-line">Ejercicio 2 Acceso a un taller
+Solicita la edad como entero, la nota de una prueba como decimal y si dispone de autorización como booleano (true
+o false). Supón que la edad es positiva y la nota está entre 0 y 10.
+Comprueba las condiciones en este orden:
+1. Si la edad es menor de 16 años, muestra «No cumple la edad mínima».
+2. Si cumple la edad mínima pero la nota es inferior a 6, muestra «No supera la prueba».
+3. Si cumple los requisitos anteriores y tiene menos de 18 años, muestra «Acceso permitido» si tiene autorización o
+«Necesita autorización» si no la tiene.
+4. Si cumple los dos primeros requisitos y tiene 18 años o más, muestra «Acceso permitido», con independencia de
+la autorización.
+Muestra un único resultado. Ejemplos: 16 años, nota 6 y true → «Acceso permitido»; 17 años, nota 8 y false →
+«Necesita autorización»; 18 años, nota 5 y true → «No supera la prueba».</div><details><summary>PSeInt</summary><pre><code>Algoritmo ControlAcceso
+    Definir edad Como Entero
+    Definir nota Como Real
+    Definir autorizacion Como Logico
+    Escribir &quot;Introduce la edad:&quot;
+    Leer edad
+    Escribir &quot;Introduce la nota:&quot;
+    Leer nota
+    Escribir &quot;¿Tiene autorización? (Verdadero/Falso):&quot;
+    Leer autorizacion
+    Si edad &lt; 16 Entonces
+        Escribir &quot;No cumple la edad mínima&quot;
+    SiNo
+        Si nota &lt; 6 Entonces
+            Escribir &quot;No supera la prueba&quot;
+        SiNo
+            Si edad &lt; 18 Entonces
+                Si autorizacion Entonces
+                    Escribir &quot;Acceso permitido&quot;
+                SiNo
+                    Escribir &quot;Necesita autorización&quot;
+                FinSi
+            SiNo
+                Escribir &quot;Acceso permitido&quot;
+            FinSi
+        FinSi
+    FinSi
+FinAlgoritmo</code></pre></details><details><summary>Java</summary><pre><code>public class ControlAcceso {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        int edad;
+        double nota;
+        boolean autorizacion;
+        System.out.print(&quot;Introduce la edad: &quot;);
+        edad = teclado.nextInt();
+        System.out.print(&quot;Introduce la nota: &quot;);
+        nota = teclado.nextDouble();
+        System.out.print(&quot;¿Tiene autorización? (true/false): &quot;);
+        autorizacion = teclado.nextBoolean();
+        if (edad &lt; 16) {
+            System.out.println(&quot;No cumple la edad mínima&quot;);
+        } else if (nota &lt; 6) {
+            System.out.println(&quot;No supera la prueba&quot;);
+        } else if (edad &lt; 18) {
+            if (autorizacion) {
+                System.out.println(&quot;Acceso permitido&quot;);
+            } else {
+                System.out.println(&quot;Necesita autorización&quot;);
+            }
+        } else {
+            System.out.println(&quot;Acceso permitido&quot;);
+        }
+        teclado.close();
+    }
+}</code></pre></details><h4>Examen B · Menú con casco (Repetir…Hasta / switch)</h4><div style="white-space:pre-line">Crea un programa que muestre el siguiente menú y lea una opción entera:
+1. Consultar horario
+2. Consultar normas
+3. Salir
+Opción 1: muestra «Horario de 09:00 a 19:00».
+Opción 2: muestra «Es obligatorio utilizar casco».
+Opción 3: muestra «Fin del programa» y termina.
+Para cualquier otra opción, muestra «Opción no válida» y vuelve al menú.
+El menú se repite hasta que se introduzca una opción válida.</div><details><summary>PSeInt</summary><pre><code>Algoritmo MenuOpciones
+    Definir opcion Como Entero
+    Repetir
+        Escribir &quot;1. Consultar horario&quot;
+        Escribir &quot;2. Consultar normas&quot;
+        Escribir &quot;3. Salir&quot;
+        Escribir &quot;Introduce una opción:&quot;
+        Leer opcion
+        Segun opcion Hacer
+            1:
+                Escribir &quot;Horario de 09:00 a 19:00&quot;
+            2:
+                Escribir &quot;Es obligatorio utilizar casco&quot;
+            3:
+                Escribir &quot;Fin del programa&quot;
+            De Otro Modo:
+                Escribir &quot;Opción no válida&quot;
+        FinSegun
+    Hasta Que opcion &gt;= 1 Y opcion &lt;= 3
+FinAlgoritmo</code></pre></details><details><summary>Java</summary><pre><code>public static void main(String[] args) {
+    Scanner teclado = new Scanner(System.in);
+    int opcion;
+    do {
+        System.out.println(&quot;1. Consultar horario&quot;);
+        System.out.println(&quot;2. Consultar normas&quot;);
+        System.out.println(&quot;3. Salir&quot;);
+        System.out.print(&quot;Introduce una opción: &quot;);
+        opcion = teclado.nextInt();
+        switch (opcion) {
+            case 1:
+                System.out.println(&quot;Horario de 09:00 a 19:00&quot;);
+                break;
+            case 2:
+                System.out.println(&quot;Es obligatorio utilizar casco&quot;);
+                break;
+            case 3:
+                System.out.println(&quot;Fin del programa&quot;);
+                break;
+            default:
+                System.out.println(&quot;Opción no válida&quot;);
+        }
+    } while (opcion != 3);
+    teclado.close();
+}</code></pre></details><h4>Examen B · Registro de edades</h4><div style="white-space:pre-line">Ejercicio 4 Registro de edades
+Lee edades enteras positivas por teclado hasta que se introduzca 0. El 0 solo sirve para terminar y no participa en
+ningún cálculo. Puedes suponer que no se introducirán números negativos.
+Utiliza un bucle. Al finalizar, muestra el número de edades registradas, la edad mayor, la edad menor y la media con
+decimales. Muestra también cuántas edades son iguales o superiores a 18.
+Si el primer dato es 0, muestra únicamente «No se han introducido datos», sin calcular la media ni mostrar máximos
+o mínimos.
+Ejemplo: 12, 18, 30, 0 → 3 edades, mayor 30, menor 12, media 20,0 y 2 personas de 18 años o más.</div><details><summary>PSeInt</summary><pre><code>Algoritmo RegistroEdades
+    Definir edad, contador, suma Como Entero
+    Definir mayor, menor, mayores18 Como Entero
+    Definir media Como Real
+    contador &lt;- 0
+    suma &lt;- 0
+    mayores18 &lt;- 0
+    Escribir &quot;Introduce una edad (0 para terminar):&quot;
+    Leer edad
+    Si edad = 0 Entonces
+        Escribir &quot;No se han introducido datos&quot;
+    SiNo
+        mayor &lt;- edad
+        menor &lt;- edad
+        Mientras edad &lt;&gt; 0 Hacer
+            contador &lt;- contador + 1
+            suma &lt;- suma + edad
+            Si edad &gt; mayor Entonces
+                mayor &lt;- edad
+            FinSi
+            Si edad &lt; menor Entonces
+                menor &lt;- edad
+            FinSi
+            Si edad &gt;= 18 Entonces
+                mayores18 &lt;- mayores18 + 1
+            FinSi
+            Escribir &quot;Introduce una edad (0 para terminar):&quot;
+            Leer edad
+        FinMientras
+        media &lt;- suma / contador
+        Escribir &quot;Número de edades: &quot;, contador
+        Escribir &quot;Edad mayor: &quot;, mayor
+        Escribir &quot;Edad menor: &quot;, menor
+        Escribir &quot;Media: &quot;, media
+        Escribir &quot;Personas de 18 años o más: &quot;, mayores18
+    FinSi
+FinAlgoritmo</code></pre></details><details><summary>Java</summary><pre><code>import java.util.Scanner;
+public class RegistroEdades {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        int edad, contador = 0, suma = 0;
+        int mayor, menor, mayores18 = 0;
+        double media;
+        System.out.print(&quot;Introduce una edad (0 para terminar): &quot;);
+        edad = teclado.nextInt();
+        if (edad == 0) {
+            System.out.println(&quot;No se han introducido datos&quot;);
+        } else {
+            mayor = edad;
+            menor = edad;
+            while (edad != 0) {
+                contador++;
+                suma += edad;
+                if (edad &gt; mayor) {
+                    mayor = edad;
+                }
+                if (edad &lt; menor) {
+                    menor = edad;
+                }
+                if (edad &gt;= 18) {
+                    mayores18++;
+                }
+                System.out.print(&quot;Introduce una edad (0 para terminar): &quot;);
+                edad = teclado.nextInt();
+            }
+            media = (double) suma / contador;
+            System.out.println(&quot;Número de edades: &quot; + contador);
+            System.out.println(&quot;Edad mayor: &quot; + mayor);
+            System.out.println(&quot;Edad menor: &quot; + menor);
+            System.out.println(&quot;Media: &quot; + media);
+            System.out.println(&quot;Personas de 18 años o más: &quot; + mayores18);
+        }
+        teclado.close();
+    }
+}</code></pre></details></div></section>
 <section class="sec"><h3>Ejercicios resueltos UT 2: if / if-else / operadores lógicos</h3><div class="body">
 <p class="sub">Fuente: EjerciciosUnidad2.docx (60 páginas). Intenta cada ejercicio antes de abrir la solución.</p>
 <h4>1. Mayor de edad</h4>
