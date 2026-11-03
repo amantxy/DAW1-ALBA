@@ -1,0 +1,304 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lógica de programación desde cero</title><style>
+:root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#0891b2;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#4fd1e8;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.hero{background:var(--c);color:#fff;padding:28px 0 26px;margin-bottom:24px}
+@media (prefers-color-scheme:dark){.hero{color:#0b1220}}
+.hero .wrap{padding-bottom:0}
+.hero h1{margin:0;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.15}
+.hero p{margin:6px 0 0;opacity:.92}
+.back{display:inline-block;color:inherit;text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 0;margin-bottom:6px;opacity:.95}
+.back:hover{text-decoration:underline}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+a.card,div.card{display:block;position:relative;background:var(--hoja);border:1px solid var(--linea);border-top:6px solid var(--c);border-radius:12px;padding:16px 18px;color:inherit;text-decoration:none;min-height:104px}
+a.card:hover,a.card:focus-visible{box-shadow:0 6px 20px rgb(0 0 0/.12);transform:translateY(-2px);outline:none}
+a.card{transition:transform .15s,box-shadow .15s}
+.card b{display:block;font-size:1.1rem;color:var(--c);margin-bottom:2px}
+.card span{color:var(--suave);font-size:.9rem}
+.card .ico{position:absolute;right:14px;top:12px;font:700 1.3rem ui-monospace,Consolas,monospace;color:var(--c);opacity:.35}
+.card.off{opacity:.5;border-top-style:dashed}
+details.fold{position:relative;margin:32px 0 18px;--f:color-mix(in srgb,var(--c) 20%,var(--hoja))}
+details.fold>summary{list-style:none;cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;min-height:72px;padding:16px 18px;background:var(--f);border:2px solid var(--c);border-radius:0 12px 12px 12px}
+details.fold>summary::before{content:"";position:absolute;left:-2px;bottom:100%;width:min(46%,170px);height:17px;background:var(--c);border-radius:10px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+details.fold>summary:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary>svg{display:none}
+details.fold>summary b{font-size:1.15rem}
+details.fold>summary small{display:block;color:var(--suave);font-size:.88rem}
+details.fold>summary::after{content:"▾";margin-left:auto;color:var(--tinta);transition:transform .2s}
+details.fold[open]>summary{border-radius:0 12px 0 0}
+details.fold[open]>summary::after{transform:rotate(180deg)}
+.in{padding:14px 16px 18px;background:var(--hoja);border:2px solid var(--c);border-top:0;border-radius:0 0 12px 12px}
+.in h3{margin:14px 0 8px;font-size:.95rem;color:var(--c);display:flex;align-items:center;gap:8px}
+.in h3 svg{width:20px;height:20px}
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
+a.t,div.t{display:block;background:var(--cs);border:1px solid var(--linea);border-radius:10px;padding:12px 14px;color:inherit;text-decoration:none;min-height:64px}
+a.t:hover,a.t:focus-visible{border-color:var(--c);outline:none}
+.t b{display:block;font-size:.98rem}
+.t span{color:var(--suave);font-size:.82rem}
+div.t{opacity:.5;border-style:dashed}
+.sub{position:relative;margin-top:26px;padding:6px 12px 14px;background:var(--cs);border:1.5px solid var(--c);border-radius:0 10px 10px 10px}
+.sub::before{content:"";position:absolute;left:-1.5px;bottom:100%;width:min(46%,130px);height:13px;background:var(--c);border-radius:8px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.pasos{display:flex;flex-wrap:wrap;gap:6px 8px;margin:0 0 14px}.pasos span{background:var(--cs);border:1px solid var(--linea);border-radius:8px;padding:6px 10px;font-weight:600}.pasos span+span::before{content:"→ ";color:var(--c)}
+figure.mini{max-width:110px}figure.flujo{max-width:min(100%,520px)}figure.flujo img{background:#fff}.sol{border:1px solid var(--linea);border-radius:10px;padding:0 12px;margin:12px 0}.sol>div{padding:0 0 4px}.fold .in>p:first-child{margin-top:4px}p.nota{margin:12px 0}
+pre.code{white-space:pre;overflow-x:auto}
+</style><link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Lógica de programación desde cero</h1></div></div><div class="wrap"><p>No necesitas saber nada de programación. Avanza en orden, una lección cada vez, e intenta cada ejercicio antes de abrir la solución.</p><p class="nota">Los ejemplos están en PSeInt con perfil Estricto. Puedes copiarlos en PSeInt o probarlos en <a href="practica-pseint.html">Practica con PSeInt</a>.</p><details class="fold" id="l1"><summary><span><b>1. Qué es la lógica de programación</b><small>Pensar en pasos</small></span></summary><div class="in"><p><b>Programar</b> es dar instrucciones a un ordenador. El ordenador es muy rápido, pero no adivina nada: hace exactamente lo que le dices.</p><p>La <b>lógica de programación</b> es la forma de pensar que ordena esas instrucciones. Se aprende antes que cualquier lenguaje y luego sirve para todos: Java, Python o JavaScript.</p><p>Un <b>algoritmo</b> es una lista de pasos para resolver un problema. Por ejemplo, preparar un té:</p><ol><li>Calentar el agua.</li><li>Meter la bolsita en la taza.</li><li>Echar el agua.</li><li>Esperar tres minutos.</li><li>Sacar la bolsita.</li></ol><h3>Un buen algoritmo es</h3><ul><li><b>Ordenado:</b> si cambias el orden, puede fallar. No puedes sacar la bolsita antes de meterla.</li><li><b>Preciso:</b> «esperar tres minutos» es claro; «esperar un rato» no.</li><li><b>Finito:</b> tiene que terminar.</li></ul><h3>Ejercicio</h3><p>Escribe los pasos para sacar dinero de un cajero. Después detecta qué paso fallaría si cambiaras el orden.</p><details class="sol"><summary>Ver una solución</summary><div><ol><li>Meter la tarjeta.</li><li>Escribir el PIN.</li><li>Elegir la cantidad.</li><li>Recoger la tarjeta.</li><li>Recoger el dinero.</li></ol><p>Si eliges la cantidad antes de escribir el PIN, el cajero no te deja: primero tiene que comprobar quién eres. Puede haber otras soluciones correctas si los pasos son ordenados, precisos y terminan.</p></div></details></div></details><details class="fold" id="l2"><summary><span><b>2. Entrada, proceso y salida</b><small>Los tres pasos de casi todo programa</small></span></summary><div class="in"><p>Antes de escribir código, responde tres preguntas:</p><div class="pasos"><span>Entrada: ¿qué datos necesito?</span><span>Proceso: ¿qué hago con ellos?</span><span>Salida: ¿qué muestro?</span></div><p>Por ejemplo, para calcular el área de un rectángulo:</p><table class="g"><thead><tr><th>Parte</th><th>Respuesta</th></tr></thead><tbody><tr><td>Entrada</td><td>Base y altura</td></tr><tr><td>Proceso</td><td>Multiplicar base por altura</td></tr><tr><td>Salida</td><td>El área</td></tr></tbody></table><p>Así queda en PSeInt:</p><pre class="code">Algoritmo area_rectangulo
+	Definir base, altura, area Como Real;
+	Escribir "Base:";
+	Leer base;
+	Escribir "Altura:";
+	Leer altura;
+	area &lt;- base * altura;
+	Escribir "Área: ", area;
+FinAlgoritmo</pre><ul><li><code>Leer</code> guarda lo que escribe la persona.</li><li><code>&lt;-</code> guarda un valor.</li><li><code>Escribir</code> muestra un mensaje en pantalla.</li></ul><h3>Ejercicio</h3><p>Identifica la entrada, el proceso y la salida de un programa que calcula cuánto pagas por 3 entradas de cine, sabiendo el precio de una.</p><details class="sol"><summary>Ver la solución</summary><div><ul><li><b>Entrada:</b> el precio de una entrada.</li><li><b>Proceso:</b> multiplicar el precio por 3.</li><li><b>Salida:</b> el total a pagar.</li></ul></div></details></div></details><details class="fold" id="l3"><summary><span><b>3. Variables y tipos de datos</b><small>Cajas con nombre</small></span></summary><div class="in"><p>Una <b>variable</b> es como una caja con nombre donde guardas un dato. Su contenido puede cambiar.</p><pre class="code">Algoritmo ejemplo_variable
+	Definir edad Como Entero;
+	edad &lt;- 20;
+	edad &lt;- edad + 1;
+	Escribir edad;
+FinAlgoritmo</pre><p>La línea <code>edad &lt;- edad + 1</code> se lee de derecha a izquierda: coge lo que vale <code>edad</code>, súmale 1 y guárdalo otra vez en <code>edad</code>.</p><table class="g"><thead><tr><th>Tipo</th><th>Guarda</th><th>Ejemplo</th></tr></thead><tbody><tr><td>Entero</td><td>Números sin decimales</td><td><code>20</code></td></tr><tr><td>Real</td><td>Números con decimales</td><td><code>3.5</code></td></tr><tr><td>Caracter</td><td>Texto</td><td><code>&quot;Hola&quot;</code></td></tr><tr><td>Logico</td><td>Verdadero o falso</td><td><code>Verdadero</code></td></tr></tbody></table><p class="nota">Los decimales se escriben con punto, y el texto, entre comillas. Elige nombres claros: <code>precio</code> se entiende mejor que <code>p</code>.</p><h3>Ejercicio</h3><p>Crea un programa que pida tu nombre y tu edad, y muestre: «Hola, Ana. Tienes 20 años.» con los datos que escribas.</p><details class="sol"><summary>Ver la solución en PSeInt</summary><div><figure class="flujo"><img src="img/lp-l3.svg" width="441" height="522" loading="lazy" alt="Diagrama de flujo de la solución"><figcaption>Diagrama de flujo de la solución</figcaption></figure><p><b>El mismo algoritmo en PSeInt</b></p><pre class="code">Algoritmo saludo
+	Definir nombre Como Caracter;
+	Definir edad Como Entero;
+	Escribir "¿Cómo te llamas?";
+	Leer nombre;
+	Escribir "¿Cuántos años tienes?";
+	Leer edad;
+	Escribir "Hola, ", nombre, ". Tienes ", edad, " años.";
+FinAlgoritmo</pre></div></details></div></details><details class="fold" id="l4"><summary><span><b>4. Operaciones</b><small>Sumar, dividir y hallar el resto</small></span></summary><div class="in"><table class="g"><thead><tr><th>Operador</th><th>Hace</th><th>Ejemplo</th><th>Resultado</th></tr></thead><tbody><tr><td><code>+</code></td><td>Suma</td><td><code>7 + 2</code></td><td>9</td></tr><tr><td><code>-</code></td><td>Resta</td><td><code>7 - 2</code></td><td>5</td></tr><tr><td><code>*</code></td><td>Multiplica</td><td><code>7 * 2</code></td><td>14</td></tr><tr><td><code>/</code></td><td>Divide</td><td><code>7 / 2</code></td><td>3.5</td></tr><tr><td><code>MOD</code></td><td>Resto de dividir</td><td><code>7 MOD 2</code></td><td>1</td></tr><tr><td><code>^</code></td><td>Potencia</td><td><code>7 ^ 2</code></td><td>49</td></tr></tbody></table><p><b>Orden:</b> primero paréntesis, luego potencias, luego <code>*</code>, <code>/</code> y <code>MOD</code>, y al final <code>+</code> y <code>-</code>.</p><p><code>2 + 3 * 4</code> da 14. En cambio, <code>(2 + 3) * 4</code> da 20.</p><p><code>MOD</code> es muy útil: si <code>n MOD 2</code> es 0, el número es par, porque dividirlo entre 2 no deja resto.</p><h3>Ejercicio</h3><p>Pide dos notas y muestra su media. Comprueba: con 6 y 9 debe salir 7.5.</p><details class="sol"><summary>Ver la solución en PSeInt</summary><div><figure class="flujo"><img src="img/lp-l4.svg" width="354" height="522" loading="lazy" alt="Diagrama de flujo de la solución"><figcaption>Diagrama de flujo de la solución</figcaption></figure><p><b>El mismo algoritmo en PSeInt</b></p><pre class="code">Algoritmo media_notas
+	Definir nota1, nota2, media Como Real;
+	Escribir "Primera nota:";
+	Leer nota1;
+	Escribir "Segunda nota:";
+	Leer nota2;
+	media &lt;- (nota1 + nota2) / 2;
+	Escribir "Media: ", media;
+FinAlgoritmo</pre><p>Sin paréntesis, <code>nota1 + nota2 / 2</code> daría 10.5, porque dividiría primero.</p></div></details></div></details><details class="fold" id="l5"><summary><span><b>5. Prueba de escritorio</b><small>Hacer de ordenador con papel y boli</small></span></summary><div class="in"><p>Una <b>prueba de escritorio</b> consiste en seguir el programa línea a línea, apuntando cuánto vale cada variable. Sirve para entender un programa y encontrar errores.</p><pre class="code">a &lt;- 5;
+b &lt;- 2;
+a &lt;- a + b;
+b &lt;- a * 2;</pre><table class="g"><thead><tr><th>Línea</th><th>a</th><th>b</th></tr></thead><tbody><tr><td><code>a &lt;- 5</code></td><td>5</td><td>—</td></tr><tr><td><code>b &lt;- 2</code></td><td>5</td><td>2</td></tr><tr><td><code>a &lt;- a + b</code></td><td>7</td><td>2</td></tr><tr><td><code>b &lt;- a * 2</code></td><td>7</td><td>14</td></tr></tbody></table><p>Una variable guarda solo su último valor: el 5 de <code>a</code> desaparece al guardar el 7.</p><h3>Ejercicio</h3><p>Haz la prueba de escritorio. ¿Qué valen <code>p</code> y <code>q</code> al final?</p><pre class="code">p &lt;- 3;
+q &lt;- p + 1;
+p &lt;- q * q;
+q &lt;- p - q;</pre><details class="sol"><summary>Ver la solución</summary><div><table class="g"><thead><tr><th>Línea</th><th>p</th><th>q</th></tr></thead><tbody><tr><td><code>p &lt;- 3</code></td><td>3</td><td>—</td></tr><tr><td><code>q &lt;- p + 1</code></td><td>3</td><td>4</td></tr><tr><td><code>p &lt;- q * q</code></td><td>16</td><td>4</td></tr><tr><td><code>q &lt;- p - q</code></td><td>16</td><td>12</td></tr></tbody></table><p>Al final, <b>p vale 16</b> y <b>q vale 12</b>.</p></div></details></div></details><details class="fold" id="l6"><summary><span><b>6. Comparar y combinar condiciones</b><small>Verdadero o falso</small></span></summary><div class="in"><p>Una <b>condición</b> es una pregunta que solo se responde con verdadero o falso.</p><table class="g"><thead><tr><th>Operador</th><th>Significa</th><th>Ejemplo con edad = 20</th><th>Resultado</th></tr></thead><tbody><tr><td><code>=</code></td><td>Igual</td><td><code>edad = 18</code></td><td>Falso</td></tr><tr><td><code>&lt;&gt;</code></td><td>Distinto</td><td><code>edad &lt;&gt; 18</code></td><td>Verdadero</td></tr><tr><td><code>&gt;</code></td><td>Mayor</td><td><code>edad &gt; 18</code></td><td>Verdadero</td></tr><tr><td><code>&lt;</code></td><td>Menor</td><td><code>edad &lt; 18</code></td><td>Falso</td></tr><tr><td><code>&gt;=</code></td><td>Mayor o igual</td><td><code>edad &gt;= 20</code></td><td>Verdadero</td></tr><tr><td><code>&lt;=</code></td><td>Menor o igual</td><td><code>edad &lt;= 18</code></td><td>Falso</td></tr></tbody></table><p>Para juntar condiciones usamos <b>Y</b>, <b>O</b> y <b>NO</b>:</p><table class="g"><thead><tr><th>A</th><th>B</th><th>A Y B</th><th>A O B</th><th>NO A</th></tr></thead><tbody><tr><td>Verdadero</td><td>Verdadero</td><td>Verdadero</td><td>Verdadero</td><td>Falso</td></tr><tr><td>Verdadero</td><td>Falso</td><td>Falso</td><td>Verdadero</td><td>Falso</td></tr><tr><td>Falso</td><td>Verdadero</td><td>Falso</td><td>Verdadero</td><td>Verdadero</td></tr><tr><td>Falso</td><td>Falso</td><td>Falso</td><td>Falso</td><td>Verdadero</td></tr></tbody></table><ul><li><b>Y:</b> tienen que cumplirse las dos.</li><li><b>O:</b> basta con que se cumpla una.</li><li><b>NO:</b> da la vuelta al resultado.</li></ul><h3>Ejercicio</h3><p>Con <code>edad = 16</code> y <code>entrada = Verdadero</code>, ¿cuál es el resultado de cada condición?</p><ol><li><code>edad &gt;= 18 Y entrada</code></li><li><code>edad &gt;= 18 O entrada</code></li><li><code>NO entrada</code></li><li><code>edad &gt;= 12 Y edad &lt;= 17</code></li></ol><details class="sol"><summary>Ver la solución</summary><div><ol><li><b>Falso.</b> <code>edad &gt;= 18</code> es falso, y con Y deben cumplirse las dos.</li><li><b>Verdadero.</b> Basta con <code>entrada</code>.</li><li><b>Falso.</b> <code>entrada</code> es verdadero y NO le da la vuelta.</li><li><b>Verdadero.</b> 16 está entre 12 y 17.</li></ol></div></details></div></details><details class="fold" id="l7"><summary><span><b>7. Decisiones con Si</b><small>Elegir un camino</small></span></summary><div class="in"><p><code>Si</code> ejecuta una parte u otra según una condición.</p><pre class="code">Algoritmo mayor_edad
+	Definir edad Como Entero;
+	Escribir "Edad:";
+	Leer edad;
+	Si edad &gt;= 18 Entonces
+		Escribir "Puedes pasar";
+	SiNo
+		Escribir "Todavía no";
+	FinSi
+FinAlgoritmo</pre><p><code>SiNo</code> es opcional. Para más de dos caminos, se pone un <code>Si</code> dentro de otro. Se llama <b>Si anidado</b>:</p><pre class="code">Algoritmo calificacion
+	Definir nota Como Real;
+	Escribir "Nota:";
+	Leer nota;
+	Si nota &lt; 5 Entonces
+		Escribir "Suspenso";
+	SiNo
+		Si nota &lt; 9 Entonces
+			Escribir "Aprobado";
+		SiNo
+			Escribir "Sobresaliente";
+		FinSi
+	FinSi
+FinAlgoritmo</pre><h3>Ejercicio</h3><p>Pide un número y di si es par o impar.</p><details class="sol"><summary>Ver la solución en PSeInt</summary><div><figure class="flujo"><img src="img/lp-l7.svg" width="320" height="474" loading="lazy" alt="Diagrama de flujo de la solución"><figcaption>Diagrama de flujo de la solución</figcaption></figure><p><b>El mismo algoritmo en PSeInt</b></p><pre class="code">Algoritmo par_impar
+	Definir n Como Entero;
+	Escribir "Número:";
+	Leer n;
+	Si n MOD 2 = 0 Entonces
+		Escribir "Es par";
+	SiNo
+		Escribir "Es impar";
+	FinSi
+FinAlgoritmo</pre></div></details></div></details><details class="fold" id="l8"><summary><span><b>8. Decisiones con Segun</b><small>Elegir entre varias opciones</small></span></summary><div class="in"><p><code>Segun</code> compara una variable con varios valores. Queda más limpio que muchos <code>Si</code> cuando hay un menú.</p><pre class="code">Algoritmo menu_bebidas
+	Definir opcion Como Entero;
+	Escribir "1. Café  2. Café con leche  3. Té";
+	Leer opcion;
+	Segun opcion Hacer
+		1:
+			Escribir "Café";
+		2:
+			Escribir "Café con leche";
+		3:
+			Escribir "Té";
+		De Otro Modo:
+			Escribir "Opción no válida";
+	FinSegun
+FinAlgoritmo</pre><p><code>De Otro Modo</code> recoge cualquier valor que no esté en la lista.</p><h3>Ejercicio</h3><p>Pide un número del 1 al 3 y muestra «Lunes», «Martes» o «Miércoles». Con otro número, muestra «No lo sé».</p><details class="sol"><summary>Ver la solución en PSeInt</summary><div><figure class="flujo"><img src="img/lp-l8.svg" width="584" height="500" loading="lazy" alt="Diagrama de flujo de la solución"><figcaption>Diagrama de flujo de la solución</figcaption></figure><p><b>El mismo algoritmo en PSeInt</b></p><pre class="code">Algoritmo dia_semana
+	Definir dia Como Entero;
+	Escribir "Número:";
+	Leer dia;
+	Segun dia Hacer
+		1:
+			Escribir "Lunes";
+		2:
+			Escribir "Martes";
+		3:
+			Escribir "Miércoles";
+		De Otro Modo:
+			Escribir "No lo sé";
+	FinSegun
+FinAlgoritmo</pre></div></details></div></details><details class="fold" id="l9"><summary><span><b>9. Repetir con Mientras y Repetir</b><small>Cuando no sabes cuántas veces</small></span></summary><div class="in"><p><b>Mientras</b> comprueba la condición antes de entrar. Puede no ejecutarse nunca.</p><pre class="code">Algoritmo cuenta_atras
+	Definir n Como Entero;
+	n &lt;- 3;
+	Mientras n &gt; 0 Hacer
+		Escribir n;
+		n &lt;- n - 1;
+	FinMientras
+	Escribir "¡Ya!";
+FinAlgoritmo</pre><p><b>Repetir</b> comprueba la condición al final. Se ejecuta al menos una vez. Va muy bien para validar datos:</p><pre class="code">Algoritmo validar_nota
+	Definir nota Como Entero;
+	Repetir
+		Escribir "Nota del 0 al 10:";
+		Leer nota;
+	Hasta Que nota &gt;= 0 Y nota &lt;= 10
+	Escribir "Correcto: ", nota;
+FinAlgoritmo</pre><p class="nota"><b>Bucle infinito:</b> si la condición nunca cambia, el programa no termina. En <code>cuenta_atras</code>, olvidar <code>n &lt;- n - 1</code> provocaría uno.</p><h3>Ejercicio</h3><p>Pide una contraseña hasta que la persona escriba <code>daw</code>. Después muestra «Bienvenida». Y piensa: ¿es mejor Mientras o Repetir?</p><details class="sol"><summary>Ver la solución en PSeInt</summary><div><figure class="flujo"><img src="img/lp-l9.svg" width="272" height="470" loading="lazy" alt="Diagrama de flujo de la solución"><figcaption>Diagrama de flujo de la solución</figcaption></figure><p><b>El mismo algoritmo en PSeInt</b></p><pre class="code">Algoritmo contrasena
+	Definir clave Como Caracter;
+	Repetir
+		Escribir "Contraseña:";
+		Leer clave;
+	Hasta Que clave = "daw"
+	Escribir "Bienvenida";
+FinAlgoritmo</pre><p>Es mejor <b>Repetir</b>, porque hay que preguntar por lo menos una vez.</p></div></details></div></details><details class="fold" id="l10"><summary><span><b>10. Repetir con Para</b><small>Cuando sabes cuántas veces</small></span></summary><div class="in"><p><code>Para</code> cuenta solo. Su variable avanza en cada vuelta.</p><pre class="code">Algoritmo del_uno_al_cinco
+	Definir i Como Entero;
+	Para i &lt;- 1 Hasta 5 Hacer
+		Escribir i;
+	FinPara
+FinAlgoritmo</pre><h3>Dos patrones que usarás siempre</h3><ul><li><b>Contador:</b> cuenta cuántas veces pasa algo. <code>pares &lt;- pares + 1</code></li><li><b>Acumulador:</b> va sumando valores. <code>suma &lt;- suma + nota</code></li></ul><p>Hay que darles un valor inicial, normalmente 0, <b>antes</b> del bucle.</p><pre class="code">Algoritmo suma_cuatro
+	Definir i, n, suma Como Entero;
+	suma &lt;- 0;
+	Para i &lt;- 1 Hasta 4 Hacer
+		Escribir "Número:";
+		Leer n;
+		suma &lt;- suma + n;
+	FinPara
+	Escribir "Suma: ", suma;
+FinAlgoritmo</pre><h3>Ejercicio</h3><p>Pide 5 notas. Muestra la media y cuántas son aprobados (5 o más). Con 4, 6, 8, 5 y 2 debe salir media 5 y 3 aprobados.</p><details class="sol"><summary>Ver la solución en PSeInt</summary><div><figure class="flujo"><img src="img/lp-l10.svg" width="447" height="956" loading="lazy" alt="Diagrama de flujo de la solución"><figcaption>Diagrama de flujo de la solución</figcaption></figure><p><b>El mismo algoritmo en PSeInt</b></p><pre class="code">Algoritmo notas_clase
+	Definir i, aprobados Como Entero;
+	Definir nota, suma Como Real;
+	suma &lt;- 0;
+	aprobados &lt;- 0;
+	Para i &lt;- 1 Hasta 5 Hacer
+		Escribir "Nota:";
+		Leer nota;
+		suma &lt;- suma + nota;
+		Si nota &gt;= 5 Entonces
+			aprobados &lt;- aprobados + 1;
+		FinSi
+	FinPara
+	Escribir "Media: ", suma / 5;
+	Escribir "Aprobados: ", aprobados;
+FinAlgoritmo</pre></div></details></div></details><details class="fold" id="l11"><summary><span><b>11. Arrays</b><small>Muchos datos con un solo nombre</small></span></summary><div class="in"><p>Un <b>array</b> es una fila de cajas con el mismo nombre. Cada caja se identifica por su posición, llamada <b>índice</b>.</p><table class="g"><thead><tr><th>Índice</th><th>0</th><th>1</th><th>2</th></tr></thead><tbody><tr><td><code>notas</code></td><td>7</td><td>4</td><td>9</td></tr></tbody></table><p class="nota">En el perfil Estricto, el primer índice es <b>0</b>. Un array de 3 elementos va de 0 a 2.</p><p>Lo normal es recorrerlos con <code>Para</code>:</p><pre class="code">Algoritmo guardar_notas
+	Definir notas, i Como Entero;
+	Dimension notas[3];
+	Para i &lt;- 0 Hasta 2 Hacer
+		Escribir "Nota:";
+		Leer notas[i];
+	FinPara
+	Para i &lt;- 0 Hasta 2 Hacer
+		Escribir "Nota ", i, ": ", notas[i];
+	FinPara
+FinAlgoritmo</pre><h3>Ejercicio</h3><p>Guarda 5 números en un array y muestra el mayor. Con 3, 9, 2, 7 y 5 debe salir 9.</p><details class="sol"><summary>Ver la solución en PSeInt</summary><div><figure class="flujo"><img src="img/lp-l11.svg" width="421" height="916" loading="lazy" alt="Diagrama de flujo de la solución"><figcaption>Diagrama de flujo de la solución</figcaption></figure><p><b>El mismo algoritmo en PSeInt</b></p><pre class="code">Algoritmo mayor_array
+	Definir numeros, i, mayor Como Entero;
+	Dimension numeros[5];
+	Para i &lt;- 0 Hasta 4 Hacer
+		Escribir "Número:";
+		Leer numeros[i];
+	FinPara
+	mayor &lt;- numeros[0];
+	Para i &lt;- 1 Hasta 4 Hacer
+		Si numeros[i] &gt; mayor Entonces
+			mayor &lt;- numeros[i];
+		FinSi
+	FinPara
+	Escribir "Mayor: ", mayor;
+FinAlgoritmo</pre><p>Se parte del primer elemento, y no de 0, para que funcione también con números negativos.</p></div></details></div></details><details class="fold" id="l12"><summary><span><b>12. Subprocesos</b><small>Dividir el problema en piezas</small></span></summary><div class="in"><p>Un <b>subproceso</b> es un bloque con nombre que puedes usar cuando quieras. En otros lenguajes se llama función o método.</p><ul><li>Evita repetir código.</li><li>Hace el programa más fácil de leer.</li><li>Recibe datos (<b>parámetros</b>) y puede devolver un resultado.</li></ul><pre class="code">SubProceso resultado &lt;- cuadrado(n)
+	Definir resultado Como Entero;
+	resultado &lt;- n * n;
+FinSubProceso
+
+Algoritmo usar_cuadrado
+	Definir numero Como Entero;
+	Escribir "Número:";
+	Leer numero;
+	Escribir "Cuadrado: ", cuadrado(numero);
+FinAlgoritmo</pre><h3>Ejercicio</h3><p>Crea el subproceso <code>mayor(a, b)</code>, que devuelva el mayor de dos números, y úsalo desde el algoritmo.</p><details class="sol"><summary>Ver la solución</summary><div><pre class="code">SubProceso resultado &lt;- mayor(a, b)
+	Definir resultado Como Entero;
+	Si a &gt; b Entonces
+		resultado &lt;- a;
+	SiNo
+		resultado &lt;- b;
+	FinSi
+FinSubProceso
+
+Algoritmo usar_mayor
+	Definir num1, num2 Como Entero;
+	Escribir "Primer número:";
+	Leer num1;
+	Escribir "Segundo número:";
+	Leer num2;
+	Escribir "Mayor: ", mayor(num1, num2);
+FinAlgoritmo</pre></div></details></div></details><details class="fold" id="l13"><summary><span><b>13. Cómo resolver cualquier problema</b><small>Método y errores típicos</small></span></summary><div class="in"><div class="pasos"><span>Entender</span><span>Pensar un ejemplo</span><span>Escribir los pasos</span><span>Programar</span><span>Probar</span><span>Corregir</span></div><ol><li><b>Entiende</b> el enunciado. ¿Cuáles son la entrada y la salida?</li><li><b>Haz un ejemplo a mano,</b> con números concretos.</li><li><b>Escribe los pasos</b> en español.</li><li><b>Prográmalo</b> poco a poco, y prueba cada parte.</li><li><b>Prueba casos raros:</b> cero, negativos, el límite exacto.</li></ol><h3>Qué estructura usar</h3><table class="g"><thead><tr><th>Situación</th><th>Usa</th></tr></thead><tbody><tr><td>Dos caminos</td><td><code>Si</code></td></tr><tr><td>Muchas opciones de un valor</td><td><code>Segun</code></td></tr><tr><td>Repetir un número conocido de veces</td><td><code>Para</code></td></tr><tr><td>Repetir hasta que pase algo</td><td><code>Mientras</code> o <code>Repetir</code></td></tr><tr><td>Guardar muchos datos del mismo tipo</td><td>Array</td></tr><tr><td>Repetir un trozo de código en varios sitios</td><td>Subproceso</td></tr></tbody></table><h3>Errores típicos</h3><table class="g"><thead><tr><th>Error</th><th>Solución</th></tr></thead><tbody><tr><td>Usar una variable sin valor</td><td>Dale un valor antes</td></tr><tr><td>Olvidar reiniciar el acumulador</td><td>Ponlo a 0 antes del bucle</td></tr><tr><td>Bucle infinito</td><td>Cambia dentro lo que se comprueba</td></tr><tr><td><code>&gt;</code> cuando debía ser <code>&gt;=</code></td><td>Prueba el valor exacto del límite</td></tr><tr><td>Índice fuera del array</td><td>Con 5 elementos, llega hasta 4</td></tr></tbody></table><h3>Ejercicio</h3><p>Este programa debería sumar del 1 al 3, pero tiene dos errores. Encuéntralos.</p><pre class="code">Algoritmo con_errores
+	Definir i, suma Como Entero;
+	i &lt;- 1;
+	Mientras i &lt;= 3 Hacer
+		suma &lt;- suma + i;
+	FinMientras
+	Escribir suma;
+FinAlgoritmo</pre><details class="sol"><summary>Ver la solución</summary><div><ol><li><code>suma</code> no tiene valor inicial. Falta <code>suma &lt;- 0;</code> antes del bucle.</li><li><code>i</code> no cambia, así que el bucle es infinito. Falta <code>i &lt;- i + 1;</code> dentro.</li></ol><pre class="code">Algoritmo corregido
+	Definir i, suma Como Entero;
+	i &lt;- 1;
+	suma &lt;- 0;
+	Mientras i &lt;= 3 Hacer
+		suma &lt;- suma + i;
+		i &lt;- i + 1;
+	FinMientras
+	Escribir suma;
+FinAlgoritmo</pre></div></details></div></details><details class="fold" id="l14"><summary><span><b>14. Proyecto final: la hucha</b><small>Todo junto</small></span></summary><div class="in"><p>Ahora vas a usarlo todo en un programa pequeño.</p><p><b>Crea un menú que se repita hasta elegir Salir:</b></p><ul><li><b>1. Ingresar:</b> pide una cantidad y súmala al saldo.</li><li><b>2. Sacar:</b> pide una cantidad y réstala. Si no hay saldo suficiente, avisa y no la restes.</li><li><b>3. Ver saldo.</b></li><li><b>4. Salir.</b></li></ul><p>Pistas: el saldo empieza en 0. Usa <code>Repetir</code> para el menú y <code>Segun</code> para las opciones.</p><details class="sol"><summary>Ver la solución en PSeInt</summary><div><figure class="flujo"><img src="img/lp-l14.svg" width="1382" height="980" loading="lazy" alt="Diagrama de flujo de la solución"><figcaption>Diagrama de flujo de la solución</figcaption></figure><p><b>El mismo algoritmo en PSeInt</b></p><pre class="code">Algoritmo hucha
+	Definir opcion Como Entero;
+	Definir saldo, cantidad Como Real;
+	saldo &lt;- 0;
+	Repetir
+		Escribir "1. Ingresar  2. Sacar  3. Ver saldo  4. Salir";
+		Leer opcion;
+		Segun opcion Hacer
+			1:
+				Escribir "Cantidad:";
+				Leer cantidad;
+				saldo &lt;- saldo + cantidad;
+			2:
+				Escribir "Cantidad:";
+				Leer cantidad;
+				Si cantidad &lt;= saldo Entonces
+					saldo &lt;- saldo - cantidad;
+				SiNo
+					Escribir "Saldo insuficiente";
+				FinSi
+			3:
+				Escribir "Saldo: ", saldo;
+			4:
+				Escribir "Hasta pronto";
+			De Otro Modo:
+				Escribir "Opción no válida";
+		FinSegun
+	Hasta Que opcion = 4
+FinAlgoritmo</pre></div></details><h3>Y ahora, ¿qué sigue?</h3><p>Practica con <a href="practica-pseint.html">ejercicios al azar</a> y con la <a href="algoritmia.html">batería de algoritmia</a>. Lo que has aprendido es la misma lógica que usarás en Java.</p></div></details></div><script>(function(){function a(){var d=location.hash&&document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS"){for(var x=d;x;x=x.parentElement)if(x.tagName==="DETAILS")x.open=true;d.scrollIntoView()}}addEventListener("hashchange",a);a()})();</script><script src="../bases-de-datos/visor.js"></script></body></html>
