@@ -1,0 +1,93 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ejercicios E-R al azar</title><style>
+:root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#059669;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#34d399;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.hero{background:var(--c);color:#fff;padding:28px 0 26px;margin-bottom:24px}
+@media (prefers-color-scheme:dark){.hero{color:#0b1220}}
+.hero .wrap{padding-bottom:0}
+.hero h1{margin:0;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.15}
+.hero p{margin:6px 0 0;opacity:.92}
+.back{display:inline-block;color:inherit;text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 0;margin-bottom:6px;opacity:.95}
+.back:hover{text-decoration:underline}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+a.card,div.card{display:block;position:relative;background:var(--hoja);border:1px solid var(--linea);border-top:6px solid var(--c);border-radius:12px;padding:16px 18px;color:inherit;text-decoration:none;min-height:104px}
+a.card:hover,a.card:focus-visible{box-shadow:0 6px 20px rgb(0 0 0/.12);transform:translateY(-2px);outline:none}
+a.card{transition:transform .15s,box-shadow .15s}
+.card b{display:block;font-size:1.1rem;color:var(--c);margin-bottom:2px}
+.card span{color:var(--suave);font-size:.9rem}
+.card .ico{position:absolute;right:14px;top:12px;font:700 1.3rem ui-monospace,Consolas,monospace;color:var(--c);opacity:.35}
+.card.off{opacity:.5;border-top-style:dashed}
+details.fold{position:relative;margin:32px 0 18px;--f:color-mix(in srgb,var(--c) 20%,var(--hoja))}
+details.fold>summary{list-style:none;cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;min-height:72px;padding:16px 18px;background:var(--f);border:2px solid var(--c);border-radius:0 12px 12px 12px}
+details.fold>summary::before{content:"";position:absolute;left:-2px;bottom:100%;width:min(46%,170px);height:17px;background:var(--c);border-radius:10px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+details.fold>summary:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary>svg{display:none}
+details.fold>summary b{font-size:1.15rem}
+details.fold>summary small{display:block;color:var(--suave);font-size:.88rem}
+details.fold>summary::after{content:"▾";margin-left:auto;color:var(--tinta);transition:transform .2s}
+details.fold[open]>summary{border-radius:0 12px 0 0}
+details.fold[open]>summary::after{transform:rotate(180deg)}
+.in{padding:14px 16px 18px;background:var(--hoja);border:2px solid var(--c);border-top:0;border-radius:0 0 12px 12px}
+.in h3{margin:14px 0 8px;font-size:.95rem;color:var(--c);display:flex;align-items:center;gap:8px}
+.in h3 svg{width:20px;height:20px}
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
+a.t,div.t{display:block;background:var(--cs);border:1px solid var(--linea);border-radius:10px;padding:12px 14px;color:inherit;text-decoration:none;min-height:64px}
+a.t:hover,a.t:focus-visible{border-color:var(--c);outline:none}
+.t b{display:block;font-size:.98rem}
+.t span{color:var(--suave);font-size:.82rem}
+div.t{opacity:.5;border-style:dashed}
+.sub{position:relative;margin-top:26px;padding:6px 12px 14px;background:var(--cs);border:1.5px solid var(--c);border-radius:0 10px 10px 10px}
+.sub::before{content:"";position:absolute;left:-1.5px;bottom:100%;width:min(46%,130px);height:13px;background:var(--c);border-radius:8px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+#zona{display:flex;flex-direction:column;gap:8px;margin:0 0 12px}.full#zona{position:fixed;inset:0;z-index:50;background:var(--bg);padding:8px;margin:0}body.sinscroll{overflow:hidden}
+.herr{display:flex;gap:6px;overflow-x:auto;padding:0 0 4px;scrollbar-width:thin}.herr button{flex:none;font:600 .85rem/1.1 system-ui,sans-serif;min-height:42px;padding:6px 10px;border:1px solid var(--linea);border-radius:9px;background:var(--hoja);color:var(--tinta);cursor:pointer}.herr button:disabled{opacity:.45;cursor:default}.herr .sp{flex:none;width:1px;background:var(--linea);margin:2px 3px}
+#pal button{background:var(--cs)}
+#lienzo{display:block;width:100%;flex:none;height:clamp(380px,62vh,760px);min-height:300px;background-color:#fff;background-image:linear-gradient(#eef2f7 1px,transparent 1px),linear-gradient(90deg,#eef2f7 1px,transparent 1px);background-size:24px 24px;border:1px solid var(--linea);border-radius:12px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;font-family:system-ui,"Segoe UI",Arial,sans-serif}.full #lienzo{flex:1 1 0;height:auto;min-height:0}#lienzo .n,#lienzo .hit,#lienzo .card{cursor:pointer}
+#ctx{display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--cs);border-radius:9px;padding:6px 8px}#ctx[hidden]{display:none!important}#ctxNom{font-weight:600;margin-right:auto;font-size:.9rem;min-width:0}#ctx button{font:600 .85rem system-ui,sans-serif;min-height:40px;padding:6px 10px;border:1px solid var(--linea);border-radius:8px;background:var(--hoja);color:var(--tinta);cursor:pointer}
+#msg{min-height:1.3em;font-size:.9rem;margin:0;color:var(--suave)}#msg.mal{color:#b91c1c;font-weight:600}
+.cajae{background:var(--hoja);border:1px solid var(--linea);border-radius:12px;padding:14px;margin:0 0 12px}.cajae h2{margin:2px 0 6px;font-size:1.1rem}.niv{display:inline-block;font-size:.76rem;font-weight:700;border-radius:999px;padding:2px 9px;background:var(--cs)}#ejTxt{margin:0}
+.eleg{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;align-items:center}.eleg select,.eleg button{font:inherit;min-height:44px;padding:8px 10px;border:1px solid var(--linea);border-radius:10px;background:var(--hoja);color:var(--tinta)}.eleg select{flex:1 1 220px;min-width:0}.eleg button{cursor:pointer;font-weight:600}
+.bts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.bts button{font:inherit;font-weight:600;min-height:44px;padding:8px 14px;border:1px solid var(--linea);border-radius:10px;background:var(--hoja);color:var(--tinta);cursor:pointer}.bts .pri{background:var(--c);border-color:var(--c);color:#fff}
+ul.res{list-style:none;padding:0;margin:8px 0}ul.res li{padding:5px 8px 5px 28px;border-radius:7px;margin:3px 0;position:relative;background:var(--hoja);border:1px solid var(--linea)}ul.res li::before{position:absolute;left:8px;font-weight:700}ul.res .ok::before{content:"✓";color:#15803d}ul.res .ko::before{content:"✗";color:#b91c1c}ul.res .av::before{content:"!";color:#b45309}.nota-r{margin:8px 0}
+#solFig{overflow:auto;background:#fff;border:1px solid var(--linea);border-radius:10px;margin:8px 0}#solFig img{display:block;max-width:none;height:auto}
+dialog{border:1px solid var(--linea);border-radius:14px;padding:16px;background:var(--hoja);color:var(--tinta);width:min(92vw,400px)}dialog::backdrop{background:rgb(0 0 0/.5)}dialog h3{margin:0 0 10px}dialog label{display:block;font-weight:600;margin:8px 0 4px;font-size:.9rem}dialog input,dialog select{width:100%;font:16px system-ui,sans-serif;min-height:44px;padding:8px 10px;border:1px solid var(--linea);border-radius:10px;background:var(--hoja);color:var(--tinta)}dialog button{font:inherit;font-weight:600;min-height:44px;padding:8px 12px;border:1px solid var(--linea);border-radius:10px;background:var(--cs);color:var(--tinta);cursor:pointer}.f{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}.f .p{background:var(--c);border-color:var(--c);color:#fff}#lCards{display:grid;grid-template-columns:1fr 1fr;gap:8px}#lCards button[aria-pressed=true]{background:var(--c);border-color:var(--c);color:#fff}#lCards p{grid-column:1/-1;margin:0;font-size:.88rem;color:var(--suave)}#lNo{margin:0 0 8px}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .bts .pri,:root:not([data-theme=light]) .f .p,:root:not([data-theme=light]) #lCards button[aria-pressed=true]{color:#0b1220}}:root[data-theme=dark] .bts .pri,:root[data-theme=dark] .f .p,:root[data-theme=dark] #lCards button[aria-pressed=true]{color:#0b1220}
+</style><link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Ejercicios E-R al azar</h1></div></div><div class="wrap">
+<div class="eleg"><label for="ejSel" class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">Ejercicio</label><select id="ejSel" hidden></select><label for="ejNivel" class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">Nivel</label><select id="ejNivel" style="flex:1 1 150px"><option value="F">Fácil</option><option value="M">Medio</option><option value="D">Difícil</option></select><button type="button" id="btAzar">Otro ejercicio</button></div>
+<div class="cajae" id="enun"><span class="niv" id="ejNiv"></span><h2 id="ejTit"></h2><p id="ejTxt"></p></div>
+<div id="zona">
+<div class="herr" id="pal" aria-label="Añadir"><button type="button" data-k="ent">+ Entidad</button><button type="button" data-k="deb">+ E. débil</button><button type="button" data-k="rel">+ Relación</button><button type="button" data-k="atr">+ Atributo</button><button type="button" data-k="clave">+ Clave</button><button type="button" data-k="multi">+ Multivaluado</button><button type="button" data-k="deriv">+ Derivado</button><button type="button" data-k="opc">+ Opcional</button><button type="button" data-k="jer">+ Jerarquía</button></div>
+<div class="herr" aria-label="Herramientas"><button type="button" id="btDes">Deshacer</button><button type="button" id="btReh">Rehacer</button><span class="sp"></span><button type="button" id="btMen" aria-label="Alejar">−</button><button type="button" id="btMas" aria-label="Acercar">+</button><button type="button" id="btAju">Ajustar</button><button type="button" id="btFull">Pantalla completa</button><span class="sp"></span><button type="button" id="btPng">PNG</button><button type="button" id="btSvg">SVG</button><button type="button" id="btGua">Guardar archivo</button><button type="button" id="btAbr">Abrir archivo</button><button type="button" id="btVac">Vaciar</button><input type="file" id="arch" accept=".json,application/json" hidden></div>
+<div id="ctx" hidden><span id="ctxNom"></span><button type="button" id="btCon">Unir con…</button><button type="button" id="btEdit">Editar</button><button type="button" id="btBor">Borrar</button></div>
+<svg id="lienzo" xmlns="http://www.w3.org/2000/svg" role="application" aria-label="Lienzo del diagrama"><g id="capa"></g></svg>
+<p id="msg" role="status"></p></div>
+<details class="sol" style="margin:0 0 10px"><summary>Cómo se usa</summary><div><ol><li>Pulsa <b>+ Entidad</b> y escribe el nombre. Arrastra cada pieza con el dedo o el ratón.</li><li>Con una entidad seleccionada, los botones de atributos crean el atributo ya unido a ella.</li><li>Para unir dos piezas: toca una, pulsa <b>Unir con…</b> y toca la otra. Dos entidades se unen siempre con un rombo entre ellas.</li><li>Al unir un rombo con una entidad, elige la cardinalidad <b>junto a esa entidad</b>. Por ejemplo, Propietario (1,1) — Posee — (1,n) Vehículo. La cardinalidad total, como 1:N, se calcula sola.</li><li>Toca dos veces una pieza o una línea para editarla. Para una relación reflexiva, une el rombo dos veces con la misma entidad.</li></ol></div></details>
+<div class="bts"><button type="button" class="pri" id="btCom">Comprobar</button><button type="button" id="btSol" hidden>Ver la solución</button></div>
+<div id="result" aria-live="polite"></div>
+<div id="solBox" class="cajae" hidden><h3 style="margin:0">Una solución modelo</h3><p style="margin:6px 0">Un mismo enunciado admite a veces más de un diseño correcto. La comprobación compara con este modelo, sin tener en cuenta el nombre de las relaciones.</p><div id="solFig"></div><div class="bts"><button type="button" id="btCarSol">Cargar en el lienzo</button></div></div>
+</div>
+<dialog id="dlgNodo"><form id="nFrm"><h3 id="nTit"></h3><label for="nNom">Nombre</label><input id="nNom" autocomplete="off" maxlength="40"><div id="nTipoC"><label for="nTipo">Tipo</label><select id="nTipo"></select></div><div class="f"><button type="button" id="nCan">Cancelar</button><button class="p">Guardar</button></div></form></dialog>
+<dialog id="dlgLinea"><h3>Línea</h3><p id="lNo">Esta línea no lleva cardinalidad.</p><div id="lCards"><p>Junto a <b id="lEnt"></b>:</p><button type="button" data-c="(0,1)">(0,1)</button><button type="button" data-c="(1,1)">(1,1)</button><button type="button" data-c="(0,n)">(0,n)</button><button type="button" data-c="(1,n)">(1,n)</button></div><div class="f"><button type="button" id="lBor">Borrar línea</button><button type="button" id="lCan">Cerrar</button></div></dialog>
+<script>window.ER_EJ=[];</script><script src="er-generador.js"></script><script src="er.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script><script src="../supabase-config.js"></script><script src="../progreso.js" data-pagina="bases-de-datos" data-claves="bd:*"></script>
+</body></html>

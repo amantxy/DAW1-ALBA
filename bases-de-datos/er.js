@@ -43,7 +43,7 @@ function aplicaVista(){var r=svg.getBoundingClientRect();svg.setAttribute("viewB
 function barra(){var hay=!!sel;$("#ctx").hidden=!hay&&!selL;$("#btCon").hidden=!hay;$("#btEdit").textContent=selL?"Cardinalidad":"Editar";var n=nodo(sel);$("#ctxNom").textContent=con?"Toca el elemento que quieres unir":n?TIPOS[n.k]+(n.t?": "+n.t:""):selL?"Línea":"";$("#btDes").disabled=!hist.length;$("#btReh").disabled=!futuro.length}
 /* Historial y guardado */
 function foto(){hist.push(JSON.stringify(M));if(hist.length>80)hist.shift();futuro=[]}
-function guarda(){if(actual===undefined)return;guardaLS(CLAVE+(actual?actual.id:"libre"),M)}
+function guarda(){guardaLS(CLAVE+(actual?actual.id:"libre"),M)}
 function cambio(){guarda();pinta()}
 function deshacer(){if(!hist.length)return;futuro.push(JSON.stringify(M));M=JSON.parse(hist.pop());sel=selL=con=null;cambio()}
 function rehacer(){if(!futuro.length)return;hist.push(JSON.stringify(M));M=JSON.parse(futuro.pop());sel=selL=con=null;cambio()}
@@ -164,5 +164,7 @@ function abre(id){actual=ER_EJ.filter(function(e){return e.id===id})[0]||null;va
 selEj.onchange=function(){abre(selEj.value)};
 $("#btAzar").onclick=function(){var nv=$("#ejNivel").value,p=ER_EJ.filter(function(e){return(!nv||e.niv===nv)&&(!actual||e.id!==actual.id)});if(!p.length)return;var e=p[Math.floor(Math.random()*p.length)];selEj.value=e.id;abre(e.id)};
 window.ER={modelo:function(){return M},carga:function(m){M=m;cambio()},comprueba:comprueba,modeloSolucion:modeloSolucion,textoSVG:textoSVG,ejercicios:ER_EJ};
-lista();var u=leeLS(CLAVE+"ultimo"),q=new URLSearchParams(location.search).get("ej");var ini=q&&ER_EJ.some(function(e){return e.id===q})?q:(typeof u==="string"?u:"");if(!ER_EJ.some(function(e){return e.id===ini}))ini=ini?"":ER_EJ[0].id;selEj.value=ini;abre(ini);
+if(window.ER_GEN){var abreGen=function(ej,m){actual=ej;M=m&&Array.isArray(m.n)?m:{n:[],l:[],next:1};hist=[];futuro=[];sel=selL=con=null;$("#enun").hidden=false;$("#btCom").hidden=false;$("#btSol").hidden=false;$("#solBox").hidden=true;$("#btSol").textContent="Ver la solución";$("#result").innerHTML="";aviso("");$("#ejNiv").textContent=NIV[ej.niv];$("#ejTit").textContent=ej.tit;$("#ejTxt").textContent=ej.enun;guarda();pinta();ajusta()};var genera=function(){var e=ER_GEN.nuevo($("#ejNivel").value||"F"),p=0;while(actual&&e.enun===actual.enun&&p++<20)e=ER_GEN.nuevo($("#ejNivel").value||"F");guardaLS(CLAVE+"azarEj",e);abreGen(e,null)};$("#btAzar").onclick=genera;$("#ejNivel").onchange=genera;$("#btCom").onclick=function(){muestra(comprueba(actual))};var ge=leeLS(CLAVE+"azarEj");if(ge&&ge.ent){$("#ejNivel").value=ge.niv;abreGen(ge,leeLS(CLAVE+"azar"))}else genera();}
+else{lista();var u=leeLS(CLAVE+"ultimo"),q=new URLSearchParams(location.search).get("ej");var ini=q&&ER_EJ.some(function(e){return e.id===q})?q:(typeof u==="string"?u:"");if(!ER_EJ.some(function(e){return e.id===ini}))ini=ini?"":ER_EJ[0].id;selEj.value=ini;abre(ini);
+}
 })();
