@@ -1,0 +1,69 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Calendario</title><style>
+:root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#2563eb;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#6ea8ff;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.hero{background:var(--c);color:#fff;padding:28px 0 26px;margin-bottom:24px}
+@media (prefers-color-scheme:dark){.hero{color:#0b1220}}
+.hero .wrap{padding-bottom:0}
+.hero h1{margin:0;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.15}
+.hero p{margin:6px 0 0;opacity:.92}
+.back{display:inline-block;color:inherit;text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 0;margin-bottom:6px;opacity:.95}
+.back:hover{text-decoration:underline}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+a.card,div.card{display:block;position:relative;background:var(--hoja);border:1px solid var(--linea);border-top:6px solid var(--c);border-radius:12px;padding:16px 18px;color:inherit;text-decoration:none;min-height:104px}
+a.card:hover,a.card:focus-visible{box-shadow:0 6px 20px rgb(0 0 0/.12);transform:translateY(-2px);outline:none}
+a.card{transition:transform .15s,box-shadow .15s}
+.card b{display:block;font-size:1.1rem;color:var(--c);margin-bottom:2px}
+.card span{color:var(--suave);font-size:.9rem}
+.card .ico{position:absolute;right:14px;top:12px;font:700 1.3rem ui-monospace,Consolas,monospace;color:var(--c);opacity:.35}
+.card.off{opacity:.5;border-top-style:dashed}
+details.fold{margin:0 0 16px;background:var(--hoja);border:1px solid var(--linea);border-left:8px solid var(--c);border-radius:12px;overflow:hidden}
+details.fold>summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;align-items:center;gap:12px;min-height:56px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary svg{flex:none;width:34px;height:34px;color:var(--c)}
+details.fold>summary b{font-size:1.15rem}
+details.fold>summary small{display:block;color:var(--suave);font-size:.88rem}
+details.fold>summary::after{content:"▾";margin-left:auto;color:var(--suave);transition:transform .2s}
+details.fold[open]>summary::after{transform:rotate(180deg)}
+.in{padding:4px 16px 18px}
+.in h3{margin:14px 0 8px;font-size:.95rem;color:var(--c);display:flex;align-items:center;gap:8px}
+.in h3 svg{width:20px;height:20px}
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
+a.t,div.t{display:block;background:var(--cs);border:1px solid var(--linea);border-radius:10px;padding:12px 14px;color:inherit;text-decoration:none;min-height:64px}
+a.t:hover,a.t:focus-visible{border-color:var(--c);outline:none}
+.t b{display:block;font-size:.98rem}
+.t span{color:var(--suave);font-size:.82rem}
+div.t{opacity:.5;border-style:dashed}
+.sub{margin-top:8px;padding:6px 12px 14px;border:1px dashed var(--c);border-radius:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.hero{background:#1e293b!important;color:#fff!important}@media (prefers-color-scheme:dark){.hero{background:#162033!important}}#proximos{margin:18px 0 0}.pr-cab{display:flex;gap:10px;align-items:baseline;justify-content:space-between;flex-wrap:wrap;margin:0 0 8px;background:var(--hoja);border:1px solid var(--linea);border-radius:10px;padding:8px 12px}.pr-cab h2{font-size:1.05rem;margin:0}.pr-cab a{font-weight:600;color:var(--tinta)}.pr-vac{margin:0;background:var(--hoja);border:1px solid var(--linea);border-radius:10px;padding:10px 12px}.pr-lista{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr))}.pr-ev{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--hoja);border:1px solid var(--linea);border-left:6px solid var(--ec);border-radius:10px;padding:10px 12px;color:inherit;text-decoration:none}.pr-ev:hover,.pr-ev:focus-visible{box-shadow:0 4px 14px rgb(0 0 0/.12);outline:none}.pr-t{min-width:0}.pr-t b{display:block;line-height:1.25}.pr-t small{color:var(--suave)}.pr-c{flex:none;font-weight:700;text-align:right}
+.hero{background:#1e293b!important;color:#fff!important}
+.sec2{margin:0 0 18px}.sec2>h2{font-size:1.1rem;margin:0 0 8px}
+.cd{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr))}
+a.ev{display:block;background:var(--hoja);border:1px solid var(--linea);border-left:6px solid var(--ec,#64748b);border-radius:10px;padding:12px 14px;color:inherit;text-decoration:none}a.ev:hover,a.ev:focus-visible{box-shadow:0 4px 14px rgb(0 0 0/.12);outline:none}
+.ev b{display:block;line-height:1.3}.ev small{display:block;color:var(--suave)}.ev .cuenta{display:block;font-weight:700;font-size:1.05rem;margin-top:4px;color:var(--ec,inherit)}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;border-radius:999px;padding:1px 8px;background:var(--cs);margin-bottom:3px}
+.calcab{display:flex;align-items:center;gap:8px;margin:0 0 8px}.calcab h2{margin:0;font-size:1.1rem;flex:1;text-transform:capitalize}.b{font:inherit;font-weight:600;min-height:44px;padding:8px 12px;border:1px solid var(--linea);border-radius:10px;background:var(--hoja);color:var(--tinta);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}.b.p{background:#7c3aed;border-color:#7c3aed;color:#fff}
+.mes{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;background:var(--hoja);border:1px solid var(--linea);border-radius:12px;padding:6px}.mes .ds{text-align:center;font-size:.75rem;font-weight:700;color:var(--suave);padding:3px 0}
+.dia{font:inherit;min-height:clamp(48px,9vw,84px);padding:4px;border:1px solid var(--linea);border-radius:7px;background:transparent;color:var(--tinta);text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:0;overflow:hidden}.dia.vac{border:0;cursor:default}.dia.hoy{border:2px solid #7c3aed;font-weight:700}.dia[aria-pressed=true]{background:var(--cs)}.dia .pts{display:flex;flex-wrap:wrap;gap:2px}.pt{width:9px;height:9px;border-radius:50%;background:var(--ec)}.pt.ent{border-radius:2px}.chip{display:none;font-size:.72rem;line-height:1.2;border-left:3px solid var(--ec);padding-left:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+@media (min-width:760px){.dia .pts{display:none}.chip{display:block}}
+.ley{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--suave);margin:6px 0 0}.ley span{display:inline-flex;align-items:center;gap:5px}
+.hec b{text-decoration:line-through}
+.plan-c{background:var(--hoja);border:1px solid var(--linea);border-radius:12px;padding:14px;margin:0 0 12px}.plan-c h2{margin:0 0 4px;font-size:1.2rem}.barra{height:9px;border-radius:9px;background:var(--linea);overflow:hidden;margin:8px 0}.barra i{display:block;height:100%;background:#15803d}
+.dp{background:var(--hoja);border:1px solid var(--linea);border-radius:10px;padding:10px 12px;margin:0 0 8px}.dp.hoy{border:2px solid #7c3aed}.dp.pas{opacity:.72}.dp h3{margin:0 0 6px;font-size:.98rem}.dp small{color:var(--suave);font-weight:500}
+.tar{display:flex;gap:9px;align-items:flex-start;padding:6px 0}.tar input{width:22px;height:22px;flex:none;margin:1px 0 0;accent-color:#15803d}.tar.ok span{text-decoration:line-through;color:var(--suave)}.tar span{min-width:0}.nota{background:#fef3c7;color:#713f12;border-radius:8px;padding:8px 10px;margin:8px 0;font-size:.92rem}
+dialog{border:1px solid var(--linea);border-radius:14px;padding:16px;background:var(--hoja);color:var(--tinta);width:min(94vw,500px);max-height:90vh}dialog::backdrop{background:rgb(0 0 0/.5)}dialog h2{margin:0 0 8px;font-size:1.15rem}dialog label.l{display:block;font-weight:600;margin:10px 0 3px;font-size:.9rem}dialog input[type=text],dialog input[type=date],dialog input[type=time],dialog input[type=number],dialog select,dialog textarea{width:100%;font:16px system-ui,sans-serif;min-height:44px;padding:8px 10px;border:1px solid var(--linea);border-radius:10px;background:var(--hoja);color:var(--tinta)}.dos{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tem{display:grid;gap:2px;max-height:210px;overflow:auto;border:1px solid var(--linea);border-radius:10px;padding:6px 10px}.tem label{display:flex;gap:8px;align-items:flex-start;padding:5px 0}.tem input{width:20px;height:20px;flex:none}.rd{display:flex;gap:14px}.rd label{display:flex;gap:6px;align-items:center;min-height:40px}.f{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px}#er{color:#b91c1c;font-weight:600;min-height:1.2em;margin:6px 0 0}.av{color:var(--suave);font-size:.85rem;margin:6px 0 0}
+</style><link rel="stylesheet" href="fondo.css"><script src="tema.js"></script></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html" id="vol">← Volver</a><h1 id="tit">Calendario</h1></div></div><div class="wrap"><div id="app"><p>Cargando…</p></div></div>
+<dialog id="dlg"><form id="frm"><h2 id="dT">Añadir</h2>
+<div class="rd" role="radiogroup" aria-label="Tipo"><label><input type="radio" name="tipo" value="examen" checked> Examen</label><label><input type="radio" name="tipo" value="entrega"> Entrega</label></div>
+<label class="l" for="fA">Asignatura</label><select id="fA"></select>
+<span class="l" style="display:block;font-weight:600;margin:10px 0 3px;font-size:.9rem">Temario que entra</span><div class="tem" id="fTem"></div>
+<label class="l" for="fT">Título</label><input type="text" id="fT" maxlength="120" required>
+<div class="dos"><div><label class="l" for="fF">Fecha</label><input type="date" id="fF" required></div><div><label class="l" for="fH">Hora (opcional)</label><input type="time" id="fH"></div></div>
+<label class="l" for="fM">Minutos de estudio al día</label><input type="number" id="fM" min="15" max="480" step="5" value="60" required>
+<label class="l" for="fN">Notas (opcional)</label><textarea id="fN" rows="2" maxlength="1000"></textarea>
+<p class="av">Las fechas, el temario y las notas son visibles para todo el mundo.</p><p id="er" role="alert"></p>
+<div class="f"><button type="button" class="b" id="dBor" hidden>Borrar</button><button type="button" class="b" id="dCan">Cancelar</button><button class="b p">Guardar</button></div></form></dialog>
+<script src="agenda-temario.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script><script src="supabase-config.js"></script><script src="progreso.js" data-pagina="agenda" data-claves="agenda:*"></script><script src="agenda.js"></script></body></html>
