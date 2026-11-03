@@ -34,7 +34,7 @@ Fuente: Google Site del profesor (Programación 1 DAM).
 - Libro completo (221 págs.): cap. 1 desde el ejercicio 10 y cap. 2 en adelante.
 - Cualquier material nuevo que suba el profesor.
 
-## Práctica interactiva (dentro del HTML)
+## Ponte a prueba (dentro del HTML)
 Flashcards, test, predicción de salidas, expresiones, huecos de código y ejercicios de escritura con solución bloqueada hasta intentarlo.
 
 ## Libro
