@@ -750,7 +750,6 @@ factorial(4);   // 4 × 3 × 2 × 1 = 24</code></pre>
 
 <h2 class="tema" id="ejercicios">Ejercicios</h2>
 <p class="sub">Todos los ejercicios en un solo sitio, por unidad (U1, U2, U3), con su título, su enunciado y la solución. Incluye los del profesor y los del libro. Los del libro de bucles y arreglos van en U2 (estructuras de control).</p>
-<div class="tabs" id="etabs"><button data-u="U1" class="on">U1</button><button data-u="U2">U2</button><button data-u="U3">U3</button></div>
 <div class="tabpane on" id="ej-U1" data-label="U1 · Introducción">
 <section class="sec"><h3>U1 · Profesor · Ejercicios de la unidad 1</h3><div class="body"><p class="sub">Fuentes: EjerciciosUnidad1.docx, EjerciciosBásicosU1.pdf, CirculoJava.pdf, EcuacionesSegundoGrado.pdf. Hay versión interactiva en «Ponte a prueba».</p><h4>Ejercicio 1 · Longitud de una circunferencia (Java)</h4><p>Calcula la longitud de la circunferencia de radio 5 usando una constante PI = 3.1416 (2·PI·radio).</p><details><summary>Ver solución</summary><pre><code>float radio = 5;
 final float PI = 3.1416f;
@@ -8657,10 +8656,6 @@ BUILD SUCCESSFUL (total time: 0 seconds) Referencias bibliográficas CORREA U, G
 
 </main>
 </div>
-<footer>
-Contenido basado en los materiales publicados por el profesor en <i>Programación 1 DAM</i> (Google Sites): UT 1, UT 2 y UT 3.
-Última actualización: 2 nov 2026. Incluye el libro completo (57 ejercicios de los capítulos 1 a 3, con arreglos) y los archivos de UT 1, UT 2 y UT 3 (ver README para el detalle y lo que falta).
-</footer>
 <script>
 (function(){
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
@@ -8690,8 +8685,7 @@ $$("pre").forEach(function(p){
 nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;var t=document.querySelector(a.getAttribute("href"));if(t&&t.classList)t.classList.remove("closed")});
 $("#mn").onclick=function(){nav.classList.toggle("open")};
 nav.addEventListener("click",function(e){if(e.target.closest("a"))nav.classList.remove("open")});
-function showPane(u){$$(".tabpane").forEach(function(p){p.classList.toggle("on",p.id==="ej-"+u)});$$("#etabs button").forEach(function(b){b.classList.toggle("on",b.dataset.u===u)})}
-$$("#etabs button").forEach(function(b){b.onclick=function(){showPane(b.dataset.u)}});
+function showPane(u){$$(".tabpane").forEach(function(p){p.classList.toggle("on",p.id==="ej-"+u)})}
 nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;var t=document.querySelector(a.getAttribute("href"));var p=t&&t.closest?t.closest(".tabpane"):null;if(p)showPane(p.id.slice(3))});
 
 // vista por menú: solo se muestra lo elegido
@@ -8709,7 +8703,7 @@ nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)retur
     hideAll();
     var h2;
     if(t.tagName==="H2"){
-      h2=t;show(h2);
+      h2=t;show(h2);if(t.id==="ejercicios"){t.textContent="Ejercicios";$$(".tabpane").forEach(function(p){p.classList.add("on")})}
       nextUntil(h2,function(n){return n.tagName==="H2"}).forEach(function(n){
         show(n);
         $$("section.sec",n.tagName==="SECTION"?n.parentNode:n).forEach(function(){});
@@ -8721,12 +8715,12 @@ nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)retur
       h2=temaOf(t);show(h2);show(t);
       nextUntil(t,function(n){return n.tagName==="H2"||n.classList.contains("chap")}).forEach(function(n){show(n);if(n.tagName==="SECTION")n.classList.add("closed")});
     } else if(t.classList.contains("tabpane")){
-      showPane(t.id.slice(3));h2=temaOf(t);show(h2);show($("#etabs"));show(t);
+      showPane(t.id.slice(3));h2=temaOf(t);show(h2);h2.textContent="Ejercicios · "+t.getAttribute("data-label");show(t);
       $$("section.sec",t).forEach(function(s){show(s);s.classList.add("closed")});
     } else {
       var pane=t.closest(".tabpane");
       h2=temaOf(pane||t);show(h2);
-      if(pane){show($("#etabs"));show(pane);}
+      if(pane){showPane(pane.id.slice(3));h2.textContent="Ejercicios · "+pane.getAttribute("data-label");show(pane);}
       else{var c=t.previousElementSibling;while(c&&!c.classList.contains("chap")&&c.tagName!=="H2")c=c.previousElementSibling;if(c&&c.classList.contains("chap"))show(c)}
       show(t);t.classList.remove("closed");
     }
