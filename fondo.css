@@ -1,0 +1,9 @@
+/* Fondo común: malla suave con símbolos de desarrollo web. Tarjetas y texto van encima. */
+body{background-image:url(fondo-claro.svg)!important;background-repeat:repeat!important;background-size:440px 440px!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) body{background-image:url(fondo-oscuro.svg)!important}}
+:root[data-theme=dark] body{background-image:url(fondo-oscuro.svg)!important}
+:root[data-theme=light] body{background-image:url(fondo-claro.svg)!important}
+@media print{body{background-image:none!important}}
+/* Lo que aún no tiene contenido sigue atenuado, pero sin dejar ver los símbolos a través. */
+.card.off,div.t{opacity:1!important}
+.card.off>*,div.t>*{opacity:.55}
