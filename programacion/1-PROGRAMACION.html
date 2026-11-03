@@ -8704,6 +8704,7 @@ nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)retur
   function temaOf(el){var n=el;while(n&&!(n.tagName==="H2"&&n.classList.contains("tema"))){n=n.previousElementSibling||n.parentElement&&n.parentElement.previousElementSibling}return n}
   function view(id){
     var t=document.getElementById(id);if(!t)return;
+    if(/^p-/.test(id)&&t.matches("section.sec")){view("practica");t.classList.remove("closed");$$("nav a").forEach(function(a){a.classList.toggle("act",a.getAttribute("href")==="#"+id)});t.scrollIntoView();return}
     document.body.classList.remove("searching");
     hideAll();
     var h2;
@@ -8713,8 +8714,8 @@ nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)retur
         show(n);
         $$("section.sec",n.tagName==="SECTION"?n.parentNode:n).forEach(function(){});
         if(n.tagName==="SECTION"){}
-        $$("section.sec",n).forEach(function(s){show(s);s.classList.toggle("closed",t.id!=="practica")});
-        if(n.tagName==="SECTION"){n.classList.toggle("closed",t.id!=="practica")}
+        $$("section.sec",n).forEach(function(s){show(s);s.classList.add("closed")});
+        if(n.tagName==="SECTION"){n.classList.add("closed")}
       });
     } else if(t.classList.contains("chap")){
       h2=temaOf(t);show(h2);show(t);

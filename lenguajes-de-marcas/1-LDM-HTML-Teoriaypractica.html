@@ -114,6 +114,7 @@ input.gap{font:500 14px var(--f-mono);background:var(--code-bg);color:var(--ink)
 input.gap.ok{background:var(--good-soft);border-color:var(--good)}
 input.gap.ko{background:var(--bad-soft);border-color:var(--bad)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+nav.tabs{display:none!important}details.ac{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:12px 0}details.ac>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:12px 16px;font-weight:700;font-size:1.05rem}details.ac>summary::-webkit-details-marker{display:none}details.ac>summary::after{content:"▾";transition:transform .2s}details.ac[open]>summary::after{transform:rotate(180deg)}details.ac>summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}details.ac>section.panel{padding:6px 12px 14px}
 </style>
 <body>
 <div class="wrap">
@@ -138,16 +139,16 @@ input.gap.ko{background:var(--bad-soft);border-color:var(--bad)}
   <button role="tab" data-tab="ref" aria-selected="false">Etiquetas</button>
 </nav>
 
-<section class="panel" id="p-plan">
+<details class="ac" id="d-plan"><summary>Plan de 6 días</summary><section class="panel" id="p-plan">
   <div class="card">
     <div class="row" style="justify-content:space-between"><b>Progreso del plan</b><span class="muted" id="planTxt"></span></div>
     <div class="progress"><i id="planBar"></i></div>
     <p class="muted" style="margin:6px 0 0">Marca cada tarea al terminarla. Se guarda en este navegador y, si entras con tu cuenta, en todos tus dispositivos. Cada día suma unas 2 horas y media; el domingo es simulacro.</p>
   </div>
   <div class="days" id="days"></div>
-</section>
+</section></details>
 
-<section class="panel" id="p-cards" hidden>
+<details class="ac" id="d-cards"><summary>Flashcards</summary><section class="panel" id="p-cards">
   <div class="fc-tools" id="fcFilters"></div>
   <div class="card flash" id="flash" tabindex="0" role="button" aria-label="Girar tarjeta"></div>
   <div class="fc-nav">
@@ -165,13 +166,13 @@ input.gap.ko{background:var(--bad-soft);border-color:var(--bad)}
     <button class="btn ghost" id="fcLearn" type="button">Repasar luego</button>
     <span class="muted" id="fcStat"></span>
   </div>
-</section>
+</section></details>
 
-<section class="panel" id="p-test" hidden>
+<details class="ac" id="d-test"><summary>Test teórico</summary><section class="panel" id="p-test">
   <div id="quizBox"></div>
-</section>
+</section></details>
 
-<section class="panel" id="p-lab" hidden>
+<details class="ac" id="d-lab"><summary>Práctica HTML</summary><section class="panel" id="p-lab">
   <div class="row" style="justify-content:space-between;margin-bottom:8px"><b id="exCount"></b>
     <div class="row"><span id="examClock" style="font:600 20px var(--f-mono)"></span><button class="btn ghost" id="examBtn" type="button">Modo examen (45 min)</button></div></div>
   <div class="ex-list" id="exGroups"></div>
@@ -197,20 +198,20 @@ input.gap.ko{background:var(--bad-soft);border-color:var(--bad)}
   </div>
   <ul class="checks" id="checks"></ul>
   <pre id="solBox" hidden class="card" style="overflow-x:auto;font-size:13px;margin-top:10px"></pre>
-</section>
+</section></details>
 
-<section class="panel" id="p-gaps" hidden>
+<details class="ac" id="d-gaps"><summary>Huecos</summary><section class="panel" id="p-gaps">
   <p class="muted" style="margin-top:0">Completa los huecos de memoria y comprueba. Es la forma más rápida de fijar etiquetas, atributos y datos de teoría.</p>
   <div class="ex-list" id="gapSel"></div>
   <pre class="card" id="gapBox" style="white-space:pre-wrap;font-size:14px;line-height:2.1;overflow-x:auto"></pre>
   <div class="row" style="margin-top:10px"><button class="btn" id="gapCheck" type="button">Comprobar</button><button class="btn ghost" id="gapShow" type="button">Ver respuestas</button><button class="btn ghost" id="gapReset" type="button">Vaciar</button><b id="gapRes" aria-live="polite"></b></div>
-</section>
+</section></details>
 
-<section class="panel" id="p-ref" hidden>
+<details class="ac" id="d-ref"><summary>Etiquetas</summary><section class="panel" id="p-ref">
   <label for="refQ" class="muted" style="font-size:13px">Buscar etiqueta, atributo o concepto</label>
   <input class="search" id="refQ" type="search" placeholder="Por ejemplo: radio, colspan, viewport">
   <div class="tw"><table><thead><tr><th>Elemento</th><th>Para qué sirve</th></tr></thead><tbody id="refBody"></tbody></table></div>
-</section>
+</section></details>
 </div>
 <script>
 const EXAM = new Date(2026, 10, 9, 9, 0, 0); // 9 de noviembre de 2026
@@ -881,7 +882,7 @@ const el=(t,a={},...c)=>{const e=document.createElement(t);for(const[k,v]of Obje
 $("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme: dark)").matches);const n=dark?"light":"dark";r.setAttribute("data-theme",n);store.set("theme",n)}})();
 
 /* pestañas */
-function showTab(id){$$("#tabs button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===id)));$$("section.panel").forEach(p=>p.hidden=p.id!=="p-"+id);store.set("tab",id)}
+function showTab(id){$$("#tabs button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===id)));const d=$("#d-"+id);if(d){d.open=true;d.scrollIntoView()}}
 $$("#tabs button").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 
 /* cuenta atras */
@@ -1017,7 +1018,7 @@ function refRender(){const q=$("#refQ").value.trim().toLowerCase();const b=$("#r
  if(!b.children.length)b.append(el("tr",{},el("td",{colspan:"2",class:"muted",text:"Sin resultados."})))}
 $("#refQ").oninput=refRender;refRender();
 
-{const h=(location.hash||"").slice(1);showTab($("#tabs button[data-tab='"+h+"']")?h:store.get("tab","plan"))}window.addEventListener("hashchange",()=>{const h=(location.hash||"").slice(1);if($("#tabs button[data-tab='"+h+"']"))showTab(h)});
+{const h=(location.hash||"").slice(1);if($("#tabs button[data-tab='"+h+"']"))showTab(h)}window.addEventListener("hashchange",()=>{const h=(location.hash||"").slice(1);if($("#tabs button[data-tab='"+h+"']"))showTab(h)});
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
