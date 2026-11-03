@@ -23,7 +23,7 @@ Material de estudio de DAW 1. Una carpeta por asignatura y, dentro de cada una, 
 
 ### [Sistemas Informáticos](sistemas-informaticos/README.md)
 
-Aún sin contenido.
+- [Temario, guía de Ubuntu Server y Ponte a prueba](https://amantxy.github.io/DAW1-ALBA/sistemas-informaticos/index.html)
 
 ### [Transformación del Sistema Productivo](transformacion/README.md)
 
@@ -44,7 +44,7 @@ Aún sin contenido.
 | Programación | `programacion/` | `1-PROGRAMACION.html` |
 | Lenguaje de Marcas | `lenguajes-de-marcas/` | `1-LDM-HTML-Teoriaypractica.html` |
 | Bases de Datos | `bases-de-datos/` | `tema-1.html` |
-| Sistemas Informáticos | `sistemas-informaticos/` | — |
+| Sistemas Informáticos | `sistemas-informaticos/` | `ut1-hardware.html` … `ut10-windows-red.html`, `ubuntu-server-virtualbox.html`, `ponte-a-prueba.html` |
 | Transformación del Sistema Productivo | `transformacion/` | `ut1.html`, `ut2.html`, `ut3.html` |
 | Entornos de Desarrollo | `entornos-de-desarrollo/` | `desarrollo-software.html` |
 | Inglés Profesional | `ingles-profesional/` | `unidad-01.html` a `unidad-10.html` |

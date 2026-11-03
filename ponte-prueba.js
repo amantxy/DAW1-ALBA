@@ -12,7 +12,7 @@ var cant=Q.get("n")==="todas"?"todas":"40";
 var box=$("#juego"),sel=$("#ut"),sN=$("#nv"),sC=$("#cant");if(sel)sel.value=ut;
 function va(){var p=new URLSearchParams();p.set(PARAM,sel?sel.value:ut);if(sN.value)p.set("nivel",sN.value);if(sC.value==="todas")p.set("n","todas");location.search="?"+p}
 if(sel)sel.onchange=va;sN.onchange=sC.onchange=va;
-var UNIS=ut==="todas"?[1,2,3]:[+ut],TODAS=[],visto={};
+var UNIS=ut==="todas"?Object.keys(BANCO).map(Number):[+ut],TODAS=[],visto={};
 UNIS.forEach(function(u){BANCO[u].forEach(function(q,i){var k=q[0].trim().toLowerCase();if(visto[k])return;visto[k]=1;TODAS.push({u:u,i:i,q:q,n:NIVEL[u].charAt(i)})})});
 var NOM={F:"Fácil",M:"Medio",D:"Difícil"};
 function cuenta(n){return TODAS.filter(function(p){return p.n===n}).length}

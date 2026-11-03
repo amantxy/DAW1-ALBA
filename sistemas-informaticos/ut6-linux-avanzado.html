@@ -1,0 +1,102 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UT 6. Linux avanzado</title><style>
+:root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#7c3aed;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#b794ff;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.hero{background:var(--c);color:#fff;padding:28px 0 26px;margin-bottom:24px}
+@media (prefers-color-scheme:dark){.hero{color:#0b1220}}
+.hero .wrap{padding-bottom:0}
+.hero h1{margin:0;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.15}
+.hero p{margin:6px 0 0;opacity:.92}
+.back{display:inline-block;color:inherit;text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 0;margin-bottom:6px;opacity:.95}
+.back:hover{text-decoration:underline}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+a.card,div.card{display:block;position:relative;background:var(--hoja);border:1px solid var(--linea);border-top:6px solid var(--c);border-radius:12px;padding:16px 18px;color:inherit;text-decoration:none;min-height:104px}
+a.card:hover,a.card:focus-visible{box-shadow:0 6px 20px rgb(0 0 0/.12);transform:translateY(-2px);outline:none}
+a.card{transition:transform .15s,box-shadow .15s}
+.card b{display:block;font-size:1.1rem;color:var(--c);margin-bottom:2px}
+.card span{color:var(--suave);font-size:.9rem}
+.card .ico{position:absolute;right:14px;top:12px;font:700 1.3rem ui-monospace,Consolas,monospace;color:var(--c);opacity:.35}
+.card.off{opacity:.5;border-top-style:dashed}
+details.fold{position:relative;margin:32px 0 18px;--f:color-mix(in srgb,var(--c) 20%,var(--hoja))}
+details.fold>summary{list-style:none;cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;min-height:72px;padding:16px 18px;background:var(--f);border:2px solid var(--c);border-radius:0 12px 12px 12px}
+details.fold>summary::before{content:"";position:absolute;left:-2px;bottom:100%;width:min(46%,170px);height:17px;background:var(--c);border-radius:10px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+details.fold>summary:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary>svg{display:none}
+details.fold>summary b{font-size:1.15rem}
+details.fold>summary small{display:block;color:var(--suave);font-size:.88rem}
+details.fold>summary::after{content:"▾";margin-left:auto;color:var(--tinta);transition:transform .2s}
+details.fold[open]>summary{border-radius:0 12px 0 0}
+details.fold[open]>summary::after{transform:rotate(180deg)}
+.in{padding:14px 16px 18px;background:var(--hoja);border:2px solid var(--c);border-top:0;border-radius:0 0 12px 12px}
+.in h3{margin:14px 0 8px;font-size:.95rem;color:var(--c);display:flex;align-items:center;gap:8px}
+.in h3 svg{width:20px;height:20px}
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
+a.t,div.t{display:block;background:var(--cs);border:1px solid var(--linea);border-radius:10px;padding:12px 14px;color:inherit;text-decoration:none;min-height:64px}
+a.t:hover,a.t:focus-visible{border-color:var(--c);outline:none}
+.t b{display:block;font-size:.98rem}
+.t span{color:var(--suave);font-size:.82rem}
+div.t{opacity:.5;border-style:dashed}
+.sub{position:relative;margin-top:26px;padding:6px 12px 14px;background:var(--cs);border:1.5px solid var(--c);border-radius:0 10px 10px 10px}
+.sub::before{content:"";position:absolute;left:-1.5px;bottom:100%;width:min(46%,130px);height:13px;background:var(--c);border-radius:8px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.pasos{display:flex;flex-wrap:wrap;gap:6px 8px;margin:0 0 14px}.pasos span{background:var(--cs);border:1px solid var(--linea);border-radius:8px;padding:6px 10px;font-weight:600}.pasos span+span::before{content:"→ ";color:var(--c)}
+figure.g{max-width:300px}figure img{background:#fff}.sol{border:1px solid var(--linea);border-radius:10px;padding:0 12px;margin:12px 0}.sol>div{padding:0 0 4px}.fold .in>p:first-child{margin-top:4px}p.nota{margin:12px 0}
+pre.code{white-space:pre;overflow-x:auto}
+</style><link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>UT 6. Linux avanzado</h1></div></div><div class="wrap"><p class="nota">Desarrollado a partir de la programación. Prueba estos comandos solo en una máquina virtual: algunos borran datos. Se ampliará con lo que añada el profesor.</p><details class="fold" id="f1"><summary><span><b>1. Discos, particiones y volúmenes</b><small>lsblk, LVM y montaje</small></span></summary><div class="in"><pre class="code">lsblk
+sudo fdisk -l
+df -h
+sudo mkfs.ext4 /dev/sdb1
+sudo mount /dev/sdb1 /mnt
+sudo blkid</pre><p>Para montar al arrancar, se añade a <code>/etc/fstab</code>:</p><pre class="code">UUID=xxxx-xxxx /datos ext4 defaults 0 2</pre><h3>LVM</h3><div class="pasos"><span>Volumen físico (PV)</span><span>Grupo de volúmenes (VG)</span><span>Volumen lógico (LV)</span></div><pre class="code">sudo pvcreate /dev/sdb1
+sudo vgcreate datos-vg /dev/sdb1
+sudo lvcreate -L 5G -n lv-datos datos-vg
+sudo lvextend -r -L +1G /dev/datos-vg/lv-datos</pre><h3>Chequeo y cifrado</h3><ul><li><code>sudo fsck /dev/sdb1</code>, con el sistema de archivos desmontado.</li><li><code>sudo smartctl -a /dev/sda</code>, salud del disco físico.</li><li><b>LUKS</b> cifra una partición con <code>cryptsetup luksFormat</code>. Se pierde lo que hubiera.</li></ul></div></details><details class="fold" id="f2"><summary><span><b>2. Usuarios y grupos</b><small>Cuentas y contraseñas</small></span></summary><div class="in"><pre class="code">sudo adduser ana
+sudo addgroup daw
+sudo usermod -aG daw ana
+id ana
+sudo passwd ana
+sudo chage -l ana
+sudo chage -M 90 ana
+sudo userdel -r ana</pre><table class="g"><thead><tr><th>Archivo</th><th>Contiene</th></tr></thead><tbody><tr><td><code>/etc/passwd</code></td><td>Cuentas</td></tr><tr><td><code>/etc/shadow</code></td><td>Contraseñas cifradas</td></tr><tr><td><code>/etc/group</code></td><td>Grupos</td></tr></tbody></table><p>Buenas prácticas: contraseñas largas, sudo en vez de root, y bloquear cuentas que no se usan con <code>sudo usermod -L ana</code>.</p></div></details><details class="fold" id="f3"><summary><span><b>3. Permisos y ACL</b><small>rwx, chmod y setfacl</small></span></summary><div class="in"><table class="g"><thead><tr><th>Permiso</th><th>Archivo</th><th>Carpeta</th><th>Valor</th></tr></thead><tbody><tr><td>r</td><td>Leer</td><td>Listar</td><td>4</td></tr><tr><td>w</td><td>Modificar</td><td>Crear y borrar dentro</td><td>2</td></tr><tr><td>x</td><td>Ejecutar</td><td>Entrar</td><td>1</td></tr></tbody></table><pre class="code">ls -l informe.txt
+chmod 640 informe.txt
+chmod u+x script.sh
+sudo chown ana:daw informe.txt
+umask 022</pre><p>Con umask 022, los archivos nuevos quedan en 644 y las carpetas en 755.</p><h3>ACL: permisos para alguien concreto</h3><pre class="code">sudo setfacl -m u:pepe:rw informe.txt
+getfacl informe.txt
+sudo setfacl -b informe.txt</pre></div></details><details class="fold" id="f4"><summary><span><b>4. Servicios y procesos</b><small>systemctl, ps y kill</small></span></summary><div class="in"><pre class="code">systemctl status ssh
+sudo systemctl start ssh
+sudo systemctl stop ssh
+sudo systemctl enable ssh
+ps aux
+top
+kill 1234
+kill -9 1234
+nice -n 10 comando</pre><p><code>kill</code> pide terminar; <code>kill -9</code> obliga, sin dejarle guardar.</p></div></details><details class="fold" id="f5"><summary><span><b>5. Monitorización y registros</b><small>Quién consume qué</small></span></summary><div class="in"><table class="g"><thead><tr><th>Comando</th><th>Muestra</th></tr></thead><tbody><tr><td><code>top</code>, <code>htop</code></td><td>CPU y procesos</td></tr><tr><td><code>free -h</code></td><td>Memoria</td></tr><tr><td><code>df -h</code>, <code>du -sh *</code></td><td>Disco</td></tr><tr><td><code>iostat</code></td><td>Entrada/salida (paquete sysstat)</td></tr><tr><td><code>journalctl -u ssh</code></td><td>Registro de un servicio</td></tr><tr><td><code>journalctl -p err -b</code></td><td>Errores desde el arranque</td></tr><tr><td><code>tail -f /var/log/syslog</code></td><td>Registro general en vivo</td></tr><tr><td><code>last</code></td><td>Últimos accesos</td></tr></tbody></table></div></details><details class="fold" id="f6"><summary><span><b>6. Ejercicios</b><small>Con solución</small></span></summary><div class="in"><ol><li>Crea el grupo <code>daw</code> y el usuario <code>ana</code>, que pertenezca a él.</li><li>Crea <code>/srv/daw</code>, de <code>root:daw</code>, donde el grupo pueda escribir y los demás no vean nada.</li><li>Da a <code>pepe</code> lectura en un archivo con ACL, sin cambiar el grupo.</li><li>¿Qué permisos da <code>chmod 750</code>?</li><li>Haz que ana tenga que cambiar la contraseña cada 90 días.</li><li>Muestra los errores del servicio ssh.</li></ol><details class="sol"><summary>Ver la solución</summary><div><pre class="code">sudo addgroup daw
+sudo adduser ana
+sudo usermod -aG daw ana
+sudo mkdir /srv/daw
+sudo chown root:daw /srv/daw
+sudo chmod 770 /srv/daw
+sudo setfacl -m u:pepe:r archivo.txt
+sudo chage -M 90 ana
+journalctl -u ssh -p err</pre><p>El ejercicio 4: <code>rwxr-x---</code>. Propietario todo, grupo leer y entrar, resto nada.</p></div></details></div></details></div><script>(function(){function a(){var d=location.hash&&document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS"){for(var x=d;x;x=x.parentElement)if(x.tagName==="DETAILS")x.open=true;d.scrollIntoView()}}addEventListener("hashchange",a);a()})();</script><script src="../bases-de-datos/visor.js"></script></body></html>
