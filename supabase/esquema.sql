@@ -10,7 +10,7 @@ create table if not exists public.documentos (
   unidad     text not null,
   titulo     text not null,
   nombre     text not null,
-  tipo       text not null check (tipo in ('pdf', 'img', 'docx', 'md', 'txt', 'html')),
+  tipo       text not null check (tipo in ('pdf', 'img', 'docx', 'md', 'txt', 'html', 'video')),
   ruta       text not null unique,
   tamano     bigint not null default 0,
   creado     timestamptz not null default now()
@@ -38,7 +38,8 @@ values (
     'application/pdf',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     'image/png', 'image/jpeg', 'image/gif', 'image/webp',
-    'text/markdown', 'text/plain', 'text/html'
+    'text/markdown', 'text/plain', 'text/html',
+    'video/mp4'
   ]
 )
 on conflict (id) do update set
@@ -94,3 +95,21 @@ create policy "progreso propio" on public.progreso
   for all to authenticated
   using ((select auth.uid()) = user_id)
   with check ((select auth.uid()) = user_id);
+
+-- 6. Contenido privado de la web, solo legible por su propietaria
+create table if not exists public.contenido_privado (
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  clave   text not null,
+  html    text not null,
+  primary key (user_id, clave)
+);
+
+alter table public.contenido_privado enable row level security;
+
+revoke all on public.contenido_privado from anon;
+grant select on public.contenido_privado to authenticated;
+
+drop policy if exists "contenido propio" on public.contenido_privado;
+create policy "contenido propio" on public.contenido_privado
+  for select to authenticated
+  using ((select auth.uid()) = user_id);

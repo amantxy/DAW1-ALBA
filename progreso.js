@@ -3,7 +3,7 @@
 (function(){
 var S=document.currentScript,P=S.dataset.pagina,C=S.dataset.claves.split(","),cfg=window.DAW1_SUPABASE||{};
 if(!P||!cfg.url||!cfg.key||typeof supabase==="undefined")return;
-var sb=supabase.createClient(cfg.url,cfg.key),user=null,gen=0,corriendo=false,otra=false,temp=0;
+var sb=window.DAW1_SB=supabase.createClient(cfg.url,cfg.key),user=null,gen=0,corriendo=false,otra=false,temp=0;
 var setI=Storage.prototype.setItem,delI=Storage.prototype.removeItem,META="sync:"+P;
 function coincide(k){return C.some(function(c){return c.slice(-1)==="*"?k.indexOf(c.slice(0,-1))===0:k===c})}
 function meta(){try{var m=JSON.parse(localStorage.getItem(META))||{};return user&&m.uid&&m.uid!==user.id?{dirty:m.dirty}:m}catch(e){return{}}}
@@ -58,8 +58,10 @@ dl.querySelector("#pgf").onsubmit=async function(e){e.preventDefault();var er=dl
  var r=await sb.auth.signInWithPassword({email:dl.querySelector("#pgm").value.trim(),password:dl.querySelector("#pgp").value}).catch(function(x){return{error:x}});b.disabled=false;
  if(r.error){er.textContent=/invalid login/i.test(r.error.message||"")?"Correo o contraseña incorrectos.":"No se pudo conectar. Inténtalo de nuevo.";return}
  dl.querySelector("#pgp").value="";dl.close()};
-bt.onclick=async function(){if(!user){dl.showModal();return}await sb.auth.signOut()};
-function cambia(u){if((u&&u.id)===(user&&user.id))return;user=u;pinta();if(user)sincroniza()}
+bt.onclick=async function(){if(!user){dl.showModal();return}clearTimeout(temp);await sincroniza();if(meta().dirty&&!confirm("Hay cambios sin guardar en tu cuenta. ¿Salir igualmente?"))return;await sb.auth.signOut();limpia();location.reload()};
+/* Al salir, el progreso no se queda visible en este navegador. */
+function limpia(){var G={programacion:["fc-known"],"lenguajes-de-marcas":["lm:"],ingles:["en:"],transformacion:["tsp:"]};try{Object.keys(G).forEach(function(p){var m;try{m=JSON.parse(localStorage.getItem("sync:"+p))||{}}catch(e){m={}}if(m.dirty&&p!==P)return;for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(G[p].some(function(x){return k.indexOf(x)===0}))delI.call(localStorage,k)}delI.call(localStorage,"sync:"+p)})}catch(e){}}
+function cambia(u){var nuevo=(u&&u.id)!==(user&&user.id);user=u;document.dispatchEvent(new CustomEvent("daw1-auth",{detail:u}));if(!nuevo)return;pinta();if(user)sincroniza()}
 sb.auth.onAuthStateChange(function(ev,s){setTimeout(function(){cambia(s?s.user:null)},0)});
 pinta();
 addEventListener("online",sincroniza);

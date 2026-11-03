@@ -1,4 +1,4 @@
-# Lenguajes de Marcas
+# Lenguaje de Marcas
 
 [← Volver a la portada](../README.md) · [Página de inicio](https://amantxy.github.io/DAW1-ALBA/)
 

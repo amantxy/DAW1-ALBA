@@ -10,7 +10,7 @@ Material de estudio de DAW 1. Una carpeta por asignatura y, dentro de cada una, 
 
 - [1-PROGRAMACION.html](https://amantxy.github.io/DAW1-ALBA/programacion/1-PROGRAMACION.html) · Apuntes por temas (UT 1, 2 y 3), ejercicios, libro, flashcards y práctica interactiva
 
-### [Lenguajes de Marcas](lenguajes-de-marcas/README.md)
+### [Lenguaje de Marcas](lenguajes-de-marcas/README.md)
 
 - [1-LDM-HTML-Teoriaypractica.html](https://amantxy.github.io/DAW1-ALBA/lenguajes-de-marcas/1-LDM-HTML-Teoriaypractica.html) · HTML teoría y práctica: plan de 6 días, flashcards, test y ejercicios para el examen del 9 de noviembre
 
@@ -22,9 +22,9 @@ Aún sin contenido.
 
 Aún sin contenido.
 
-### [Transformación](transformacion/README.md)
+### [Transformación del Sistema Productivo](transformacion/README.md)
 
-Aún sin contenido.
+- [Temario de las UT1, UT2 y UT3](https://amantxy.github.io/DAW1-ALBA/transformacion/index.html) · Teoría, explicaciones, transcripciones y autoevaluación
 
 ### [Entornos de Desarrollo](entornos-de-desarrollo/README.md)
 
@@ -32,19 +32,19 @@ Aún sin contenido.
 
 ### [Inglés Profesional](ingles-profesional/README.md)
 
-Aún sin contenido.
+- [Temario de 10 unidades](https://amantxy.github.io/DAW1-ALBA/ingles-profesional/index.html) · Vocabulario, lectura, gramática, speaking, writing y ejercicios
 
 ## Estructura
 
 | Asignatura | Carpeta | HTML |
 | --- | --- | --- |
 | Programación | `programacion/` | `1-PROGRAMACION.html` |
-| Lenguajes de Marcas | `lenguajes-de-marcas/` | `1-LDM-HTML-Teoriaypractica.html` |
+| Lenguaje de Marcas | `lenguajes-de-marcas/` | `1-LDM-HTML-Teoriaypractica.html` |
 | Bases de Datos | `bases-de-datos/` | — |
 | Sistemas Informáticos | `sistemas-informaticos/` | — |
-| Transformación | `transformacion/` | — |
+| Transformación del Sistema Productivo | `transformacion/` | `ut1.html`, `ut2.html`, `ut3.html` |
 | Entornos de Desarrollo | `entornos-de-desarrollo/` | — |
-| Inglés Profesional | `ingles-profesional/` | — |
+| Inglés Profesional | `ingles-profesional/` | `unidad-01.html` a `unidad-10.html` |
 
 ## Mis documentos
 
