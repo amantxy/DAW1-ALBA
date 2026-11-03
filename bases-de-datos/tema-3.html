@@ -1,0 +1,182 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tema 3: Modelo Relacional · Bases de Datos</title><style>
+:root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#059669;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#34d399;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.hero{background:var(--c);color:#fff;padding:28px 0 26px;margin-bottom:24px}
+@media (prefers-color-scheme:dark){.hero{color:#0b1220}}
+.hero .wrap{padding-bottom:0}
+.hero h1{margin:0;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.15}
+.hero p{margin:6px 0 0;opacity:.92}
+.back{display:inline-block;color:inherit;text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 0;margin-bottom:6px;opacity:.95}
+.back:hover{text-decoration:underline}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+a.card,div.card{display:block;position:relative;background:var(--hoja);border:1px solid var(--linea);border-top:6px solid var(--c);border-radius:12px;padding:16px 18px;color:inherit;text-decoration:none;min-height:104px}
+a.card:hover,a.card:focus-visible{box-shadow:0 6px 20px rgb(0 0 0/.12);transform:translateY(-2px);outline:none}
+a.card{transition:transform .15s,box-shadow .15s}
+.card b{display:block;font-size:1.1rem;color:var(--c);margin-bottom:2px}
+.card span{color:var(--suave);font-size:.9rem}
+.card .ico{position:absolute;right:14px;top:12px;font:700 1.3rem ui-monospace,Consolas,monospace;color:var(--c);opacity:.35}
+.card.off{opacity:.5;border-top-style:dashed}
+details.fold{position:relative;margin:32px 0 18px;--f:color-mix(in srgb,var(--c) 20%,var(--hoja))}
+details.fold>summary{list-style:none;cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;min-height:72px;padding:16px 18px;background:var(--f);border:2px solid var(--c);border-radius:0 12px 12px 12px}
+details.fold>summary::before{content:"";position:absolute;left:-2px;bottom:100%;width:min(46%,170px);height:17px;background:var(--c);border-radius:10px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+details.fold>summary:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary>svg{display:none}
+details.fold>summary b{font-size:1.15rem}
+details.fold>summary small{display:block;color:var(--suave);font-size:.88rem}
+details.fold>summary::after{content:"▾";margin-left:auto;color:var(--tinta);transition:transform .2s}
+details.fold[open]>summary{border-radius:0 12px 0 0}
+details.fold[open]>summary::after{transform:rotate(180deg)}
+.in{padding:14px 16px 18px;background:var(--hoja);border:2px solid var(--c);border-top:0;border-radius:0 0 12px 12px}
+.in h3{margin:14px 0 8px;font-size:.95rem;color:var(--c);display:flex;align-items:center;gap:8px}
+.in h3 svg{width:20px;height:20px}
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
+a.t,div.t{display:block;background:var(--cs);border:1px solid var(--linea);border-radius:10px;padding:12px 14px;color:inherit;text-decoration:none;min-height:64px}
+a.t:hover,a.t:focus-visible{border-color:var(--c);outline:none}
+.t b{display:block;font-size:.98rem}
+.t span{color:var(--suave);font-size:.82rem}
+div.t{opacity:.5;border-style:dashed}
+.sub{position:relative;margin-top:26px;padding:6px 12px 14px;background:var(--cs);border:1.5px solid var(--c);border-radius:0 10px 10px 10px}
+.sub::before{content:"";position:absolute;left:-1.5px;bottom:100%;width:min(46%,130px);height:13px;background:var(--c);border-radius:8px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+</style></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Bases de Datos</a><h1>Tema 3: Modelo Relacional</h1><p>Teoría del tema, con sus imágenes</p></div></div><div class="wrap"><details class="fold" id="r1"><summary><span><b>1. Modelo Relacional</b><small>Relación, atributos, dominios y representación</small></span></summary><div class="in">
+<p><b><i>Una base de datos relacional es un conjunto de datos de una o más tablas en registros (filas) y campos (columnas).</i></b></p>
+<p><b>Relación:</b> es el elemento básico que puede representarse en forma de tabla. Fundamentalmente es una estructura de datos que se representa con un <u>nombre</u> y un <u>conjunto de atributos o columnas</u>.</p>
+<p><b>Ejemplo:</b> JUGADORES (id_jugador entero(4), dni entero(8), nombre character(10), equipo carácter(20), edad entero(3)).</p>
+<p>Una relación queda determinada por su nombre y sus atributos de forma unívoca.</p>
+<ul><li><b>Dominio:</b> conjunto de valores que puede tomar un atributo (entero, carácter...).</li><li><b>Atributo:</b> cada propiedad de cada relación puede tomar valores.</li></ul>
+<p>Es el modelo de representación que siguen la gran mayoría de los SGBD relacionales (MySQL, SQL Server, Oracle, Ms Access, entre otros) en la actualidad, puesto que es el modelo de datos más extendido.</p>
+<p>Por tanto, es necesario transformar nuestro modelo Entidad/Relación a un modelo relacional si queremos crear nuestra Base de Datos en algún SGBD relacional.</p>
+<table class="g"><thead><tr><th>Modelo Relacional</th><th>Gráficamente</th><th>Información tradicional</th></tr></thead><tbody><tr><td>Relación</td><td>Tablas</td><td>Ficheros</td></tr><tr><td>Atributos</td><td>Columnas</td><td>Campos</td></tr><tr><td>Tuplas</td><td>Filas</td><td>Registros</td></tr></tbody></table>
+<h3>1.1. Representación</h3>
+<p><b>Existen dos tipos de definiciones:</b></p>
+<ol><li><b>Esquema de Relación:</b> estructura de la tabla (ejemplo anterior JUGADORES).</li><li><b>Extensión o Cuerpo:</b> conjunto de elementos o tuplas de la tabla que varían con el tiempo.</li></ol>
+<table class="g"><thead><tr><th>Id_jugador</th><th>Dni</th><th>Nombre</th><th>Apellido</th><th>Equipo</th><th>Edad</th></tr></thead><tbody><tr><td>1</td><td>3333</td><td>Juan</td><td>Martínez</td><td>UGijón</td><td>32</td></tr><tr><td>2</td><td>4444</td><td>Pedro</td><td>Fernández</td><td>UGijón</td><td>37</td></tr></tbody></table>
+<figure class="one"><img src="img/t3-tabla.png" width="546" height="172" loading="lazy" alt="Tabla Trabajo con columnas código, nombre, posición y salario; se señalan una columna y una fila."><figcaption>Tabla, columna y fila</figcaption></figure><figure class="one"><img src="img/t3-tablas-relacionadas.png" width="500" height="327" loading="lazy" alt="Tres tablas: personas, vehículos y una tercera que referencia a ambas con ID_e e ID_v."><figcaption>Tablas relacionadas mediante sus claves</figcaption></figure>
+<p>En la práctica no es necesario dibujar una tabla completa, sino que se suele indicar el nombre de los campos, y los campos claves que conforman las relaciones:</p>
+<pre class="code">Trabajo (#codigo, nombre, posicion, salario)
+Empleado (#dni, nombre, apellidos, -codigo_trabajo)
+Profesor (#id, dni, nombre, apellidos, departamento)
+Asignatura (#id, nombre, n_horas, -id_profesor)</pre></div></details><details class="fold" id="r2"><summary><span><b>2. Restricciones</b><small>Inherentes, de usuario, claves e integridad referencial</small></span></summary><div class="in">
+<h3>Restricciones inherentes</h3>
+<p><b>Inherentes:</b> derivadas del propio modelo.</p>
+<ol type="a"><li>No existen dos elementos iguales: no existen dos registros (filas) iguales en la misma tabla.</li><li>No existe un orden en las filas de la relación.</li><li>El orden de los atributos (columnas) no es significativo.</li><li>Cada atributo toma UN ÚNICO valor del dominio (un nombre es solo «char» y no entero, y siempre así).</li><li>Debe cumplir la regla de integridad: <b>«Ningún atributo que forma parte de la clave primaria puede tomar un valor desconocido o nulo»</b>.</li></ol>
+<table class="g"><thead><tr><th>Las inherentes al modelo, que diferencian una relación de una tabla</th></tr></thead><tbody><tr><td>No puede haber dos tuplas iguales.</td></tr><tr><td>El orden de las tuplas es irrelevante.</td></tr><tr><td>Los atributos tienen un único valor.</td></tr><tr><td>La clave primaria no puede tener valor nulo.</td></tr></tbody></table>
+<h3>Restricciones de usuario (semánticas)</h3>
+<p><b>De usuario (semánticas):</b> impuestas por las características del sistema a modelar. <u>Cada fila se identifica por la clave.</u></p>
+<ul><li><b>Clave candidata:</b> conjunto mínimo de atributos que identifican unívoca y mínimamente cada elemento de una relación. Una relación puede tener varias claves candidatas.</li><li><b>Clave primaria:</b> de las claves candidatas, la que el diseñador escoja por motivos ajenos al modelo. Los atributos que forman parte de esta clave no pueden tomar valores nulos.</li><li><b>Clave alternativa:</b> claves candidatas que no han sido escogidas como clave primaria.</li><li><b>Clave ajena (foreign key):</b> conjunto de atributos de una relación cuyos valores han de coincidir con los valores de la clave primaria de otra relación. <u>La clave ajena y la clave primaria deben estar definidas del mismo modo.</u></li></ul>
+<h3>Clave primaria</h3>
+<p>Denominamos <b><i>Clave Primaria</i></b>, en inglés <b>Primary Key (PK)</b>, al campo identificador principal de una tabla. Es la clave candidata elegida por el usuario para identificar a cada registro de la tabla.</p>
+<p>La elección del campo que hará de clave primaria corre a nuestra cuenta, pero es habitual crear un campo <b><i>id</i></b> autonumérico para tal fin por motivos de simplicidad.</p>
+<pre class="code">-- Representamos las claves primarias con la almohadilla (#)
+Trabajo (#codigo, nombre, posicion, salario)
+Profesor (#id, dni, nombre, apellidos, departamento)
+Asignatura (#id, nombre, n_horas, -id_profesor)</pre>
+<figure class="one"><img src="img/t3-tipos-claves.png" width="900" height="324" loading="lazy" alt="Dos tablas con clave primaria, candidata, ajena, alternativa, única y superclave señaladas."><figcaption>Tipos de claves en una tabla</figcaption></figure>
+<h3>Clave ajena</h3>
+<p>Toda tabla cuyos registros tengan relación con los registros de otra tabla debe tener un campo cuyos valores identifiquen a los registros de otra tabla.</p>
+<p>A este campo se le conoce como <b><i>Clave Ajena o Foránea</i></b>, en inglés <b>Foreign Key (FK)</b>. Contiene los valores de la clave primaria de los registros de la tabla con la que se relaciona.</p>
+<p>Aparte, es habitual que esta tabla también tenga un campo Clave Primaria.</p>
+<figure class="one"><img src="img/t3-posee.png" width="600" height="114" loading="lazy" alt="Propietario (1,1) Posee (1,N) Vehículo, con cardinalidad total 1:N."><figcaption>Relación 1:N entre Propietario y Vehículo</figcaption></figure><figure class="one"><img src="img/t3-clave-ajena.png" width="800" height="200" loading="lazy" alt="Tablas Propietario y Vehículo; id_propietario de Vehículo apunta al id de Propietario."><figcaption>Clave ajena id_propietario</figcaption></figure>
+<p>La tabla <b>Propietario</b> tiene un campo (id) que actúa como clave primaria (PK) de la tabla. No puede haber dos registros con el mismo valor (id).</p>
+<p>La tabla <b>Vehículo</b> tiene un campo (id) que actúa como clave primaria de la tabla. Además, la tabla Vehículo tiene un campo (<b>id_propietario</b>) que actúa como <b>clave ajena (FK)</b>, y referencia cada uno de sus registros con un registro concreto de la tabla Propietario.</p>
+<p>De este modo podemos saber quién es el propietario de cada vehículo. Como se trata de una relación 1:N, un Propietario puede tener varios Vehículos, pero cada vehículo solo puede tener un propietario.</p>
+<pre class="code">-- Representamos las claves ajenas mediante un guion (-)
+-- Además, añadimos a la columna el nombre de la tabla de la que procede.
+Profesor (#id, dni, nombre, apellidos, departamento)
+-- Una asignatura es impartida por un profesor
+Asignatura (#id, nombre, n_horas, -id_profesor)
+
+-- Vehículos tiene una clave ajena que referencia a propietarios
+Propietarios (#id, nombre, apellidos, . . .)
+Vehiculos (#id, matricula, marca, modelo, -id_propietario)</pre>
+<h3>Elección de claves primarias</h3>
+<p>A la hora de seleccionar la columna que ejercerá como clave primaria podemos utilizar dos enfoques:</p>
+<ul><li><b>Clave Primaria Natural:</b> son claves primarias que ya existen en nuestra tabla y tienen un significado real; representan datos reales. Ejemplos de claves primarias naturales son: dni, nss, matrícula, expediente, o combinaciones de columnas que tengamos en nuestra tabla.</li><li><b>Clave Primaria Subrogada:</b> son columnas clave primaria creadas por el programador exclusivamente para el diseño de la base de datos, sin que sean campos existentes en los requisitos de la base de datos. Consiste en añadir una columna autonumérica cuyos valores son generados por el motor de la base de datos de forma automática siendo siempre únicos. El ejemplo que nosotros usamos en estos apuntes es crear una columna <b>id</b> autonumérica.</li></ul>
+<p><b><u>Ventajas e inconvenientes:</u></b></p>
+<ul><li>Para poder designar claves primarias naturales necesito que mi tabla tenga campos que sean claves candidatas. Esta situación no siempre se da, o requiere de la unión de varias columnas.</li><li>A la hora de relacionar tablas, simplifica mucho la tarea que las claves ajenas sean lo más sencillas posibles; mejor si la clave ajena es un solo campo de la tabla a que sea una clave ajena compuesta. Para ello necesito que la clave primaria sea simple, y no se componga de varios campos.</li><li>Las claves primarias subrogadas se pueden añadir a cualquier tabla aunque no tenga claves candidatas, tanto en el momento del diseño como en fases posteriores que requieren modificar la estructura de la BBDD.</li></ul>
+<p class="nota">En este módulo, tanto en los ejemplos como en las explicaciones, se opta por el uso de <b>claves primarias subrogadas</b> ya que permite plantear un enfoque más sencillo y escalable. Eso no quiere decir que el diseño sea mejor o peor que utilizando claves naturales.</p>
+<h3>Integridad referencial</h3>
+<p><b>Integridad referencial:</b> garantiza que la relación entre dos tablas permanezca sincronizada durante las operaciones de actualización y eliminación.</p>
+<ol type="i"><li><b>Operación restringida (RESTRICT):</b> solo se puede borrar una fila de la tabla que tiene la clave primaria referenciada si no existen filas con esa clave ajena en la tabla que referencia. <i>En este caso solo se puede borrar el departamento 2.</i></li><li><b>Operación en cascada (ON DELETE CASCADE, ON UPDATE CASCADE):</b> el borrado o modificación de una fila de una tabla cuya clave primaria sea ajena de otra relación conlleva el borrado o modificación de las filas de la tabla cuya clave ajena coincida con la fila a borrar. <i>En el ejemplo anterior, si se borra el departamento 1, desaparecen todos los empleados de ese departamento.</i></li><li><b>Operaciones con puesta a nulos (SET NULL):</b> el borrado o modificación de una fila que contiene la clave primaria lleva consigo la puesta a nulos de los valores de la clave ajena que referencia.</li><li><b>Operaciones con puesta a valores por defecto (SET DEFAULT):</b> igual que la anterior, pero el atributo estará definido previamente con un valor por defecto que tomará si se elimina la clave primaria referenciada.</li></ol>
+<h3>Otras restricciones</h3>
+<ul><li><b>De verificación:</b> son los llamados CHECK, que permiten imponer condiciones a elementos o atributos de la relación. <i>Ejemplo: un empleado puede cobrar entre 1000 y 2000 €.</i></li><li><b>De aserción:</b> la diferencia con el anterior radica en que ahora las condiciones pueden ser sobre atributos de más de una tabla. <i>Ejemplo: no hay ningún empleado del departamento de informática que cobre más de 2000 €.</i></li><li><b>Disparadores:</b> permiten determinar una acción determinada ante una condición. <i>Ejemplo: al introducir un empleado de informática cuyo salario sea mayor de 1500 €, informar al administrador de la base de datos.</i></li></ul></div></details><details class="fold" id="r3"><summary><span><b>4. Transformación E-R a relacional: entidades y atributos</b><small>Reglas para pasar entidades y atributos a tablas</small></span></summary><div class="in">
+<p>El paso de un modelo E/R a un modelo relacional se puede llevar a cabo, en gran parte, siguiendo una serie de reglas o pautas, que se enumeran a continuación:</p>
+<ul><li>Toda <b>entidad</b> se transforma en una <b>tabla</b>. <i>[SQL: CREATE TABLE]</i></li><li>Todo <b>atributo simple o derivado</b> se transforma en <b>columna</b> de una tabla.</li><li>Los <b>atributos estructurados</b> desaparecen de la tabla y solamente se transforman los campos de los que se componen en nuevas columnas.</li><li>El <b>identificador único</b> de la entidad se convierte en <b>clave primaria</b>. Siempre que pueda, añadiré un campo id como clave primaria. <i>[SQL: PRIMARY KEY | UNIQUE para el AIA (no nulo, obligatorio) | FOREIGN KEY (atributos) + REFERENCES relación]</i></li><li>En los <b>atributos multivaluados</b>, el atributo de la entidad origen se convertirá en una nueva tabla con tres columnas: un id, el id de la tabla de la que surgen propagado como clave ajena y el valor del campo multivaluado: <code>(#id, -id_tabla_origen, atributo_multivaluado)</code>.</li></ul></div></details><details class="fold" id="r4"><summary><span><b>4. Transformación E-R a relacional: relaciones</b><small>N:M, 1:N y 1:1</small></span></summary><div class="in">
+<h3>Transformación N:M</h3>
+<p>Toda relación <b>N:M</b> se transforma en una <b>tabla</b> que tendrá como clave primaria la concatenación de los atributos clave de las entidades que relaciona. Cada uno de los dos campos será además clave ajena.</p>
+<p>Para casos particulares de relación N:M en el que una cardinalidad parcial mínima y máxima coincida (2,2), (3,3), valoraré transformarlo siguiendo el planteamiento de relación 1:N, propagando la clave primaria a tantas claves ajenas como indique la cardinalidad.</p>
+<p><i>Ejemplo: un producto puede estar en varios pedidos, y un pedido puede tener varios productos.</i></p>
+<figure class="one"><img src="img/t3-nm.png" width="600" height="286" loading="lazy" alt="Productos y Pedidos en relación N:M con atributo precio; al transformar aparece la tabla PEDIDO_PRODUCTO."><figcaption>Transformación de una relación N:M</figcaption></figure>
+<pre class="code">pedidos(#id, descripcion, fecha)
+productos(#id, nombre, descripcion, precio_sin_iva, tipo, codigo_producto)
+pedido_producto(#(-id_pedido, -id_producto), precio)</pre>
+<h3>Transformación 1:N</h3>
+<p>En la transformación de relaciones <b>1:N</b> se propaga el atributo clave (habitualmente el campo id) de la entidad que tiene de cardinalidad máxima 1 a la que tiene cardinalidad máxima N, haciendo desaparecer la relación.</p>
+<p><i>Ejemplo: un pedido es realizado por un solo cliente, y un cliente puede realizar múltiples pedidos.</i></p>
+<figure class="one"><img src="img/t3-1n.png" width="600" height="317" loading="lazy" alt="Clientes y Pedidos en relación 1:N; PEDIDOS recibe id_cliente."><figcaption>Transformación de una relación 1:N</figcaption></figure>
+<pre class="code">pedidos(#id, precio, fecha, -id_cliente)
+clientes(#id, nombre, apellidos, direccion, telefono, num_pedidos)</pre>
+<h3>Transformación 1:1</h3>
+<p>En la transformación de relaciones <b>1:1</b> se tienen en cuenta las cardinalidades de las entidades que participan en ellas. Existen diferentes soluciones:</p>
+<p><b>a. La transformación tradicional</b> consiste en que una de las tablas tenga una clave primaria que al mismo tiempo es clave ajena de la otra tabla. Solo se puede plantear si alguna de las cardinalidades parciales es (1,1). En ese caso se propaga la clave primaria de la entidad con cardinalidad (1,1) a la tabla resultante de la entidad de cardinalidad (0,1), en la que será clave primaria y ajena al mismo tiempo. Si ambas cardinalidades parciales son (1,1), no importa hacia qué lado se propaga.</p>
+<p><i>Ejemplo: un empleado solo puede tener un despacho, y un despacho pertenece a un solo empleado.</i></p>
+<figure class="one"><img src="img/t3-11.png" width="600" height="307" loading="lazy" alt="Empleados (1,1) y Despacho (0,1) en relación 1:1, con sus tablas EMPLEADOS y DESPACHOS."><figcaption>Transformación de una relación 1:1</figcaption></figure>
+<p><b class="no">✗ Primera opción</b></p>
+<pre class="code">-- Ejemplo 1: Clave primaria y ajena al mismo tiempo
+empleados(#id, nombre, apellidos, direccion, dni, telefono)
+despachos(#(-id_despacho), cod_despacho, direccion, superficie)</pre>
+<p><b>b. Otra solución más sencilla</b> es transformarla como si fuera una relación 1:N. Si existe una entidad con cardinalidad parcial (0,1), su tabla tendrá una columna nueva que sería la clave primaria de la otra entidad propagada como clave ajena. Si las cardinalidades parciales son iguales, da igual hacia qué tabla se propague la clave primaria. Si usamos esta opción, al crear las tablas en el SGBD, la columna clave ajena debe tener restricción <b>[UNIQUE]</b>.</p>
+<p><b class="si">✓ Segunda opción</b></p>
+<pre class="code">-- Ejemplo 2: Clave primaria y ajena diferente (como 1:N)
+empleados(#id, nombre, apellidos, direccion, dni, telefono)
+despachos(#id, cod_despacho, direccion, superficie, -id_empleado)</pre>
+<p><b>c. Transformarlo en una tabla.</b> Es un caso muy específico y solo se aplica cuando ambas entidades poseen cardinalidades parciales (0,1) y si solo unos pocos registros de ambas tablas están relacionados. La relación se convierte en una tabla de la misma forma que una relación N:M.</p>
+<p class="nota"><b>Miniresumen (1:1).</b> Si las entidades que se asocian poseen cardinalidad (0,1), entonces la relación se transforma en una relación nueva. Si una de las entidades posee cardinalidad (0,1) y la otra (1,1), conviene propagar la clave de la segunda entidad a la primera tabla con el fin de evitar que aparezcan valores nulos.</p></div></details><details class="fold" id="r5"><summary><span><b>4. Transformación E-R a relacional: herencia y reflexivas</b><small>Tablas padre e hijas, y relaciones consigo misma</small></span></summary><div class="in">
+<h3>Transformación de la herencia</h3>
+<p>Las relaciones de herencia se transforman como relaciones 1:1 entre tablas padres e hijas. Aplicando las reglas anteriores, se ha de crear una tabla por cada entidad hija con sus propias columnas.</p>
+<p>Para relacionarlas, la forma más directa es propagar la clave primaria de la tabla padre como claves ajenas en las tablas hijas; las tablas hijas tienen como clave primaria el campo clave de la tabla padre.</p>
+<p><i>Ejemplo: una pista puede ser una pista_abierta o una pista_cerrada.</i></p>
+<figure class="one"><img src="img/t3-herencia.png" width="700" height="236" loading="lazy" alt="Pistas con los subtipos Pistas_abiertas y Pistas_cerradas, y sus tablas relacionadas."><figcaption>Transformación de una herencia</figcaption></figure>
+<pre class="code">-- Ejemplo 1: Claves primarias y ajenas al mismo tiempo
+pistas(#id, nombre, tipo, superficie)
+pistas_abiertas(#(-id_pista), fecha_inscripcion, fecha_alta)
+pistas_cerradas(#(-id_pista), razon_cierre, fecha_apertura)</pre>
+<p><b class="no">✗ Otra forma, menos común</b></p>
+<p>La otra forma, <u>menos común</u>, es transformarla como si fueran dos relaciones <b>1:N</b>: las tablas hijas tienen su propia clave primaria (id), y añadirán una columna nueva que es la clave primaria de la entidad padre, propagada como clave ajena. En este caso, al crear las tablas hijas en el SGBD, las claves ajenas deben tener las restricciones <b>[UNIQUE] y [NOT NULL]</b>.</p>
+<pre class="code">-- Ejemplo 2: Claves primarias y ajenas diferentes (-id_pista es UNIQUE y NOT NULL)
+pistas(#id, nombre, tipo, superficie)
+pistas_abiertas(#id, fecha_inscripcion, fecha_alta, -id_pista)
+pistas_cerradas(#id, razon_cierre, fecha_apertura, -id_pista)</pre>
+<h3>Transformación de las reflexivas</h3>
+<p>Las relaciones <b>reflexivas</b> se transforman atendiendo a su cardinalidad del mismo modo que hemos planteado en los casos anteriores:</p>
+<ul><li>Si la cardinalidad es <b>N:M</b>, se crea una tabla nueva como el caso general de relación N:M. La clave primaria se compone de dos columnas que referencian al mismo id de la propia tabla.</li><li>Si la cardinalidad es <b>1:N</b>, se transforma como si se tratara de una relación 1:N: se propaga la clave primaria a la misma tabla como clave ajena.</li><li>Si la cardinalidad es <b>1:1</b>, al tratarse de la misma tabla, se transforma como si se tratara de una relación 1:N. Debemos indicar en el SGBD que la columna clave ajena no permitirá valores repetidos (restricción UNIQUE).</li></ul>
+<p><i>Un empleado puede supervisar a varios empleados.</i></p>
+<figure class="small"><img src="img/t3-reflexiva.png" width="400" height="365" loading="lazy" alt="Empleado se relaciona consigo mismo mediante supervisa."><figcaption>Relación reflexiva</figcaption></figure>
+<pre class="code">-- Relación 1:N y 1:1
+empleados(#id, nombre, apellidos, dni, -id_empleado_supervisor)
+
+-- Relación N:M
+empleados(#id, nombre, apellidos, dni)
+empleados_supervisores(#(-id_empleado_supervisor, -id_empleado_supervisado))</pre></div></details><details class="fold" id="r6"><summary><span><b>4. Transformación E-R a relacional: atributos y casos particulares</b><small>Atributos de relaciones y normalización</small></span></summary><div class="in">
+<h3>Atributos de las relaciones</h3>
+<p>Para los <b>atributos de las relaciones</b> existen tres casos:</p>
+<ul><li>Si la relación es <b>1:N</b>, sus atributos se propagan a la tabla del lado N, junto con la clave del lado 1.</li><li>Si la relación es <b>N:M</b>, sus atributos se transforman en columnas de la tabla generada por dicha relación.</li><li>Las relaciones <b>1:1</b> no deberían tener atributos, ya que en principio deben pertenecer a alguna de las dos entidades.</li></ul>
+<h3>Casos particulares (normalización)</h3>
+<p>Las situaciones más particulares habrá que estudiarlas y aplicar algún patrón de diseño conocido, si lo hay, para generar el correspondiente modelo relacional.</p>
+<p>Estos casos no siempre se podrán reflejar en el correspondiente modelo Entidad-Relación puesto que algunos tienen que ver con exigencias técnicas o de tiempo, más que con el propio modelo de datos.</p>
+<p>Algunos casos particulares pueden ser:</p>
+<ul><li><b>Datos temporales:</b> cómo representar en un modelo relacional datos que tienen fecha de caducidad (los precios de un producto del que queremos tener un histórico de precios...).</li><li><b>Datos eliminados:</b> cómo representar en un modelo relacional datos que se desean eliminar, pero que por alguna razón necesitamos que sigan estando almacenados en la base de datos (productos descatalogados, alumnos que terminan sus estudios...).</li><li><b>Registro o auditoría:</b> cómo podemos registrar las acciones de los usuarios o de la aplicación durante el ciclo de vida de la Base de Datos.</li><li><b>Bloqueo de registros:</b> cómo podemos bloquear el acceso a un registro para evitar la modificación simultánea del mismo dato por más de un usuario desde la aplicación que conecta con la Base de Datos.</li></ul>
+<p>En cualquier caso, aplicar correctamente al modelo relacional resultante las <b>reglas de normalización</b> eliminará todas las anomalías que nuestro modelo pueda contener.</p>
+<p>Así, hay que tener en cuenta que el modelo relacional que hemos obtenido en este momento todavía puede no ser el definitivo y puede sufrir transformaciones (e incluso se pueden añadir nuevas tablas) como resultado de aplicar las reglas de normalización que se explicarán posteriormente.</p></div></details></div><script>(function(){function a(){var d=location.hash&&document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS"){for(var x=d;x;x=x.parentElement)if(x.tagName==="DETAILS")x.open=true;d.scrollIntoView()}}addEventListener("hashchange",a);a()})();</script></body></html>

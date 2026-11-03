@@ -1,7 +1,12 @@
 /* Zona privada de cada unidad: solo se carga con la sesión iniciada. */
 (function(){
 var box=document.getElementById("zona"),n=box&&box.dataset.ut,sb=window.DAW1_SB,ultimo;
-if(!box||!sb)return;
+if(!sb)return;
+function muestra(v){[].forEach.call(document.querySelectorAll("[data-priv]"),function(e){e.hidden=!v})
+ if(v&&location.hash==="#privado"){var d=document.getElementById("privado");if(d){d.open=true;d.scrollIntoView()}}}
+document.addEventListener("daw1-auth",function(e){muestra(!!e.detail)});
+sb.auth.getSession().then(function(r){muestra(!!r.data.session)});
+if(!box)return;
 var SHIM='<script>(function(){try{window.localStorage.length;return}catch(e){}var m={};Object.defineProperty(window,"localStorage",{value:{getItem:function(k){return k in m?m[k]:null},setItem:function(k,v){m[k]=String(v)},removeItem:function(k){delete m[k]},clear:function(){m={}}}})})();<\/script>';
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
 function aviso(t){box.textContent="";box.append(el("p","lead",t))}
@@ -9,7 +14,7 @@ function subir(){var a=el("a","bt","Subir material a esta unidad");a.href="../do
 function abreHtml(d,caja,boton){boton.disabled=true;sb.storage.from("documentos").download(d.ruta).then(function(r){boton.disabled=false;if(r.error){caja.textContent="No se pudo abrir.";return}return r.data.text().then(function(t){caja.textContent="";caja.append(el("p","lead","Lo que escribas aquí no se guarda al cerrar. Usa su botón de descarga si lo tiene."));var f=document.createElement("iframe");f.setAttribute("sandbox","allow-scripts allow-modals allow-downloads allow-forms");f.title=d.titulo;f.className="fr";f.srcdoc=/<head[^>]*>/i.test(t)?t.replace(/<head[^>]*>/i,function(m){return m+SHIM}):SHIM+t;caja.append(f)})})}
 async function pinta(u){
  var id=u&&u.id;if(id===ultimo)return;ultimo=id;
- if(!u){aviso("Pulsa «Entrar» abajo con tu cuenta para ver el vídeo, el HTML de clase y el proyecto de empresa.");return}
+ if(!u){box.textContent="";return}
  aviso("Cargando…");
  try{
   var q=await Promise.all([sb.from("documentos").select("*").eq("asignatura","transformacion").eq("unidad","UT"+n).order("titulo"),sb.from("contenido_privado").select("html").eq("clave","u"+n).maybeSingle()]);

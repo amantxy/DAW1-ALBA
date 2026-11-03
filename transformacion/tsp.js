@@ -5,7 +5,7 @@ function lee(k,d){try{var v=localStorage.getItem(k);return v===null?d:JSON.parse
 function guarda(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
 $$("[data-prog]").forEach(function(s){var d=lee("tsp:q"+s.dataset.prog,{});s.textContent="Autoevaluación: "+Object.keys(d).filter(function(k){return d[k]}).length+" de "+s.dataset.total});
-function abre(){var d=location.hash&&document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS"){d.open=true;d.scrollIntoView()}}
+function abre(){var d=location.hash&&document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS"){for(var x=d;x;x=x.parentElement)if(x.tagName==="DETAILS")x.open=true;d.scrollIntoView()}}
 addEventListener("hashchange",abre);abre();
 var D=$("#datos");if(!D)return;D=JSON.parse(D.textContent);
 var KQ="tsp:q"+D.n,ok=lee(KQ,{});
