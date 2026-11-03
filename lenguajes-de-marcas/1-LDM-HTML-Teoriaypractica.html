@@ -142,7 +142,7 @@ input.gap.ko{background:var(--bad-soft);border-color:var(--bad)}
   <div class="card">
     <div class="row" style="justify-content:space-between"><b>Progreso del plan</b><span class="muted" id="planTxt"></span></div>
     <div class="progress"><i id="planBar"></i></div>
-    <p class="muted" style="margin:6px 0 0">Marca cada tarea al terminarla. Se guarda en este navegador. Cada día suma unas 2 horas y media; el domingo es simulacro.</p>
+    <p class="muted" style="margin:6px 0 0">Marca cada tarea al terminarla. Se guarda en este navegador y, si entras con tu cuenta, en todos tus dispositivos. Cada día suma unas 2 horas y media; el domingo es simulacro.</p>
   </div>
   <div class="days" id="days"></div>
 </section>
@@ -1020,5 +1020,8 @@ $("#refQ").oninput=refRender;refRender();
 {const h=(location.hash||"").slice(1);showTab($("#tabs button[data-tab='"+h+"']")?h:store.get("tab","plan"))}window.addEventListener("hashchange",()=>{const h=(location.hash||"").slice(1);if($("#tabs button[data-tab='"+h+"']"))showTab(h)});
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="../supabase-config.js"></script>
+<script src="../progreso.js" data-pagina="lenguajes-de-marcas" data-claves="lm:best,lm:done,lm:exDone2,lm:known,lm:code2-*"></script>
 </body>
 </html>

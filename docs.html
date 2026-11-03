@@ -19,15 +19,18 @@ a.card{transition:transform .15s,box-shadow .15s}
 .card span{color:var(--suave);font-size:.9rem}
 .card .ico{position:absolute;right:14px;top:12px;font:700 1.3rem ui-monospace,Consolas,monospace;color:var(--c);opacity:.35}
 .card.off{opacity:.5;border-top-style:dashed}
-details.fold{margin:0 0 16px;background:var(--hoja);border:1px solid var(--linea);border-left:8px solid var(--c);border-radius:12px;overflow:hidden}
-details.fold>summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;align-items:center;gap:12px;min-height:56px}
+details.fold{position:relative;margin:32px 0 18px;--f:color-mix(in srgb,var(--c) 20%,var(--hoja))}
+details.fold>summary{list-style:none;cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;min-height:72px;padding:16px 18px;background:var(--f);border:2px solid var(--c);border-radius:0 12px 12px 12px}
+details.fold>summary::before{content:"";position:absolute;left:-2px;bottom:100%;width:min(46%,170px);height:17px;background:var(--c);border-radius:10px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+details.fold>summary:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
 details.fold>summary::-webkit-details-marker{display:none}
-details.fold>summary svg{flex:none;width:34px;height:34px;color:var(--c)}
+details.fold>summary>svg{display:none}
 details.fold>summary b{font-size:1.15rem}
 details.fold>summary small{display:block;color:var(--suave);font-size:.88rem}
-details.fold>summary::after{content:"▾";margin-left:auto;color:var(--suave);transition:transform .2s}
+details.fold>summary::after{content:"▾";margin-left:auto;color:var(--tinta);transition:transform .2s}
+details.fold[open]>summary{border-radius:0 12px 0 0}
 details.fold[open]>summary::after{transform:rotate(180deg)}
-.in{padding:4px 16px 18px}
+.in{padding:14px 16px 18px;background:var(--hoja);border:2px solid var(--c);border-top:0;border-radius:0 0 12px 12px}
 .in h3{margin:14px 0 8px;font-size:.95rem;color:var(--c);display:flex;align-items:center;gap:8px}
 .in h3 svg{width:20px;height:20px}
 .tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
@@ -36,12 +39,15 @@ a.t:hover,a.t:focus-visible{border-color:var(--c);outline:none}
 .t b{display:block;font-size:.98rem}
 .t span{color:var(--suave);font-size:.82rem}
 div.t{opacity:.5;border-style:dashed}
-.sub{margin-top:8px;padding:6px 12px 14px;border:1px dashed var(--c);border-radius:10px}
+.sub{position:relative;margin-top:26px;padding:6px 12px 14px;background:var(--cs);border:1.5px solid var(--c);border-radius:0 10px 10px 10px}
+.sub::before{content:"";position:absolute;left:-1.5px;bottom:100%;width:min(46%,130px);height:13px;background:var(--c);border-radius:8px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
 .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
-button,select,input[type=text],input[type=password]{font:inherit;min-height:44px;border-radius:10px;border:1px solid var(--linea);background:var(--hoja);color:var(--tinta);padding:8px 14px}
+button,select,input[type=text],input[type=password],input[type=email]{font:inherit;min-height:44px;border-radius:10px;border:1px solid var(--linea);background:var(--hoja);color:var(--tinta);padding:8px 14px}
 button{cursor:pointer;font-weight:600}
+button:disabled{opacity:.6;cursor:wait}
+[hidden]{display:none!important}
 button.p{background:var(--c);color:#fff;border-color:var(--c)}
 @media (prefers-color-scheme:dark){button.p{color:#0b1220}}
 .adm{display:none;background:var(--cs);border:1px dashed var(--c);border-radius:12px;padding:14px;margin-bottom:18px}
@@ -72,124 +78,192 @@ dialog .row{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
 </style></head><body>
 <div class="hero"><div class="wrap"><a class="back" id="bk" href="index.html">← Todas las asignaturas</a><h1 id="ti">Mis documentos</h1><p id="su">Teoría y apuntes: PDF, Word, imágenes, Markdown y HTML</p></div></div>
 <div class="wrap">
-<div class="bar"><select id="fs" aria-label="Asignatura"></select><button id="adm" type="button">Modo administrador</button></div>
+<div class="bar"><select id="fs" aria-label="Asignatura"></select><button id="adm" type="button" hidden>Entrar con mi cuenta</button></div>
 <div class="adm" id="panel">
  <div class="row"><select id="as" aria-label="Asignatura del documento"></select><input type="text" id="au" list="uds" placeholder="Unidad (p. ej. Unidad 2)"><datalist id="uds"><option value="Unidad 1"><option value="Unidad 1.2 Internet"><option value="Unidad 1.3 Marcas y XML"><option value="Unidad 2"><option value="Unidad 3"><option value="Preparación exámenes"></datalist></div>
- <div class="row"><input type="file" id="af" accept=".pdf,.docx,.png,.jpg,.jpeg,.gif,.webp,.md,.markdown,.txt,.html,.htm" multiple><button class="p" id="ad" type="button">Añadir documento(s)</button></div>
- <div class="row"><button id="ex" type="button">Copia de seguridad</button><button id="im" type="button">Restaurar copia</button><button id="cp" type="button">Cambiar contraseña</button><button id="lk" type="button">Salir del modo administrador</button><input type="file" id="imf" accept=".json" hidden></div>
- <div id="msg">Formatos: PDF, Word (.docx), PNG, JPG, GIF, WEBP, Markdown, texto y HTML. Se guardan solo en este navegador; usa la copia de seguridad para llevarlos a otro dispositivo.</div>
+ <div class="row"><input type="file" id="af" aria-label="Archivos" accept=".pdf,.docx,.png,.jpg,.jpeg,.gif,.webp,.md,.markdown,.txt,.html,.htm" multiple><button class="p" id="ad" type="button">Añadir documento(s)</button></div>
+ <div class="row"><button class="p" id="mv" type="button" hidden></button><button id="im" type="button">Restaurar copia antigua</button><button id="cp" type="button">Cambiar contraseña</button><input type="file" id="imf" accept=".json" hidden></div>
+ <div id="msg" role="status">Formatos: PDF, Word (.docx), PNG, JPG, GIF, WEBP, Markdown, texto y HTML. Máximo 50 MB por archivo. Se guardan en tu cuenta y solo tú puedes verlos.</div>
 </div>
 <div id="lista"></div>
 <div id="tools" hidden></div>
 <article id="lector" hidden></article>
 </div>
-<dialog id="pw"><form method="dialog" id="pf"><b id="pt">Contraseña</b><input type="password" id="p1" autocomplete="current-password" placeholder="Contraseña"><input type="password" id="p2" autocomplete="new-password" placeholder="Repite la contraseña" hidden><div id="pe"></div><div class="row"><button type="button" id="pc">Cancelar</button><button class="p" type="submit">Entrar</button></div></form></dialog>
+<dialog id="pw"><form method="dialog" id="pf"><b id="pt">Contraseña</b><input type="email" id="pm" autocomplete="username" placeholder="Correo" aria-label="Correo"><input type="password" id="p1" autocomplete="current-password" placeholder="Contraseña" aria-label="Contraseña"><input type="password" id="p2" autocomplete="new-password" placeholder="Repite la contraseña" aria-label="Repite la contraseña" hidden><div id="pe"></div><div class="row"><button type="button" id="pc">Cancelar</button><button class="p" type="submit">Entrar</button></div></form></dialog>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.4.17/dist/purify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
 <script>
-const SJ=[{"slug": "programacion", "name": "Programaci\u00f3n", "c": "#2563eb", "cd": "#6ea8ff"}, {"slug": "lenguajes-de-marcas", "name": "Lenguajes de Marcas", "c": "#ea580c", "cd": "#ff9a55"}, {"slug": "bases-de-datos", "name": "Bases de Datos", "c": "#059669", "cd": "#34d399"}, {"slug": "sistemas-informaticos", "name": "Sistemas Inform\u00e1ticos", "c": "#7c3aed", "cd": "#b794ff"}, {"slug": "transformacion", "name": "Transformaci\u00f3n", "c": "#db2777", "cd": "#ff7ab8"}, {"slug": "entornos-de-desarrollo", "name": "Entornos de Desarrollo", "c": "#0891b2", "cd": "#4fd1e8"}, {"slug": "ingles-profesional", "name": "Ingl\u00e9s Profesional", "c": "#ca8a04", "cd": "#f5c542"}];
+const SJ=[{"slug": "programacion", "name": "Programación", "c": "#2563eb", "cd": "#6ea8ff"}, {"slug": "lenguajes-de-marcas", "name": "Lenguajes de Marcas", "c": "#ea580c", "cd": "#ff9a55"}, {"slug": "bases-de-datos", "name": "Bases de Datos", "c": "#059669", "cd": "#34d399"}, {"slug": "sistemas-informaticos", "name": "Sistemas Informáticos", "c": "#7c3aed", "cd": "#b794ff"}, {"slug": "transformacion", "name": "Transformación", "c": "#db2777", "cd": "#ff7ab8"}, {"slug": "entornos-de-desarrollo", "name": "Entornos de Desarrollo", "c": "#0891b2", "cd": "#4fd1e8"}, {"slug": "ingles-profesional", "name": "Inglés Profesional", "c": "#ca8a04", "cd": "#f5c542"}];
 const $=s=>document.querySelector(s);
 const dark=matchMedia("(prefers-color-scheme: dark)").matches;
-let DB,urls=[];
-function open_(){return new Promise((ok,ko)=>{const r=indexedDB.open("daw1-docs",1);r.onupgradeneeded=()=>r.result.createObjectStore("d",{keyPath:"id"});r.onsuccess=()=>{DB=r.result;ok()};r.onerror=()=>ko(r.error)})}
-const tx=m=>DB.transaction("d",m).objectStore("d");
-const all=()=>new Promise(ok=>{const r=tx("readonly").getAll();r.onsuccess=()=>ok(r.result||[])});
-const put=d=>new Promise((ok,ko)=>{const r=tx("readwrite").put(d);r.onsuccess=ok;r.onerror=()=>ko(r.error)});
-const del=id=>new Promise(ok=>{tx("readwrite").delete(id).onsuccess=ok});
-/* ---- contraseña (se guarda solo su hash, en este navegador) ---- */
-const enc=new TextEncoder();
-const b64=u=>btoa(String.fromCharCode(...new Uint8Array(u)));
-const unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
-async function hash(pw,salt){const k=await crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveBits"]);return b64(await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt,iterations:200000},k,256))}
-function getH(){try{return JSON.parse(localStorage.getItem("adm-h"))}catch(e){return null}}
-function ask(mode){return new Promise(res=>{const d=$("#pw");const nw=mode!=="enter";
- $("#pt").textContent=mode==="enter"?"Contraseña de administrador":mode==="create"?"Crea tu contraseña de administrador":"Nueva contraseña";
- $("#p2").hidden=!nw;$("#p1").autocomplete=nw?"new-password":"current-password";$("#p1").value=$("#p2").value="";$("#pe").textContent="";
- $("#pf button.p").textContent=nw?"Guardar":"Entrar";
- const done=v=>{d.close();$("#pf").onsubmit=null;$("#pc").onclick=null;res(v)};
- $("#pc").onclick=()=>done(null);
- $("#pf").onsubmit=async e=>{e.preventDefault();const a=$("#p1").value;
-  if(nw){if(a.length<6){$("#pe").textContent="Mínimo 6 caracteres.";d.showModal();return}if(a!==$("#p2").value){$("#pe").textContent="No coinciden.";d.showModal();return}
-   const salt=crypto.getRandomValues(new Uint8Array(16));localStorage.setItem("adm-h",JSON.stringify({s:b64(salt),h:await hash(a,salt)}));return done(true)}
-  const h=getH();if(h&&await hash(a,unb64(h.s))===h.h)return done(true);
-  await new Promise(r=>setTimeout(r,1000));$("#pe").textContent="Contraseña incorrecta.";d.showModal()};
- d.showModal();setTimeout(()=>$("#p1").focus(),50)})}
-function setAdmin(on){document.body.classList.toggle("admin",on);sessionStorage.setItem("adm",on?"1":"0")}
-async function unlock(){if(!window.crypto||!crypto.subtle){alert("Este navegador no permite crear contraseñas aquí (hace falta HTTPS).");return false}
- return await ask(getH()?"enter":"create")}
-/* ---- conversión ---- */
-function clean(h){const d=new DOMParser().parseFromString(h,"text/html");d.querySelectorAll("script,iframe,object,embed,link,meta,style,form,base").forEach(n=>n.remove());d.querySelectorAll("*").forEach(n=>{[...n.attributes].forEach(a=>{if(/^on/i.test(a.name)||/^\s*javascript:/i.test(a.value))n.removeAttribute(a.name)})});return d.body.innerHTML}
-const esc=t=>t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-async function conv(f){const n=f.name.toLowerCase();
- if(n.endsWith(".pdf"))return{kind:"pdf",blob:f};
- if(/\.(png|jpe?g|gif|webp)$/.test(n))return{kind:"img",blob:f};
- if(n.endsWith(".docx")){if(typeof mammoth==="undefined")throw new Error("no se pudo cargar el lector de Word (¿sin conexión?)");return{kind:"html",blob:f,html:clean((await mammoth.convertToHtml({arrayBuffer:await f.arrayBuffer()})).value)}}
- const t=await f.text();
- if(/\.(md|markdown)$/.test(n)){if(typeof marked==="undefined")throw new Error("no se pudo cargar el lector de Markdown (¿sin conexión?)");return{kind:"html",html:clean(marked.parse(t))}}
- if(/\.html?$/.test(n))return{kind:"html",html:clean(t)};
- return{kind:"html",html:"<pre>"+esc(t)+"</pre>"}}
+const BUCKET="documentos",MAXMB=50;
+const TIPOS={pdf:["pdf","application/pdf"],docx:["docx","application/vnd.openxmlformats-officedocument.wordprocessingml.document"],png:["img","image/png"],jpg:["img","image/jpeg"],jpeg:["img","image/jpeg"],gif:["img","image/gif"],webp:["img","image/webp"],md:["md","text/markdown"],markdown:["md","text/markdown"],txt:["txt","text/plain"],html:["html","text/html"],htm:["html","text/html"]};
+const TAG={pdf:"PDF",img:"IMG",docx:"DOC",md:"MD",txt:"TXT",html:"HTML"};
+const q=new URLSearchParams(location.search);
+let cur=q.get("s")||"",sb=null,user=null,docs=[],urls=[],turno=0,listo=false;
+const msg=t=>{$("#msg").textContent=t};
 const sj=slug=>SJ.find(s=>s.slug===slug)||SJ[0];
 function color(slug){if(slug)document.documentElement.style.setProperty("--c",dark?sj(slug).cd:sj(slug).c)}
-const q=new URLSearchParams(location.search);
-let cur=q.get("s")||"";
-const TAG={pdf:"PDF",img:"IMG",html:"DOC"};
-async function showPdf(box,blob){
- if(typeof pdfjsLib==="undefined"){const u=URL.createObjectURL(blob);urls.push(u);box.innerHTML='<p>No se pudo cargar el visor de PDF. <a href="'+u+'" target="_blank" rel="noopener">Abrir el PDF</a></p>';return}
+const extDe=n=>(n.match(/\.([^.]+)$/)||[,""])[1].toLowerCase();
+/* ---- documentos antiguos guardados en este navegador ---- */
+function dbLocal(){return new Promise(ok=>{try{const r=indexedDB.open("daw1-docs",1);r.onupgradeneeded=()=>r.result.createObjectStore("d",{keyPath:"id"});r.onsuccess=()=>ok(r.result);r.onerror=()=>ok(null)}catch(e){ok(null)}})}
+async function leerLocal(){const db=await dbLocal();if(!db)return[];return new Promise(ok=>{const r=db.transaction("d").objectStore("d").getAll();r.onsuccess=()=>ok(r.result||[]);r.onerror=()=>ok([])})}
+async function borrarLocal(id){const db=await dbLocal();if(!db)return;return new Promise(ok=>{const t=db.transaction("d","readwrite");t.objectStore("d").delete(id);t.oncomplete=ok;t.onerror=ok})}
+function aArchivo(d){if(d.blob)return new File([d.blob],d.name||d.title||"documento");return new File([d.html||""],(d.title||"documento")+".html",{type:"text/html"})}
+/* ---- nube ---- */
+function textoError(e){const t=String(e&&e.message||e||"");if(/invalid login/i.test(t))return"Correo o contraseña incorrectos.";if(/failed to fetch|networkerror|load failed/i.test(t))return"No se pudo conectar con Supabase. Comprueba la conexión o si el proyecto está en pausa.";if(/maximum allowed size|too large/i.test(t))return"El archivo supera el límite de "+MAXMB+" MB.";if(/row-level security|jwt/i.test(t))return"Tu sesión no tiene permiso. Sal y vuelve a entrar.";return t||"Error desconocido."}
+async function cargar(){const r=await sb.from("documentos").select("*");if(r.error)throw r.error;docs=r.data||[]}
+async function subir(file,asignatura,unidad,creado){
+ const ext=extDe(file.name),t=TIPOS[ext];
+ if(!t)throw new Error("formato no admitido");
+ if(file.size>MAXMB*1048576)throw new Error("supera el límite de "+MAXMB+" MB");
+ const id=crypto.randomUUID(),ruta=user.id+"/"+id+"."+ext;
+ const up=await sb.storage.from(BUCKET).upload(ruta,file,{contentType:t[1],upsert:false});
+ if(up.error)throw up.error;
+ const fila={id,asignatura,unidad,titulo:file.name.replace(/\.[^.]+$/,""),nombre:file.name,tipo:t[0],ruta,tamano:file.size};
+ if(creado)fila.creado=creado;
+ const ins=await sb.from("documentos").insert(fila);
+ if(ins.error){await sb.storage.from(BUCKET).remove([ruta]);throw ins.error}}
+const clave=(s,n,ts)=>s+"|"+n+"|"+new Date(ts).getTime();
+/* Sube documentos antiguos sin repetir los que ya estén en la nube. Devuelve los que se pudieron guardar. */
+async function moverAntiguos(L,alAcabar){
+ await cargar();const ya=new Set(docs.map(d=>clave(d.asignatura,d.nombre,d.creado)));let n=0;const mal=[];
+ for(const[i,d]of L.entries()){msg("Subiendo "+(i+1)+" de "+L.length+"…");
+  try{const f=aArchivo(d),s=sj(d.s).slug,ts=d.ts||Date.now();
+   if(!ya.has(clave(s,f.name,ts)))await subir(f,s,d.u||"Sin unidad",new Date(ts).toISOString());
+   if(alAcabar)await alAcabar(d);n++}
+  catch(e){mal.push((d.title||d.name||"documento")+": "+textoError(e))}}
+ return{n,mal}}
+/* ---- lectura ---- */
+function limpio(h){return DOMPurify.sanitize(h,{FORBID_TAGS:["style","form","input","button","textarea","select"],FORBID_ATTR:["style"]})}
+async function showPdf(box,blob,vivo){
+ if(typeof pdfjsLib==="undefined")throw new Error("no se pudo cargar el visor de PDF");
  pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
- try{const pdf=await pdfjsLib.getDocument({data:await blob.arrayBuffer()}).promise;
-  const w=Math.max(280,box.clientWidth-8)*Math.min(devicePixelRatio||1,2);
-  for(let i=1;i<=pdf.numPages;i++){const pg=await pdf.getPage(i);const v0=pg.getViewport({scale:1});const vp=pg.getViewport({scale:w/v0.width});
-   const c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;box.append(c);await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise}}
- catch(e){box.append("No se pudo mostrar el PDF: "+e.message)}}
+ const pdf=await pdfjsLib.getDocument({data:await blob.arrayBuffer()}).promise;
+ const w=Math.max(280,box.clientWidth-8)*Math.min(devicePixelRatio||1,2);
+ for(let i=1;i<=pdf.numPages&&vivo();i++){const pg=await pdf.getPage(i);const v0=pg.getViewport({scale:1});const vp=pg.getViewport({scale:w/v0.width});
+  const c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;box.append(c);await pg.render({canvasContext:c.getContext("2d"),viewport:vp}).promise}}
+async function mostrar(box,d,blob,vivo){
+ if(d.tipo==="pdf")return showPdf(box,blob,vivo);
+ if(d.tipo==="img"){const i=new Image();i.alt=d.titulo;i.src=enlace(new Blob([blob],{type:TIPOS[extDe(d.ruta)][1]}));box.append(i);return}
+ let h;
+ if(d.tipo==="docx"){if(typeof mammoth==="undefined")throw new Error("no se pudo cargar el lector de Word");h=(await mammoth.convertToHtml({arrayBuffer:await blob.arrayBuffer()})).value}
+ else if(d.tipo==="md"){if(typeof marked==="undefined")throw new Error("no se pudo cargar el lector de Markdown");h=marked.parse(await blob.text())}
+ else if(d.tipo==="html")h=await blob.text();
+ else{const p=document.createElement("pre");p.textContent=await blob.text();box.append(p);return}
+ if(typeof DOMPurify==="undefined")throw new Error("no se pudo cargar el limpiador de documentos");
+ box.innerHTML=limpio(h)}
+function enlace(b){const u=URL.createObjectURL(b);urls.push(u);return u}
+function botonEnlace(txt,href,extra){const a=document.createElement("a");a.href=href;a.textContent=txt;Object.assign(a,extra);$("#tools").append(a)}
 async function render(){
+ const t=++turno,vivo=()=>t===turno;
  urls.forEach(URL.revokeObjectURL);urls=[];
- const id=location.hash.slice(1);const L=await all();
- document.body.classList.toggle("reading",!!id);$("#lista").hidden=!!id;$("#lector").hidden=!id;$("#tools").hidden=!id;
- if(id){const d=L.find(x=>x.id===id);color(d?d.s:cur);
-  $("#ti").textContent=d?d.title:"Documento no encontrado";$("#su").textContent=d?sj(d.s).name+" · "+d.u:"";
+ const id=location.hash.slice(1),lec=$("#lector"),box=$("#lista");
+ document.body.classList.toggle("reading",!!id&&!!user);
+ document.body.classList.toggle("admin",!!user);
+ $("#adm").textContent=user?"Cerrar sesión":"Entrar con mi cuenta";
+ $("#adm").hidden=!listo;
+ $("#lista").hidden=!!id&&!!user;lec.hidden=!id||!user;$("#tools").hidden=!id||!user;
+ lec.textContent="";$("#tools").textContent="";
+ if(id&&user){const d=docs.find(x=>x.id===id);color(d?d.asignatura:cur);
+  $("#ti").textContent=d?d.titulo:"Documento no encontrado";$("#su").textContent=d?sj(d.asignatura).name+" · "+d.unidad:"";
   $("#bk").textContent="← Mis documentos";$("#bk").href="docs.html"+(cur?"?s="+cur:"");
-  const lec=$("#lector"),tl=$("#tools");lec.textContent="";tl.textContent="";
-  if(!d){lec.textContent="No existe en este navegador.";return}
-  if(d.blob){const u=URL.createObjectURL(d.blob);urls.push(u);const a=document.createElement("a");a.href=u;a.download=d.name||d.title;a.textContent="Descargar original";tl.append(a);
-   if(d.kind!=="html"){const b=document.createElement("a");b.href=u;b.target="_blank";b.rel="noopener";b.textContent="Abrir en pestaña nueva";tl.append(b)}}
-  else tl.hidden=true;
-  if(d.kind==="img"){const i=new Image();i.alt=d.title;i.src=urls[0];lec.append(i)}
-  else if(d.kind==="pdf"){await showPdf(lec,d.blob)}
-  else lec.innerHTML=d.html;
+  if(!d){lec.textContent="Este documento no existe o ya se ha borrado.";return}
+  lec.textContent="Cargando…";
+  const r=await sb.storage.from(BUCKET).download(d.ruta);if(!vivo())return;
+  if(r.error){lec.textContent="No se pudo abrir: "+textoError(r.error);return}
+  botonEnlace("Descargar original",enlace(r.data),{download:d.nombre});
+  if(d.tipo==="pdf"||d.tipo==="img")botonEnlace("Abrir en pestaña nueva",enlace(new Blob([r.data],{type:TIPOS[extDe(d.ruta)][1]})),{target:"_blank",rel:"noopener"});
+  lec.textContent="";
+  try{await mostrar(lec,d,r.data,vivo)}catch(e){if(vivo()){const p=document.createElement("p");p.textContent="No se pudo mostrar aquí ("+e.message+"). Puedes descargar el original.";lec.append(p)}}
   return}
  color(cur);$("#ti").textContent=cur?sj(cur).name+" · mis documentos":"Mis documentos";
  $("#bk").textContent=cur?"← "+sj(cur).name:"← Todas las asignaturas";$("#bk").href=cur?cur+"/index.html":"index.html";
  $("#su").textContent="Teoría y apuntes: PDF, Word, imágenes, Markdown y HTML";
- const M=L.filter(x=>!cur||x.s===cur).sort((a,b)=>(a.s+a.u+a.title).localeCompare(b.s+b.u+b.title));
- const box=$("#lista");box.textContent="";
- if(!M.length){const p=document.createElement("p");p.textContent="Aún no hay documentos. Pulsa «Modo administrador» para añadir el primero.";p.style.color="var(--suave)";box.append(p)}
- let last="";
- for(const d of M){const k=sj(d.s).name+" · "+d.u;
-  if(k!==last){const h=document.createElement("h3");h.textContent=k;box.append(h);last=k}
-  const r=document.createElement("div");r.className="item";r.style.setProperty("--c",dark?sj(d.s).cd:sj(d.s).c);
+ box.textContent="";
+ const aviso=txt=>{const p=document.createElement("p");p.textContent=txt;p.style.color="var(--suave)";box.append(p)};
+ if(!sb){aviso("Mis documentos todavía no está conectado a Supabase.");return}
+ if(!user){aviso("Entra con tu cuenta para ver tus documentos desde cualquier dispositivo.");return}
+ const M=docs.filter(x=>!cur||x.asignatura===cur).sort((a,b)=>(a.asignatura+a.unidad+a.titulo).localeCompare(b.asignatura+b.unidad+b.titulo));
+ if(!M.length)aviso("Aún no hay documentos. Añade el primero desde el panel de arriba.");
+ let last="",dentro=null;
+ for(const d of M){const k=d.asignatura+"|"+d.unidad;
+  if(k!==last){const fold=document.createElement("details");fold.className="fold";fold.open=true;fold.style.setProperty("--c",dark?sj(d.asignatura).cd:sj(d.asignatura).c);
+   const su=document.createElement("summary"),sn=document.createElement("span"),nb=document.createElement("b"),nm=document.createElement("small");
+   nb.textContent=d.unidad;nm.textContent=sj(d.asignatura).name;sn.append(nb,nm);su.append(sn);dentro=document.createElement("div");dentro.className="in";fold.append(su,dentro);box.append(fold);last=k}
+  const r=document.createElement("div");r.className="item";
   const a=document.createElement("a");a.href="docs.html"+(cur?"?s="+cur:"")+"#"+d.id;
-  const b=document.createElement("b");const tg=document.createElement("i");tg.className="tag";tg.textContent=TAG[d.kind]||"DOC";tg.style.fontStyle="normal";b.append(tg,d.title);
-  const sp=document.createElement("span");sp.textContent=new Date(d.ts).toLocaleDateString("es-ES");a.append(b,sp);
-  const x=document.createElement("button");x.textContent="Borrar";x.onclick=async()=>{if(confirm("¿Borrar «"+d.title+"»?")){await del(d.id);render()}};
-  r.append(a,x);box.append(r)}
-}
-const blobToData=b=>new Promise(ok=>{const r=new FileReader();r.onload=()=>ok(r.result);r.readAsDataURL(b)});
-(async()=>{await open_();
+  const b=document.createElement("b");const tg=document.createElement("i");tg.className="tag";tg.textContent=TAG[d.tipo]||"DOC";tg.style.fontStyle="normal";b.append(tg,d.titulo);
+  const sp=document.createElement("span");sp.textContent=new Date(d.creado).toLocaleDateString("es-ES");a.append(b,sp);
+  const x=document.createElement("button");x.type="button";x.textContent="Borrar";x.onclick=()=>borrar(d);
+  r.append(a,x);dentro.append(r)}}
+async function borrar(d){
+ if(!confirm("¿Borrar «"+d.titulo+"»?"))return;
+ const s=await sb.storage.from(BUCKET).remove([d.ruta]);
+ if(s.error){msg("No se pudo borrar: "+textoError(s.error));return}
+ const f=await sb.from("documentos").delete().eq("id",d.id);
+ if(f.error){msg("No se pudo borrar: "+textoError(f.error));return}
+ docs=docs.filter(x=>x.id!==d.id);msg("«"+d.titulo+"» borrado.");render()}
+/* ---- cuenta ---- */
+function dialogo(modo){return new Promise(res=>{const d=$("#pw"),nueva=modo==="cambiar";
+ $("#pt").textContent=nueva?"Nueva contraseña":"Entrar en Mis documentos";
+ $("#pm").hidden=nueva;$("#p2").hidden=!nueva;
+ $("#p1").autocomplete=nueva?"new-password":"current-password";$("#p1").placeholder=nueva?"Nueva contraseña":"Contraseña";
+ $("#p1").value=$("#p2").value="";$("#pe").textContent="";
+ const env=$("#pf button.p");env.textContent=nueva?"Guardar":"Entrar";env.disabled=false;
+ const fin=v=>{d.close();res(v)};
+ $("#pc").onclick=()=>fin(false);d.oncancel=()=>res(false);
+ $("#pf").onsubmit=async e=>{e.preventDefault();const a=$("#p1").value;$("#pe").textContent="";env.disabled=true;
+  let r;
+  if(nueva){if(a.length<8){$("#pe").textContent="Mínimo 8 caracteres.";env.disabled=false;return}
+   if(a!==$("#p2").value){$("#pe").textContent="No coinciden.";env.disabled=false;return}
+   r=await sb.auth.updateUser({password:a}).catch(x=>({error:x}))}
+  else r=await sb.auth.signInWithPassword({email:$("#pm").value.trim(),password:a}).catch(x=>({error:x}));
+  env.disabled=false;
+  if(r.error){$("#pe").textContent=textoError(r.error);return}
+  fin(true)};
+ d.showModal();setTimeout(()=>(nueva?$("#p1"):$("#pm")).focus(),50)})}
+async function revisarLocales(){const L=await leerLocal();const b=$("#mv");b.hidden=!L.length;b.textContent="Mover a la nube "+L.length+" documento(s) de este navegador"}
+async function alCambiarUsuario(nuevo){
+ if((nuevo&&nuevo.id)===(user&&user.id))return;
+ user=nuevo;docs=[];
+ if(user){try{await cargar();await revisarLocales()}catch(e){msg(textoError(e))}}
+ render()}
+(async()=>{
+ try{localStorage.removeItem("adm-h");sessionStorage.removeItem("adm")}catch(e){}
  for(const sel of ["#fs","#as"]){const e=$(sel);if(sel==="#fs")e.add(new Option("Todas las asignaturas",""));SJ.forEach(s=>e.add(new Option(s.name,s.slug)))}
- $("#fs").value=cur;$("#as").value=cur||"programacion";
+ $("#fs").value=SJ.some(s=>s.slug===cur)?cur:"";cur=$("#fs").value;$("#as").value=cur||"programacion";
  $("#fs").onchange=()=>{cur=$("#fs").value;history.replaceState(null,"","docs.html"+(cur?"?s="+cur:""));render()};
- if(sessionStorage.getItem("adm")==="1"&&getH())setAdmin(true);
- $("#adm").onclick=async()=>{if(document.body.classList.contains("admin"))return setAdmin(false);if(await unlock())setAdmin(true)};
- $("#lk").onclick=()=>setAdmin(false);
- $("#cp").onclick=async()=>{if(await ask("change"))$("#msg").textContent="Contraseña cambiada."};
- $("#ad").onclick=async()=>{const fs=[...$("#af").files];if(!fs.length){$("#msg").textContent="Elige primero algún archivo.";return}
-  const u=$("#au").value.trim()||"Sin unidad";let n=0;
-  for(const f of fs){try{const c=await conv(f);await put(Object.assign({id:"d"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),s:$("#as").value,u,title:f.name.replace(/\.[^.]+$/,""),name:f.name,ts:Date.now()},c));n++}catch(e){$("#msg").textContent="No se pudo añadir "+f.name+": "+e.message}}
-  $("#af").value="";if(n)$("#msg").textContent=n+" documento(s) añadido(s).";render()};
- $("#ex").onclick=async()=>{const L=await all();for(const d of L)if(d.blob){d.data=await blobToData(d.blob);delete d.blob}
-  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(L)],{type:"application/json"}));a.download="daw1-documentos.json";a.click()};
+ addEventListener("hashchange",render);
+ const cfg=window.DAW1_SUPABASE||{};
+ if(!cfg.url||!cfg.key||typeof supabase==="undefined"){
+  listo=false;await render();
+  if(cfg.url&&cfg.key){$("#lista").textContent="";const p=document.createElement("p");p.textContent="No se pudo cargar la conexión con Supabase. Comprueba tu conexión y recarga la página.";$("#lista").append(p)}
+  return}
+ sb=supabase.createClient(cfg.url,cfg.key);listo=true;
+ $("#adm").onclick=async()=>{if(user){await sb.auth.signOut();history.replaceState(null,"",location.pathname+location.search);return alCambiarUsuario(null)}await dialogo("entrar")};
+ $("#cp").onclick=async()=>{if(await dialogo("cambiar"))msg("Contraseña cambiada.")};
+ $("#ad").onclick=async()=>{const fs=[...$("#af").files];if(!fs.length){msg("Elige primero algún archivo.");return}
+  const u=$("#au").value.trim()||"Sin unidad",boton=$("#ad");let n=0;const mal=[];boton.disabled=true;
+  for(const[i,f]of fs.entries()){msg("Subiendo "+(i+1)+" de "+fs.length+": "+f.name+"…");
+   try{await subir(f,$("#as").value,u);n++}catch(e){mal.push(f.name+": "+textoError(e))}}
+  boton.disabled=false;$("#af").value="";
+  try{await cargar()}catch(e){mal.push(textoError(e))}
+  msg((n?n+" documento(s) añadido(s). ":"")+(mal.length?"No se pudo añadir: "+mal.join(" · "):""));render()};
+ $("#mv").onclick=async()=>{const L=await leerLocal();$("#mv").disabled=true;
+  const r=await moverAntiguos(L,d=>borrarLocal(d.id));$("#mv").disabled=false;await cargar().catch(()=>{});await revisarLocales();
+  msg(r.n+" documento(s) movido(s) a la nube."+(r.mal.length?" Fallaron: "+r.mal.join(" · "):""));render()};
  $("#im").onclick=()=>$("#imf").click();
- $("#imf").onchange=async e=>{try{const L=JSON.parse(await e.target.files[0].text());for(const d of L){if(!d.id)continue;if(d.data){d.blob=await (await fetch(d.data)).blob();delete d.data}await put(d)}$("#msg").textContent=L.length+" documento(s) restaurado(s).";render()}catch(x){$("#msg").textContent="Copia no válida."}};
- addEventListener("hashchange",render);render()})();
+ $("#imf").onchange=async e=>{const f=e.target.files[0];if(!f)return;e.target.value="";
+  try{const L=JSON.parse(await f.text());if(!Array.isArray(L))throw 0;
+   for(const d of L)if(typeof d.data==="string"&&d.data.startsWith("data:")){d.blob=await (await fetch(d.data)).blob();delete d.data}
+   const r=await moverAntiguos(L.filter(d=>d&&(d.blob||d.html)));await cargar().catch(()=>{});
+   msg(r.n+" documento(s) restaurado(s)."+(r.mal.length?" Fallaron: "+r.mal.join(" · "):""));render()}
+  catch(x){msg("Copia no válida.")}};
+ sb.auth.onAuthStateChange((ev,s)=>{setTimeout(()=>alCambiarUsuario(s?s.user:null),0)});
+ await render()})();
 </script></body></html>

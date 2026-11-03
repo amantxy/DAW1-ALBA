@@ -45,3 +45,11 @@ Aún sin contenido.
 | Transformación | `transformacion/` | — |
 | Entornos de Desarrollo | `entornos-de-desarrollo/` | — |
 | Inglés Profesional | `ingles-profesional/` | — |
+
+## Mis documentos
+
+`docs.html` guarda los documentos en Supabase, en una carpeta privada a la que solo se accede con tu cuenta. `progreso.js` guarda también en tu cuenta el progreso de las páginas de estudio.
+
+1. Ejecuta `supabase/esquema.sql` en el SQL Editor de Supabase.
+2. Crea tu usuario en Authentication > Users y desactiva los registros nuevos en los ajustes de Authentication.
+3. La URL del proyecto y la clave publishable van en `supabase-config.js`. Nunca pongas ahí la clave secret.

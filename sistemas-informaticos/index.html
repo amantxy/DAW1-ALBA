@@ -19,15 +19,18 @@ a.card{transition:transform .15s,box-shadow .15s}
 .card span{color:var(--suave);font-size:.9rem}
 .card .ico{position:absolute;right:14px;top:12px;font:700 1.3rem ui-monospace,Consolas,monospace;color:var(--c);opacity:.35}
 .card.off{opacity:.5;border-top-style:dashed}
-details.fold{margin:0 0 16px;background:var(--hoja);border:1px solid var(--linea);border-left:8px solid var(--c);border-radius:12px;overflow:hidden}
-details.fold>summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;align-items:center;gap:12px;min-height:56px}
+details.fold{position:relative;margin:32px 0 18px;--f:color-mix(in srgb,var(--c) 20%,var(--hoja))}
+details.fold>summary{list-style:none;cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;min-height:72px;padding:16px 18px;background:var(--f);border:2px solid var(--c);border-radius:0 12px 12px 12px}
+details.fold>summary::before{content:"";position:absolute;left:-2px;bottom:100%;width:min(46%,170px);height:17px;background:var(--c);border-radius:10px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+details.fold>summary:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
 details.fold>summary::-webkit-details-marker{display:none}
-details.fold>summary svg{flex:none;width:34px;height:34px;color:var(--c)}
+details.fold>summary>svg{display:none}
 details.fold>summary b{font-size:1.15rem}
 details.fold>summary small{display:block;color:var(--suave);font-size:.88rem}
-details.fold>summary::after{content:"▾";margin-left:auto;color:var(--suave);transition:transform .2s}
+details.fold>summary::after{content:"▾";margin-left:auto;color:var(--tinta);transition:transform .2s}
+details.fold[open]>summary{border-radius:0 12px 0 0}
 details.fold[open]>summary::after{transform:rotate(180deg)}
-.in{padding:4px 16px 18px}
+.in{padding:14px 16px 18px;background:var(--hoja);border:2px solid var(--c);border-top:0;border-radius:0 0 12px 12px}
 .in h3{margin:14px 0 8px;font-size:.95rem;color:var(--c);display:flex;align-items:center;gap:8px}
 .in h3 svg{width:20px;height:20px}
 .tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
@@ -36,6 +39,7 @@ a.t:hover,a.t:focus-visible{border-color:var(--c);outline:none}
 .t b{display:block;font-size:.98rem}
 .t span{color:var(--suave);font-size:.82rem}
 div.t{opacity:.5;border-style:dashed}
-.sub{margin-top:8px;padding:6px 12px 14px;border:1px dashed var(--c);border-radius:10px}
+.sub{position:relative;margin-top:26px;padding:6px 12px 14px;background:var(--cs);border:1.5px solid var(--c);border-radius:0 10px 10px 10px}
+.sub::before{content:"";position:absolute;left:-1.5px;bottom:100%;width:min(46%,130px);height:13px;background:var(--c);border-radius:8px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-</style></head><body><div class="hero"><div class="wrap"><a class="back" href="../index.html">← Todas las asignaturas</a><h1>Sistemas Informáticos</h1><p>Aún sin contenido</p></div></div><div class="wrap"><details class="fold" open><summary><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4.2c.5 0 1 .2 1.4.6L12 6h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span><b>Unidad 1</b><small>Se creará cuando haya material</small></span></summary><div class="in"><div class="tiles"><div class="t"><b>Teoría</b><span>Próximamente</span></div><div class="t"><b>Ejercicios</b><span>Próximamente</span></div><div class="t"><b>Estudio</b><span>Flashcards y tests</span></div></div></div></details><a class="card" style="margin-top:6px" href="../docs.html?s=sistemas-informaticos"><b>Mis documentos</b><span>Teoría y apuntes que añades tú (modo administrador)</span></a></div></body></html>
+</style></head><body><div class="hero"><div class="wrap"><a class="back" href="../index.html">← Todas las asignaturas</a><h1>Sistemas Informáticos</h1><p>Aún sin contenido</p></div></div><div class="wrap"><details class="fold" open><summary><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4.2c.5 0 1 .2 1.4.6L12 6h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span><b>Unidad 1</b><small>Se creará cuando haya material</small></span></summary><div class="in"><div class="tiles"><div class="t"><b>Teoría</b><span>Próximamente</span></div><div class="t"><b>Ejercicios</b><span>Próximamente</span></div><div class="t"><b>Estudio</b><span>Flashcards y tests</span></div></div></div></details><a class="card" style="margin-top:6px" href="../docs.html?s=sistemas-informaticos"><b>Mis documentos</b><span>Teoría y apuntes que añades tú, con tu cuenta</span></a></div></body></html>
