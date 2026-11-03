@@ -124,3 +124,4 @@ window.BANCO=window.BANCO||{};BANCO[2]=[
 ["La transformación productiva consiste en...","Rediseñar un proceso con tecnología, datos, personas, integración, seguridad y métricas","Poner IA","Subirlo todo a la nube"],
 ["Una tecnología emergente aporta valor cuando...","Responde a un problema real, usa datos adecuados, se integra y se mide su impacto","Es la más nueva","Tiene mucha publicidad"],
 ];
+window.NIVEL=window.NIVEL||{};NIVEL[2]="FFMFMMMMMMFFFFDMDMDMDDMFFMMMMDDFMMFFFFMMMFDFDMFFFFMMMMFMFMMDDMFMMFFDMDDFMFFFFMMDMFFFMDDDFFMFFMFFMMMDMMDMFMMMFFDMDDDDFMMDDDD";

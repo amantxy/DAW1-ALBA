@@ -101,3 +101,4 @@ window.BANCO=window.BANCO||{};BANCO[2]=[
 ["En una jerarquía disjunta, una ocurrencia de un subtipo...","No puede pertenecer simultáneamente a otro","Pertenece a todos","No existe"],
 ["En una jerarquía total, todos los miembros del supertipo...","Son de algún subtipo","No son de ningún subtipo","Son atributos"],
 ];
+window.NIVEL=window.NIVEL||{};NIVEL[2]="FMFMFFFFFMMDMMMFFMFDMDMFFFMMMMMFFFFFMFMMMMMMMFFFFFDDMMMDDFFFMMDMFMDDMFDDDDMMMMDDMMDDMMFMDMDDMDMMMDDD";

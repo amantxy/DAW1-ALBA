@@ -126,3 +126,4 @@ window.BANCO=window.BANCO||{};BANCO[1]=[
 ["Antes de sustituir los equipos de ReservaCerca conviene...","Revisar si sirven y valorar reparación o reutilización","Comprar todos los nuevos","Eliminar el archivo compartido"],
 ["Atender a Portugal es para ReservaCerca...","Una oportunidad que exige revisar idioma, soporte y requisitos","Un cambio sin riesgos","Un problema de mecanización"],
 ];
+window.NIVEL=window.NIVEL||{};NIVEL[1]="FFFFFMFMMFFFMMFMMFMMDMFFFMFMFMMFFDMMDMDMMFMMMFMDDMFMMMMDMMMMFMMDFMFMMDMMFMMMDDDDDFFMMMDDFFFFMFFFFMFFFMMMMMMFMMMDDDDDDDDFFMDDD";

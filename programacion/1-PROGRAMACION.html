@@ -8632,7 +8632,7 @@ BUILD SUCCESSFUL (total time: 0 seconds) Referencias bibliográficas CORREA U, G
 </div></section>
 
 <section class="sec" id="p-quiz"><h3>Test de opción múltiple</h3><div class="body">
-<div class="bar"><select id="qz-tema"><option value="all">Todos los temas</option><option value="UT1">UT 1</option><option value="UT2">UT 2</option><option value="UT3">UT 3</option></select><button id="qz-start">Empezar / reiniciar</button><span id="qz-score" class="sub"></span></div>
+<div class="bar"><select id="qz-tema"><option value="all">Todos los temas</option><option value="UT1">UT 1</option><option value="UT2">UT 2</option><option value="UT3">UT 3</option></select><select id="qz-nivel" aria-label="Nivel"><option value="">Todos los niveles</option><option value="F">Fácil</option><option value="M">Medio</option><option value="D">Difícil</option></select><select id="qz-cant" aria-label="Preguntas"><option value="40">40 al azar, sin repetir</option><option value="todas">Todas</option></select><button id="qz-start">Empezar / reiniciar</button><span id="qz-score" class="sub"></span></div><p id="qz-nota" class="sub"></p>
 <div id="qz-box"></div>
 </div></section>
 
@@ -9162,10 +9162,14 @@ var QZ=[
 ["UT3","¿Cuál es el caso base de un factorial recursivo?",["n == 1000","n == 0 → devuelve 1","n < 0","n == 2"],1,"factorial(0) = 1 detiene las llamadas."],
 ["UT3","Desde main (static), ¿cómo llamas a un método de instancia?",["Directamente por su nombre","Creando un objeto y usando objeto.metodo()","Con la clase: Clase.metodo()","No se puede"],1,"Necesitas un objeto: Persona p = new Persona(); p.saludar();"]
 ];
+var QZN="FDMFMMDFFMFFFMDMMFMFDDMD";
 var qz={list:[],i:0,ok:0,done:false};
 function qzStart(){
-  var t=$('#qz-tema').value;
-  qz.list=shuffle(QZ.filter(function(q){return t==='all'||q[0]===t}));qz.i=0;qz.ok=0;qz.done=false;qzShow();
+  var t=$('#qz-tema').value,nv=$('#qz-nivel').value,c=$('#qz-cant').value;
+  var pool=QZ.filter(function(q,i){return (t==='all'||q[0]===t)&&(!nv||QZN.charAt(i)===nv)});
+  qz.list=shuffle(pool);if(c==='40')qz.list=qz.list.slice(0,40);
+  $('#qz-nota').textContent=c==='40'&&pool.length<40?'En esta selección hay '+pool.length+' preguntas, así que salen todas.':'';
+  qz.i=0;qz.ok=0;qz.done=false;qzShow();
 }
 function qzShow(){
   var box=$('#qz-box');box.textContent='';
@@ -9193,7 +9197,7 @@ function qzShow(){
   });
   box.appendChild(fb);
 }
-$('#qz-start').onclick=qzStart;$('#qz-tema').onchange=qzStart;qzStart();
+$('#qz-start').onclick=qzStart;$('#qz-tema').onchange=qzStart;$('#qz-nivel').onchange=qzStart;$('#qz-cant').onchange=qzStart;qzStart();
 
 /* ---------- PREDICCIÓN DE SALIDA ---------- */
 var PR=[

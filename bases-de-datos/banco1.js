@@ -101,3 +101,4 @@ window.BANCO=window.BANCO||{};BANCO[1]=[
 ["En una arquitectura de tres capas, la capa de presentación es...","La interfaz que ve el usuario","Donde residen los datos","La lógica oculta del disco"],
 ["¿En qué capa residen los SGBD?","En la capa de datos","En la de presentación","En la de negocio"],
 ];
+window.NIVEL=window.NIVEL||{};NIVEL[1]="MMFFFMMMFMMFMMMDFMMFMMMMMFFFMMMDMMMMFMFDFFMFMMFMMMFMMFFMMDDDDFFFMMDDFDMMFDMMDFFMMMFFDFFFMMMDMMFDDDFM";

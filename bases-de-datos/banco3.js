@@ -101,3 +101,4 @@ window.BANCO=window.BANCO||{};BANCO[3]=[
 ["Los atributos de una relación N:M pasan a...","La tabla generada por la relación","Ninguna tabla","La clave de una entidad"],
 ["¿Qué elimina aplicar correctamente la normalización?","Las anomalías del modelo","Todas las tablas","Las claves primarias"],
 ];
+window.NIVEL=window.NIVEL||{};NIVEL[3]="FFFMMFMFFMFMFMFMMMMMFMMMMMDMMMMMDFFFFMFFMMMMDMMMFMFFDDDMMDDDMMFMMMMFFMMFMMDFDDDDMMMDDDDDDDDMDDMDDMMM";

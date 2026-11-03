@@ -115,6 +115,7 @@ input.gap.ok{background:var(--good-soft);border-color:var(--good)}
 input.gap.ko{background:var(--bad-soft);border-color:var(--bad)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 nav.tabs{display:none!important}details.ac{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:12px 0}details.ac>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:12px 16px;font-weight:700;font-size:1.05rem}details.ac>summary::-webkit-details-marker{display:none}details.ac>summary::after{content:"▾";transition:transform .2s}details.ac[open]>summary::after{transform:rotate(180deg)}details.ac>summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}details.ac>section.panel{padding:6px 12px 14px}
+select.qsel{font:inherit;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);max-width:100%}
 </style>
 <body>
 <div class="wrap">
@@ -961,12 +962,22 @@ QUIZ.forEach((q,i)=>{if(!q[4])q[4]=i<10?"Internet":i<18?"Marcas y XML":"HTML"});
 function shufQ(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 (function(){
  const box=$("#quizBox"),bar=el("div",{class:"row",style:"margin-bottom:10px;flex-wrap:wrap"});
- const go=(list)=>{window._qall=list;quizStart(shufQ(list))};
- [["Todas","Todas ("+QUIZ.length+")"],["Internet","Internet ("+QUIZ.filter(q=>q[4]==="Internet").length+")"],["Marcas y XML","Marcas y XML ("+QUIZ.filter(q=>q[4]==="Marcas y XML").length+")"],["HTML","HTML ("+QUIZ.filter(q=>q[4]==="HTML").length+")"]].forEach(([k,t])=>{
-  const b=el("button",{class:"btn ghost",type:"button",text:t});b.onclick=()=>go(k==="Todas"?QUIZ:QUIZ.filter(q=>q[4]===k));bar.append(b)});
- const ex=el("button",{class:"btn",type:"button",text:"Simulacro de examen (40)"});ex.onclick=()=>{const l=shufQ(QUIZ).slice(0,40);window._qall=l;quizStart(l)};bar.append(ex);
- box.parentNode.insertBefore(bar,box);
- go(QUIZ);
+ const NV="FMMMMFMMFFMMMDMMFMFFFMFFMDDFMDFDDMMMMMMMMFFFFMMMMMMDMMMDMMFMMMDMFFMDDMMFMMMMMDMDFFFMMDDFMFFMMMDMMFFMMMDFMMFMDFMFMMDDDMMMMDFMFFMMFFMDMMFMMMDMMDMDMFMFMMDDFFFMFMMDFMDFFFMMFFMFFMFFMFFDFFMDMDFMFMMMFMFMMMMFFMMMDMMDMDDDDDMDDMFDFFFDMFFMFFFFMDFMFMFDDDFMMFFMFDDMMMFMDDFMMMMDFDMFFDDDDMDMMFMDDDMMFDDFFMDFMDMDMMMFMMMFDMMFDMMFFDMDDMDFFDMDFMDMF";
+ const DUP=new Set([4,8,10,11,13,15,16,17,18,19,20,21,22,23,24,25,27,28,29,30]);
+ const POOL=QUIZ.map((q,i)=>({q,n:NV.charAt(i),i:i+1})).filter(x=>!DUP.has(x.i));
+ const opt=(v,t)=>{const o=el("option",{text:t});o.value=v;return o};
+ const sT=el("select",{"aria-label":"Tema",class:"qsel"}),sN=el("select",{"aria-label":"Nivel",class:"qsel"}),sC=el("select",{"aria-label":"Preguntas",class:"qsel"});
+ [["Todas","Todos los temas"],["Internet","Internet"],["Marcas y XML","Marcas y XML"],["HTML","HTML"]].forEach(([v,t])=>sT.append(opt(v,t)));
+ [["","Todos los niveles"],["F","Fácil"],["M","Medio"],["D","Difícil"]].forEach(([v,t])=>sN.append(opt(v,t)));
+ sC.append(opt("40","40 al azar, sin repetir"),opt("todas","Todas"));
+ const nota=el("p",{class:"muted",style:"margin:0 0 10px"});
+ const pool=()=>POOL.filter(x=>(sT.value==="Todas"||x.q[4]===sT.value)&&(!sN.value||x.n===sN.value)).map(x=>x.q);
+ function pinta(){const c=pool().length;sC.options[1].textContent="Todas ("+c+")";nota.textContent=c+" preguntas en esta selección"+(sC.value==="40"&&c<40?", así que salen todas.":".")}
+ function empieza(){pinta();const l=shufQ(pool()),s=sC.value==="40"?l.slice(0,40):l;window._qall=s;quizStart(s)}
+ [sT,sN,sC].forEach(x=>x.onchange=empieza);
+ const b=el("button",{class:"btn",type:"button",text:"Empezar test"});b.onclick=empieza;
+ bar.append(sT,sN,sC,b);box.parentNode.insertBefore(bar,box);box.parentNode.insertBefore(nota,box);
+ empieza();
 })();
 
 /* practica */
