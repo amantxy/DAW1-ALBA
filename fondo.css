@@ -19,11 +19,20 @@ html,body{overflow-x:clip}
 #tema{width:42px;padding:0;font-size:1.1rem}
 #sesion button:focus-visible,#tema:focus-visible{outline:2px solid #fff;outline-offset:2px}
 @media (max-width:380px){.cab{gap:4px}.cab-acc{gap:4px;margin-left:auto}#sesion button{padding:6px 7px;font-size:.8rem}#tema{width:38px}.hero .cab h1{font-size:1.15rem!important}}
-.grid.asig{grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:10px}
-.grid.asig a.card{min-height:72px;padding:12px 38px 12px 14px;border-top-width:5px}
-.grid.asig .card .ico{right:10px;top:10px;font-size:1rem}
+/* Portada: se adapta a móvil, tableta y ordenador, sin tarjetas sueltas ni textos pisados. */
+.grid.asig{grid-template-columns:1fr 1fr;gap:10px}
+.grid.asig a.card{min-height:84px;padding:12px 14px;border-top-width:5px}
+.grid.asig a.card:last-of-type:nth-of-type(odd){grid-column:1/-1}
+.grid.asig .card .ico{display:none}
 .grid.asig .card b{font-size:1rem;margin:0}
-@media (max-width:480px){.grid.asig .card .ico{display:none}.grid.asig a.card{padding-right:12px}}
+@media (min-width:700px){
+.portada .wrap{max-width:1240px}
+.grid.asig{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+.grid.asig a.card{flex:0 0 calc((100% - 32px)/3);min-height:clamp(130px,20vh,220px);padding:20px 64px 20px 20px;border-top-width:6px}
+.grid.asig .card .ico{display:block;right:18px;top:18px;font-size:1.5rem}
+.grid.asig .card b{font-size:clamp(1.05rem,1.5vw,1.35rem);line-height:1.25}
+}
+@media (min-width:1024px){.grid.asig a.card{flex-basis:calc((100% - 48px)/4)}}
 /* Solo el nivel exterior es carpeta; dentro, filas desplegables. */
 details.fold details.fold{margin:0!important;background:none}
 details.fold details.fold>summary{min-height:50px;padding:10px 6px;gap:10px;background:none;border:0;border-bottom:1px solid var(--linea);border-radius:0}
