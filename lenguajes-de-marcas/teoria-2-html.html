@@ -29,7 +29,7 @@ a.next{display:inline-block;margin-top:30px;padding:12px 18px;border-radius:10px
 <li>Las <b>etiquetas vacías</b> (void elements) no tienen contenido ni cierre: <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>.</li>
 <li>HTML <b>no distingue mayúsculas</b> en los nombres, pero se escriben en <b>minúsculas</b>.</li>
 </ul>
-<div class="call">Actividad 1 · Copia <code>&lt;strong&gt;Aviso importante&lt;/strong&gt;</code>, señala apertura, cierre y contenido, y escribe una línea parecida con <code>&lt;em&gt;</code>.</div>
+<div class="call">Actividad 1 · Copia <code>&lt;strong&gt;Aviso importante&lt;/strong&gt;</code>, señala apertura, cierre y contenido, y escribe una línea parecida con <code>&lt;em&gt;</code>.</div><details class="sol"><summary>Ver la solución</summary><div><ul><li><b>Apertura:</b> <code>&lt;strong&gt;</code></li><li><b>Contenido:</b> <code>Aviso importante</code></li><li><b>Cierre:</b> <code>&lt;/strong&gt;</code></li></ul><pre><code>&lt;em&gt;Lee esto con calma&lt;/em&gt;</code></pre></div></details>
 <h3>Esqueleto de un HTML5</h3>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="es"&gt;
@@ -49,7 +49,17 @@ a.next{display:inline-block;margin-top:30px;padding:12px 18px;border-radius:10px
 <li><b><code>&lt;title&gt;</code></b>: texto de la pestaña y de los resultados de buscadores.</li>
 <li><b><code>&lt;body&gt;</code></b>: todo el contenido visible.</li>
 </ul>
-<div class="call">Actividad 2 · Crea <code>index.html</code> con el esqueleto, tu nombre en el título, <code>lang="es"</code> y un comentario con la fecha dentro del body.</div>
+<div class="call">Actividad 2 · Crea <code>index.html</code> con el esqueleto, tu nombre en el título, <code>lang="es"</code> y un comentario con la fecha dentro del body.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Ana García&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- 3 de noviembre de 2026 --&gt;
+  &lt;h1&gt;Mi primera página&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div></details>
 <p>Herramientas: <b>Visual Studio Code</b> con la extensión *Live Server*, las herramientas de desarrollador del navegador (<b>F12</b>) y el validador oficial del W3C (validator.w3.org).</p>
 <h2 id="s1">2. Elementos: cabeceras y párrafos</h2>
 <p>Un <b>elemento</b> es etiqueta de apertura + contenido + etiqueta de cierre (o la etiqueta sola si es vacía). <code>&lt;p&gt;Hola&lt;/p&gt;</code> es un elemento; <code>&lt;p&gt;</code> sola es solo la etiqueta.</p>
@@ -59,7 +69,7 @@ a.next{display:inline-block;margin-top:30px;padding:12px 18px;border-radius:10px
 
 &lt;!-- Incorrecto: los cierres están cruzados --&gt;
 &lt;p&gt;Hola &lt;strong&gt;mundo&lt;/p&gt;&lt;/strong&gt;</code></pre>
-<div class="call">Actividad 3 · Párrafo con una palabra en negrita (<code>strong</code>) que además va en cursiva (<code>em</code>), cerrando en el orden correcto.</div>
+<div class="call">Actividad 3 · Párrafo con una palabra en negrita (<code>strong</code>) que además va en cursiva (<code>em</code>), cerrando en el orden correcto.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;p&gt;Esto es &lt;strong&gt;&lt;em&gt;muy importante&lt;/em&gt;&lt;/strong&gt; para el examen.&lt;/p&gt;</code></pre><p>La última etiqueta en abrirse, <code>em</code>, es la primera en cerrarse.</p></div></details>
 <ul>
 <li><b><code>&lt;h1&gt;</code> a <code>&lt;h6&gt;</code></b>: encabezados, de mayor a menor importancia. Cada página debería tener <b>un único h1</b>.</li>
 <li><b><code>&lt;p&gt;</code></b>: párrafo; el navegador añade espacio antes y después.</li>
@@ -74,7 +84,10 @@ a.next{display:inline-block;margin-top:30px;padding:12px 18px;border-radius:10px
 Este es mi primer documento HTML.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2&gt;Contacto&lt;/h2&gt;</code></pre>
-<div class="call">Actividad 4 · Biografía con un h1, dos párrafos (usa <code>br</code> en el segundo) y una línea horizontal entre ambos.</div>
+<div class="call">Actividad 4 · Biografía con un h1, dos párrafos (usa <code>br</code> en el segundo) y una línea horizontal entre ambos.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;h1&gt;Ana García&lt;/h1&gt;
+&lt;p&gt;Estudio Desarrollo de Aplicaciones Web.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Vivo en Salamanca.&lt;br&gt;Me gusta programar.&lt;/p&gt;</code></pre></div></details>
 <h2 id="s2">3. Atributos</h2>
 <p>Un <b>atributo</b> añade información extra a una etiqueta. Va <b>siempre dentro de la etiqueta de apertura</b>, con la forma <code>nombre="valor"</code>; puede haber varios separados por espacios, y el valor va entre comillas.</p>
 <ul>
@@ -83,7 +96,7 @@ Este es mi primer documento HTML.&lt;/p&gt;
 </ul>
 <pre><code>&lt;a href="https://www.w3schools.com"&gt;Ir a W3Schools&lt;/a&gt;
 &lt;img src="foto.jpg" alt="Foto de perfil"&gt;</code></pre>
-<div class="call">Actividad 5 · En <code>&lt;img src="gato.jpg" alt="Un gato" width="300"&gt;</code>: ¿cuál es la etiqueta, cuántos atributos tiene y qué valor tiene cada uno?</div>
+<div class="call">Actividad 5 · En <code>&lt;img src="gato.jpg" alt="Un gato" width="300"&gt;</code>: ¿cuál es la etiqueta, cuántos atributos tiene y qué valor tiene cada uno?</div><details class="sol"><summary>Ver la solución</summary><div><ul><li><b>Etiqueta:</b> <code>img</code></li><li><b>Atributos:</b> 3</li><li><b>Valores:</b> <code>src</code> vale <code>gato.jpg</code>, <code>alt</code> vale <code>Un gato</code> y <code>width</code> vale <code>300</code>.</li></ul></div></details>
 <h2 id="s3">4. Elementos de formato de texto</h2>
 <div class="tw"><table><thead><tr><th>Etiqueta</th><th>Función</th></tr></thead><tbody><tr><td><code>&lt;strong&gt;</code></td><td>Importante (negrita semántica)</td></tr><tr><td><code>&lt;em&gt;</code></td><td>Énfasis (cursiva semántica)</td></tr><tr><td><code>&lt;b&gt;</code> <code>&lt;i&gt;</code> <code>&lt;u&gt;</code></td><td>Negrita, cursiva y subrayado <b>solo visuales</b>, sin significado añadido</td></tr><tr><td><code>&lt;mark&gt;</code></td><td>Resalta como un rotulador fluorescente</td></tr><tr><td><code>&lt;small&gt;</code></td><td>Letra más pequeña: avisos legales, notas</td></tr><tr><td><code>&lt;sub&gt;</code> <code>&lt;sup&gt;</code></td><td>Subíndice y superíndice</td></tr><tr><td><code>&lt;del&gt;</code> <code>&lt;ins&gt;</code></td><td>Texto eliminado (tachado) e insertado</td></tr><tr><td><code>&lt;blockquote&gt;</code></td><td>Cita larga, con sangría</td></tr><tr><td><code>&lt;q&gt;</code></td><td>Cita corta en línea, con comillas automáticas</td></tr><tr><td><code>&lt;pre&gt;</code></td><td>Respeta espacios y saltos de línea</td></tr><tr><td><code>&lt;code&gt;</code></td><td>Fragmento de código, normalmente monoespaciado</td></tr></tbody></table></div>
 <pre><code>&lt;p&gt;&lt;strong&gt;Importante:&lt;/strong&gt; entrega antes del viernes.&lt;/p&gt;
@@ -92,7 +105,12 @@ Este es mi primer documento HTML.&lt;/p&gt;
 &lt;p&gt;Como decía mi profesor, &lt;q&gt;practicar es la única forma&lt;/q&gt;.&lt;/p&gt;
 &lt;p&gt;Usa &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt; para un párrafo.&lt;/p&gt;</code></pre>
 <p>¿Se siguen usando? Todas las semánticas sí. <code>b</code>, <code>i</code> y <code>u</code> solo cuando no hay motivo semántico (p. ej. cursiva para el nombre de un barco); para importancia, mejor <code>strong</code>. En cambio <b><code>&lt;font&gt;</code>, <code>&lt;center&gt;</code> y el atributo <code>bgcolor</code> están obsoletos</b>: lo hace CSS (<code>color</code>, <code>font-family</code>, <code>font-size</code>, <code>text-align</code>, Unidad 3).</p>
-<div class="call">Actividad 6 · Frases con <code>strong</code> y <code>em</code>, el CO2 con <code>sub</code>, una cita corta con <code>q</code> y una larga con <code>blockquote</code>.</div>
+<div class="call">Actividad 6 · Frases con <code>strong</code> y <code>em</code>, el CO2 con <code>sub</code>, una cita corta con <code>q</code> y una larga con <code>blockquote</code>.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;p&gt;El examen es &lt;strong&gt;obligatorio&lt;/strong&gt; y la nota es &lt;em&gt;orientativa&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;La fórmula del dióxido de carbono es CO&lt;sub&gt;2&lt;/sub&gt;.&lt;/p&gt;
+&lt;p&gt;Mi profesor dijo: &lt;q&gt;Practica cada día&lt;/q&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+  La web es para todo el mundo, sea cual sea su hardware, su software o su idioma.
+&lt;/blockquote&gt;</code></pre></div></details>
 <h2 id="s4">5. Comentarios</h2>
 <p><code>&lt;!-- ... --&gt;</code>: el navegador lo ignora por completo. Sirve para dejar notas, explicar el código o desactivar una línea sin borrarla.</p>
 <pre><code>&lt;!-- Esto es un comentario, no se ve en la página --&gt;
@@ -101,7 +119,15 @@ Este es mi primer documento HTML.&lt;/p&gt;
 <ul>
 <li>Los comentarios <b>no pueden anidarse</b> y no deben ocultar información sensible: cualquiera ve el código fuente.</li>
 </ul>
-<div class="call">Actividad 7 · Comentario al principio del body con tu nombre y la fecha, y otro antes de la sección que más te costó.</div>
+<div class="call">Actividad 7 · Comentario al principio del body con tu nombre y la fecha, y otro antes de la sección que más te costó.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;body&gt;
+  &lt;!-- Ana García, 3 de noviembre de 2026 --&gt;
+  &lt;h1&gt;Mi página&lt;/h1&gt;
+
+  &lt;!-- Esta sección es la que más me ha costado --&gt;
+  &lt;table&gt;
+    &lt;tr&gt;&lt;td&gt;Dato&lt;/td&gt;&lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/body&gt;</code></pre></div></details>
 <h2 id="s5">6. Colores</h2>
 <p>El aspecto visual <b>no se define con etiquetas HTML sino con CSS</b> (Unidad 3). Tres formas de indicar un color:</p>
 <ul>
@@ -112,7 +138,9 @@ Este es mi primer documento HTML.&lt;/p&gt;
 <pre><code>&lt;p style="color: tomato;"&gt;Color con nombre.&lt;/p&gt;
 &lt;p style="color: rgb(31, 78, 121);"&gt;Color con RGB.&lt;/p&gt;
 &lt;p style="color: #1F4E79;"&gt;Color hexadecimal.&lt;/p&gt;</code></pre>
-<div class="call">Actividad 8 · Elige tu color favorito, anota su hexadecimal y su RGB, y escribe un párrafo con cada una de las tres formas.</div>
+<div class="call">Actividad 8 · Elige tu color favorito, anota su hexadecimal y su RGB, y escribe un párrafo con cada una de las tres formas.</div><details class="sol"><summary>Ver la solución</summary><div><p>Con azul como ejemplo: hexadecimal <code>#1E90FF</code> y RGB <code>rgb(30, 144, 255)</code>.</p><pre><code>&lt;p style="color: dodgerblue;"&gt;Con nombre de color.&lt;/p&gt;
+&lt;p style="color: #1E90FF;"&gt;Con hexadecimal.&lt;/p&gt;
+&lt;p style="color: rgb(30, 144, 255);"&gt;Con RGB.&lt;/p&gt;</code></pre></div></details>
 <h2 id="s6">7. Cómo enlazar CSS con HTML</h2>
 <p>Tres formas: <b>inline, internal y external</b>.</p>
 <ul>
@@ -127,14 +155,35 @@ Este es mi primer documento HTML.&lt;/p&gt;
 &lt;body&gt;
   &lt;p style="color: red;"&gt;Texto rojo.&lt;/p&gt;        &lt;!-- inline --&gt;
 &lt;/body&gt;</code></pre>
-<div class="call">Actividad 9 · Cambia el color de un párrafo con estilo inline, muévelo a un <code>&lt;style&gt;</code> por etiqueta y explica en un comentario por qué el <code>.css</code> externo es lo más recomendable.</div>
+<div class="call">Actividad 9 · Cambia el color de un párrafo con estilo inline, muévelo a un <code>&lt;style&gt;</code> por etiqueta y explica en un comentario por qué el <code>.css</code> externo es lo más recomendable.</div><details class="sol"><summary>Ver la solución</summary><div><p><b>1. Estilo inline:</b></p><pre><code>&lt;p style="color: red;"&gt;Texto en rojo&lt;/p&gt;</code></pre><p>**2. Con <code>&lt;style&gt;</code> en el <code>head</code>:**</p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Colores&lt;/title&gt;
+  &lt;style&gt;
+    p { color: red; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- El .css externo es lo más recomendable porque separa contenido y
+       diseño, sirve para muchas páginas y se cambia en un solo sitio --&gt;
+  &lt;p&gt;Texto en rojo&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div></details>
 <h2 id="s7">8. El atributo class</h2>
 <p><b><code>class</code></b> asigna a un elemento uno o varios nombres de grupo, para aplicarles el mismo estilo con CSS o seleccionarlos con JavaScript. Se puede repetir en tantos elementos como se quiera, y un elemento puede tener varias clases separadas por espacios.</p>
 <pre><code>&lt;p class="aviso"&gt;Pertenece a la clase "aviso".&lt;/p&gt;
 &lt;p class="aviso urgente"&gt;Pertenece a dos clases.&lt;/p&gt;
 &lt;h2 class="aviso"&gt;También un encabezado.&lt;/h2&gt;</code></pre>
 <p>En la Unidad 3 será uno de los tres «ganchos» de CSS (junto con el elemento y el id).</p>
-<div class="call">Actividad 10 · Dale la misma <code>class="destacado"</code> a varios párrafos de distintas partes de la página.</div>
+<div class="call">Actividad 10 · Dale la misma <code>class="destacado"</code> a varios párrafos de distintas partes de la página.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;style&gt;
+  .destacado { background: yellow; }
+&lt;/style&gt;
+
+&lt;h2&gt;Inicio&lt;/h2&gt;
+&lt;p class="destacado"&gt;Este párrafo está destacado.&lt;/p&gt;
+&lt;h2&gt;Contacto&lt;/h2&gt;
+&lt;p class="destacado"&gt;Este también, en otra parte.&lt;/p&gt;</code></pre><p>Una <code>class</code> se puede repetir; un <code>id</code>, no.</p></div></details>
 <h2 id="s8">9. El atributo id</h2>
 <p><b><code>id</code></b> identifica a un elemento de forma <b>única</b> en toda la página: no debe repetirse. Sin espacios ni tildes.</p>
 <pre><code>&lt;h2 id="contacto"&gt;Contacto&lt;/h2&gt;
@@ -142,7 +191,15 @@ Este es mi primer documento HTML.&lt;/p&gt;
 <ul>
 <li><b><code>class</code> agrupa</b> (varios elementos, varias veces); <b><code>id</code> identifica</b> (un único elemento, una sola vez).</li>
 </ul>
-<div class="call">Actividad 11 · Dale un id distinto a cada sección y crea un menú de enlaces internos (<code>href="#..."</code>) al principio.</div>
+<div class="call">Actividad 11 · Dale un id distinto a cada sección y crea un menú de enlaces internos (<code>href="#..."</code>) al principio.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;nav&gt;
+  &lt;a href="#inicio"&gt;Inicio&lt;/a&gt;
+  &lt;a href="#aficiones"&gt;Aficiones&lt;/a&gt;
+  &lt;a href="#contacto"&gt;Contacto&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;section id="inicio"&gt;&lt;h2&gt;Inicio&lt;/h2&gt;&lt;/section&gt;
+&lt;section id="aficiones"&gt;&lt;h2&gt;Aficiones&lt;/h2&gt;&lt;/section&gt;
+&lt;section id="contacto"&gt;&lt;h2&gt;Contacto&lt;/h2&gt;&lt;/section&gt;</code></pre></div></details>
 <h2 id="s9">10. Enlaces</h2>
 <p><b><code>&lt;a href="..."&gt;</code></b> crea un hipervínculo; <code>href</code> indica el destino.</p>
 <ul>
@@ -157,21 +214,29 @@ Este es mi primer documento HTML.&lt;/p&gt;
 &lt;a href="tel:+34600000000"&gt;Llámame&lt;/a&gt;
 &lt;a href="#contacto"&gt;Ir a contacto&lt;/a&gt;
 &lt;a href="apuntes.pdf" download&gt;Descargar apuntes&lt;/a&gt;</code></pre>
-<div class="call">Actividad 12 · Menú con cuatro enlaces: uno a w3schools.com en pestaña nueva, uno a tu correo, uno a un teléfono inventado y uno interno.</div>
+<div class="call">Actividad 12 · Menú con cuatro enlaces: uno a w3schools.com en pestaña nueva, uno a tu correo, uno a un teléfono inventado y uno interno.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;nav&gt;
+  &lt;a href="https://www.w3schools.com" target="_blank"&gt;W3Schools&lt;/a&gt;
+  &lt;a href="mailto:ana@ejemplo.com"&gt;Correo&lt;/a&gt;
+  &lt;a href="tel:+34600000000"&gt;Teléfono&lt;/a&gt;
+  &lt;a href="#contacto"&gt;Contacto&lt;/a&gt;
+&lt;/nav&gt;</code></pre></div></details>
 <h2 id="s10">11. Rutas relativas y absolutas</h2>
 <ul>
 <li><b>Ruta absoluta</b>: dirección completa empezando por <code>http://</code> o <code>https://</code>, normalmente a otra web. Deja de servir si esa web cambia.</li>
 <li><b>Ruta relativa</b>: posición del archivo respecto a la página actual, sin dominio. <b>Recomendada</b> dentro de un proyecto: sigue funcionando si se mueve todo.</li>
 </ul>
 <div class="tw"><table><thead><tr><th>Ruta</th><th>Significado</th></tr></thead><tbody><tr><td><code>foto.jpg</code></td><td>Misma carpeta que la página</td></tr><tr><td><code>imagenes/foto.jpg</code></td><td>Subcarpeta «imagenes» de la carpeta actual</td></tr><tr><td><code>../foto.jpg</code></td><td>Carpeta anterior (un nivel arriba)</td></tr><tr><td><code>/imagenes/foto.jpg</code></td><td>Subcarpeta «imagenes» de la raíz del sitio</td></tr></tbody></table></div>
-<div class="call">Actividad 13 · Crea un mini-proyecto con <code>index.html</code> y una carpeta <code>imagenes</code> con una foto; escribe la ruta relativa correcta.</div>
+<div class="call">Actividad 13 · Crea un mini-proyecto con <code>index.html</code> y una carpeta <code>imagenes</code> con una foto; escribe la ruta relativa correcta.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>mini-proyecto/
+├── index.html
+└── imagenes/
+    └── foto.jpg</code></pre><p>En <code>index.html</code>, la ruta relativa es:</p><pre><code>&lt;img src="imagenes/foto.jpg" alt="Mi foto"&gt;</code></pre></div></details>
 <h2 id="s11">12. Imágenes</h2>
 <p><b><code>&lt;img src="..." alt="..."&gt;</code></b> inserta una imagen. Es <b>vacía</b>. <code>src</code> es la ruta; <b><code>alt</code></b> es el texto alternativo, obligatorio por accesibilidad (lo leen los lectores de pantalla y se muestra si la imagen no carga).</p>
 <p>Lo habitual: ruta relativa para imágenes propias y URL completa solo si vive en otro servidor.</p>
 <p><b><code>width</code> y <code>height</code></b> (en píxeles) cambian el tamaño y evitan que la página «salte» al cargar. <b>Si solo se indica uno, el navegador calcula el otro</b> y mantiene la proporción; si se indican ambos sin respetarla, la imagen se deforma. Centrar con <code>&lt;center&gt;</code> o <code>align</code> está obsoleto: se hace con CSS.</p>
 <pre><code>&lt;img src="imagenes/perfil.jpg" alt="Foto de perfil" width="200" height="200"&gt;
 &lt;img src="imagenes/perfil.jpg" alt="Foto de perfil" width="200"&gt;</code></pre>
-<div class="call">Actividad 14 · Imagen con ruta relativa y <code>alt</code> descriptivo; prueba a indicar solo <code>width</code>.</div>
+<div class="call">Actividad 14 · Imagen con ruta relativa y <code>alt</code> descriptivo; prueba a indicar solo <code>width</code>.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;img src="imagenes/playa.jpg" alt="Playa con el mar en calma al atardecer" width="300"&gt;</code></pre><p>Al indicar solo <code>width</code>, el navegador calcula la altura y la imagen no se deforma.</p></div></details>
 <h3>Mapa de imagen: map y area</h3>
 <p><code>usemap="#nombre"</code> en la imagen apunta al <code>name</code> del <b><code>&lt;map&gt;</code></b>; dentro, cada <b><code>&lt;area shape coords href&gt;</code></b> es una región pulsable (<code>rect</code>, <code>circle</code> o <code>poly</code>). Las coordenadas son <b>píxeles sobre el tamaño real</b>: si la imagen se redimensiona, las zonas dejan de coincidir.</p>
 <pre><code>&lt;img src="instituto.jpg" alt="Plano" usemap="#plano"&gt;
@@ -179,13 +244,20 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;area shape="rect" coords="0,0,150,100" href="biblioteca.html" alt="Biblioteca"&gt;
   &lt;area shape="rect" coords="150,0,300,100" href="cafeteria.html" alt="Cafetería"&gt;
 &lt;/map&gt;</code></pre>
-<div class="call">Actividad 15 · Plano interactivo con al menos dos áreas pulsables.</div>
+<div class="call">Actividad 15 · Plano interactivo con al menos dos áreas pulsables.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;img src="plano.jpg" alt="Plano del instituto" usemap="#plano" width="600" height="400"&gt;
+
+&lt;map name="plano"&gt;
+  &lt;area shape="rect" coords="0,0,300,400" href="aulas.html" alt="Aulas"&gt;
+  &lt;area shape="circle" coords="450,200,80" href="biblioteca.html" alt="Biblioteca"&gt;
+&lt;/map&gt;</code></pre><p><code>usemap</code> lleva <code>#</code> y el nombre del <code>map</code>.</p></div></details>
 <h3>Imágenes de fondo</h3>
 <p>Con la propiedad CSS <b><code>background-image</code></b>. Es <b>puramente decorativa y no tiene <code>alt</code></b>: si la imagen es contenido importante, va con <code>&lt;img&gt;</code>.</p>
 <pre><code>&lt;div style="background-image: url('imagenes/fondo.jpg'); height: 200px;"&gt;
   &lt;p&gt;Texto encima de la imagen de fondo.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
-<div class="call">Actividad 16 · Un div con imagen de fondo, altura fija con <code>style</code> y un párrafo encima.</div>
+<div class="call">Actividad 16 · Un div con imagen de fondo, altura fija con <code>style</code> y un párrafo encima.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;div style="background-image: url('imagenes/fondo.jpg'); height: 300px;"&gt;
+  &lt;p&gt;Este párrafo va encima de la imagen.&lt;/p&gt;
+&lt;/div&gt;</code></pre></div></details>
 <h3>Imágenes responsivas: picture</h3>
 <p><b><code>&lt;picture&gt;</code></b> agrupa varias imágenes y el navegador elige según pantalla o formato. Lleva uno o varios <b><code>&lt;source media srcset&gt;</code></b> y, siempre al final, un <b><code>&lt;img&gt;</code></b> de reserva.</p>
 <pre><code>&lt;picture&gt;
@@ -193,11 +265,15 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;source media="(min-width: 465px)" srcset="imagenes/paisaje-mediano.jpg"&gt;
   &lt;img src="imagenes/paisaje-pequeno.jpg" alt="Paisaje de montaña"&gt;
 &lt;/picture&gt;</code></pre>
-<div class="call">Actividad 17 · <code>picture</code> con dos <code>source</code> y un <code>img</code> de reserva.</div>
+<div class="call">Actividad 17 · <code>picture</code> con dos <code>source</code> y un <code>img</code> de reserva.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;picture&gt;
+  &lt;source media="(min-width: 800px)" srcset="grande.jpg"&gt;
+  &lt;source media="(min-width: 400px)" srcset="mediana.jpg"&gt;
+  &lt;img src="pequena.jpg" alt="Paisaje de montaña"&gt;
+&lt;/picture&gt;</code></pre><p>El <code>img</code> es obligatorio y se usa si no se cumple ninguna condición.</p></div></details>
 <h3>Favicon</h3>
 <p><b><code>&lt;link rel="icon" ...&gt;</code></b> en el head: el icono de la pestaña.</p>
 <pre><code>&lt;link rel="icon" type="image/x-icon" href="favicon.ico"&gt;</code></pre>
-<div class="call">Actividad 18 · Crea un favicon gratis en favicon.cc y añádelo al head.</div>
+<div class="call">Actividad 18 · Crea un favicon gratis en favicon.cc y añádelo al head.</div><details class="sol"><summary>Ver la solución</summary><div><p>Crea el icono, descárgalo junto a tu página y añade esto dentro de <code>&lt;head&gt;</code>:</p><pre><code>&lt;link rel="icon" href="favicon.ico"&gt;</code></pre></div></details>
 <h2 id="s12">13. Tablas</h2>
 <p><b><code>&lt;table&gt;</code></b> organiza datos en filas y columnas. Partes:</p>
 <ul>
@@ -217,7 +293,18 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;tr&gt;&lt;td&gt;Bases de Datos&lt;/td&gt;&lt;td&gt;Sistemas Operativos&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;</code></pre>
 <p>Dato histórico: antes se usaban tablas para <b>maquetar</b> la página entera; hoy es mala práctica: una tabla es solo para <b>datos tabulares</b> y para maquetar están <code>header</code>, <code>nav</code>, <code>main</code>… con CSS.</p>
-<div class="call">Actividades 19-23 · Tabla de dos columnas y tres filas con <code>th</code>; añade <code>caption</code>; añade <code>border="1"</code>; usa <code>colspan</code>; y construye tu horario semanal completo con <code>th</code>, <code>caption</code> y <code>colspan</code> o <code>rowspan</code>.</div>
+<div class="call">Actividades 19-23 · Tabla de dos columnas y tres filas con <code>th</code>; añade <code>caption</code>; añade <code>border="1"</code>; usa <code>colspan</code>; y construye tu horario semanal completo con <code>th</code>, <code>caption</code> y <code>colspan</code> o <code>rowspan</code>.</div><details class="sol"><summary>Ver la solución</summary><div><p>Las actividades 19 a 22 se ven juntas en esta tabla:</p><pre><code>&lt;table border="1"&gt;
+  &lt;caption&gt;Notas&lt;/caption&gt;
+  &lt;tr&gt;&lt;th&gt;Asignatura&lt;/th&gt;&lt;th&gt;Nota&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Programación&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td colspan="2"&gt;Sin más asignaturas&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</code></pre><p><b>Actividad 23, horario:</b></p><pre><code>&lt;table border="1"&gt;
+  &lt;caption&gt;Mi horario&lt;/caption&gt;
+  &lt;tr&gt;&lt;th&gt;Hora&lt;/th&gt;&lt;th&gt;Lunes&lt;/th&gt;&lt;th&gt;Martes&lt;/th&gt;&lt;th&gt;Miércoles&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;8:30&lt;/td&gt;&lt;td rowspan="2"&gt;Programación&lt;/td&gt;&lt;td&gt;Inglés&lt;/td&gt;&lt;td&gt;Bases de Datos&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;9:25&lt;/td&gt;&lt;td&gt;Marcas&lt;/td&gt;&lt;td&gt;Sistemas&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;10:20&lt;/td&gt;&lt;td colspan="3"&gt;Recreo&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</code></pre></div></details>
 <h2 id="s13">14. Listas</h2>
 <ul>
 <li><b><code>&lt;ol&gt;</code> / <code>&lt;li&gt;</code></b>: lista <b>ordenada</b> (numerada), cuando el orden importa (pasos de una receta).</li>
@@ -231,7 +318,29 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;dt&gt;Etiqueta&lt;/dt&gt;&lt;dd&gt;Marca que indica qué es cada parte del contenido.&lt;/dd&gt;
 &lt;/dl&gt;</code></pre>
 <p>Las listas se combinan con otros elementos: un enlace dentro de cada <code>li</code> forma un menú de navegación.</p>
-<div class="call">Actividades 24-27 · Lista ordenada de una receta; lista desordenada de tres aficiones; lista de definiciones con tres términos; lista de enlaces «Inicio, Sobre mí, Contacto».</div>
+<div class="call">Actividades 24-27 · Lista ordenada de una receta; lista desordenada de tres aficiones; lista de definiciones con tres términos; lista de enlaces «Inicio, Sobre mí, Contacto».</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;ol&gt;
+  &lt;li&gt;Batir los huevos&lt;/li&gt;
+  &lt;li&gt;Añadir la patata&lt;/li&gt;
+  &lt;li&gt;Cuajar en la sartén&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Leer&lt;/li&gt;
+  &lt;li&gt;Programar&lt;/li&gt;
+  &lt;li&gt;Hacer deporte&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;&lt;dd&gt;Lenguaje de marcas para la web&lt;/dd&gt;
+  &lt;dt&gt;CSS&lt;/dt&gt;&lt;dd&gt;Lenguaje de estilos&lt;/dd&gt;
+  &lt;dt&gt;JS&lt;/dt&gt;&lt;dd&gt;Lenguaje de programación de la web&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="index.html"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="sobre-mi.html"&gt;Sobre mí&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="contacto.html"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre></div></details>
 <h2 id="s14">15. Contenedores genéricos: div y span</h2>
 <ul>
 <li><b><code>&lt;div&gt;</code></b>: contenedor genérico a <b>nivel de bloque</b>, sin significado propio; solo agrupa (para CSS o JavaScript).</li>
@@ -242,21 +351,34 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;p&gt;Precio: 19,99€&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;La respuesta es &lt;span style="color: red;"&gt;importante&lt;/span&gt;.&lt;/p&gt;</code></pre>
-<div class="call">Actividad 28 · Un <code>div</code> que agrupe un título y dos párrafos, y un <code>span</code> con estilo inline sobre una palabra.</div>
+<div class="call">Actividad 28 · Un <code>div</code> que agrupe un título y dos párrafos, y un <code>span</code> con estilo inline sobre una palabra.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;div&gt;
+  &lt;h2&gt;Mis aficiones&lt;/h2&gt;
+  &lt;p&gt;Me gusta &lt;span style="color: red;"&gt;programar&lt;/span&gt;.&lt;/p&gt;
+  &lt;p&gt;También me gusta leer.&lt;/p&gt;
+&lt;/div&gt;</code></pre></div></details>
 <h2 id="s15">16. Elementos de bloque y en línea</h2>
 <ul>
 <li><b>Bloque (block)</b>: empieza en una <b>línea nueva</b> y ocupa <b>todo el ancho disponible</b>. Ejemplos: <code>p</code>, <code>div</code>, <code>h1</code>-<code>h6</code>, <code>ul</code>, <code>li</code>, <code>table</code>, <code>header</code>, <code>section</code>.</li>
 <li><b>En línea (inline)</b>: no empieza línea nueva, ocupa <b>solo el ancho de su contenido</b> y fluye con el texto. Ejemplos: <code>span</code>, <code>a</code>, <code>strong</code>, <code>em</code>, <code>img</code>, <code>b</code>, <code>i</code>.</li>
 </ul>
 <p>A un elemento en línea <b>no se le pueden aplicar <code>width</code> ni <code>height</code></b>. Se puede cambiar con la propiedad CSS <code>display</code> (Unidad 3).</p>
-<div class="call">Actividad 29 · ¿Bloque o en línea?: <code>h2</code>, <code>em</code>, <code>ul</code>, <code>img</code>, <code>footer</code>, <code>b</code>. Compruébalo en el navegador.</div>
+<div class="call">Actividad 29 · ¿Bloque o en línea?: <code>h2</code>, <code>em</code>, <code>ul</code>, <code>img</code>, <code>footer</code>, <code>b</code>. Compruébalo en el navegador.</div><details class="sol"><summary>Ver la solución</summary><div><ul><li><b>De bloque:</b> <code>h2</code>, <code>ul</code> y <code>footer</code>.</li><li><b>En línea:</b> <code>em</code>, <code>img</code> y <code>b</code>.</li></ul><p>Para comprobarlo, ponles un borde: los de bloque ocupan todo el ancho y empiezan en una línea nueva.</p></div></details>
 <h2 id="s16">17. Formularios</h2>
 <p>Un <b>formulario</b> es la parte de la página donde el usuario introduce información: un nombre, un mensaje, una búsqueda, los datos de una compra.</p>
 <p><b><code>&lt;form&gt;</code></b> agrupa todos los campos para que el navegador los trate como un conjunto y los envíe de una vez. Por sí solo no muestra nada: es un contenedor invisible cuyos atributos definen qué pasa al enviar.</p>
 <pre><code>&lt;form&gt;
   &lt;!-- aquí dentro van los campos: input, select, textarea... --&gt;
 &lt;/form&gt;</code></pre>
-<div class="call">Actividad 30 · Crea una página con un <code>form</code> vacío.</div>
+<div class="call">Actividad 30 · Crea una página con un <code>form</code> vacío.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Formulario&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;form&gt;&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div></details>
 <h2 id="s17">18. action y method</h2>
 <ul>
 <li><b><code>action</code></b>: la URL a la que se envían los datos. Vacío (<code>action=""</code>), se envía a la propia página.</li>
@@ -266,7 +388,10 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;!-- campos --&gt;
 &lt;/form&gt;</code></pre>
 <p><b>Truco para probar</b>: usa <code>https://httpbingo.org/post</code> como <code>action</code>: acepta formularios por POST y devuelve todos los campos tal cual los recibió.</p>
-<div class="call">Actividad 31 · Explica qué cambia entre enviar con <code>get</code> y con <code>post</code> (barra de direcciones) y prueba un formulario tuyo con httpbingo.</div>
+<div class="call">Actividad 31 · Explica qué cambia entre enviar con <code>get</code> y con <code>post</code> (barra de direcciones) y prueba un formulario tuyo con httpbingo.</div><details class="sol"><summary>Ver la solución</summary><div><ul><li><b>GET:</b> los datos se ven en la barra de direcciones. Por ejemplo, <code>?nombre=Ana</code>.</li><li><b>POST:</b> los datos van en el cuerpo de la petición y no aparecen en la barra de direcciones.</li></ul><pre><code>&lt;form action="https://httpbingo.org/post" method="post"&gt;
+  &lt;input type="text" name="nombre"&gt;
+  &lt;button&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre><p>Para probar GET, usa <code>https://httpbingo.org/get</code> con <code>method="get"</code>.</p></div></details>
 <h2 id="s18">19. target y novalidate</h2>
 <ul>
 <li><b><code>target</code></b>: dónde se carga la respuesta; <code>_blank</code> abre pestaña nueva.</li>
@@ -274,7 +399,10 @@ Este es mi primer documento HTML.&lt;/p&gt;
 </ul>
 <pre><code>&lt;form action="/enviar" method="post" target="_blank" novalidate&gt;
 &lt;/form&gt;</code></pre>
-<div class="call">Actividad 32 · Añade <code>target="_blank"</code> y <code>novalidate</code> a un formulario y explica qué deja de comprobar el navegador.</div>
+<div class="call">Actividad 32 · Añade <code>target="_blank"</code> y <code>novalidate</code> a un formulario y explica qué deja de comprobar el navegador.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;form action="https://httpbingo.org/post" method="post" target="_blank" novalidate&gt;
+  &lt;input type="email" name="correo" required&gt;
+  &lt;button&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre><p><code>target="_blank"</code> abre la respuesta en otra pestaña. Con <code>novalidate</code>, el navegador deja de comprobar al enviar reglas como <code>required</code>, el formato de <code>email</code>, <code>pattern</code>, <code>min</code> y <code>max</code>.</p></div></details>
 <h2 id="s19">20. label</h2>
 <p><b><code>&lt;label&gt;</code></b> asocia un texto descriptivo a un campo. Mejora la accesibilidad y la comodidad: al hacer clic en la etiqueta, el foco pasa al campo (en checkbox o radio, lo marca).</p>
 <ul>
@@ -283,7 +411,8 @@ Este es mi primer documento HTML.&lt;/p&gt;
 </ul>
 <pre><code>&lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
 &lt;input type="text" id="nombre" name="nombre"&gt;</code></pre>
-<div class="call">Actividad 33 · Un <code>input</code> de tipo text con su id y un <code>label</code> asociado; comprueba que al hacer clic en el texto el cursor entra en el campo.</div>
+<div class="call">Actividad 33 · Un <code>input</code> de tipo text con su id y un <code>label</code> asociado; comprueba que al hacer clic en el texto el cursor entra en el campo.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+&lt;input type="text" id="nombre" name="nombre"&gt;</code></pre><p>El <code>for</code> de <code>label</code> debe coincidir con el <code>id</code> del <code>input</code>.</p></div></details>
 <h2 id="s20">21. Tipos de input</h2>
 <p><b><code>&lt;input type="..."&gt;</code></b> es una única etiqueta cuyo comportamiento cambia según <code>type</code>.</p>
 <p><b>Error típico</b>: <code>&lt;input ...&gt;Nombre&lt;/input&gt;</code> no funciona. <code>input</code> es <b>un elemento vacío</b>, sin cierre: el navegador ignora <code>&lt;/input&gt;</code> y «Nombre» queda como texto suelto sin relación con el campo. Para asociar un texto, usa <b><code>&lt;label&gt;</code></b>.</p>
@@ -342,7 +471,64 @@ Este es mi primer documento HTML.&lt;/p&gt;
     &lt;option value="otro"&gt;Otro&lt;/option&gt;
   &lt;/optgroup&gt;
 &lt;/select&gt;</code></pre>
-<div class="call">Actividades 34-48 · Un campo de ciudad con placeholder y <code>maxlength</code>; contraseña obligatoria de mínimo 8; correo obligatorio; teléfono de nueve dígitos con <code>pattern</code>; url; búsqueda; number (1 a 10, valor 1); range del 1 al 10; date y time; color; select con dos <code>optgroup</code> y un <code>selected</code>; tres checkbox; tres radio con el mismo <code>name</code>; file solo para PDF; y un <code>hidden</code> llamado «origen».</div>
+<div class="call">Actividades 34-48 · Un campo de ciudad con placeholder y <code>maxlength</code>; contraseña obligatoria de mínimo 8; correo obligatorio; teléfono de nueve dígitos con <code>pattern</code>; url; búsqueda; number (1 a 10, valor 1); range del 1 al 10; date y time; color; select con dos <code>optgroup</code> y un <code>selected</code>; tres checkbox; tres radio con el mismo <code>name</code>; file solo para PDF; y un <code>hidden</code> llamado «origen».</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;form&gt;
+  &lt;label for="ciudad"&gt;Ciudad&lt;/label&gt;
+  &lt;input type="text" id="ciudad" name="ciudad" placeholder="Salamanca" maxlength="30"&gt;
+
+  &lt;label for="clave"&gt;Contraseña&lt;/label&gt;
+  &lt;input type="password" id="clave" name="clave" minlength="8" required&gt;
+
+  &lt;label for="correo"&gt;Correo&lt;/label&gt;
+  &lt;input type="email" id="correo" name="correo" required&gt;
+
+  &lt;label for="tel"&gt;Teléfono&lt;/label&gt;
+  &lt;input type="tel" id="tel" name="tel" pattern="[0-9]{9}"&gt;
+
+  &lt;label for="web"&gt;Web&lt;/label&gt;
+  &lt;input type="url" id="web" name="web"&gt;
+
+  &lt;label for="buscar"&gt;Buscar&lt;/label&gt;
+  &lt;input type="search" id="buscar" name="buscar"&gt;
+
+  &lt;label for="num"&gt;Número&lt;/label&gt;
+  &lt;input type="number" id="num" name="num" min="1" max="10" value="1"&gt;
+
+  &lt;label for="nivel"&gt;Nivel&lt;/label&gt;
+  &lt;input type="range" id="nivel" name="nivel" min="1" max="10"&gt;
+
+  &lt;label for="fecha"&gt;Fecha&lt;/label&gt;
+  &lt;input type="date" id="fecha" name="fecha"&gt;
+  &lt;label for="hora"&gt;Hora&lt;/label&gt;
+  &lt;input type="time" id="hora" name="hora"&gt;
+
+  &lt;label for="color"&gt;Color&lt;/label&gt;
+  &lt;input type="color" id="color" name="color"&gt;
+
+  &lt;label for="curso"&gt;Curso&lt;/label&gt;
+  &lt;select id="curso" name="curso"&gt;
+    &lt;optgroup label="Web"&gt;
+      &lt;option&gt;HTML&lt;/option&gt;
+      &lt;option selected&gt;CSS&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="Programación"&gt;
+      &lt;option&gt;Java&lt;/option&gt;
+      &lt;option&gt;Python&lt;/option&gt;
+    &lt;/optgroup&gt;
+  &lt;/select&gt;
+
+  &lt;label&gt;&lt;input type="checkbox" name="extra" value="a"&gt; Opción A&lt;/label&gt;
+  &lt;label&gt;&lt;input type="checkbox" name="extra" value="b"&gt; Opción B&lt;/label&gt;
+  &lt;label&gt;&lt;input type="checkbox" name="extra" value="c"&gt; Opción C&lt;/label&gt;
+
+  &lt;label&gt;&lt;input type="radio" name="turno" value="m"&gt; Mañana&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="turno" value="t"&gt; Tarde&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="turno" value="n"&gt; Noche&lt;/label&gt;
+
+  &lt;label for="doc"&gt;Documento&lt;/label&gt;
+  &lt;input type="file" id="doc" name="doc" accept=".pdf"&gt;
+
+  &lt;input type="hidden" name="origen" value="web"&gt;
+&lt;/form&gt;</code></pre></div></details>
 <h2 id="s21">22. Botones en el formulario</h2>
 <p>Los botones no recogen datos: solo disparan una acción. Un <code>input</code> de estos tipos solo muestra texto plano (su <code>value</code>).</p>
 <ul>
@@ -362,7 +548,55 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;button type="submit" formaction="/borrador"&gt;Guardar como borrador&lt;/button&gt;
   &lt;button type="reset"&gt;Borrar todo&lt;/button&gt;
 &lt;/form&gt;</code></pre>
-<div class="call">Actividades 49-51 · Botones «Confirmar» (submit) y «Cancelar» (reset); tres botones con un <code>formaction</code> distinto; y el <b>formulario de inscripción a un evento</b> (POST a httpbingo con nombre, contraseña, correo obligatorio, teléfono con pattern, edad, fecha, select con optgroup, dos checkbox, tres radio, hidden y tres botones: submit, reset y button con <code>formaction</code>).</div>
+<div class="call">Actividades 49-51 · Botones «Confirmar» (submit) y «Cancelar» (reset); tres botones con un <code>formaction</code> distinto; y el <b>formulario de inscripción a un evento</b> (POST a httpbingo con nombre, contraseña, correo obligatorio, teléfono con pattern, edad, fecha, select con optgroup, dos checkbox, tres radio, hidden y tres botones: submit, reset y button con <code>formaction</code>).</div><details class="sol"><summary>Ver la solución</summary><div><p><b>Actividades 49 y 50:</b></p><pre><code>&lt;form action="https://httpbingo.org/post" method="post"&gt;
+  &lt;input type="text" name="dato"&gt;
+  &lt;button type="submit"&gt;Confirmar&lt;/button&gt;
+  &lt;button type="reset"&gt;Cancelar&lt;/button&gt;
+  &lt;button type="submit" formaction="https://httpbingo.org/post"&gt;Opción 1&lt;/button&gt;
+  &lt;button type="submit" formaction="https://httpbingo.org/anything/a"&gt;Opción 2&lt;/button&gt;
+  &lt;button type="submit" formaction="https://httpbingo.org/anything/b"&gt;Opción 3&lt;/button&gt;
+&lt;/form&gt;</code></pre><p><b>Actividad 51:</b></p><pre><code>&lt;form action="https://httpbingo.org/post" method="post"&gt;
+  &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+  &lt;input type="text" id="nombre" name="nombre" required&gt;
+
+  &lt;label for="clave"&gt;Contraseña&lt;/label&gt;
+  &lt;input type="password" id="clave" name="clave" required&gt;
+
+  &lt;label for="correo"&gt;Correo&lt;/label&gt;
+  &lt;input type="email" id="correo" name="correo" required&gt;
+
+  &lt;label for="tel"&gt;Teléfono&lt;/label&gt;
+  &lt;input type="tel" id="tel" name="tel" pattern="[0-9]{9}"&gt;
+
+  &lt;label for="edad"&gt;Edad&lt;/label&gt;
+  &lt;input type="number" id="edad" name="edad" min="0" max="120"&gt;
+
+  &lt;label for="fecha"&gt;Fecha&lt;/label&gt;
+  &lt;input type="date" id="fecha" name="fecha"&gt;
+
+  &lt;label for="taller"&gt;Taller&lt;/label&gt;
+  &lt;select id="taller" name="taller"&gt;
+    &lt;optgroup label="Mañana"&gt;
+      &lt;option&gt;HTML&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="Tarde"&gt;
+      &lt;option&gt;Java&lt;/option&gt;
+    &lt;/optgroup&gt;
+  &lt;/select&gt;
+
+  &lt;label&gt;&lt;input type="checkbox" name="extra" value="comida"&gt; Comida&lt;/label&gt;
+  &lt;label&gt;&lt;input type="checkbox" name="extra" value="camiseta"&gt; Camiseta&lt;/label&gt;
+
+  &lt;label&gt;&lt;input type="radio" name="nivel" value="bajo"&gt; Básico&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="nivel" value="medio"&gt; Medio&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="nivel" value="alto"&gt; Avanzado&lt;/label&gt;
+
+  &lt;input type="hidden" name="evento" value="jornadas"&gt;
+
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+  &lt;button type="reset"&gt;Borrar&lt;/button&gt;
+  &lt;button type="button" formaction="https://httpbingo.org/anything"&gt;Otra acción&lt;/button&gt;
+&lt;/form&gt;</code></pre><p>Un <code>formaction</code> solo actúa en un botón de envío, así que en el <code>type="button"</code> no hace nada. Se incluye porque lo pide el enunciado.</p></div></details>
 <h2 id="s22">23. datalist</h2>
 <p><b><code>&lt;datalist&gt;</code></b> define sugerencias para un input de texto. A diferencia de <code>select</code>, el usuario puede escribir libremente. El input se conecta con el atributo <b><code>list</code></b>, que debe coincidir con el <code>id</code> del datalist (el mismo emparejamiento por id que label/for).</p>
 <pre><code>&lt;input type="text" id="navegador" name="navegador" list="navegadores"&gt;
@@ -371,11 +605,20 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;option value="Firefox"&gt;
   &lt;option value="Edge"&gt;
 &lt;/datalist&gt;</code></pre>
-<div class="call">Actividad 52 · Campo «Lenguaje de programación favorito» con un datalist de al menos cinco sugerencias.</div>
+<div class="call">Actividad 52 · Campo «Lenguaje de programación favorito» con un datalist de al menos cinco sugerencias.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;label for="leng"&gt;Lenguaje de programación favorito&lt;/label&gt;
+&lt;input list="lenguajes" id="leng" name="leng"&gt;
+&lt;datalist id="lenguajes"&gt;
+  &lt;option value="Java"&gt;&lt;/option&gt;
+  &lt;option value="Python"&gt;&lt;/option&gt;
+  &lt;option value="JavaScript"&gt;&lt;/option&gt;
+  &lt;option value="C#"&gt;&lt;/option&gt;
+  &lt;option value="PHP"&gt;&lt;/option&gt;
+&lt;/datalist&gt;</code></pre></div></details>
 <h2 id="s23">24. textarea</h2>
 <p><b><code>&lt;textarea&gt;</code></b>: texto de varias líneas. Su contenido inicial va <b>entre la apertura y el cierre</b>, no en <code>value</code>. <b><code>rows</code></b> y <b><code>cols</code></b>: alto (líneas) y ancho (caracteres); <code>maxlength</code> y <code>placeholder</code> funcionan como en input.</p>
 <pre><code>&lt;textarea id="mensaje" name="mensaje" rows="4" cols="40" placeholder="Escribe aquí..."&gt;&lt;/textarea&gt;</code></pre>
-<div class="call">Actividad 53 · Un textarea de 5 filas por 30 columnas con placeholder.</div>
+<div class="call">Actividad 53 · Un textarea de 5 filas por 30 columnas con placeholder.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;label for="msg"&gt;Mensaje&lt;/label&gt;
+&lt;textarea id="msg" name="msg" rows="5" cols="30" placeholder="Escribe aquí"&gt;&lt;/textarea&gt;</code></pre></div></details>
 <h2 id="s24">25. Otros atributos de entrada</h2>
 <ul>
 <li><b><code>formnovalidate</code></b> (en un submit): desactiva la validación solo para ese botón.</li>
@@ -392,7 +635,17 @@ Este es mi primer documento HTML.&lt;/p&gt;
 <pre><code>&lt;input type="text" value="No se puede editar" readonly&gt;
 &lt;input type="text" value="No se puede tocar ni enviar" disabled&gt;
 &lt;input type="text" placeholder="Con el foco al cargar" autofocus&gt;</code></pre>
-<div class="call">Actividades 55-56 · Usuario con placeholder, <code>maxlength</code> 12 y <code>required</code>, y número de entradas con <code>min</code>, <code>max</code> y <code>value</code>; un campo <code>readonly</code> y otro <code>disabled</code>, explicando la diferencia.</div>
+<div class="call">Actividades 55-56 · Usuario con placeholder, <code>maxlength</code> 12 y <code>required</code>, y número de entradas con <code>min</code>, <code>max</code> y <code>value</code>; un campo <code>readonly</code> y otro <code>disabled</code>, explicando la diferencia.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;label for="usuario"&gt;Usuario&lt;/label&gt;
+&lt;input type="text" id="usuario" name="usuario" placeholder="ana_garcia" maxlength="12" required&gt;
+
+&lt;label for="entradas"&gt;Entradas&lt;/label&gt;
+&lt;input type="number" id="entradas" name="entradas" min="1" max="6" value="1"&gt;
+
+&lt;label for="cod"&gt;Código&lt;/label&gt;
+&lt;input type="text" id="cod" name="cod" value="A12" readonly&gt;
+
+&lt;label for="pais"&gt;País&lt;/label&gt;
+&lt;input type="text" id="pais" name="pais" value="España" disabled&gt;</code></pre><p><b>La diferencia:</b> ninguno de los dos se puede modificar, pero <code>readonly</code> <b>sí</b> se envía con el formulario y <code>disabled</code> <b>no</b>.</p></div></details>
 <h2 id="s26">27. autocomplete</h2>
 <p><b><code>autocomplete</code></b> indica al navegador si debe ofrecer rellenar el campo con datos guardados y de qué tipo de dato se trata.</p>
 <ul>
@@ -402,12 +655,68 @@ Este es mi primer documento HTML.&lt;/p&gt;
 </ul>
 <pre><code>&lt;input type="text" id="nombre" name="nombre" autocomplete="name"&gt;
 &lt;input type="password" id="clave-nueva" name="clave-nueva" autocomplete="new-password"&gt;</code></pre>
-<div class="call">Actividad 57 · En un registro con nombre, correo y contraseña nueva, el <code>autocomplete</code> más adecuado de cada campo.</div>
+<div class="call">Actividad 57 · En un registro con nombre, correo y contraseña nueva, el <code>autocomplete</code> más adecuado de cada campo.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;input type="text" name="nombre" autocomplete="name"&gt;
+&lt;input type="email" name="correo" autocomplete="email"&gt;
+&lt;input type="password" name="clave" autocomplete="new-password"&gt;</code></pre></div></details>
 <h2 id="s27">28. Práctica final de formularios</h2>
 <p>Sin que se indiquen las etiquetas, decide tú qué campos y qué tipos de input usar:</p>
-<div class="call">Actividad 58 · Formulario de contacto: nombre, correo, teléfono opcional, motivo (varias opciones) y mensaje largo, con labels y botón de enviar.</div>
-<div class="call">Actividad 59 · Inscripción a un curso: nombre completo, fecha de nacimiento, correo, turno (mañana o tarde) y casilla obligatoria de condiciones.</div>
-<div class="call">Actividad 60 · Valoración de un producto: valoración numérica del 1 al 5, comentario opcional de varias líneas y pregunta sí/no de recomendación.</div>
+<div class="call">Actividad 58 · Formulario de contacto: nombre, correo, teléfono opcional, motivo (varias opciones) y mensaje largo, con labels y botón de enviar.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;form action="https://httpbingo.org/post" method="post"&gt;
+  &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+  &lt;input type="text" id="nombre" name="nombre" required&gt;
+
+  &lt;label for="correo"&gt;Correo&lt;/label&gt;
+  &lt;input type="email" id="correo" name="correo" required&gt;
+
+  &lt;label for="tel"&gt;Teléfono (opcional)&lt;/label&gt;
+  &lt;input type="tel" id="tel" name="tel"&gt;
+
+  &lt;label for="motivo"&gt;Motivo&lt;/label&gt;
+  &lt;select id="motivo" name="motivo"&gt;
+    &lt;option&gt;Información&lt;/option&gt;
+    &lt;option&gt;Reclamación&lt;/option&gt;
+    &lt;option&gt;Otro&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;label for="mensaje"&gt;Mensaje&lt;/label&gt;
+  &lt;textarea id="mensaje" name="mensaje" rows="5" required&gt;&lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre></div></details>
+<div class="call">Actividad 59 · Inscripción a un curso: nombre completo, fecha de nacimiento, correo, turno (mañana o tarde) y casilla obligatoria de condiciones.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;form action="https://httpbingo.org/post" method="post"&gt;
+  &lt;label for="nombre"&gt;Nombre completo&lt;/label&gt;
+  &lt;input type="text" id="nombre" name="nombre" required&gt;
+
+  &lt;label for="nac"&gt;Fecha de nacimiento&lt;/label&gt;
+  &lt;input type="date" id="nac" name="nac" required&gt;
+
+  &lt;label for="correo"&gt;Correo&lt;/label&gt;
+  &lt;input type="email" id="correo" name="correo" required&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;Turno&lt;/legend&gt;
+    &lt;label&gt;&lt;input type="radio" name="turno" value="manana" required&gt; Mañana&lt;/label&gt;
+    &lt;label&gt;&lt;input type="radio" name="turno" value="tarde"&gt; Tarde&lt;/label&gt;
+  &lt;/fieldset&gt;
+
+  &lt;label&gt;&lt;input type="checkbox" name="condiciones" required&gt; Acepto las condiciones&lt;/label&gt;
+
+  &lt;button type="submit"&gt;Inscribirme&lt;/button&gt;
+&lt;/form&gt;</code></pre></div></details>
+<div class="call">Actividad 60 · Valoración de un producto: valoración numérica del 1 al 5, comentario opcional de varias líneas y pregunta sí/no de recomendación.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;form action="https://httpbingo.org/post" method="post"&gt;
+  &lt;label for="nota"&gt;Valoración (1 a 5)&lt;/label&gt;
+  &lt;input type="number" id="nota" name="nota" min="1" max="5" required&gt;
+
+  &lt;label for="com"&gt;Comentario (opcional)&lt;/label&gt;
+  &lt;textarea id="com" name="com" rows="4"&gt;&lt;/textarea&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;¿Lo recomendarías?&lt;/legend&gt;
+    &lt;label&gt;&lt;input type="radio" name="recomienda" value="si" required&gt; Sí&lt;/label&gt;
+    &lt;label&gt;&lt;input type="radio" name="recomienda" value="no"&gt; No&lt;/label&gt;
+  &lt;/fieldset&gt;
+
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre></div></details>
 <h2 id="s28">29. Botones</h2>
 <p><b><code>&lt;button&gt;</code></b> crea un botón pulsable, el más flexible: <b>puede contener otras etiquetas</b> (imagen, texto con formato). <b>No hace falta que esté dentro de un <code>&lt;form&gt;</code></b>: fuera de uno no envía ni resetea nada, pero sigue siendo pulsable y se usa con JavaScript.</p>
 <ul>
@@ -417,7 +726,8 @@ Este es mi primer documento HTML.&lt;/p&gt;
 </ul>
 <pre><code>&lt;button type="button"&gt;Botón normal&lt;/button&gt;
 &lt;button type="button"&gt;&lt;strong&gt;Botón&lt;/strong&gt; con texto en negrita&lt;/button&gt;</code></pre>
-<div class="call">Actividad 61 · Un botón suelto «Más información» y otro con una palabra en cursiva.</div>
+<div class="call">Actividad 61 · Un botón suelto «Más información» y otro con una palabra en cursiva.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;button type="button"&gt;Más información&lt;/button&gt;
+&lt;button type="button"&gt;Ver &lt;em&gt;todo&lt;/em&gt;&lt;/button&gt;</code></pre><p><code>type="button"</code> evita que envíe un formulario si está dentro de uno.</p></div></details>
 <h2 id="s29">30. Iframes</h2>
 <p><b><code>&lt;iframe&gt;</code></b> incrusta un documento HTML completo de otra página en un recuadro independiente (Google Maps, Spotify, YouTube).</p>
 <ul>
@@ -430,7 +740,9 @@ Este es mi primer documento HTML.&lt;/p&gt;
         src="https://www.google.com/maps/embed?pb=..."
         title="Mapa de ubicación del instituto"
         loading="lazy"&gt;&lt;/iframe&gt;</code></pre>
-<div class="call">Actividad 62 · Incrusta un mapa de Google Maps (Compartir → Insertar un mapa) con un <code>title</code> descriptivo.</div>
+<div class="call">Actividad 62 · Incrusta un mapa de Google Maps (Compartir → Insertar un mapa) con un <code>title</code> descriptivo.</div><details class="sol"><summary>Ver la solución</summary><div><p>En Google Maps, ve a <b>Compartir → Insertar un mapa</b>, copia el código y añade <code>title</code>. La dirección de <code>src</code> es la que te da Google Maps:</p><pre><code>&lt;iframe src="https://www.google.com/maps/embed?pb=PEGA_AQUI_TU_CODIGO"
+        title="Mapa de la plaza Mayor de Salamanca"
+        width="600" height="450" loading="lazy"&gt;&lt;/iframe&gt;</code></pre></div></details>
 <h2 id="s30">31. El elemento head</h2>
 <p>Reúne todo lo que el navegador y el buscador necesitan saber de la página, pero que no es contenido visible.</p>
 <ul>
@@ -453,7 +765,14 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;link rel="stylesheet" href="estilos.css"&gt;
 &lt;/head&gt;</code></pre>
 <p>Nada de lo que hay en el head se ve directamente (salvo el título en la pestaña).</p>
-<div class="call">Actividad 63 · Completa el head de una página tuya: charset, viewport, descripción, title, favicon y enlace a un CSS.</div>
+<div class="call">Actividad 63 · Completa el head de una página tuya: charset, viewport, descripción, title, favicon y enlace a un CSS.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;meta name="description" content="Página personal de Ana García"&gt;
+  &lt;title&gt;Ana García&lt;/title&gt;
+  &lt;link rel="icon" href="favicon.ico"&gt;
+  &lt;link rel="stylesheet" href="estilos.css"&gt;
+&lt;/head&gt;</code></pre></div></details>
 <h2 id="s31">32. HTML5 semántico</h2>
 <p>Hasta HTML4 la estructura se montaba con <code>div</code> y clases. <b>HTML5 añadió etiquetas que dicen qué es cada bloque</b>, útiles para buscadores y lectores de pantalla. <b>No cambian nada visualmente</b>: un <code>header</code> se muestra igual que un <code>div</code>; el aspecto sigue siendo de CSS.</p>
 <div class="tw"><table><thead><tr><th>Etiqueta</th><th>Uso</th></tr></thead><tbody><tr><td><code>&lt;header&gt;</code></td><td>Cabecera de la página o sección: logo, título, menú</td></tr><tr><td><code>&lt;nav&gt;</code></td><td>Bloque de enlaces de navegación principal</td></tr><tr><td><code>&lt;main&gt;</code></td><td>Contenido principal; <b>solo uno por página</b></td></tr><tr><td><code>&lt;section&gt;</code></td><td>Contenido relacionado por tema, normalmente con su encabezado</td></tr><tr><td><code>&lt;article&gt;</code></td><td>Contenido independiente (noticia, entrada de blog, producto)</td></tr><tr><td><code>&lt;aside&gt;</code></td><td>Contenido secundario relacionado (barra lateral)</td></tr><tr><td><code>&lt;footer&gt;</code></td><td>Pie de página o sección</td></tr><tr><td><code>&lt;search&gt;</code></td><td>Región de búsqueda o filtrado (2024)</td></tr><tr><td><code>&lt;div&gt;</code> / <code>&lt;span&gt;</code></td><td>Genéricos, cuando ninguna semántica encaja</td></tr></tbody></table></div>
@@ -471,8 +790,23 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;/main&gt;
   &lt;footer&gt;&lt;p&gt;&amp;copy; 2026 Mi Blog&lt;/p&gt;&lt;/footer&gt;
 &lt;/body&gt;</code></pre>
-<div class="call">Actividad · Busca etiquetas semánticas en webs conocidas y enséñaselo a tus compañeros.</div>
-<div class="call">Actividad 64 · Reestructura una página tuya con <code>header</code> (con <code>nav</code>), <code>main</code> y <code>footer</code>.</div>
+<div class="call">Actividad · Busca etiquetas semánticas en webs conocidas y enséñaselo a tus compañeros.</div><details class="sol"><summary>Ver la solución</summary><div><p>Abre una web conocida, pulsa F12 y busca en <b>Elementos</b>. Es habitual encontrar:</p><ul><li><code>header</code> y <code>nav</code>: cabecera y menú.</li><li><code>main</code>: el contenido principal.</li><li><code>article</code>: una noticia o una publicación.</li><li><code>footer</code>: el pie de página.</li></ul><p>Las etiquetas concretas cambian de una web a otra, y muchas usan también <code>div</code>.</p></div></details>
+<div class="call">Actividad 64 · Reestructura una página tuya con <code>header</code> (con <code>nav</code>), <code>main</code> y <code>footer</code>.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Mi página&lt;/h1&gt;
+    &lt;nav&gt;
+      &lt;a href="#inicio"&gt;Inicio&lt;/a&gt;
+      &lt;a href="#contacto"&gt;Contacto&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;section id="inicio"&gt;&lt;h2&gt;Inicio&lt;/h2&gt;&lt;/section&gt;
+    &lt;section id="contacto"&gt;&lt;h2&gt;Contacto&lt;/h2&gt;&lt;/section&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;
+    &lt;p&gt;Ana García&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre></div></details>
 <h2 id="s32">33. Emojis y símbolos</h2>
 <p>HTML reserva <code>&lt;</code>, <code>&gt;</code> y <code>&amp;</code> para su sintaxis: para mostrarlos como texto hay que usar una <b>entidad</b>.</p>
 <ul>
@@ -484,7 +818,9 @@ Este es mi primer documento HTML.&lt;/p&gt;
 &lt;p&gt;&amp;copy; 2026 Mi Empresa.&lt;/p&gt;
 &lt;p&gt;Para escribir una etiqueta: &amp;lt;p&amp;gt;&lt;/p&gt;</code></pre>
 <p>Los <b>emojis</b> (😀, 🚀, ✅) no necesitan entidad: son caracteres Unicode y, con <code>&lt;meta charset="UTF-8"&gt;</code>, se escriben directamente. También como entidad numérica (<code>&amp;#128512;</code> = 😀).</p>
-<div class="call">Actividad 65 · Un párrafo con el símbolo de copyright, un precio en euros con su entidad y una frase con dos emojis.</div>
+<div class="call">Actividad 65 · Un párrafo con el símbolo de copyright, un precio en euros con su entidad y una frase con dos emojis.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;p&gt;&amp;copy; 2026 Ana García&lt;/p&gt;
+&lt;p&gt;Precio: 25 &amp;euro;&lt;/p&gt;
+&lt;p&gt;Me encanta programar 😀🚀&lt;/p&gt;</code></pre></div></details>
 <h2 id="s33">34. Widgets HTML5 sin JavaScript</h2>
 <h3>details y summary</h3>
 <p>Un bloque que se despliega al hacer clic, sin JavaScript. <b><code>&lt;details&gt;</code></b> crea el widget (cerrado por defecto; con <b><code>open</code></b> aparece abierto). <b><code>&lt;summary&gt;</code></b> va dentro y es lo único visible cuando está cerrado.</p>
@@ -496,7 +832,18 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;summary&gt;¿Puedo tener varios details?&lt;/summary&gt;
   &lt;p&gt;Sí, y cada uno se abre por separado.&lt;/p&gt;
 &lt;/details&gt;</code></pre>
-<div class="call">Actividad 66 · Una FAQ con tres <code>details</code>/<code>summary</code>.</div>
+<div class="call">Actividad 66 · Una FAQ con tres <code>details</code>/<code>summary</code>.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;details&gt;
+  &lt;summary&gt;¿Cuándo es el examen?&lt;/summary&gt;
+  &lt;p&gt;El 9 de noviembre.&lt;/p&gt;
+&lt;/details&gt;
+&lt;details&gt;
+  &lt;summary&gt;¿Qué entra?&lt;/summary&gt;
+  &lt;p&gt;Las unidades 1.2, 1.3 y 2.&lt;/p&gt;
+&lt;/details&gt;
+&lt;details&gt;
+  &lt;summary&gt;¿Es práctico?&lt;/summary&gt;
+  &lt;p&gt;Es práctico y teórico.&lt;/p&gt;
+&lt;/details&gt;</code></pre></div></details>
 <h3>progress y meter</h3>
 <ul>
 <li><b><code>&lt;progress value="..." max="..."&gt;</code></b>: barra de <b>progreso de una tarea en curso</b> (descarga, formulario a medias).</li>
@@ -504,7 +851,11 @@ Este es mi primer documento HTML.&lt;/p&gt;
 </ul>
 <pre><code>&lt;progress id="tarea" value="70" max="100"&gt;&lt;/progress&gt;
 &lt;meter id="nota" value="7" min="0" max="10"&gt;&lt;/meter&gt;</code></pre>
-<div class="call">Actividad 67 · Una barra <code>progress</code> y un medidor <code>meter</code> con valores inventados.</div>
+<div class="call">Actividad 67 · Una barra <code>progress</code> y un medidor <code>meter</code> con valores inventados.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;label for="prog"&gt;Descarga&lt;/label&gt;
+&lt;progress id="prog" value="60" max="100"&gt;60 %&lt;/progress&gt;
+
+&lt;label for="disco"&gt;Disco usado&lt;/label&gt;
+&lt;meter id="disco" value="0.7" min="0" max="1" low="0.3" high="0.8"&gt;70 %&lt;/meter&gt;</code></pre></div></details>
 <h2 id="s34">35. dialog</h2>
 <p><b><code>&lt;dialog&gt;</code></b> crea una ventana modal nativa que se superpone con el fondo oscurecido: avisos, confirmaciones, formularios emergentes.</p>
 <ul>
@@ -515,7 +866,10 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;p&gt;Esta acción no se puede deshacer.&lt;/p&gt;
   &lt;button&gt;Cerrar&lt;/button&gt;
 &lt;/dialog&gt;</code></pre>
-<div class="call">Actividad 68 · Un dialog con mensaje y botón; pruébalo sin y con <code>open</code> y compara.</div>
+<div class="call">Actividad 68 · Un dialog con mensaje y botón; pruébalo sin y con <code>open</code> y compara.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;dialog open&gt;
+  &lt;p&gt;Mensaje guardado.&lt;/p&gt;
+  &lt;button type="button"&gt;Aceptar&lt;/button&gt;
+&lt;/dialog&gt;</code></pre><p>**Sin <code>open</code>,<b> el diálogo no se ve. </b>Con <code>open</code>,** aparece en la página. El botón no hace nada todavía: para cerrarlo haría falta JavaScript o un formulario con <code>method="dialog"</code>.</p></div></details>
 <h2 id="s35">36. canvas</h2>
 <p><b><code>&lt;canvas&gt;</code></b> es un lienzo en blanco sobre el que se dibuja <b>solo con JavaScript</b>. La etiqueta únicamente reserva el espacio (<code>width</code>, <code>height</code>) y un <code>id</code>. Su contenido se genera punto a punto en el momento (ideal para gráficos que cambian, juegos o visualizaciones), a diferencia de una imagen ya hecha, y distinto de <b>SVG</b>, que describe formas en XML.</p>
 <pre><code>&lt;canvas id="miLienzo" width="200" height="100" style="border: 1px solid black;"&gt;&lt;/canvas&gt;
@@ -527,7 +881,7 @@ Este es mi primer documento HTML.&lt;/p&gt;
   ctx.stroke();
 &lt;/script&gt;</code></pre>
 <p>En esta unidad basta reconocer la etiqueta; dibujar (<code>getContext("2d")</code>, <code>moveTo</code>, <code>lineTo</code>, <code>fillRect</code>, <code>arc</code>…) es de la Unidad 4.</p>
-<div class="call">Actividad 69 · Reserva un canvas de 300x150 con un id propio, sin dibujar.</div>
+<div class="call">Actividad 69 · Reserva un canvas de 300x150 con un id propio, sin dibujar.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;canvas id="lienzo" width="300" height="150"&gt;&lt;/canvas&gt;</code></pre><p>Sin dibujar no se ve nada, porque <code>canvas</code> es transparente.</p></div></details>
 <h2 id="s36">37. Audio y vídeo</h2>
 <ul>
 <li><b><code>&lt;audio controls&gt;</code></b>: reproduce sonido. <code>controls</code> muestra play, pausa y volumen.</li>
@@ -544,13 +898,24 @@ Este es mi primer documento HTML.&lt;/p&gt;
   &lt;source src="cancion.ogg" type="audio/ogg"&gt;
 &lt;/audio&gt;</code></pre>
 <p>Formatos: <b>vídeo</b> MP4, WebM u Ogg; <b>audio</b> MP3, WAV u Ogg. El texto entre apertura y cierre solo se muestra si el navegador es tan antiguo que no reconoce la etiqueta.</p>
-<div class="call">Actividad 70 · Embebe un vídeo mp4 con controles, <code>width</code> y <code>height</code>.</div>
+<div class="call">Actividad 70 · Embebe un vídeo mp4 con controles, <code>width</code> y <code>height</code>.</div><details class="sol"><summary>Ver la solución</summary><div><pre><code>&lt;video src="videos/clase.mp4" controls width="640" height="360"&gt;
+  Tu navegador no puede reproducir este vídeo.
+&lt;/video&gt;</code></pre></div></details>
 <h2 id="s37">38. Validación de documentos HTML</h2>
 <p>Un HTML con errores (etiqueta sin cerrar, atributo repetido, imagen sin <code>alt</code>) <b>se muestra igual</b> porque los navegadores son muy tolerantes, pero puede fallar en otro navegador o dar problemas de accesibilidad. El <b>validador oficial del W3C</b> (validator.w3.org) señala los errores exactos con su línea; admite URL, archivo o código pegado.</p>
 <ul>
 <li>Errores típicos: etiquetas abiertas sin cerrar, atributos duplicados, imágenes sin <code>alt</code>, anidamiento incorrecto (un <code>&lt;p&gt;</code> dentro de otro <code>&lt;p&gt;</code>), etiquetas obsoletas.</li>
 </ul>
-<div class="call">Actividad 71 · Valida uno de tus ejercicios hasta ver «Document checking completed. No errors or warnings to show.»</div>
+<div class="call">Actividad 71 · Valida uno de tus ejercicios hasta ver «Document checking completed. No errors or warnings to show.»</div><details class="sol"><summary>Ver la solución</summary><div><ol><li>Entra en <a href="https://validator.w3.org" target="_blank" rel="noopener">validator.w3.org</a> y elige <b>Validate by Direct Input</b>.</li><li>Pega tu código y pulsa <b>Check</b>.</li><li>Corrige el primer error y vuelve a comprobar, porque un error suele provocar otros.</li></ol><p>Este documento debería dar el mensaje que pide la actividad:</p><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Prueba&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hola&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div></details>
 <h2 id="s38">39. Recursos</h2>
 <ul>
 <li><b>W3Schools · HTML Tutorial</b> (w3schools.com/html): fuente principal de la unidad, con editor «Try it Yourself».</li>

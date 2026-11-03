@@ -468,7 +468,40 @@ static double calcularAreaRectangulo(double base, double altura) {
     return area;
 }</code></pre>
 <p><b>Ventajas:</b> reutilizar código, evitar repeticiones, organizar el programa y dividir un problema en partes.</p>
-<div class="ex"><b>Ejercicios propuestos:</b> <code>esPar</code>, <code>calcularAreaTriangulo</code>, <code>mostrarTabla</code>, <code>mayorDeTres</code>. (Ver más en UT 3.)</div>
+<div class="ex"><b>Ejercicios propuestos:</b> <code>esPar</code>, <code>calcularAreaTriangulo</code>, <code>mostrarTabla</code>, <code>mayorDeTres</code>. (Ver más en UT 3.)</div><details><summary>Ver solución en Java</summary><pre><code>public class Propuestos {
+    static boolean esPar(int n) {
+        return n % 2 == 0;
+    }
+
+    static double calcularAreaTriangulo(double base, double altura) {
+        return base * altura / 2;
+    }
+
+    static void mostrarTabla(int n) {
+        for (int i = 1; i &lt;= 10; i++) {
+            System.out.println(n + " x " + i + " = " + (n * i));
+        }
+    }
+
+    static int mayorDeTres(int a, int b, int c) {
+        int mayor = a;
+        if (b &gt; mayor) {
+            mayor = b;
+        }
+        if (c &gt; mayor) {
+            mayor = c;
+        }
+        return mayor;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(esPar(4));
+        System.out.println(calcularAreaTriangulo(6, 3));
+        mostrarTabla(2);
+        System.out.println(mayorDeTres(4, 9, 2));
+    }
+}
+</code></pre></details>
 </div></section>
 
 
