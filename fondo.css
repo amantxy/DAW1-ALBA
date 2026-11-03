@@ -45,3 +45,9 @@ details.fold details.fold>.in{border:0;border-bottom:1px solid var(--linea);bord
 details.fold>.in>details.fold:first-child>summary{border-top:0}
 .tiles>details.fold{grid-column:1/-1}
 @media (max-width:620px){details.fold>.in{padding-left:12px;padding-right:12px}}
+
+/* Teoría por apartados plegables */
+details.pleg{border-bottom:1px solid var(--linea)}details.pleg>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 4px}details.pleg>summary::-webkit-details-marker{display:none}details.pleg>summary::after{content:"▾";margin-left:auto;flex:none;color:var(--suave);transition:transform .2s}details.pleg[open]>summary::after{transform:rotate(180deg)}details.pleg>summary:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+details.pleg>summary>h2,details.pleg>summary>h3,details.pleg>summary>h4{margin:0!important;padding:0!important;border:0!important;font-size:1rem!important;font-weight:650;line-height:1.3;color:inherit;display:block}details.pleg[open]>summary>*{color:var(--c)}.pleg-c{padding:2px 4px 14px}.pleg-c>:first-child{margin-top:0}
+details.pleg.top{background:var(--hoja);border:1px solid var(--linea);border-left:5px solid var(--c);border-radius:10px;margin:0 0 10px}details.pleg.top>summary{padding:10px 14px;min-height:54px}details.pleg.top>summary>h2{font-size:1.08rem!important}details.pleg.top>.pleg-c{padding:2px 14px 14px}
+@media print{details.pleg>summary::after{display:none}}
