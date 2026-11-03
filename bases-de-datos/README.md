@@ -6,3 +6,5 @@
 - [Tema 2: Diseño conceptual y lógico](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/tema-2.html)
 - [Tema 3: Modelo Relacional](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/tema-3.html)
 - [Ponte a prueba: 100 preguntas por tema, por niveles](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/ponte-a-prueba.html)
+
+- [Diagramas E-R](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/diagramas-er.html)

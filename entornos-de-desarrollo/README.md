@@ -12,3 +12,5 @@
 - [Algoritmia avanzada](https://amantxy.github.io/DAW1-ALBA/entornos-de-desarrollo/algoritmia-avanzada.html)
 - [Ponte a prueba](https://amantxy.github.io/DAW1-ALBA/entornos-de-desarrollo/ponte-a-prueba.html)
 - [Practica con PSeInt](https://amantxy.github.io/DAW1-ALBA/entornos-de-desarrollo/practica-pseint.html)
+
+- [Lógica de programación desde cero](https://amantxy.github.io/DAW1-ALBA/entornos-de-desarrollo/logica-programacion.html)
