@@ -236,7 +236,7 @@ function dialogo(modo){return new Promise(res=>{const d=$("#pw"),nueva=modo==="c
   if(r.error){$("#pe").textContent=textoError(r.error);return}
   fin(true)};
  d.showModal();setTimeout(()=>(nueva?$("#p1"):$("#pm")).focus(),50)})}
-function limpiaProgreso(){const G={programacion:["fc-known"],"lenguajes-de-marcas":["lm:"],ingles:["en:"],transformacion:["tsp:"]};try{for(const p in G){let m={};try{m=JSON.parse(localStorage.getItem("sync:"+p))||{}}catch(e){}if(m.dirty)continue;for(let i=localStorage.length-1;i>=0;i--){const k=localStorage.key(i);if(G[p].some(x=>k.startsWith(x)))localStorage.removeItem(k)}localStorage.removeItem("sync:"+p)}}catch(e){}}
+function limpiaProgreso(){const G={programacion:["fc-known"],"lenguajes-de-marcas":["lm:"],ingles:["en:"],transformacion:["tsp:"],"bases-de-datos":["bd:"]};try{for(const p in G){let m={};try{m=JSON.parse(localStorage.getItem("sync:"+p))||{}}catch(e){}if(m.dirty)continue;for(let i=localStorage.length-1;i>=0;i--){const k=localStorage.key(i);if(G[p].some(x=>k.startsWith(x)))localStorage.removeItem(k)}localStorage.removeItem("sync:"+p)}}catch(e){}}
 async function revisarLocales(){const L=await leerLocal();const b=$("#mv");b.hidden=!L.length;b.textContent="Mover a la nube "+L.length+" documento(s) de este navegador"}
 async function alCambiarUsuario(nuevo){
  if((nuevo&&nuevo.id)===(user&&user.id))return;

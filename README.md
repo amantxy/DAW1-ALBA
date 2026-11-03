@@ -17,7 +17,9 @@ Material de estudio de DAW 1. Una carpeta por asignatura y, dentro de cada una, 
 ### [Bases de Datos](bases-de-datos/README.md)
 
 - [Tema 1: Fundamentos](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/tema-1.html) · Teoría con sus imágenes
+- [Tema 2: Diseño conceptual y lógico](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/tema-2.html) · Teoría con sus imágenes
 - [Tema 3: Modelo Relacional](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/tema-3.html) · Teoría con sus imágenes
+- [Ponte a prueba](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/ponte-a-prueba.html) · 100 preguntas tipo test por tema
 
 ### [Sistemas Informáticos](sistemas-informaticos/README.md)
 
