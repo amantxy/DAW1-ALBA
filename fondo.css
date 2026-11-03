@@ -24,3 +24,15 @@ html,body{overflow-x:clip}
 .grid.asig .card .ico{right:10px;top:10px;font-size:1rem}
 .grid.asig .card b{font-size:1rem;margin:0}
 @media (max-width:480px){.grid.asig .card .ico{display:none}.grid.asig a.card{padding-right:12px}}
+/* Solo el nivel exterior es carpeta; dentro, filas desplegables. */
+details.fold details.fold{margin:0!important;background:none}
+details.fold details.fold>summary{min-height:50px;padding:10px 6px;gap:10px;background:none;border:0;border-bottom:1px solid var(--linea);border-radius:0}
+details.fold details.fold>summary::before{display:none}
+details.fold details.fold>summary b{font-size:1rem;font-weight:650}
+details.fold details.fold>summary small{font-size:.82rem}
+details.fold details.fold[open]>summary{border-radius:0;border-bottom-color:var(--c)}
+details.fold details.fold[open]>summary b{color:var(--c)}
+details.fold details.fold>.in{border:0;border-bottom:1px solid var(--linea);border-radius:0;padding:12px 2px 16px;background:none}
+details.fold>.in>details.fold:first-child>summary{border-top:0}
+.tiles>details.fold{grid-column:1/-1}
+@media (max-width:620px){details.fold>.in{padding-left:12px;padding-right:12px}}

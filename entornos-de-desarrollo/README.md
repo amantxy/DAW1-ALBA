@@ -10,3 +10,5 @@
 - [Mazmorra, tesoro y mago](https://amantxy.github.io/DAW1-ALBA/entornos-de-desarrollo/aventuras.html)
 - [Batería de algoritmia](https://amantxy.github.io/DAW1-ALBA/entornos-de-desarrollo/algoritmia.html)
 - [Algoritmia avanzada](https://amantxy.github.io/DAW1-ALBA/entornos-de-desarrollo/algoritmia-avanzada.html)
+- [Ponte a prueba](https://amantxy.github.io/DAW1-ALBA/entornos-de-desarrollo/ponte-a-prueba.html)
+- [Practica con PSeInt](https://amantxy.github.io/DAW1-ALBA/entornos-de-desarrollo/practica-pseint.html)

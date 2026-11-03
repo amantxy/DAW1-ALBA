@@ -1,17 +1,17 @@
 /* Ponte a prueba común: nivel, 40 al azar sin repetir o todas, práctica y repaso de fallos. */
 (function(){
-var cfg=document.currentScript.dataset,PREF=cfg.clave,PARAM=cfg.param,VIEJO=+cfg.viejo||40;
+var cfg=document.currentScript.dataset,PREF=cfg.clave,PARAM=cfg.param,VIEJO=+cfg.viejo||40,VAL=(cfg.unidades||"1,2,3,todas").split(",");
 var $=function(s){return document.querySelector(s)};
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
 function lee(k,d){try{var v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}}
 function guarda(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 function mezcla(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
-var Q=new URLSearchParams(location.search),ut=Q.get(PARAM);if(["1","2","3","todas"].indexOf(ut)<0)ut="1";
+var Q=new URLSearchParams(location.search),ut=Q.get(PARAM);if(VAL.indexOf(ut)<0)ut=VAL[0];
 var nv=Q.get("nivel");if(["F","M","D"].indexOf(nv)<0)nv="";
 var cant=Q.get("n")==="todas"?"todas":"40";
-var box=$("#juego"),sel=$("#ut"),sN=$("#nv"),sC=$("#cant");sel.value=ut;
-function va(){var p=new URLSearchParams();p.set(PARAM,sel.value);if(sN.value)p.set("nivel",sN.value);if(sC.value==="todas")p.set("n","todas");location.search="?"+p}
-sel.onchange=sN.onchange=sC.onchange=va;
+var box=$("#juego"),sel=$("#ut"),sN=$("#nv"),sC=$("#cant");if(sel)sel.value=ut;
+function va(){var p=new URLSearchParams();p.set(PARAM,sel?sel.value:ut);if(sN.value)p.set("nivel",sN.value);if(sC.value==="todas")p.set("n","todas");location.search="?"+p}
+if(sel)sel.onchange=va;sN.onchange=sC.onchange=va;
 var UNIS=ut==="todas"?[1,2,3]:[+ut],TODAS=[],visto={};
 UNIS.forEach(function(u){BANCO[u].forEach(function(q,i){var k=q[0].trim().toLowerCase();if(visto[k])return;visto[k]=1;TODAS.push({u:u,i:i,q:q,n:NIVEL[u].charAt(i)})})});
 var NOM={F:"Fácil",M:"Medio",D:"Difícil"};

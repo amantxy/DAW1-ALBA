@@ -60,9 +60,239 @@ h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;
 table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
 
 .pasos{display:flex;flex-wrap:wrap;gap:6px 8px;margin:0 0 14px}.pasos span{background:var(--cs);border:1px solid var(--linea);border-radius:8px;padding:6px 10px;font-weight:600}.pasos span+span::before{content:"→ ";color:var(--c)}
-figure.mini{max-width:110px}.sol{border:1px solid var(--linea);border-radius:10px;padding:0 12px;margin:12px 0}.sol>div{padding:0 0 4px}.fold .in>p:first-child{margin-top:4px}p.nota{margin:12px 0}
+figure.mini{max-width:110px}figure.flujo{max-width:min(100%,520px)}figure.flujo img{background:#fff}.sol{border:1px solid var(--linea);border-radius:10px;padding:0 12px;margin:12px 0}.sol>div{padding:0 0 4px}.fold .in>p:first-child{margin-top:4px}p.nota{margin:12px 0}
 pre.code{white-space:pre;overflow-x:auto}
 </style><link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Aventuras de programación</h1></div></div><div class="wrap"><details class="fold" id="a1"><summary><span><b>Acceso a la Mazmorra Hacker</b><small>Aplicación en Java con if, else if, ternario y operadores lógicos</small></span></summary><div class="in"><figure class="small"><img src="img/mazmorra-puerta.jpg" width="700" height="1051" loading="lazy" alt="Puerta digital oscura con símbolos de programación."><figcaption>Acceso a la Mazmorra Hacker</figcaption></figure><p>Eres el programador de seguridad del evento internacional <b>Hack&amp;Dragons 2026</b>, un torneo donde estudiantes de ingeniería compiten resolviendo pruebas lógicas dentro de una mazmorra virtual.</p><p>Tu trabajo es escribir una aplicación en Java que decida si un jugador puede entrar a la Mazmorra Final y, en caso afirmativo, qué recompensa inicial recibe.</p><h3>Datos de entrada del jugador</h3><p>La aplicación debe pedir por teclado los siguientes datos del jugador (usa tipos primitivos adecuados para cada dato):</p><ol><li>Su <b>nivel de experiencia</b>, como un número entero de 0 a 100.</li><li>Su <b>energía actual</b>, como un número real entre 0 y 100.</li><li>Si dispone del <b>pase VIP</b>.</li><li>El <b>tipo de rol</b> que ha elegido para la partida, introducido como una letra: G = Guerrero, M = Mago, I = Ingeniero de seguridad, A = Analista de datos.</li></ol><p>La aplicación debe mostrar en pantalla uno de los siguientes mensajes finales:</p><pre class="code">"ACCESO DENEGADO"
-"ACCESO CONCEDIDO - RECOMPENSA: [nombre de la recompensa]"</pre><h3>1. Regla de veto absoluto (expulsión instantánea)</h3><p>Si el jugador tiene menos de 18 puntos de experiencia y además su energía es menor que 20.0, se considera un novato peligroso para sí mismo. En ese caso se muestra directamente:</p><pre class="code">ACCESO DENEGADO</pre><p>y el programa termina sin evaluar el resto de reglas.</p><h3>2. Regla de acceso básico</h3><p>Un jugador puede entrar si:</p><ul><li>tiene nivel de experiencia de al menos 50 y al menos 35.0 de energía, o bien</li><li>tiene pase VIP.</li></ul><p>(Es decir: o es competente, o está enchufado).</p><p>Si no cumple ninguna de esas condiciones, se mostrará:</p><pre class="code">ACCESO DENEGADO.</pre><h3>3. Asignación de recompensa inicial</h3><p>Si el jugador ha conseguido acceso, hay que asignarle una recompensa inicial distinta según su rol y algunas condiciones extra. Aquí es donde viene la parte interesante. Debes mostrar exactamente uno de estos textos:</p><p><b>Rol G — Guerrero</b></p><figure class="small"><img src="img/guerrero.jpg" width="600" height="901" loading="lazy" alt="Guerrero con espada y escudo."><figcaption>Guerrero</figcaption></figure><p>Si su energía es mayor o igual que 80.0, la recompensa es "ESPADA DE TITANIO +20 ataque". En caso contrario, "ESCUDO RECUPERADOR +10 defensa".</p><p><b>Rol M — Mago</b></p><figure class="small"><img src="img/maga.jpg" width="600" height="901" loading="lazy" alt="Personaje con capa y bastón mágico."><figcaption>Mago</figcaption></figure><p>Si el jugador no es VIP y su experiencia es menor que 60, la recompensa es "LIBRO DE HECHIZOS SOSPECHOSAMENTE ILEGAL". En cualquier otro caso para Mago, la recompensa es "BASTÓN ARCANO NIVEL 2".</p><p><b>Rol I — Ingeniero de seguridad</b></p><figure class="small"><img src="img/ingeniero.jpg" width="600" height="900" loading="lazy" alt="Personaje con traje oscuro y luces digitales."><figcaption>Ingeniero de seguridad</figcaption></figure><p>Si tiene pase VIP y energía por encima de 50.0, la recompensa es "KIT DE EXPLOIT CERO-DAY". En caso contrario, "CAJA DE HERRAMIENTAS ANALÓGICAS (destornillador y paciencia)".</p><p><b>Rol A — Analista de datos</b></p><figure class="small"><img src="img/analista.jpg" width="600" height="901" loading="lazy" alt="Personaje rodeado de datos y gráficos flotantes."><figcaption>Analista de datos</figcaption></figure><p>Si su experiencia es al menos 70 o su energía es al menos 90.0, la recompensa es "TABLET PREDICTIVA (probabilidad de victoria +12%)". En otro caso, "EXCEL PORTÁTIL (versión gratuita con anuncios)".</p><p><b>Rol desconocido</b></p><p>Si el usuario introduce una letra de rol distinta de G, M, I o A, el programa debe mostrar:</p><pre class="code">ACCESO CONCEDIDO - RECOMPENSA: ROL DESCONOCIDO, SIN EQUIPO INICIAL</pre><h3>Resumen técnico obligatorio (lo que se evalúa)</h3><p>Para decidirlo, se deben aplicar TODAS estas reglas en el orden que se indica:</p><ul><li>Lectura de datos primitivos desde teclado</li><li>Uso correcto de if, else if, else, operador ternario</li><li>Uso de if anidados</li><li>Uso de operadores lógicos <code>&amp;&amp;</code>, <code>||</code> y <code>!</code></li><li>Comparaciones numéricas con int y double</li><li>Comparación de caracteres para decidir entre varios casos</li><li>Ruta de ejecución que termina antes de tiempo si se cumple la Regla de veto absoluto</li></ul></div></details><details class="fold" id="a2"><summary><span><b>El vigía pirata y el tesoro escondido</b><small>Vigilar el horizonte y abrir el cofre</small></span></summary><div class="in"><figure class="one"><img src="img/barco-pirata.jpg" width="1000" height="564" loading="lazy" alt="Barco pirata navegando de noche bajo la luna."><figcaption>El vigía pirata y el tesoro escondido</figcaption></figure><p>Un barco pirata navega de noche en busca de un galeón cargado de oro. El vigía debe observar el horizonte y avisar al capitán cuando detecte un barco enemigo. Tras enfrentarse a la tripulación enemiga, los piratas podrán intentar abrir un cofre que contiene un valioso tesoro.</p><h3>Parte 1. Vigilar el horizonte</h3><figure class="small"><img src="img/vigia.jpg" width="600" height="1226" loading="lazy" alt="Vigía pirata con un catalejo en lo alto del mástil."><figcaption>El vigía</figcaption></figure><p>El programa solicitará al usuario si el vigía ha detectado un barco enemigo. Podrá introducir <b>1</b> si lo ha visto o <b>0</b> si todavía no ha encontrado ningún barco.</p><p>Mientras no detecte ningún barco enemigo, el programa mostrará el mensaje:</p><pre class="code">El vigía continúa observando el horizonte...</pre><p>A continuación, volverá a solicitar una respuesta.</p><p>Cuando el usuario introduzca 1, la vigilancia terminará y se mostrarán los siguientes mensajes:</p><pre class="code">¡Capitán, barco enemigo a la vista!
+"ACCESO CONCEDIDO - RECOMPENSA: [nombre de la recompensa]"</pre><h3>1. Regla de veto absoluto (expulsión instantánea)</h3><p>Si el jugador tiene menos de 18 puntos de experiencia y además su energía es menor que 20.0, se considera un novato peligroso para sí mismo. En ese caso se muestra directamente:</p><pre class="code">ACCESO DENEGADO</pre><p>y el programa termina sin evaluar el resto de reglas.</p><h3>2. Regla de acceso básico</h3><p>Un jugador puede entrar si:</p><ul><li>tiene nivel de experiencia de al menos 50 y al menos 35.0 de energía, o bien</li><li>tiene pase VIP.</li></ul><p>(Es decir: o es competente, o está enchufado).</p><p>Si no cumple ninguna de esas condiciones, se mostrará:</p><pre class="code">ACCESO DENEGADO.</pre><h3>3. Asignación de recompensa inicial</h3><p>Si el jugador ha conseguido acceso, hay que asignarle una recompensa inicial distinta según su rol y algunas condiciones extra. Aquí es donde viene la parte interesante. Debes mostrar exactamente uno de estos textos:</p><p><b>Rol G — Guerrero</b></p><figure class="small"><img src="img/guerrero.jpg" width="600" height="901" loading="lazy" alt="Guerrero con espada y escudo."><figcaption>Guerrero</figcaption></figure><p>Si su energía es mayor o igual que 80.0, la recompensa es "ESPADA DE TITANIO +20 ataque". En caso contrario, "ESCUDO RECUPERADOR +10 defensa".</p><p><b>Rol M — Mago</b></p><figure class="small"><img src="img/maga.jpg" width="600" height="901" loading="lazy" alt="Personaje con capa y bastón mágico."><figcaption>Mago</figcaption></figure><p>Si el jugador no es VIP y su experiencia es menor que 60, la recompensa es "LIBRO DE HECHIZOS SOSPECHOSAMENTE ILEGAL". En cualquier otro caso para Mago, la recompensa es "BASTÓN ARCANO NIVEL 2".</p><p><b>Rol I — Ingeniero de seguridad</b></p><figure class="small"><img src="img/ingeniero.jpg" width="600" height="900" loading="lazy" alt="Personaje con traje oscuro y luces digitales."><figcaption>Ingeniero de seguridad</figcaption></figure><p>Si tiene pase VIP y energía por encima de 50.0, la recompensa es "KIT DE EXPLOIT CERO-DAY". En caso contrario, "CAJA DE HERRAMIENTAS ANALÓGICAS (destornillador y paciencia)".</p><p><b>Rol A — Analista de datos</b></p><figure class="small"><img src="img/analista.jpg" width="600" height="901" loading="lazy" alt="Personaje rodeado de datos y gráficos flotantes."><figcaption>Analista de datos</figcaption></figure><p>Si su experiencia es al menos 70 o su energía es al menos 90.0, la recompensa es "TABLET PREDICTIVA (probabilidad de victoria +12%)". En otro caso, "EXCEL PORTÁTIL (versión gratuita con anuncios)".</p><p><b>Rol desconocido</b></p><p>Si el usuario introduce una letra de rol distinta de G, M, I o A, el programa debe mostrar:</p><pre class="code">ACCESO CONCEDIDO - RECOMPENSA: ROL DESCONOCIDO, SIN EQUIPO INICIAL</pre><h3>Resumen técnico obligatorio (lo que se evalúa)</h3><p>Para decidirlo, se deben aplicar TODAS estas reglas en el orden que se indica:</p><ul><li>Lectura de datos primitivos desde teclado</li><li>Uso correcto de if, else if, else, operador ternario</li><li>Uso de if anidados</li><li>Uso de operadores lógicos <code>&amp;&amp;</code>, <code>||</code> y <code>!</code></li><li>Comparaciones numéricas con int y double</li><li>Comparación de caracteres para decidir entre varios casos</li><li>Ruta de ejecución que termina antes de tiempo si se cumple la Regla de veto absoluto</li></ul><details class="sol"><summary>Ver solución en PSeInt</summary><div><p>PSeInt no tiene un «terminar aquí»: la regla de veto va en el primer Si y el resto, dentro de su Sino. Tampoco tiene operador ternario. El pase VIP se escribe como Verdadero o Falso, y el rol en mayúscula.</p><pre class="code">Algoritmo MazmorraHacker
+    Definir experiencia Como Entero;
+    Definir energia Como Real;
+    Definir vip Como Logico;
+    Definir rol, recompensa Como Caracter;
+    Escribir "Nivel de experiencia (0 a 100):";
+    Leer experiencia;
+    Escribir "Energía actual (0 a 100):";
+    Leer energia;
+    Escribir "¿Tiene pase VIP? (Verdadero o Falso):";
+    Leer vip;
+    Escribir "Rol (G, M, I o A):";
+    Leer rol;
+    Si (experiencia &lt; 18) Y (energia &lt; 20) Entonces
+        Escribir "ACCESO DENEGADO";
+    SiNo
+        Si ((experiencia &gt;= 50) Y (energia &gt;= 35)) O vip Entonces
+            Si rol = "G" Entonces
+                Si energia &gt;= 80 Entonces
+                    recompensa &lt;- "ESPADA DE TITANIO +20 ataque";
+                SiNo
+                    recompensa &lt;- "ESCUDO RECUPERADOR +10 defensa";
+                FinSi
+            SiNo
+                Si rol = "M" Entonces
+                    Si (NO vip) Y (experiencia &lt; 60) Entonces
+                        recompensa &lt;- "LIBRO DE HECHIZOS SOSPECHOSAMENTE ILEGAL";
+                    SiNo
+                        recompensa &lt;- "BASTÓN ARCANO NIVEL 2";
+                    FinSi
+                SiNo
+                    Si rol = "I" Entonces
+                        Si vip Y (energia &gt; 50) Entonces
+                            recompensa &lt;- "KIT DE EXPLOIT CERO-DAY";
+                        SiNo
+                            recompensa &lt;- "CAJA DE HERRAMIENTAS ANALÓGICAS (destornillador y paciencia)";
+                        FinSi
+                    SiNo
+                        Si rol = "A" Entonces
+                            Si (experiencia &gt;= 70) O (energia &gt;= 90) Entonces
+                                recompensa &lt;- "TABLET PREDICTIVA (probabilidad de victoria +12%)";
+                            SiNo
+                                recompensa &lt;- "EXCEL PORTÁTIL (versión gratuita con anuncios)";
+                            FinSi
+                        SiNo
+                            recompensa &lt;- "ROL DESCONOCIDO, SIN EQUIPO INICIAL";
+                        FinSi
+                    FinSi
+                FinSi
+            FinSi
+            Escribir "ACCESO CONCEDIDO - RECOMPENSA: ", recompensa;
+        SiNo
+            Escribir "ACCESO DENEGADO";
+        FinSi
+    FinSi
+FinAlgoritmo</pre></div></details><details class="sol"><summary>Ver solución en Java</summary><div><p>El enunciado pide Java, así que también tienes esta versión. Usa if, else if, un ternario, if anidados y un return para terminar antes de tiempo.</p><pre class="code">import java.util.Scanner;
+
+public class MazmorraHacker {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        System.out.print("Nivel de experiencia (0 a 100): ");
+        int experiencia = teclado.nextInt();
+        System.out.print("Energía actual (0 a 100): ");
+        double energia = teclado.nextDouble();
+        System.out.print("¿Tiene pase VIP? (true o false): ");
+        boolean vip = teclado.nextBoolean();
+        System.out.print("Rol (G, M, I o A): ");
+        char rol = teclado.next().charAt(0);
+
+        if (experiencia &lt; 18 &amp;&amp; energia &lt; 20.0) {
+            System.out.println("ACCESO DENEGADO");
+            return;
+        }
+        if (!((experiencia &gt;= 50 &amp;&amp; energia &gt;= 35.0) || vip)) {
+            System.out.println("ACCESO DENEGADO");
+            return;
+        }
+
+        String recompensa;
+        if (rol == 'G') {
+            recompensa = energia &gt;= 80.0 ? "ESPADA DE TITANIO +20 ataque"
+                    : "ESCUDO RECUPERADOR +10 defensa";
+        } else if (rol == 'M') {
+            if (!vip &amp;&amp; experiencia &lt; 60) {
+                recompensa = "LIBRO DE HECHIZOS SOSPECHOSAMENTE ILEGAL";
+            } else {
+                recompensa = "BASTÓN ARCANO NIVEL 2";
+            }
+        } else if (rol == 'I') {
+            if (vip &amp;&amp; energia &gt; 50.0) {
+                recompensa = "KIT DE EXPLOIT CERO-DAY";
+            } else {
+                recompensa = "CAJA DE HERRAMIENTAS ANALÓGICAS (destornillador y paciencia)";
+            }
+        } else if (rol == 'A') {
+            if (experiencia &gt;= 70 || energia &gt;= 90.0) {
+                recompensa = "TABLET PREDICTIVA (probabilidad de victoria +12%)";
+            } else {
+                recompensa = "EXCEL PORTÁTIL (versión gratuita con anuncios)";
+            }
+        } else {
+            recompensa = "ROL DESCONOCIDO, SIN EQUIPO INICIAL";
+        }
+        System.out.println("ACCESO CONCEDIDO - RECOMPENSA: " + recompensa);
+    }
+}</pre></div></details></div></details><details class="fold" id="a2"><summary><span><b>El vigía pirata y el tesoro escondido</b><small>Vigilar el horizonte y abrir el cofre</small></span></summary><div class="in"><figure class="one"><img src="img/barco-pirata.jpg" width="1000" height="564" loading="lazy" alt="Barco pirata navegando de noche bajo la luna."><figcaption>El vigía pirata y el tesoro escondido</figcaption></figure><p>Un barco pirata navega de noche en busca de un galeón cargado de oro. El vigía debe observar el horizonte y avisar al capitán cuando detecte un barco enemigo. Tras enfrentarse a la tripulación enemiga, los piratas podrán intentar abrir un cofre que contiene un valioso tesoro.</p><h3>Parte 1. Vigilar el horizonte</h3><figure class="small"><img src="img/vigia.jpg" width="600" height="1226" loading="lazy" alt="Vigía pirata con un catalejo en lo alto del mástil."><figcaption>El vigía</figcaption></figure><p>El programa solicitará al usuario si el vigía ha detectado un barco enemigo. Podrá introducir <b>1</b> si lo ha visto o <b>0</b> si todavía no ha encontrado ningún barco.</p><p>Mientras no detecte ningún barco enemigo, el programa mostrará el mensaje:</p><pre class="code">El vigía continúa observando el horizonte...</pre><p>A continuación, volverá a solicitar una respuesta.</p><p>Cuando el usuario introduzca 1, la vigilancia terminará y se mostrarán los siguientes mensajes:</p><pre class="code">¡Capitán, barco enemigo a la vista!
 ¡Preparaos para el abordaje!</pre><p>Si el usuario introduce un valor distinto de 0 o 1, se mostrará el mensaje:</p><pre class="code">Respuesta no válida. Introduce 1 para avistar un barco o 0 para continuar vigilando.</pre><p>En ese caso, deberá volver a solicitarse una respuesta.</p><h3>Parte 2. El tesoro escondido</h3><figure class="small"><img src="img/cofre.jpg" width="600" height="1298" loading="lazy" alt="Cofre de madera abierto lleno de monedas de oro."><figcaption>El cofre</figcaption></figure><p>Tras derrotar a la tripulación enemiga, los piratas encuentran un cofre protegido por una combinación numérica secreta: <b>1724</b>.</p><p>El programa solicitará repetidamente una combinación hasta que el usuario introduzca la correcta. Después de cada intento, se mostrará el mensaje correspondiente:</p><p><b>Si el número introducido es inferior a 1724:</b></p><pre class="code">La combinación secreta es mayor.</pre><p><b>Si el número introducido es superior a 1724:</b></p><pre class="code">La combinación secreta es menor.</pre><p><b>Si el número introducido es correcto:</b></p><pre class="code">¡El cofre se ha abierto!
-¡Habéis encontrado el tesoro pirata!</pre></div></details><details class="fold" id="a3"><summary><span><b>La torre del mago olvidado</b><small>Aplicación en Java con menú y energía mágica</small></span></summary><div class="in"><figure class="one"><img src="img/torre.jpg" width="1000" height="564" loading="lazy" alt="Torre de piedra junto a grandes cristales verdes."><figcaption>La torre del mago olvidado</figcaption></figure><h3>Eldoria</h3><figure class="small"><img src="img/aprendiz.jpg" width="600" height="900" loading="lazy" alt="Aprendiz de mago con sombrero azul y bastón ante una torre."><figcaption>El aprendiz de mago</figcaption></figure><p>En el reino de Eldoria, un aprendiz de mago debe explorar una torre encantada para recuperar un cristal mágico. Sin embargo, la torre está protegida por un hechizo que consume su energía cada vez que realiza determinadas acciones. Desarrolla una aplicación en Java que permita al aprendiz explorar la torre mientras conserve energía mágica. Al comenzar, el programa solicitará la cantidad inicial de energía mágica del aprendiz. A continuación, mostrará repetidamente el siguiente menú, junto con la energía disponible:</p><h3>Menú de acciones</h3><ol><li><b>Lanzar un hechizo.</b> Consume 3 puntos de energía mágica.</li><li><b>Abrir un cofre.</b> Consume 2 puntos de energía mágica.</li><li><b>Descansar.</b> Recupera 1 punto de energía mágica.</li><li><b>Abandonar la torre.</b> Finaliza voluntariamente la exploración.</li></ol><p>El usuario deberá introducir el número de la acción que desea realizar. El programa ejecutará la acción correspondiente y actualizará la energía disponible. Se deberán tener en cuenta las siguientes condiciones:</p><h3>Condiciones del programa</h3><ul><li>La exploración continuará mientras el aprendiz tenga energía mágica y no haya decidido abandonar la torre.</li><li>Si una acción consume más energía de la que queda disponible, la energía se establecerá en 0.</li><li>Si el usuario introduce una opción que no aparece en el menú, se mostrará un mensaje de error y se volverá a presentar el menú.</li><li>Si el aprendiz se queda sin energía, se mostrará un mensaje indicando que no puede continuar explorando.</li><li>Si el aprendiz selecciona la opción de abandonar la torre, se mostrará un mensaje indicando que la exploración ha terminado voluntariamente.</li></ul></div></details></div><script>(function(){function a(){var d=location.hash&&document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS"){for(var x=d;x;x=x.parentElement)if(x.tagName==="DETAILS")x.open=true;d.scrollIntoView()}}addEventListener("hashchange",a);a()})();</script><script src="../bases-de-datos/visor.js"></script></body></html>
+¡Habéis encontrado el tesoro pirata!</pre><details class="sol"><summary>Ver solución en PSeInt</summary><div><p>Las dos partes se repiten al menos una vez, así que encaja Repetir ... Hasta Que.</p><pre class="code">Algoritmo VigiaPirata
+    Definir respuesta, combinacion Como Entero;
+    Repetir
+        Escribir "¿Ha detectado el vigía un barco enemigo? (1 sí, 0 no):";
+        Leer respuesta;
+        Si respuesta = 0 Entonces
+            Escribir "El vigía continúa observando el horizonte...";
+        SiNo
+            Si respuesta &lt;&gt; 1 Entonces
+                Escribir "Respuesta no válida. Introduce 1 para avistar un barco o 0 para continuar vigilando.";
+            FinSi
+        FinSi
+    Hasta Que respuesta = 1
+    Escribir "¡Capitán, barco enemigo a la vista!";
+    Escribir "¡Preparaos para el abordaje!";
+    Repetir
+        Escribir "Introduce la combinación del cofre:";
+        Leer combinacion;
+        Si combinacion &lt; 1724 Entonces
+            Escribir "La combinación secreta es mayor.";
+        SiNo
+            Si combinacion &gt; 1724 Entonces
+                Escribir "La combinación secreta es menor.";
+            FinSi
+        FinSi
+    Hasta Que combinacion = 1724
+    Escribir "¡El cofre se ha abierto!";
+    Escribir "¡Habéis encontrado el tesoro pirata!";
+FinAlgoritmo</pre></div></details><details class="sol"><summary>Ver solución en Java</summary><div><pre class="code">import java.util.Scanner;
+
+public class VigiaPirata {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        int respuesta;
+        do {
+            System.out.print("¿Ha detectado el vigía un barco enemigo? (1 sí, 0 no): ");
+            respuesta = teclado.nextInt();
+            if (respuesta == 0) {
+                System.out.println("El vigía continúa observando el horizonte...");
+            } else if (respuesta != 1) {
+                System.out.println("Respuesta no válida. Introduce 1 para avistar un barco o 0 para continuar vigilando.");
+            }
+        } while (respuesta != 1);
+        System.out.println("¡Capitán, barco enemigo a la vista!");
+        System.out.println("¡Preparaos para el abordaje!");
+
+        int combinacion;
+        do {
+            System.out.print("Introduce la combinación del cofre: ");
+            combinacion = teclado.nextInt();
+            if (combinacion &lt; 1724) {
+                System.out.println("La combinación secreta es mayor.");
+            } else if (combinacion &gt; 1724) {
+                System.out.println("La combinación secreta es menor.");
+            }
+        } while (combinacion != 1724);
+        System.out.println("¡El cofre se ha abierto!");
+        System.out.println("¡Habéis encontrado el tesoro pirata!");
+    }
+}</pre></div></details></div></details><details class="fold" id="a3"><summary><span><b>La torre del mago olvidado</b><small>Aplicación en Java con menú y energía mágica</small></span></summary><div class="in"><figure class="one"><img src="img/torre.jpg" width="1000" height="564" loading="lazy" alt="Torre de piedra junto a grandes cristales verdes."><figcaption>La torre del mago olvidado</figcaption></figure><h3>Eldoria</h3><figure class="small"><img src="img/aprendiz.jpg" width="600" height="900" loading="lazy" alt="Aprendiz de mago con sombrero azul y bastón ante una torre."><figcaption>El aprendiz de mago</figcaption></figure><p>En el reino de Eldoria, un aprendiz de mago debe explorar una torre encantada para recuperar un cristal mágico. Sin embargo, la torre está protegida por un hechizo que consume su energía cada vez que realiza determinadas acciones. Desarrolla una aplicación en Java que permita al aprendiz explorar la torre mientras conserve energía mágica. Al comenzar, el programa solicitará la cantidad inicial de energía mágica del aprendiz. A continuación, mostrará repetidamente el siguiente menú, junto con la energía disponible:</p><h3>Menú de acciones</h3><ol><li><b>Lanzar un hechizo.</b> Consume 3 puntos de energía mágica.</li><li><b>Abrir un cofre.</b> Consume 2 puntos de energía mágica.</li><li><b>Descansar.</b> Recupera 1 punto de energía mágica.</li><li><b>Abandonar la torre.</b> Finaliza voluntariamente la exploración.</li></ol><p>El usuario deberá introducir el número de la acción que desea realizar. El programa ejecutará la acción correspondiente y actualizará la energía disponible. Se deberán tener en cuenta las siguientes condiciones:</p><h3>Condiciones del programa</h3><ul><li>La exploración continuará mientras el aprendiz tenga energía mágica y no haya decidido abandonar la torre.</li><li>Si una acción consume más energía de la que queda disponible, la energía se establecerá en 0.</li><li>Si el usuario introduce una opción que no aparece en el menú, se mostrará un mensaje de error y se volverá a presentar el menú.</li><li>Si el aprendiz se queda sin energía, se mostrará un mensaje indicando que no puede continuar explorando.</li><li>Si el aprendiz selecciona la opción de abandonar la torre, se mostrará un mensaje indicando que la exploración ha terminado voluntariamente.</li></ul><details class="sol"><summary>Ver solución en PSeInt</summary><div><p>La condición del ciclo recoge las dos formas de salir: quedarse sin energía o abandonar.</p><pre class="code">Algoritmo TorreDelMago
+    Definir energia, opcion Como Entero;
+    Definir abandona Como Logico;
+    Escribir "Energía mágica inicial:";
+    Leer energia;
+    abandona &lt;- Falso;
+    Mientras (energia &gt; 0) Y (NO abandona) Hacer
+        Escribir "Energía disponible: ", energia;
+        Escribir "1 Lanzar un hechizo";
+        Escribir "2 Abrir un cofre";
+        Escribir "3 Descansar";
+        Escribir "4 Abandonar la torre";
+        Leer opcion;
+        Segun opcion Hacer
+            1:
+                energia &lt;- energia - 3;
+            2:
+                energia &lt;- energia - 2;
+            3:
+                energia &lt;- energia + 1;
+            4:
+                abandona &lt;- Verdadero;
+            De Otro Modo:
+                Escribir "Opción no válida.";
+        FinSegun
+        Si energia &lt; 0 Entonces
+            energia &lt;- 0;
+        FinSi
+    FinMientras
+    Si abandona Entonces
+        Escribir "La exploración ha terminado voluntariamente.";
+    SiNo
+        Escribir "No queda energía: no puedes continuar explorando.";
+    FinSi
+FinAlgoritmo</pre></div></details><details class="sol"><summary>Ver solución en Java</summary><div><pre class="code">import java.util.Scanner;
+
+public class TorreDelMago {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        System.out.print("Energía mágica inicial: ");
+        int energia = teclado.nextInt();
+        boolean abandona = false;
+        while (energia &gt; 0 &amp;&amp; !abandona) {
+            System.out.println("Energía disponible: " + energia);
+            System.out.println("1 Lanzar un hechizo");
+            System.out.println("2 Abrir un cofre");
+            System.out.println("3 Descansar");
+            System.out.println("4 Abandonar la torre");
+            int opcion = teclado.nextInt();
+            switch (opcion) {
+                case 1 -&gt; energia -= 3;
+                case 2 -&gt; energia -= 2;
+                case 3 -&gt; energia += 1;
+                case 4 -&gt; abandona = true;
+                default -&gt; System.out.println("Opción no válida.");
+            }
+            if (energia &lt; 0) {
+                energia = 0;
+            }
+        }
+        if (abandona) {
+            System.out.println("La exploración ha terminado voluntariamente.");
+        } else {
+            System.out.println("No queda energía: no puedes continuar explorando.");
+        }
+    }
+}</pre></div></details></div></details></div><script>(function(){function a(){var d=location.hash&&document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS"){for(var x=d;x;x=x.parentElement)if(x.tagName==="DETAILS")x.open=true;d.scrollIntoView()}}addEventListener("hashchange",a);a()})();</script><script src="../bases-de-datos/visor.js"></script></body></html>
