@@ -1,4 +1,4 @@
-/* Fondo común: malla suave con símbolos de desarrollo web. Tarjetas y texto van encima. */
+/* Común a toda la web: fondo de malla con símbolos y cabeceras compactas. */
 body{background-image:url(fondo-claro.svg)!important;background-repeat:repeat!important;background-size:440px 440px!important}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]) body{background-image:url(fondo-oscuro.svg)!important}}
 :root[data-theme=dark] body{background-image:url(fondo-oscuro.svg)!important}
@@ -7,3 +7,19 @@ body{background-image:url(fondo-claro.svg)!important;background-repeat:repeat!im
 /* Lo que aún no tiene contenido sigue atenuado, pero sin dejar ver los símbolos a través. */
 .card.off,div.t{opacity:1!important}
 .card.off>*,div.t>*{opacity:.55}
+[hidden]{display:none!important}
+html,body{overflow-x:clip}
+.hero{padding:12px 0 14px!important;margin-bottom:16px!important}
+.hero .back{padding:4px 0;margin-bottom:2px}
+.hero h1{font-size:clamp(1.35rem,4.5vw,2rem)!important}
+.cab{display:flex;align-items:center;gap:10px;padding-bottom:0!important}
+.cab h1{margin:0;white-space:nowrap}
+.cab-acc{display:flex;align-items:center;gap:8px;margin-left:12px}
+#sesion button,#tema{font:600 .88rem/1.1 system-ui,sans-serif;min-height:40px;border:1px solid #ffffff55;border-radius:10px;background:#ffffff1f;color:#fff;cursor:pointer;padding:6px 10px;white-space:nowrap}
+#tema{width:42px;padding:0;font-size:1.1rem}
+#sesion button:focus-visible,#tema:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media (max-width:380px){.cab{gap:4px}.cab-acc{gap:4px;margin-left:auto}#sesion button{padding:6px 7px;font-size:.8rem}#tema{width:38px}.hero .cab h1{font-size:1.15rem!important}}
+.grid.asig{grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:10px}
+.grid.asig a.card{min-height:72px;padding:12px 38px 12px 14px;border-top-width:5px}
+.grid.asig .card .ico{right:10px;top:10px;font-size:1rem}
+.grid.asig .card b{font-size:1rem;margin:0}

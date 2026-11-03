@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ponte a prueba · Lenguaje de Marcas</title>
+<title>Ponte a prueba</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -117,9 +117,9 @@ input.gap.ko{background:var(--bad-soft);border-color:var(--bad)}
 nav.tabs{display:none!important}details.ac{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin:12px 0}details.ac>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:12px 16px;font-weight:700;font-size:1.05rem}details.ac>summary::-webkit-details-marker{display:none}details.ac>summary::after{content:"▾";transition:transform .2s}details.ac[open]>summary::after{transform:rotate(180deg)}details.ac>summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}details.ac>section.panel{padding:6px 12px 14px}
 select.qsel{font:inherit;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);max-width:100%}
 </style>
-<link rel="stylesheet" href="../fondo.css"><body>
+<link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script><body>
 <div class="wrap">
-<a href="index.html" class="hubback">← Lenguaje de Marcas · carpetas</a>
+<a href="index.html" class="hubback">← Volver</a>
 <header class="top">
   <div>
     <h1>Ponte a prueba · Lenguaje de Marcas</h1>
@@ -127,7 +127,6 @@ select.qsel{font:inherit;min-height:44px;padding:8px 10px;border:1px solid var(-
   </div>
   <div class="row">
     <div class="count" id="count" aria-live="off"></div>
-    <button class="theme" id="themeBtn" type="button" aria-label="Cambiar tema claro u oscuro">Tema</button>
   </div>
 </header>
 
@@ -879,8 +878,7 @@ const store={get(k,d){try{const v=localStorage.getItem("lm:"+k);return v===null?
 const el=(t,a={},...c)=>{const e=document.createElement(t);for(const[k,v]of Object.entries(a)){if(k==="class")e.className=v;else if(k==="text")e.textContent=v;else e.setAttribute(k,v)}c.forEach(x=>e.append(x));return e};
 
 /* tema */
-(function(){const t=store.get("theme",null);if(t)document.documentElement.setAttribute("data-theme",t);
-$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme: dark)").matches);const n=dark?"light":"dark";r.setAttribute("data-theme",n);store.set("theme",n)}})();
+
 
 /* pestañas */
 function showTab(id){$$("#tabs button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===id)));const d=$("#d-"+id);if(d){d.open=true;d.scrollIntoView()}}

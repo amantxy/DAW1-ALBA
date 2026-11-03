@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mis documentos · DAW 1 ALBA</title><style>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mis documentos</title><script>try{var hay=false;for(var i=0;i<localStorage.length;i++)if(/^sb-.*-auth-token$/.test(localStorage.key(i)))hay=true;if(!hay&&!/type=recovery|access_token|code=/.test(location.hash+location.search))location.replace("index.html")}catch(e){}</script><style>
 :root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#2563eb;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
 @media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#6ea8ff;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
 *{box-sizing:border-box}
@@ -78,8 +78,8 @@ dialog::backdrop{background:rgb(0 0 0/.5)}
 dialog input{width:100%;margin:6px 0}
 dialog .row{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
 #pe{color:#c0392b;min-height:1.2em;font-size:.9rem}
-</style><link rel="stylesheet" href="fondo.css"></head><body>
-<div class="hero"><div class="wrap"><a class="back" id="bk" href="index.html">← Todas las asignaturas</a><h1 id="ti">Mis documentos</h1><p id="su">Teoría y apuntes: PDF, Word, imágenes, Markdown, HTML y vídeo</p></div></div>
+</style><link rel="stylesheet" href="fondo.css"><script src="tema.js"></script></head><body>
+<div class="hero"><div class="wrap"><a class="back" id="bk" href="index.html">← Volver</a><h1 id="ti">Mis documentos</h1><p id="su">Teoría y apuntes: PDF, Word, imágenes, Markdown, HTML y vídeo</p></div></div>
 <div class="wrap">
 <div class="bar"><select id="fs" aria-label="Asignatura"></select><button id="adm" type="button" hidden>Entrar con mi cuenta</button></div>
 <div class="adm" id="panel">
@@ -175,7 +175,7 @@ async function render(){
  lec.textContent="";$("#tools").textContent="";
  if(id&&user){const d=docs.find(x=>x.id===id);color(d?d.asignatura:cur);
   $("#ti").textContent=d?d.titulo:"Documento no encontrado";$("#su").textContent=d?sj(d.asignatura).name+" · "+d.unidad:"";
-  $("#bk").textContent="← Mis documentos";$("#bk").href="docs.html"+(cur?"?s="+cur:"");
+  $("#bk").textContent="← Volver";$("#bk").href="docs.html"+(cur?"?s="+cur:"");
   if(!d){lec.textContent="Este documento no existe o ya se ha borrado.";return}
   lec.textContent="Cargando…";
   if(d.tipo==="video"){const[ver,baja]=await Promise.all([sb.storage.from(BUCKET).createSignedUrl(d.ruta,10800),sb.storage.from(BUCKET).createSignedUrl(d.ruta,10800,{download:d.nombre})]);if(!vivo())return;
@@ -190,7 +190,7 @@ async function render(){
   lec.textContent="";
   try{await mostrar(lec,d,r.data,vivo)}catch(e){if(vivo()){const p=document.createElement("p");p.textContent="No se pudo mostrar aquí ("+e.message+"). Puedes descargar el original.";lec.append(p)}}
   return}
- color(cur);$("#ti").textContent=cur?sj(cur).name+" · mis documentos":"Mis documentos";
+ color(cur);if(cur&&!location.hash)$("#bk").href=cur+"/index.html";$("#ti").textContent=cur?sj(cur).name+" · mis documentos":"Mis documentos";
  $("#bk").textContent=cur?"← "+sj(cur).name:"← Todas las asignaturas";$("#bk").href=cur?cur+"/index.html":"index.html";
  $("#su").textContent="Teoría y apuntes: PDF, Word, imágenes, Markdown, HTML y vídeo";
  box.textContent="";
@@ -255,7 +255,7 @@ async function alCambiarUsuario(nuevo){
   if(cfg.url&&cfg.key){$("#lista").textContent="";const p=document.createElement("p");p.textContent="No se pudo cargar la conexión con Supabase. Comprueba tu conexión y recarga la página.";$("#lista").append(p)}
   return}
  sb=supabase.createClient(cfg.url,cfg.key);listo=true;
- $("#adm").onclick=async()=>{if(user){await sb.auth.signOut();limpiaProgreso();history.replaceState(null,"",location.pathname+location.search);return alCambiarUsuario(null)}await dialogo("entrar")};
+ $("#adm").onclick=async()=>{if(user){await sb.auth.signOut();limpiaProgreso();return location.replace("index.html")}await dialogo("entrar")};
  $("#cp").onclick=async()=>{if(await dialogo("cambiar"))msg("Contraseña cambiada.")};
  $("#ad").onclick=async()=>{const fs=[...$("#af").files];if(!fs.length){msg("Elige primero algún archivo.");return}
   const u=$("#au").value.trim()||"Sin unidad",boton=$("#ad");let n=0;const mal=[];boton.disabled=true;

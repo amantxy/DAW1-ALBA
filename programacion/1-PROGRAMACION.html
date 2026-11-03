@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Programación DAW 1 – Apuntes por temas</title>
+<title>Programación</title>
 <style>
 :root{--bg:#eaf4fc;--card:#ffffff;--ink:#0f2438;--mut:#46627c;--line:#c5ddf1;--acc:#1673bf;--accbg:#dcedfb;--code:#e8f2fb;--ok:#1f7a4d;--warn:#b3341f}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0a1626;--card:#10233a;--ink:#e3eefa;--mut:#8ea9c4;--line:#21395a;--acc:#5ab4f5;--accbg:#12304f;--code:#0c1d31;--ok:#6fd0a0;--warn:#ff9c8a}}
@@ -46,7 +46,7 @@ th{background:var(--accbg)}
 details{margin:6px 0}summary{cursor:pointer;color:var(--mut);font-size:.88rem}
 .hide{display:none!important}
 footer{max-width:1100px;margin:0 auto;padding:16px;color:var(--mut);font-size:.82rem}
-@media(max-width:800px){.wrap{grid-template-columns:1fr}nav{display:none}header input{max-width:none}}
+@media(max-width:800px){.wrap{grid-template-columns:minmax(0,1fr)}nav{display:none}header{flex-wrap:wrap;gap:8px;padding:8px 12px}header h1{min-width:0}header input{order:9;flex:1 0 100%;max-width:none}header button{white-space:nowrap}}
 
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
 .bar select,.inp,.ta{font:inherit;font-size:.9rem;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
@@ -71,15 +71,15 @@ body:not(.searching) .nv{display:none!important}
 nav a.act{color:var(--acc);border-color:var(--acc);font-weight:600}
 .tabs button.on{color:#fff}
 </style>
-<link rel="stylesheet" href="../fondo.css"></head>
+<link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script></head>
 <body>
 <header>
-<a href="index.html" style="color:inherit;font-weight:600;text-decoration:none;white-space:nowrap">← Carpetas</a>
-<h1>Programación · DAW 1</h1>
+<a href="index.html" style="color:inherit;font-weight:600;text-decoration:none;white-space:nowrap">← Volver</a>
+<h1>Programación</h1>
 <input id="q" type="search" placeholder="Buscar (p. ej. switch, return, int…)">
 <button id="mn" aria-label="Menú">☰ Menú</button>
-<button id="all">Abrir/cerrar todo</button>
-<button id="th" aria-label="Cambiar tema">◐</button>
+<button id="all">Abrir/cerrar</button>
+
 </header>
 <div class="wrap">
 <nav id="nav"></nav>
@@ -8755,14 +8755,6 @@ $("#q").addEventListener("input",function(e){
     if(v&&m)s.classList.remove("closed");
   });
 });
-// theme
-$("#th").onclick=function(){
-  var r=document.documentElement,cur=r.getAttribute("data-theme");
-  if(!cur)cur=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";
-  var n=cur==="dark"?"light":"dark";r.setAttribute("data-theme",n);
-  try{localStorage.setItem("th",n)}catch(e){}
-};
-try{var t=localStorage.getItem("th");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}
 })();
 </script>
 <script>
