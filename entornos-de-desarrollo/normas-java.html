@@ -1,0 +1,98 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Normas de codificación en Java</title><style>
+:root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#0891b2;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#4fd1e8;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.hero{background:var(--c);color:#fff;padding:28px 0 26px;margin-bottom:24px}
+@media (prefers-color-scheme:dark){.hero{color:#0b1220}}
+.hero .wrap{padding-bottom:0}
+.hero h1{margin:0;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.15}
+.hero p{margin:6px 0 0;opacity:.92}
+.back{display:inline-block;color:inherit;text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 0;margin-bottom:6px;opacity:.95}
+.back:hover{text-decoration:underline}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+a.card,div.card{display:block;position:relative;background:var(--hoja);border:1px solid var(--linea);border-top:6px solid var(--c);border-radius:12px;padding:16px 18px;color:inherit;text-decoration:none;min-height:104px}
+a.card:hover,a.card:focus-visible{box-shadow:0 6px 20px rgb(0 0 0/.12);transform:translateY(-2px);outline:none}
+a.card{transition:transform .15s,box-shadow .15s}
+.card b{display:block;font-size:1.1rem;color:var(--c);margin-bottom:2px}
+.card span{color:var(--suave);font-size:.9rem}
+.card .ico{position:absolute;right:14px;top:12px;font:700 1.3rem ui-monospace,Consolas,monospace;color:var(--c);opacity:.35}
+.card.off{opacity:.5;border-top-style:dashed}
+details.fold{position:relative;margin:32px 0 18px;--f:color-mix(in srgb,var(--c) 20%,var(--hoja))}
+details.fold>summary{list-style:none;cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;min-height:72px;padding:16px 18px;background:var(--f);border:2px solid var(--c);border-radius:0 12px 12px 12px}
+details.fold>summary::before{content:"";position:absolute;left:-2px;bottom:100%;width:min(46%,170px);height:17px;background:var(--c);border-radius:10px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+details.fold>summary:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary>svg{display:none}
+details.fold>summary b{font-size:1.15rem}
+details.fold>summary small{display:block;color:var(--suave);font-size:.88rem}
+details.fold>summary::after{content:"▾";margin-left:auto;color:var(--tinta);transition:transform .2s}
+details.fold[open]>summary{border-radius:0 12px 0 0}
+details.fold[open]>summary::after{transform:rotate(180deg)}
+.in{padding:14px 16px 18px;background:var(--hoja);border:2px solid var(--c);border-top:0;border-radius:0 0 12px 12px}
+.in h3{margin:14px 0 8px;font-size:.95rem;color:var(--c);display:flex;align-items:center;gap:8px}
+.in h3 svg{width:20px;height:20px}
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
+a.t,div.t{display:block;background:var(--cs);border:1px solid var(--linea);border-radius:10px;padding:12px 14px;color:inherit;text-decoration:none;min-height:64px}
+a.t:hover,a.t:focus-visible{border-color:var(--c);outline:none}
+.t b{display:block;font-size:.98rem}
+.t span{color:var(--suave);font-size:.82rem}
+div.t{opacity:.5;border-style:dashed}
+.sub{position:relative;margin-top:26px;padding:6px 12px 14px;background:var(--cs);border:1.5px solid var(--c);border-radius:0 10px 10px 10px}
+.sub::before{content:"";position:absolute;left:-1.5px;bottom:100%;width:min(46%,130px);height:13px;background:var(--c);border-radius:8px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.pasos{display:flex;flex-wrap:wrap;gap:6px 8px;margin:0 0 14px}.pasos span{background:var(--cs);border:1px solid var(--linea);border-radius:8px;padding:6px 10px;font-weight:600}.pasos span+span::before{content:"→ ";color:var(--c)}
+figure.mini{max-width:110px}.sol{border:1px solid var(--linea);border-radius:10px;padding:0 12px;margin:12px 0}.sol>div{padding:0 0 4px}.fold .in>p:first-child{margin-top:4px}p.nota{margin:12px 0}
+pre.code{white-space:pre;overflow-x:auto}
+</style><link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Normas de codificación en Java</h1></div></div><div class="wrap"><p>En cualquier proyecto en el que trabaja un grupo de personas debe haber unas normas de codificación y estilo, claras y homogéneas. Estas normas facilitan las tareas de corrección y mantenimiento de los programas, sobre todo cuando son realizadas por personas que no los han desarrollado.</p><details class="fold" id="n1"><summary><span><b>Nombres de ficheros</b><small>Extensiones .java y .class</small></span></summary><div class="in"><p>La extensión para los ficheros de código fuente es <code>.java</code> y para los ficheros compilados es <code>.class</code>.</p></div></details><details class="fold" id="n2"><summary><span><b>Organización de ficheros</b><small>Comentarios, package, import y clases</small></span></summary><div class="in"><p>Cada fichero debe contener una sola clase pública y debe ser la primera. Las clases privadas e interfaces asociados con esa clase pública se pueden poner en el mismo fichero después de la clase pública. Las secciones en las que se divide el fichero son:</p><p><b>Comentarios.</b> Todos los ficheros fuente deben comenzar con un comentario que muestra el nombre de la clase, información de la versión, la fecha y el aviso de derechos de autor. Formato: <code>/* Nombre de clase / Información de la versión / Fecha / Aviso de Copyright */</code></p><p><b>Sentencias package e import.</b> Van después de los comentarios; <code>package</code> va delante de <code>import</code>. Ejemplo:</p><pre class="code">/*
+ * Nombre de clase
+ *
+ * Información de la versión
+ *
+ * Fecha
+ * Aviso de Copyright */
+
+package paquete.ejemplo;
+
+import java.io.*;</pre><p><b>Declaraciones de clases e interfaces.</b> Consta de:</p><ol><li>Comentario de documentación <code>/** ... */</code> de la clase o interfaz.</li><li>Sentencia <code>class</code> o <code>interface</code>.</li><li>Comentario de implementación <code>/* ... */</code>.</li><li>Variables estáticas: públicas, protegidas, privadas.</li><li>Variables de instancia: públicas, protegidas, privadas.</li><li>Constructores.</li><li>Métodos agrupados por funcionalidad, no por alcance.</li></ol></div></details><details class="fold" id="n3"><summary><span><b>Identación</b><small>Espacios y longitud de línea</small></span></summary><div class="in"><ul><li>Se usarán cuatro espacios.</li><li>Líneas de código: máx. 80 caracteres.</li><li>Líneas de comentarios: máx. 70 caracteres.</li></ul></div></details><details class="fold" id="n4"><summary><span><b>Comentarios</b><small>De documentación y de implementación</small></span></summary><div class="in"><p>Los comentarios deben contener sólo la información que es relevante para la lectura y la comprensión del programa. Existen dos tipos:</p><p><b>Comentarios de documentación.</b> Destinados a describir la especificación del código. Se utilizan para describir las clases Java, interfaces, constructores, métodos y campos. Deben aparecer justo antes de la declaración. La herramienta Javadoc genera páginas HTML a partir de este tipo de comentarios.</p><pre class="code">/**
+ * La clase Ejemplo proporciona ...
+ */
+public class Ejemplo { ... }</pre><p><b>Comentarios de implementación.</b> Para comentar detalles de la aplicación particular. Puede ser de 3 tipos:</p><ul><li>Comentarios de bloque: <code>/* Esto es un comentario de bloque */</code></li><li>Comentarios de línea: <code>/* Esto es un comentario de línea */</code></li><li>Comentario corto: <code>// Esto es un comentario corto</code></li></ul></div></details><details class="fold" id="n5"><summary><span><b>Declaraciones</b><small>Una variable por línea</small></span></summary><div class="in"><ul><li>Se recomienda declarar una variable por línea.</li><li>Inicializar las variables locales donde están declaradas y colocarlas al comienzo del bloque.</li></ul><pre class="code">void miMetodo() {
+    // comienza el bloque de miMetodo
+    int var1 = 0;
+    int var2 = 10;
+    if (var1 == var2) {
+        // comienza el bloque if</pre></div></details><details class="fold" id="n6"><summary><span><b>Sentencias</b><small>Bloques, if, bucles y return</small></span></summary><div class="in"><ul><li>Cada línea debe contener una sentencia.</li><li>Si hay un bloque de sentencias, éste debe ser sangrado con respecto a la sentencia que lo genera y debe estar entre llaves, aunque sólo tenga una sentencia.</li><li>Sentencias if-else, if else-if else. Definen bloques a los que se aplican las normas anteriores. Todos los bloques tienen el mismo nivel de sangrado.</li><li>Bucles. Definen un bloque, que sigue las normas anteriores. Si el bucle está vacío no se abren ni se cierran llaves.</li><li>Las sentencias <code>return</code> no deben usar paréntesis.</li></ul></div></details><details class="fold" id="n7"><summary><span><b>Separaciones</b><small>Líneas y espacios en blanco</small></span></summary><div class="in"><p>Dos líneas en blanco entre clases. Una línea en blanco entre métodos y secciones lógicas. Un espacio en blanco tras comas y operadores binarios.</p></div></details><details class="fold" id="n8"><summary><span><b>Nombres</b><small>Paquetes, clases, métodos, variables y constantes</small></span></summary><div class="in"><p>Paquetes en minúscula (<code>java.io</code>). Clases con mayúscula inicial (<code>HiloServidor</code>). Métodos en camelCase (<code>ejecutar()</code>, <code>asignarDestino()</code>). Variables cortas (<code>i</code>, <code>sumaTotal</code>). Constantes en MAYÚSCULAS_CON_GUIÓN (<code>MAX_VALOR</code>).</p></div></details><details class="fold" id="n9"><summary><span><b>Ejemplo con y sin formato</b><small>El mismo programa, dos lecturas</small></span></summary><div class="in"><p>Estos dos programas son el mismo, pero uno resulta más fácil de leer:</p><p><b>Sin formato:</b></p><pre class="code">public class Ejemplo
+{ public static void main(String[] args)
+{ int suma=0; int contador=0;
+while(contador&lt;10){contador++;
+suma=suma+contador;}
+System.out.println("Suma =&gt; "+suma);}}</pre><p><b>Con formato:</b></p><pre class="code">public class Ejemplo {
+    public static void main(String[] args) {
+        int suma = 0;
+        int contador = 0;
+        while (contador &lt; 10) {
+            contador++;
+            suma = suma + contador;
+        }
+        System.out.println("Suma =&gt; " + suma);
+    }
+}</pre></div></details></div><script>(function(){function a(){var d=location.hash&&document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS"){for(var x=d;x;x=x.parentElement)if(x.tagName==="DETAILS")x.open=true;d.scrollIntoView()}}addEventListener("hashchange",a);a()})();</script><script src="../bases-de-datos/visor.js"></script></body></html>

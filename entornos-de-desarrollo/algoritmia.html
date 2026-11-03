@@ -1,0 +1,162 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Batería de algoritmia</title><style>
+:root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#0891b2;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#4fd1e8;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.hero{background:var(--c);color:#fff;padding:28px 0 26px;margin-bottom:24px}
+@media (prefers-color-scheme:dark){.hero{color:#0b1220}}
+.hero .wrap{padding-bottom:0}
+.hero h1{margin:0;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.15}
+.hero p{margin:6px 0 0;opacity:.92}
+.back{display:inline-block;color:inherit;text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 0;margin-bottom:6px;opacity:.95}
+.back:hover{text-decoration:underline}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+a.card,div.card{display:block;position:relative;background:var(--hoja);border:1px solid var(--linea);border-top:6px solid var(--c);border-radius:12px;padding:16px 18px;color:inherit;text-decoration:none;min-height:104px}
+a.card:hover,a.card:focus-visible{box-shadow:0 6px 20px rgb(0 0 0/.12);transform:translateY(-2px);outline:none}
+a.card{transition:transform .15s,box-shadow .15s}
+.card b{display:block;font-size:1.1rem;color:var(--c);margin-bottom:2px}
+.card span{color:var(--suave);font-size:.9rem}
+.card .ico{position:absolute;right:14px;top:12px;font:700 1.3rem ui-monospace,Consolas,monospace;color:var(--c);opacity:.35}
+.card.off{opacity:.5;border-top-style:dashed}
+details.fold{position:relative;margin:32px 0 18px;--f:color-mix(in srgb,var(--c) 20%,var(--hoja))}
+details.fold>summary{list-style:none;cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;min-height:72px;padding:16px 18px;background:var(--f);border:2px solid var(--c);border-radius:0 12px 12px 12px}
+details.fold>summary::before{content:"";position:absolute;left:-2px;bottom:100%;width:min(46%,170px);height:17px;background:var(--c);border-radius:10px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+details.fold>summary:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary>svg{display:none}
+details.fold>summary b{font-size:1.15rem}
+details.fold>summary small{display:block;color:var(--suave);font-size:.88rem}
+details.fold>summary::after{content:"▾";margin-left:auto;color:var(--tinta);transition:transform .2s}
+details.fold[open]>summary{border-radius:0 12px 0 0}
+details.fold[open]>summary::after{transform:rotate(180deg)}
+.in{padding:14px 16px 18px;background:var(--hoja);border:2px solid var(--c);border-top:0;border-radius:0 0 12px 12px}
+.in h3{margin:14px 0 8px;font-size:.95rem;color:var(--c);display:flex;align-items:center;gap:8px}
+.in h3 svg{width:20px;height:20px}
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
+a.t,div.t{display:block;background:var(--cs);border:1px solid var(--linea);border-radius:10px;padding:12px 14px;color:inherit;text-decoration:none;min-height:64px}
+a.t:hover,a.t:focus-visible{border-color:var(--c);outline:none}
+.t b{display:block;font-size:.98rem}
+.t span{color:var(--suave);font-size:.82rem}
+div.t{opacity:.5;border-style:dashed}
+.sub{position:relative;margin-top:26px;padding:6px 12px 14px;background:var(--cs);border:1.5px solid var(--c);border-radius:0 10px 10px 10px}
+.sub::before{content:"";position:absolute;left:-1.5px;bottom:100%;width:min(46%,130px);height:13px;background:var(--c);border-radius:8px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.pasos{display:flex;flex-wrap:wrap;gap:6px 8px;margin:0 0 14px}.pasos span{background:var(--cs);border:1px solid var(--linea);border-radius:8px;padding:6px 10px;font-weight:600}.pasos span+span::before{content:"→ ";color:var(--c)}
+figure.mini{max-width:110px}.sol{border:1px solid var(--linea);border-radius:10px;padding:0 12px;margin:12px 0}.sol>div{padding:0 0 4px}.fold .in>p:first-child{margin-top:4px}p.nota{margin:12px 0}
+pre.code{white-space:pre;overflow-x:auto}
+</style><link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Batería de algoritmia</h1></div></div><div class="wrap"><p>Colección de ejercicios progresivos de diagramas de flujo y pseudocódigo para estudiantes de programación. Cada ejercicio está diseñado para consolidar conceptos clave: entrada/salida, condiciones, ciclos, cadenas y razonamiento algorítmico. <b>Nivel principiante → intermedio.</b></p><h3>¿Qué vamos a trabajar?</h3><p>Esta batería de ejercicios está pensada para trabajarse de forma progresiva, combinando ejercicios que se resuelven mediante diagrama de flujo y otros mediante pseudocódigo. La dificultad aumenta gradualmente, y algunos ejercicios están pensados para resolverse con la guía del profesor antes de que los alumnos los completen de forma autónoma.</p><details class="fold" id="b1"><summary><span><b>01. Ejercicios de cálculo básico</b><small>Área de un círculo e IMC</small></span></summary><div class="in"><details class="fold" id="e1"><summary><span><b>Ejercicio 1. Área de un círculo</b><small>Diagrama de flujo</small></span></summary><div class="in"><p>Diseña un <b>diagrama de flujo</b> que calcule el área de un círculo a partir de su radio. El programa debe solicitar al usuario un valor para el radio, calcular el área utilizando la fórmula correspondiente y mostrar el resultado por pantalla.</p><p><b>Fórmula:</b> Área = π · radio²</p><p>Este ejercicio pone en práctica la estructura básica de todo algoritmo: entrada → proceso → salida. No introduce estructuras de control nuevas, por lo que el objetivo principal es aprender a traducir un problema matemático sencillo en pasos algorítmicos claros y ordenados.</p><p><b>Datos del problema</b></p><ul><li><b>Entrada:</b> un número real que representa el radio del círculo.</li><li><b>Proceso:</b> aplicar la fórmula del área de un círculo.</li><li><b>Salida:</b> el valor del área calculada, con el resultado claramente etiquetado.</li></ul><p><b>Estructura esperada:</b> Inicio → Leer radio → Calcular área → Mostrar área → Fin.</p><p class="nota">Recuerda que π es una constante. Puedes usar el valor 3.14159 o la constante predefinida de tu entorno.</p><details class="sol"><summary>Ver solución en PSeInt</summary><div><p>Se pide el radio y se calcula el área con la constante escrita a mano. Es el flujo mínimo de todo algoritmo: leer un dato, calcularlo en una sola asignación y escribir el resultado.</p><pre class="code">Algoritmo AreaCirculo
+    Definir radio, area Como Real;
+    Escribir "Introduce el radio del círculo:";
+    Leer radio;
+    area &lt;- 3.14159 * radio * radio;
+    Escribir "El área del círculo es: ", area;
+FinAlgoritmo</pre></div></details></div></details><details class="fold" id="e6"><summary><span><b>Ejercicio 6. Cálculo del IMC</b><small>Pseudocódigo</small></span></summary><div class="in"><p>Escribe un <b>pseudocódigo</b> que calcule el Índice de Masa Corporal (IMC) de una persona a partir de su peso en kilogramos y su altura en metros. El programa debe mostrar el valor del IMC calculado con el formato adecuado.</p><p>Este ejercicio es deliberadamente más sencillo que los anteriores. Después de trabajar con condiciones y ciclos, resulta beneficioso volver a un ejercicio de cálculo directo para afianzar el manejo de variables, tipos de datos, entrada de datos por teclado, aplicación de una fórmula y presentación del resultado. No todos los ejercicios tienen que ser progresivamente más difíciles.</p><p><b>Fórmula del IMC:</b> IMC = peso / altura²</p><p><b>Datos del problema</b></p><ul><li><b>Entrada:</b> peso en kilogramos (número real) y altura en metros (número real).</li><li><b>Proceso:</b> aplicar la fórmula del IMC.</li><li><b>Salida:</b> el valor del IMC mostrado con dos decimales.</li></ul><p><b>Variables necesarias:</b> peso: real; altura: real; imc: real.</p><p><b>Aspectos a tener en cuenta</b></p><ul><li>¿Qué tipo de variable usarás para peso y altura?</li><li>¿Qué ocurre si el usuario introduce una altura de 0?</li><li>¿Cómo mostrarías el resultado de forma clara y legible?</li></ul><details class="sol"><summary>Ver solución en PSeInt</summary><div><p>Se piden peso y altura y se aplica IMC = peso / altura². Es un ejercicio de cálculo con variables reales; la validación de la altura cero queda para más adelante, cuando aparezca el Repetir.</p><pre class="code">Algoritmo CalcularIMC
+    Definir peso, altura, imc Como Real;
+    Escribir "Introduce tu peso en kilogramos:";
+    Leer peso;
+    Escribir "Introduce tu altura en metros:";
+    Leer altura;
+    imc &lt;- peso / (altura * altura);
+    Escribir "Tu IMC es: ", imc;
+FinAlgoritmo</pre></div></details></div></details></div></details><details class="fold" id="b2"><summary><span><b>02. Condiciones y decisiones</b><small>Mayor y menor de tres, sumar o multiplicar</small></span></summary><div class="in"><details class="fold" id="e2"><summary><span><b>Ejercicio 2. Mayor y menor de tres números</b><small>Diagrama de flujo</small></span></summary><div class="in"><p>Diseña un <b>diagrama de flujo</b> que lea tres números enteros introducidos por el usuario y determine cuál es el mayor y cuál es el menor de los tres. El programa debe mostrar ambos resultados al finalizar.</p><p>Este ejercicio introduce por primera vez el razonamiento con condiciones. A diferencia de un cálculo directo, aquí el alumno debe decidir cómo estructurar las comparaciones para obtener tanto el mayor como el menor. No basta con leer y calcular: hay que decidir.</p><p><b>Requisitos del diagrama</b></p><ul><li><b>Entrada:</b> tres números enteros (a, b, c).</li><li><b>Proceso:</b> comparar los tres valores mediante estructuras Si/Sino para identificar el mayor y el menor.</li><li><b>Salida:</b> mostrar el valor mayor y el valor menor encontrados.</li></ul><p><b>Estructura de decisión esperada</b></p><ul><li>LEER A, B, C (entrada de tres números)</li><li>¿A &gt; B? (comparar a y b)</li><li>SÍ: ¿A &gt; C? (comparar a y c)</li><li>NO: ¿B &gt; C? (comparar b y c)</li></ul><p><b>Consideraciones</b></p><ul><li>¿Qué ocurre si dos números son iguales?</li><li>¿Cuántas comparaciones son necesarias como mínimo?</li><li>¿Puedes obtener mayor y menor en el mismo recorrido?</li></ul><details class="sol"><summary>Ver solución en PSeInt</summary><div><p>Se leen tres enteros y se muestran el mayor y el menor. Se arranca suponiendo que a es ambos y cada comparación corrige el supuesto; así el algoritmo también funciona con números repetidos.</p><pre class="code">Algoritmo MayorMenorTres
+    Definir a, b, c, mayor, menor Como Entero;
+    Escribir "Introduce el primer número:";
+    Leer a;
+    Escribir "Introduce el segundo número:";
+    Leer b;
+    Escribir "Introduce el tercer número:";
+    Leer c;
+    mayor &lt;- a;
+    menor &lt;- a;
+    Si b &gt; mayor Entonces
+        mayor &lt;- b;
+    FinSi
+    Si c &gt; mayor Entonces
+        mayor &lt;- c;
+    FinSi
+    Si b &lt; menor Entonces
+        menor &lt;- b;
+    FinSi
+    Si c &lt; menor Entonces
+        menor &lt;- c;
+    FinSi
+    Escribir "El mayor es: ", mayor;
+    Escribir "El menor es: ", menor;
+FinAlgoritmo</pre></div></details></div></details><details class="fold" id="e5"><summary><span><b>Ejercicio 5. Tres números: sumar o multiplicar según el primero</b><small>Diagrama de flujo</small></span></summary><div class="in"><p>Diseña un <b>diagrama de flujo</b> que lea tres números enteros a, b y c. Si el primer número (a) es negativo, el programa debe calcular y mostrar el producto de los tres. Si a es cero o positivo, debe calcular y mostrar la suma de los tres.</p><p>Este ejercicio tiene como objetivo comprobar que el alumno sabe traducir una condición lógica en una bifurcación real dentro de un diagrama. No es un problema matemáticamente complejo, pero requiere identificar con precisión la condición que determina qué camino tomar y representarla correctamente como una decisión con dos ramas.</p><p><b>Especificación completa</b></p><ul><li><b>Entrada:</b> tres números enteros a, b, c.</li><li><b>Condición:</b> comprobar si a &lt; 0.</li><li><b>Rama Sí:</b> calcular y mostrar a × b × c.</li><li><b>Rama No:</b> calcular y mostrar a + b + c.</li><li><b>Salida:</b> el resultado etiquetado indicando la operación realizada.</li></ul><p><b>Esquema:</b> LEER A, B, C → ¿A &lt; 0? → MULTIPLICAR (calcular y mostrar producto) o SUMAR (calcular y mostrar suma).</p><p><b>Reflexión.</b> ¿Qué ocurre exactamente cuando a = 0? ¿La suma y el producto coinciden en algún caso especial? Piénsalo antes de dibujar el diagrama.</p><details class="sol"><summary>Ver solución en PSeInt</summary><div><p>Se leen tres números: si el primero es negativo se multiplican los tres, en caso contrario se suman. El criterio está solo en a, no en los tres valores, y el Si-SiNo resuelve las dos ramas.</p><pre class="code">Algoritmo SumarOMultiplicar
+    Definir a, b, c, resultado Como Entero;
+    Escribir "Introduce el primer número:";
+    Leer a;
+    Escribir "Introduce el segundo número:";
+    Leer b;
+    Escribir "Introduce el tercer número:";
+    Leer c;
+    Si a &lt; 0 Entonces
+        resultado &lt;- a * b * c;
+        Escribir "Se ha realizado una multiplicación.";
+        Escribir "Resultado: ", resultado;
+    SiNo
+        resultado &lt;- a + b + c;
+        Escribir "Se ha realizado una suma.";
+        Escribir "Resultado: ", resultado;
+    FinSi
+FinAlgoritmo</pre></div></details></div></details></div></details><details class="fold" id="b3"><summary><span><b>03. Ciclos y contadores</b><small>Tabla de multiplicar, promedio y divisores</small></span></summary><div class="in"><details class="fold" id="e3"><summary><span><b>Ejercicio 3. Tabla de multiplicar</b><small>Pseudocódigo</small></span></summary><div class="in"><p>Escribe un <b>pseudocódigo</b> que lea un número entero introducido por el usuario y muestre por pantalla su tabla de multiplicar completa, desde la multiplicación por 1 hasta la multiplicación por 10. Cada línea del resultado debe presentarse con el formato: número × i = resultado.</p><p>Este ejercicio está diseñado para consolidar el uso de la estructura Para...FinPara en un contexto concreto y significativo. No se trata de copiar el ejemplo del manual: aquí el alumno tiene que entender para qué sirve realmente el contador y cómo utilizarlo para calcular algo útil en cada iteración.</p><p><b>Especificación del pseudocódigo</b></p><ul><li><b>Entrada:</b> un número entero (numero).</li><li><b>Proceso:</b> utilizar una estructura Para i ← 1 Hasta 10 para recorrer los multiplicadores.</li><li><b>En cada iteración:</b> calcular el producto numero × i y mostrarlo con formato legible.</li><li><b>Salida:</b> diez líneas con la tabla de multiplicar completa.</li></ul><p><b>Estructura esperada</b></p><pre class="code">Leer numero
+Para i ← 1 Hasta 10 Hacer
+    → Calcular numero × i
+    → Mostrar resultado formateado
+FinPara</pre><p><b>Preguntas de reflexión</b></p><ul><li>¿Cuál es el papel del contador i en este algoritmo?</li><li>¿Qué cambiarías si quisieras mostrar la tabla del 1 al 20?</li><li>¿Podría hacerse con un ciclo Mientras en lugar de Para?</li></ul><details class="sol"><summary>Ver solución en PSeInt</summary><div><p>Se lee un número y se muestra su tabla del 1 al 10. El recorrido es fijo, así que corresponde un Para: el contador i hace de multiplicador dentro del cuerpo del bucle.</p><pre class="code">Algoritmo TablaMultiplicar
+    Definir numero, i, resultado Como Entero;
+    Escribir "Introduce un número:";
+    Leer numero;
+    Para i &lt;- 1 Hasta 10 Con Paso 1 Hacer
+        resultado &lt;- numero * i;
+        Escribir numero, " x ", i, " = ", resultado;
+    FinPara
+FinAlgoritmo</pre></div></details></div></details><details class="fold" id="e8"><summary><span><b>Ejercicio 8. Promedio de N notas</b><small>Pseudocódigo</small></span></summary><div class="in"><p>Escribe un <b>pseudocódigo</b> que lea un número entero N indicado por el usuario y, a continuación, lea N notas numéricas. Al final, el programa debe calcular y mostrar el promedio de todas las notas introducidas.</p><p>Este ejercicio va un paso más allá del ejemplo PromedioTres del manual. Allí el número de repeticiones estaba fijo. Aquí, el propio usuario decide cuántas notas hay. El objetivo no es aprender a calcular un promedio, sino generalizar un algoritmo que antes era rígido. Ese salto conceptual —de repetir exactamente 3 veces a repetir N veces— es fundamental en programación. Se recomienda plantearlo inicialmente con el profesor.</p><p><b>Especificación completa</b></p><ul><li><b>Entrada:</b> un entero N y, a continuación, N valores numéricos (las notas).</li><li><b>Variables clave:</b> un acumulador para la suma y un contador de iteraciones.</li><li><b>Proceso:</b> leer cada nota dentro de un ciclo Para, acumular la suma en cada iteración.</li><li><b>Salida:</b> el promedio de las N notas.</li></ul><p><b>Estructura guiada</b></p><pre class="code">Leer N
+suma ← 0
+Para i ← 1 Hasta N Hacer
+    → Leer nota
+    → suma ← suma + nota
+FinPara
+promedio ← suma / N
+Mostrar promedio</pre><p>Completa el pseudocódigo añadiendo declaración de variables, etiquetas de entrada/salida y cualquier mejora que consideres.</p><p><b>Preguntas de reflexión</b></p><ul><li>¿Qué valor debe tener el acumulador antes de entrar al ciclo?</li><li>¿Qué ocurre si el usuario introduce N = 0?</li></ul><details class="sol"><summary>Ver solución en PSeInt</summary><div><p>El usuario decide cuántas notas carga y el programa calcula el promedio. Las dos líneas que importan son <code>suma &lt;- 0</code> antes del ciclo y <code>suma &lt;- suma + nota</code> dentro: así funciona un acumulador.</p><pre class="code">Algoritmo PromedioNotas
+    Definir n, i Como Entero;
+    Definir nota, suma, promedio Como Real;
+    Escribir "¿Cuántas notas vas a introducir?";
+    Leer n;
+    suma &lt;- 0;
+    Para i &lt;- 1 Hasta n Con Paso 1 Hacer
+        Escribir "Introduce la nota ", i, ":";
+        Leer nota;
+        suma &lt;- suma + nota;
+    FinPara
+    promedio &lt;- suma / n;
+    Escribir "El promedio es: ", promedio;
+FinAlgoritmo</pre></div></details></div></details><details class="fold" id="e4"><summary><span><b>Ejercicio 4. Divisores de un número</b><small>Diagrama de flujo</small></span></summary><div class="in"><p>Diseña un <b>diagrama de flujo</b> que lea un número entero positivo e indique por pantalla todos sus divisores. Un número d es divisor de n si al dividir n entre d el resto es cero.</p><p>Este ejercicio es especialmente formativo porque exige combinar varios conceptos en un único algoritmo: un ciclo para recorrer todos los posibles divisores, el operador MOD para comprobar la divisibilidad, y una condición para decidir cuándo mostrar un divisor. No es un ejercicio para resolver solo al principio: se recomienda plantearlo primero en la pizarra con el profesor.</p><table class="g"><thead><tr><th>Entrada</th><th>Proceso</th><th>Condición</th><th>Salida</th></tr></thead><tbody><tr><td>Un número entero positivo n introducido por el usuario.</td><td>Usar un contador i desde 1 hasta n. En cada paso, comprobar si n MOD i = 0.</td><td>Si el resto es cero, i es divisor de n y debe mostrarse.</td><td>Todos los divisores de n mostrados por pantalla, uno a uno.</td></tr></tbody></table><p class="nota"><b>Pregunta de ampliación:</b> ¿Hasta qué valor necesitas llegar realmente con el contador? ¿Podrías optimizar el recorrido?</p><details class="sol"><summary>Ver solución en PSeInt</summary><div><p>Se muestran todos los divisores de un entero positivo. El Para recorre de 1 hasta n y la condición <code>n MOD i = 0</code> decide qué valores se escriben: el resto cero es la prueba de divisibilidad.</p><pre class="code">Algoritmo Divisores
+    Definir n, i Como Entero;
+    Escribir "Introduce un número entero positivo:";
+    Leer n;
+    Escribir "Los divisores de ", n, " son:";
+    Para i &lt;- 1 Hasta n Con Paso 1 Hacer
+        Si n MOD i = 0 Entonces
+            Escribir i;
+        FinSi
+    FinPara
+FinAlgoritmo</pre></div></details></div></details></div></details></div><script>(function(){function a(){var d=location.hash&&document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS"){for(var x=d;x;x=x.parentElement)if(x.tagName==="DETAILS")x.open=true;d.scrollIntoView()}}addEventListener("hashchange",a);a()})();</script><script src="../bases-de-datos/visor.js"></script></body></html>

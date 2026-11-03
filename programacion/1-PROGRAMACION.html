@@ -46,7 +46,7 @@ th{background:var(--accbg)}
 details{margin:6px 0}summary{cursor:pointer;color:var(--mut);font-size:.88rem}
 .hide{display:none!important}
 footer{max-width:1100px;margin:0 auto;padding:16px;color:var(--mut);font-size:.82rem}
-@media(max-width:800px){.wrap{grid-template-columns:minmax(0,1fr)}nav{display:none}header{flex-wrap:wrap;gap:8px;padding:8px 12px}header h1{min-width:0}header input{order:9;flex:1 0 100%;max-width:none}header button{white-space:nowrap}}
+@media(max-width:800px){.wrap{grid-template-columns:minmax(0,1fr)}nav{display:none}header{flex-wrap:wrap;gap:8px;padding:8px 12px}header h1{min-width:0}header input{order:9;flex:1 0 100%;max-width:none}header button{white-space:nowrap}#mn,#all{font-size:0;min-width:40px;min-height:36px}#mn::after{content:"☰";font-size:1rem}#all::after{content:"⇕";font-size:1rem}}
 
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
 .bar select,.inp,.ta{font:inherit;font-size:.9rem;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
@@ -78,7 +78,7 @@ nav a.act{color:var(--acc);border-color:var(--acc);font-weight:600}
 <h1>Programación</h1>
 <input id="q" type="search" placeholder="Buscar (p. ej. switch, return, int…)">
 <button id="mn" aria-label="Menú">☰ Menú</button>
-<button id="all">Abrir/cerrar</button>
+<button id="all" aria-label="Abrir o cerrar todo">Abrir/cerrar</button>
 
 </header>
 <div class="wrap">
