@@ -19,6 +19,14 @@ html,body{overflow-x:clip}
 #tema{width:42px;padding:0;font-size:1.1rem}
 #sesion button:focus-visible,#tema:focus-visible{outline:2px solid #fff;outline-offset:2px}
 @media (max-width:380px){.cab{gap:4px}.cab-acc{gap:4px;margin-left:auto}#sesion button{padding:6px 7px;font-size:.8rem}#tema{width:38px}.hero .cab h1{font-size:1.15rem!important}}
+/* Cabecera de la portada en móvil: el título arriba y los botones en una fila propia, sin cortarse. */
+@media (max-width:640px){
+.cab{flex-wrap:wrap;row-gap:8px}
+.cab-acc{flex:1 1 100%;margin-left:0!important;gap:6px!important}
+#sesion{display:flex!important;flex:1 1 auto;gap:6px;min-width:0}
+#sesion>*{flex:1 1 0;min-width:0;justify-content:center;text-align:center;min-height:44px!important;padding:6px 4px!important;font-size:.85rem!important}
+#tema{flex:none;width:44px!important;min-height:44px}
+}
 /* Portada: se adapta a móvil, tableta y ordenador, sin tarjetas sueltas ni textos pisados. */
 .grid.asig{grid-template-columns:1fr 1fr;gap:10px}
 .grid.asig a.card{min-height:84px;padding:12px 14px;border-top-width:5px}
