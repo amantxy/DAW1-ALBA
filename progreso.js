@@ -3,7 +3,7 @@
 (function(){
 var S=document.currentScript,P=S.dataset.pagina,C=S.dataset.claves.split(","),cfg=window.DAW1_SUPABASE||{};
 if(!P||!cfg.url||!cfg.key||typeof supabase==="undefined")return;
-var sb=window.DAW1_SB=supabase.createClient(cfg.url,cfg.key),user=null,gen=0,corriendo=false,otra=false,temp=0;
+var sb=window.DAW1_SB||(window.DAW1_SB=supabase.createClient(cfg.url,cfg.key)),user=null,gen=0,corriendo=false,otra=false,temp=0;
 var setI=Storage.prototype.setItem,delI=Storage.prototype.removeItem,META="sync:"+P;
 function coincide(k){return C.some(function(c){return c.slice(-1)==="*"?k.indexOf(c.slice(0,-1))===0:k===c})}
 function meta(){try{var m=JSON.parse(localStorage.getItem(META))||{};return user&&m.uid&&m.uid!==user.id?{dirty:m.dirty}:m}catch(e){return{}}}

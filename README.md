@@ -56,3 +56,14 @@ Aún sin contenido.
 1. Ejecuta `supabase/esquema.sql` en el SQL Editor de Supabase.
 2. Crea tu usuario en Authentication > Users y desactiva los registros nuevos en los ajustes de Authentication.
 3. La URL del proyecto y la clave publishable van en `supabase-config.js`. Nunca pongas ahí la clave secret.
+
+## Acceso con aprobación
+
+Todas las páginas cargan `acceso.js`, que oculta el contenido hasta que entra una cuenta **aprobada**.
+
+- **Entrar:** nick (o correo) y contraseña. Internamente el nick es `nick@acceso.invalid`; no se envía ningún correo.
+- **Solicitar acceso:** nick, quién eres y contraseña. La función `solicitar-acceso` crea la cuenta como *pendiente*.
+- **Panel `admin.html` («Accesos» en la portada):** solo la administradora. Aprueba, rechaza, quita acceso y pone una contraseña nueva a otra persona (función `admin-clave`).
+- **Mi cuenta:** cada persona cambia su propia contraseña.
+- Las contraseñas nunca se guardan en el repositorio; las gestiona Supabase Auth.
+- Es un muro de acceso en el navegador, no una caja fuerte: las páginas siguen en un repositorio público.

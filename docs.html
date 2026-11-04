@@ -78,7 +78,7 @@ dialog::backdrop{background:rgb(0 0 0/.5)}
 dialog input{width:100%;margin:6px 0}
 dialog .row{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
 #pe{color:#c0392b;min-height:1.2em;font-size:.9rem}
-</style><link rel="stylesheet" href="fondo.css"><script src="tema.js"></script></head><body>
+</style><link rel="stylesheet" href="fondo.css"><script src="tema.js"></script><script src="acceso.js"></script></head><body>
 <div class="hero"><div class="wrap"><a class="back" id="bk" href="index.html">← Volver</a><h1 id="ti">Mis documentos</h1><p id="su">Teoría y apuntes: PDF, Word, imágenes, Markdown, HTML y vídeo</p></div></div>
 <div class="wrap">
 <div class="bar"><select id="fs" aria-label="Asignatura"></select><button id="adm" type="button" hidden>Entrar con mi cuenta</button></div>
@@ -254,7 +254,7 @@ async function alCambiarUsuario(nuevo){
   listo=false;await render();
   if(cfg.url&&cfg.key){$("#lista").textContent="";const p=document.createElement("p");p.textContent="No se pudo cargar la conexión con Supabase. Comprueba tu conexión y recarga la página.";$("#lista").append(p)}
   return}
- sb=supabase.createClient(cfg.url,cfg.key);listo=true;
+ sb=window.DAW1_SB||(window.DAW1_SB=supabase.createClient(cfg.url,cfg.key));listo=true;
  $("#adm").onclick=async()=>{if(user){await sb.auth.signOut();limpiaProgreso();return location.replace("index.html")}await dialogo("entrar")};
  $("#cp").onclick=async()=>{if(await dialogo("cambiar"))msg("Contraseña cambiada.")};
  $("#ad").onclick=async()=>{const fs=[...$("#af").files];if(!fs.length){msg("Elige primero algún archivo.");return}

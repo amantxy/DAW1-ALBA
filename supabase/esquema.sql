@@ -113,3 +113,64 @@ drop policy if exists "contenido propio" on public.contenido_privado;
 create policy "contenido propio" on public.contenido_privado
   for select to authenticated
   using ((select auth.uid()) = user_id);
+
+-- 7. Acceso por aprobación (nick + contraseña). Las cuentas nuevas nacen "pendiente".
+create schema if not exists privado;
+grant usage on schema privado to authenticated;
+
+create table if not exists public.perfiles (
+  user_id   uuid primary key references auth.users (id) on delete cascade,
+  nick      text unique check (nick ~ '^[a-z0-9_.-]{3,20}$'),
+  estado    text not null default 'pendiente' check (estado in ('pendiente','aprobado','rechazado')),
+  es_admin  boolean not null default false,
+  mensaje   text check (char_length(mensaje) <= 200),
+  creado    timestamptz not null default now(),
+  decidido  timestamptz
+);
+alter table public.perfiles enable row level security;
+
+create or replace function privado.es_admin() returns boolean
+language sql stable security definer set search_path = '' as $$
+  select exists (select 1 from public.perfiles p where p.user_id = (select auth.uid()) and p.es_admin and p.estado = 'aprobado')
+$$;
+create or replace function privado.es_aprobada() returns boolean
+language sql stable security definer set search_path = '' as $$
+  select exists (select 1 from public.perfiles p where p.user_id = (select auth.uid()) and p.estado = 'aprobado')
+$$;
+revoke all on function privado.es_admin(), privado.es_aprobada() from public, anon;
+grant execute on function privado.es_admin(), privado.es_aprobada() to authenticated;
+
+create or replace function privado.perfil_nuevo() returns trigger
+language plpgsql security definer set search_path = '' as $$
+begin insert into public.perfiles (user_id) values (new.id) on conflict do nothing; return new; end $$;
+revoke all on function privado.perfil_nuevo() from public, anon;
+drop trigger if exists perfil_nuevo on auth.users;
+create trigger perfil_nuevo after insert on auth.users for each row execute function privado.perfil_nuevo();
+
+create or replace function privado.perfil_decide() returns trigger
+language plpgsql set search_path = '' as $$
+begin if new.estado is distinct from old.estado then new.decidido := now(); end if; return new; end $$;
+drop trigger if exists perfil_decide on public.perfiles;
+create trigger perfil_decide before update on public.perfiles for each row execute function privado.perfil_decide();
+
+revoke all on public.perfiles from anon, authenticated;
+grant select on public.perfiles to authenticated;
+grant update (estado) on public.perfiles to authenticated;
+drop policy if exists "perfil propio o admin ve" on public.perfiles;
+create policy "perfil propio o admin ve" on public.perfiles for select to authenticated
+  using ((select auth.uid()) = user_id or (select privado.es_admin()));
+drop policy if exists "solo admin decide" on public.perfiles;
+create policy "solo admin decide" on public.perfiles for update to authenticated
+  using ((select privado.es_admin()))
+  with check ((select privado.es_admin()) and not (user_id = (select auth.uid())));
+
+-- La administradora: tu cuenta (cambia el correo por el tuyo)
+-- insert into public.perfiles (user_id, estado, es_admin) select id, 'aprobado', true from auth.users where email = 'TU_CORREO'
+--   on conflict (user_id) do update set estado = 'aprobado', es_admin = true;
+
+-- Agenda: la ven las cuentas aprobadas y solo la administradora escribe
+revoke all on public.agenda from anon;
+alter policy "agenda visible para todos" on public.agenda to authenticated using ((select privado.es_aprobada()));
+alter policy "agenda solo la duena inserta" on public.agenda to authenticated with check ((select privado.es_admin()));
+alter policy "agenda solo la duena cambia" on public.agenda to authenticated using ((select privado.es_admin())) with check ((select privado.es_admin()));
+alter policy "agenda solo la duena borra" on public.agenda to authenticated using ((select privado.es_admin()));

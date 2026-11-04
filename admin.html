@@ -1,0 +1,28 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Accesos</title><style>
+:root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#2563eb;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#6ea8ff;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.hero{background:#1e293b;color:#fff;padding:28px 0 26px;margin-bottom:24px}
+.hero .wrap{padding-bottom:0}.hero h1{margin:0;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.15}.hero p{margin:6px 0 0;opacity:.92}
+.back{display:inline-block;color:inherit;text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 0;margin-bottom:6px}.back:hover{text-decoration:underline}
+h2{font-size:1.1rem;margin:26px 0 8px}h2 small{color:var(--suave);font-weight:400}
+.fila{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--hoja);border:1px solid var(--linea);border-radius:12px;padding:12px 14px;margin:0 0 8px}
+.fila .q{min-width:0;flex:1 1 220px}.fila b{display:block;overflow-wrap:anywhere}.fila small{color:var(--suave);display:block;overflow-wrap:anywhere}
+.fila .bt{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 .95rem system-ui,sans-serif;min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--linea);background:var(--hoja);color:var(--tinta);cursor:pointer}
+button.ok{background:#15803d;border-color:#15803d;color:#fff}button.no{color:#b91c1c;border-color:#b91c1c}button:disabled{opacity:.6;cursor:default}
+.vacio{color:var(--suave);margin:0 0 8px}#msg{min-height:1.4em;margin:12px 0 0;font-weight:600}#msg.mal{color:#b91c1c}#msg.bien{color:#15803d}
+dialog{border:1px solid var(--linea);border-radius:14px;padding:18px;width:min(92vw,380px);background:var(--hoja);color:var(--tinta)}dialog::backdrop{background:rgb(0 0 0/.5)}
+dialog h3{margin:0 0 6px}dialog label{display:block;font-weight:600;font-size:.9rem;margin:10px 0 3px}dialog input{display:block;width:100%;font:16px system-ui,sans-serif;min-height:46px;padding:9px 12px;border:1px solid var(--linea);border-radius:10px;background:var(--hoja);color:var(--tinta)}
+dialog .f{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}dialog .p{background:var(--c);border-color:var(--c);color:#fff}
+@media (prefers-color-scheme:dark){dialog .p{color:#0b1220}}
+</style><link rel="stylesheet" href="fondo.css"><script src="tema.js"></script><script src="acceso.js"></script></head><body>
+<div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Accesos</h1><p>Aquí decides quién puede entrar.</p></div></div>
+<div class="wrap"><div id="zona"><p class="vacio">Cargando…</p></div><p id="msg" role="status"></p></div>
+<dialog id="dc"><form id="fc" novalidate><h3>Nueva contraseña</h3><p id="dn" style="margin:0;color:var(--suave)"></p><label for="c1">Contraseña nueva (mínimo 8)</label><input id="c1" type="password" autocomplete="new-password"><label for="c2">Repite la contraseña</label><input id="c2" type="password" autocomplete="new-password"><p id="de" role="alert" style="color:#b91c1c;min-height:1.3em;margin:8px 0 0"></p><div class="f"><button type="button" id="dx">Cancelar</button><button class="p">Guardar</button></div></form></dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
+<script src="admin.js"></script>
+</body></html>
