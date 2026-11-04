@@ -60,3 +60,13 @@ details.pleg>summary>h2,details.pleg>summary>h3,details.pleg>summary>h4{margin:0
 details.pleg.top{background:var(--hoja);border:1px solid var(--linea);border-left:5px solid var(--c);border-radius:10px;margin:0 0 10px}details.pleg.top>summary{padding:10px 14px;min-height:54px}details.pleg.top>summary>h2{font-size:1.08rem!important}details.pleg.top>.pleg-c{padding:2px 14px 14px}
 @media print{details.pleg>summary::after{display:none}}
 .pleg-c details.sol{border:1px solid var(--linea);border-radius:10px;padding:0 12px;margin:10px 0 14px;background:var(--hoja)}.pleg-c details.sol>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center;color:var(--c)}.pleg-c details.sol>div{padding:0 0 6px}
+
+/* Ordenador: botones de sesión a la derecha, tarjetas de la portada sin huecos y texto algo mayor en pantallas grandes. */
+@media (min-width:700px){
+.cab-acc{margin-left:auto}
+.grid.asig a.card{display:flex;align-items:center;min-height:clamp(92px,12vh,132px);padding:16px 64px 16px 22px}
+.grid.asig .card .ico{top:50%;right:20px;transform:translateY(-50%)}
+.grid.asig .card b{font-size:clamp(1.1rem,1.6vw,1.4rem)}
+}
+@media (min-width:1600px){html{font-size:18px}body{font-size:18px}.portada .wrap{max-width:1380px}}
+@media (min-width:2200px){html{font-size:20px}body{font-size:20px}}
