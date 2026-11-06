@@ -27,7 +27,6 @@ function mapPage(page: any) {
   const date = p["Fecha"]?.date?.start ?? null;
   const type = p["Tipo"]?.select?.name?.toLowerCase() ?? "";
   const subject = propText(p["Asignatura"]).trim().toLowerCase();
-  const source = p["Fuente"]?.url ?? null;
   if (!title || !date || !["examen", "entrega"].includes(type) || !subject) return null;
   // Supabase "fecha" es DATE; si Notion contiene hora, se conserva solo la fecha.
   return {
@@ -37,7 +36,6 @@ function mapPage(page: any) {
     titulo: title,
     fecha: date.slice(0, 10),
     hora: null,
-    fuente: source,
   };
 }
 
