@@ -232,7 +232,9 @@
     return doc.output("blob");
   }
 
+  var recogidos=null;
   function descarga(blob,nombre){
+    if(recogidos){ recogidos.push({blob:blob,nombre:nombre}); return }
     var a=document.createElement("a");
     a.href=URL.createObjectURL(blob);a.download=nombre;
     document.body.appendChild(a);a.click();
@@ -289,10 +291,41 @@
     });
   }
 
-  function generar(){
+  function mostrarVista(items){
+    var caja=$("asig-vista");
+    if(!caja){
+      caja=document.createElement("div"); caja.id="asig-vista";
+      caja.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:center;justify-content:center;padding:14px";
+      caja.innerHTML='<div style="background:var(--hoja,#fff);color:var(--tinta,#0f1b2d);border-radius:14px;max-width:960px;width:100%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--linea,#d7e0ec)"><b>Vista previa</b><button type="button" id="asig-vcerrar" style="width:auto;margin:0;padding:8px 14px">Cerrar</button></div><div id="asig-vcont" style="overflow:auto;padding:14px;display:flex;flex-direction:column;gap:18px"></div></div>';
+      document.body.appendChild(caja);
+      $("asig-vcerrar").onclick=function(){ cerrarVista() };
+      caja.addEventListener("click",function(e){ if(e.target===caja)cerrarVista() });
+    }
+    var cont=$("asig-vcont"); cont.innerHTML=""; caja.style.display="flex";
+    window.__urlsVista=[];
+    items.forEach(function(it){
+      var url=URL.createObjectURL(it.blob); window.__urlsVista.push(url);
+      var sec=document.createElement("div");
+      var cab=document.createElement("div"); cab.style.cssText="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px";
+      cab.innerHTML='<span style="font-size:.9rem;color:var(--suave,#52637a)">'+esc(it.nombre)+'</span>';
+      var bd=document.createElement("button"); bd.type="button"; bd.textContent="Descargar este archivo"; bd.style.cssText="width:auto;margin:0;padding:8px 12px"; bd.onclick=function(){descarga(it.blob,it.nombre)};
+      cab.appendChild(bd); sec.appendChild(cab);
+      if(/\.png$/i.test(it.nombre)){ var im=document.createElement("img"); im.src=url; im.alt=it.nombre; im.style.cssText="max-width:100%;height:auto;border:1px solid var(--linea,#d7e0ec);border-radius:8px"; sec.appendChild(im) }
+      else if(/\.pdf$/i.test(it.nombre)){ var fr=document.createElement("iframe"); fr.src=url; fr.style.cssText="width:100%;height:70vh;border:1px solid var(--linea,#d7e0ec);border-radius:8px"; sec.appendChild(fr) }
+      else { var pre=document.createElement("pre"); pre.style.cssText="white-space:pre-wrap;font:14px/1.5 ui-monospace,Consolas,monospace;margin:0;padding:12px;background:var(--bg,#f3f6fb);border-radius:8px;max-height:70vh;overflow:auto"; it.blob.text().then(function(t){ pre.textContent=t }); sec.appendChild(pre) }
+      cont.appendChild(sec);
+    });
+  }
+  function cerrarVista(){
+    var caja=$("asig-vista"); if(caja)caja.style.display="none";
+    (window.__urlsVista||[]).forEach(function(u){ URL.revokeObjectURL(u) }); window.__urlsVista=[];
+    var cont=$("asig-vcont"); if(cont)cont.innerHTML="";
+  }
+  function generar(vista){
     var tipo=$("asig-tipo").value, fmt=$("asig-fmt").value, nivel=$("asig-niv").value, alc=$("asig-alc").value;
-    var estado=$("asig-est"), btn=$("asig-gen");
-    btn.disabled=true; estado.textContent="Preparando contenido…";
+    var estado=$("asig-est"), btn=$("asig-gen"), btnV=$("asig-ver");
+    recogidos=vista?[]:null;
+    btn.disabled=true; btnV.disabled=true; estado.textContent=vista?"Preparando vista previa…":"Preparando contenido…";
     cargaFuentes(function(h,t){estado.textContent="Leyendo páginas "+h+" de "+t+"…"}).then(function(){ return seleccion() }).then(function(sel){
       if(!sel.length)throw new Error("sin contenido");
       var meta={titulo:(tipo==="resumen"?"Resumen":"Esquema mental")+" · "+nombreAsig(),asig:nombreAsig(),nivelTxt:{basico:"básico",medio:"medio",detallado:"detallado"}[nivel]};
@@ -318,7 +351,7 @@
             var m={titulo:it.titulo,asig:meta.asig,nivelTxt:meta.nivelTxt,color:colorAsig()};
             return aPNG(it.filas,m).then(function(b){
               descarga(b,slug(nombreAsig())+"-esquema-"+nivel+"-unidad"+it.num+(it.n>1?"-parte"+it.n:"")+".png");
-              return new Promise(function(r){setTimeout(r,700)});
+              return recogidos?null:new Promise(function(r){setTimeout(r,700)});
             });
           });
         },Promise.resolve());
@@ -330,11 +363,14 @@
       }
       if(fmt==="md"){descarga(new Blob([aMarkdown(tipo,datos,meta)],{type:"text/markdown;charset=utf-8"}),base+".md")}
       else{descarga(new Blob([aTexto(tipo,datos,meta)],{type:"text/plain;charset=utf-8"}),base+".txt")}
-    }).then(function(){estado.textContent="Descargado."}).catch(function(e){
+    }).then(function(){
+      if(recogidos&&recogidos.length){ var it=recogidos; recogidos=null; mostrarVista(it); estado.textContent="Vista previa lista. Puedes descargar cada archivo desde ahí." }
+      else { recogidos=null; estado.textContent=vista?"No hay nada que previsualizar.":"Descargado." }
+    }).catch(function(e){ recogidos=null;
       if(e&&e.message==="red")estado.textContent="No se pudo cargar el generador de PDF (sin conexión). Prueba con Markdown o TXT.";
       else if(e&&e.message==="png")estado.textContent="Tu navegador no pudo crear la imagen. Prueba con un nivel más básico o con PDF.";
       else estado.textContent="No he encontrado contenido para generar el documento.";
-    }).then(function(){btn.disabled=false});
+    }).then(function(){btn.disabled=false; btnV.disabled=false});
   }
 
   function buscar(){
@@ -488,7 +524,7 @@
       '<div class="fila"><div><label for="asig-fmt">Formato</label><select id="asig-fmt"><option value="pdf">PDF</option><option value="md">Markdown (.md)</option><option value="txt">Texto (.txt)</option><option value="png">Imagen PNG (esquema)</option></select></div>'+
       '<div><label for="asig-niv">Nivel</label><select id="asig-niv"><option value="basico">Básico</option><option value="medio" selected>Medio</option><option value="detallado">Detallado</option></select></div></div>'+
       '<label for="asig-alc">Alcance</label><select id="asig-alc"><option value="todo">Toda la asignatura</option><option value="paginas">Páginas marcadas</option><option value="apartado">Un apartado concreto</option></select><div id="asig-sel"></div>'+
-      '<button type="button" id="asig-gen">Generar y descargar</button><div class="e" id="asig-est"></div>'+
+      '<div class="fila"><button type="button" class="sec" id="asig-ver">Previsualizar</button><button type="button" id="asig-gen">Descargar</button></div><div class="e" id="asig-est"></div>'+
       '<h3>🎙 Podcast</h3><div class="fila"><button type="button" class="sec" id="asig-pl">▶ Reproducir</button><button type="button" class="sec" id="asig-st">■ Detener</button></div><button type="button" class="sec" id="asig-gs">Descargar guion (.txt)</button><p class="e">Lee el temario con dos voces del navegador. El audio no se descarga: depende de las voces de tu dispositivo.</p>'+
       '<p class="e">Se crea a partir del texto de las páginas de la asignatura. Cuanto más detallado el nivel, más texto incluye.</p>';
     document.body.appendChild(p);
@@ -497,7 +533,8 @@
     document.body.appendChild(t);
     $("asig-bq").onclick=buscar;
     $("asig-q").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();buscar()}});
-    $("asig-gen").onclick=generar;
+    $("asig-gen").onclick=function(){generar(false)};
+    $("asig-ver").onclick=function(){generar(true)};
     $("asig-alc").onchange=rellenaSel;
     $("asig-pl").onclick=podcast; $("asig-st").onclick=detener; $("asig-gs").onclick=descargaGuion;
   }
