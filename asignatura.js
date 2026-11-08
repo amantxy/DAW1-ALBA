@@ -153,7 +153,7 @@
     if(pares.length<4)return null;
     mezclar(pares);
     var elegidas=pares.slice(0,Math.min(nq,pares.length));
-    var letras=["a","b","c","d"], lineas=[{k:"H1",t:"Preguntas"}], clave=[];
+    var letras=["a","b","c","d"], lineas=[{k:"H1",t:"Preguntas"},{k:"p",t:"Borrador generado automáticamente a partir del texto de las páginas: revisa cada pregunta antes de usarla para estudiar."}], clave=[];
     elegidas.forEach(function(c,i){
       var ok=resp(c);
       var otras=[], vistos={};
