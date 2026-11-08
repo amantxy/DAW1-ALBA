@@ -142,34 +142,6 @@
     return lineas;
   }
 
-  function mezclar(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t } return a }
-
-  function testDe(paginas,nq){
-    var todos=[], resp=function(c){ return frases(c[1],1) };
-    paginas.forEach(function(pg){ paresDe(pg).forEach(function(c){ todos.push(c) }) });
-    var buenas=function(c){ return resp(c).length<=200 };
-    var pares=todos.filter(function(c){ return c[2]==="dt"&&buenas(c) });
-    if(pares.length<4) pares=todos.filter(function(c){ return c[2]==="h"&&buenas(c)&&c[0].length<=90&&!/solución|ejercicio|actividad|ejemplo|tabla|ver /i.test(c[0]) });
-    if(pares.length<4)return null;
-    mezclar(pares);
-    var elegidas=pares.slice(0,Math.min(nq,pares.length));
-    var letras=["a","b","c","d"], lineas=[{k:"H1",t:"Preguntas"},{k:"p",t:"Borrador generado automáticamente a partir del texto de las páginas: revisa cada pregunta antes de usarla para estudiar."}], clave=[];
-    elegidas.forEach(function(c,i){
-      var ok=resp(c);
-      var otras=[], vistos={};
-      mezclar(pares.filter(function(x){return x!==c})).forEach(function(x){
-        var t=resp(x); if(t!==ok&&!vistos[t]&&otras.length<3){ vistos[t]=1; otras.push(t) }
-      });
-      var opc=mezclar([ok].concat(otras));
-      lineas.push({k:"h",n:3,t:(i+1)+". ¿Cuál es la explicación correcta de «"+c[0].replace(/^\d+(\.\d+)*\.?\s*/,"")+"»?"});
-      opc.forEach(function(o,j){ lineas.push({k:"b",t:letras[j]+") "+o}) });
-      clave.push((i+1)+": "+letras[opc.indexOf(ok)]);
-    });
-    lineas.push({k:"H1",t:"Solucionario"});
-    lineas.push({k:"p",t:clave.join("   ")});
-    return lineas;
-  }
-
   function construyeEsquema(paginas,nivel){
     var arbol=[];
     paginas.forEach(function(pg){
@@ -386,14 +358,13 @@
     btn.disabled=true; btnV.disabled=true; estado.textContent=vista?"Preparando vista previa…":"Preparando contenido…";
     cargaFuentes(function(h,t){estado.textContent="Leyendo páginas "+h+" de "+t+"…"}).then(function(){ return seleccion() }).then(function(sel){
       if(!sel.length)throw new Error("sin contenido");
-      var etiqueta=tipo==="tarjetas"?"Tarjetas de repaso":(tipo==="test"?"Test":(tipo==="resumen"?"Resumen":"Esquema mental"));
-      var nq=Math.max(3,Math.min(50,parseInt($("asig-nq").value,10)||10));
+      var etiqueta=tipo==="tarjetas"?"Tarjetas de repaso":(tipo==="resumen"?"Resumen":"Esquema mental");
       var meta={titulo:etiqueta+" · "+nombreAsig(),etiqueta:etiqueta,asig:nombreAsig(),nivelTxt:{basico:"básico",medio:"medio",detallado:"detallado"}[nivel]};
-      if((tipo==="tarjetas"||tipo==="test")&&fmt==="png") fmt="pdf";
+      if(tipo==="tarjetas"&&fmt==="png") fmt="pdf";
       if(fmt==="png"){ tipo="esquema" }
-      var datos=tipo==="esquema"?construyeEsquema(sel,nivel):(tipo==="tarjetas"?tarjetasDe(sel,nivel):(tipo==="test"?testDe(sel,nq):construyeResumen(sel,nivel)));
+      var datos=tipo==="esquema"?construyeEsquema(sel,nivel):(tipo==="tarjetas"?tarjetasDe(sel,nivel):construyeResumen(sel,nivel));
       var docTipo=tipo==="esquema"?"esquema":"resumen";
-      if(!datos||!datos.length)throw new Error("pocos");
+      if(!datos.length)throw new Error("sin contenido");
       if(fmt==="png"){
         estado.textContent="Creando imagen…";
         var trozos=[], seg=null;
@@ -419,7 +390,7 @@
           });
         },Promise.resolve());
       }
-      var base=slug(nombreAsig())+"-"+(tipo==="test"?"test-"+nq:(tipo==="tarjetas"?"tarjetas":(tipo==="resumen"?"resumen":"esquema")+"-"+nivel));
+      var base=slug(nombreAsig())+"-"+(tipo==="tarjetas"?"tarjetas":(tipo==="resumen"?"resumen":"esquema"))+"-"+nivel;
       if(fmt==="pdf"){
         estado.textContent="Creando PDF…";
         return cargaJsPDF().then(function(JS){ descarga(aPDF(docTipo,datos,meta,JS),base+".pdf") });
@@ -430,8 +401,7 @@
       if(recogidos&&recogidos.length){ var it=recogidos; recogidos=null; mostrarVista(it); estado.textContent="Vista previa lista. Puedes descargar cada archivo desde ahí." }
       else { recogidos=null; estado.textContent=vista?"No hay nada que previsualizar.":"Descargado." }
     }).catch(function(e){ recogidos=null;
-      if(e&&e.message==="pocos")estado.textContent="Hay muy poco material de este tipo en la selección (hacen falta al menos 4 conceptos). Amplía el alcance.";
-      else if(e&&e.message==="red")estado.textContent="No se pudo cargar el generador de PDF (sin conexión). Prueba con Markdown o TXT.";
+      if(e&&e.message==="red")estado.textContent="No se pudo cargar el generador de PDF (sin conexión). Prueba con Markdown o TXT.";
       else if(e&&e.message==="png")estado.textContent="Tu navegador no pudo crear la imagen. Prueba con un nivel más básico o con PDF.";
       else estado.textContent="No he encontrado contenido para generar el documento.";
     }).then(function(){btn.disabled=false; btnV.disabled=false});
@@ -584,7 +554,7 @@
       '<label for="asig-q">Palabra o frase</label><input type="text" id="asig-q" placeholder="Ej.: etiqueta, TCP, colspan">'+
       '<button type="button" class="sec" id="asig-bq">Buscar</button><div class="e" id="asig-qest"></div><div class="r" id="asig-res"></div>'+
       '<h3>📝 Resumen y esquema</h3>'+
-      '<label for="asig-tipo">Qué quieres</label><select id="asig-tipo"><option value="resumen">Resumen</option><option value="esquema">Esquema mental</option><option value="tarjetas">Tarjetas de repaso</option><option value="test">Test de preguntas</option></select><div id="asig-nqw" hidden><label for="asig-nq">Nº de preguntas (máx. 50)</label><input type="number" id="asig-nq" min="3" max="50" value="10"></div>'+
+      '<label for="asig-tipo">Qué quieres</label><select id="asig-tipo"><option value="resumen">Resumen</option><option value="esquema">Esquema mental</option><option value="tarjetas">Tarjetas de repaso</option></select>'+
       '<div class="fila"><div><label for="asig-fmt">Formato</label><select id="asig-fmt"><option value="pdf">PDF</option><option value="md">Markdown (.md)</option><option value="txt">Texto (.txt)</option><option value="png">Imagen PNG (esquema)</option></select></div>'+
       '<div><label for="asig-niv">Nivel</label><select id="asig-niv"><option value="basico">Básico</option><option value="medio" selected>Medio</option><option value="detallado">Detallado</option></select></div></div>'+
       '<label for="asig-alc">Alcance</label><select id="asig-alc"><option value="todo">Toda la asignatura</option><option value="paginas">Páginas marcadas</option><option value="apartado">Un apartado concreto</option></select><div id="asig-sel"></div>'+
@@ -600,7 +570,6 @@
     $("asig-gen").onclick=function(){generar(false)};
     $("asig-ver").onclick=function(){generar(true)};
     $("asig-alc").onchange=rellenaSel;
-    $("asig-tipo").onchange=function(){ $("asig-nqw").hidden=$("asig-tipo").value!=="test" };
     $("asig-pl").onclick=podcast; $("asig-st").onclick=detener; $("asig-gs").onclick=descargaGuion;
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",monta);else monta();
