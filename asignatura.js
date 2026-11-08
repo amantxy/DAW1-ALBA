@@ -249,7 +249,12 @@
       }
       if(!sel.length)throw new Error("sin contenido");
       var meta={titulo:(tipo==="resumen"?"Resumen":"Esquema mental")+" · "+nombreAsig(),asig:nombreAsig(),nivelTxt:{basico:"básico",medio:"medio",detallado:"detallado"}[nivel]};
+      if(fmt==="png"){ tipo="esquema" }
       var datos=tipo==="resumen"?construyeResumen(sel,nivel):construyeEsquema(sel,nivel);
+      if(fmt==="png"){
+        estado.textContent="Creando imagen…";
+        return aPNG(datos,meta).then(function(b){ descarga(b,slug(nombreAsig())+"-esquema-"+nivel+".png") });
+      }
       var base=slug(nombreAsig())+"-"+(tipo==="resumen"?"resumen":"esquema")+"-"+nivel;
       if(fmt==="pdf"){
         estado.textContent="Creando PDF…";
@@ -285,6 +290,110 @@
     });
   }
 
+
+  function recorta(ctx,txt,max){
+    if(ctx.measureText(txt).width<=max)return txt;
+    var t=txt;while(t.length>1&&ctx.measureText(t+"…").width>max)t=t.slice(0,-1);
+    return t+"…";
+  }
+  function aPNG(filas,meta){
+    return new Promise(function(ok,ko){
+      try{
+        var c=document.createElement("canvas"), ctx=c.getContext("2d");
+        var DPR=1.5, M=28, H_ROW=44, BW=340, BH=32, SANG=380;
+        var maxP=0; filas.forEach(function(f){ if(f.prof>maxP)maxP=f.prof });
+        var titulo=meta.titulo;
+        var W=M*2+(maxP+1)*SANG+BW-SANG+40, Hh=M*2+70+filas.length*H_ROW;
+        c.width=W*DPR; c.height=Hh*DPR; ctx.scale(DPR,DPR);
+        ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,W,Hh);
+        ctx.fillStyle="#0f1b2d"; ctx.font="700 22px system-ui, Arial, sans-serif";
+        ctx.fillText(recorta(ctx,titulo,W-2*M),M,M+18);
+        ctx.fillStyle="#52637a"; ctx.font="13px system-ui, Arial, sans-serif";
+        ctx.fillText("Esquema mental · "+meta.asig+" · nivel "+meta.nivelTxt,M,M+38);
+        var y0=M+70;
+        var pos=[], pila=[];
+        filas.forEach(function(f,i){
+          var x=M+f.prof*SANG, y=y0+i*H_ROW;
+          pos[i]={x:x,y:y};
+          while(pila.length&&filas[pila[pila.length-1]].prof>=f.prof)pila.pop();
+          if(pila.length){
+            var pi=pila[pila.length-1], pp=pos[pi];
+            ctx.beginPath(); ctx.strokeStyle="#b8c4d2"; ctx.lineWidth=1.4;
+            var x1=pp.x+BW, y1=pp.y+BH/2, x2=x, y2=y+BH/2, mx=(x1+x2)/2;
+            ctx.moveTo(x1,y1); ctx.bezierCurveTo(mx,y1,mx,y2,x2,y2); ctx.stroke();
+          }
+          pila.push(i);
+          var raiz=f.raiz, es=f.h;
+          ctx.beginPath(); ctx.roundRect?ctx.roundRect(x,y,BW,BH,8):ctx.rect(x,y,BW,BH);
+          if(raiz){ ctx.fillStyle="#ea580c"; ctx.fill(); }
+          else if(es){ ctx.fillStyle="#eef4ff"; ctx.fill(); ctx.strokeStyle="#2563eb"; ctx.lineWidth=1.5; ctx.stroke(); }
+          else { ctx.fillStyle="#ffffff"; ctx.fill(); ctx.strokeStyle="#d7e0ec"; ctx.lineWidth=1; ctx.stroke(); }
+          ctx.fillStyle=raiz?"#ffffff":(es?"#1e3a8a":"#0f1b2d");
+          ctx.font=(raiz||es?"700 ":"")+(raiz?"14px":"13px")+" system-ui, Arial, sans-serif";
+          ctx.textBaseline="middle";
+          ctx.fillText(recorta(ctx,pdfSeguro(f.t),BW-16),x+8,y+BH/2+1);
+          ctx.textBaseline="alphabetic";
+        });
+        c.toBlob(function(b){ b?ok(b):ko(new Error("png")) },"image/png");
+      }catch(e){ ko(e) }
+    });
+  }
+
+  function limpiaTitulo(t){return String(t).replace(/^\s*(\d+(\.\d+)*\.?|[IVX]+\.)\s*/,"").replace(/[?¿!¡:]+/g," ").replace(/\s+/g," ").trim()}
+  function guionPodcast(lineas,meta){
+    var g=[{v:"A",t:"Bienvenidos al repaso de "+meta.asig+". Hoy vamos a repasarlo paso a paso."}];
+    var pendiente=null;
+    lineas.forEach(function(l){
+      if(l.k==="H1"){ g.push({v:"A",t:"Empezamos con "+limpiaTitulo(l.t)+"."}) }
+      else if(l.k==="h"){ g.push({v:"A",t:"Ahora hablemos de: "+limpiaTitulo(l.t)+"."}) }
+      else if(l.k==="p"||l.k==="b"){ g.push({v:"B",t:(l.k==="b"?"Punto clave: ":"")+l.t}) }
+    });
+    g.push({v:"A",t:"Hasta aquí el repaso. ¡Mucho ánimo con el examen!"});
+    return g;
+  }
+  var reproduciendo=null;
+  function hablarGuion(g){
+    if(!("speechSynthesis" in window)){ $("asig-est").textContent="Tu navegador no tiene voz (speechSynthesis)."; return }
+    speechSynthesis.cancel();
+    var voces=speechSynthesis.getVoices().filter(function(v){return /^es/i.test(v.lang)});
+    var vA=voces[0]||null, vB=voces[1]||voces[0]||null;
+    var i=0, ok=0;
+    function siguiente(){
+      if(i>=g.length){ $("asig-est").textContent="Podcast terminado."; reproduciendo=null; return }
+      var l=g[i++], u=new SpeechSynthesisUtterance(l.t);
+      u.lang="es-ES"; u.rate=1.02;
+      if(l.v==="A"){ u.pitch=1.15; if(vA)u.voice=vA }
+      else { u.pitch=0.9; if(vB)u.voice=vB }
+      u.onend=siguiente; u.onerror=function(){ siguiente() };
+      $("asig-est").textContent="Reproduciendo "+i+" de "+g.length+"…";
+      speechSynthesis.speak(u);
+    }
+    reproduciendo=true; siguiente();
+  }
+  function detener(){ if(window.speechSynthesis)speechSynthesis.cancel(); reproduciendo=null; $("asig-est").textContent="Detenido." }
+  function podcast(){
+    cargaFuentes().then(function(paginas){
+      var alc=$("asig-alc").value, actual=location.href.split("#")[0];
+      var sel=alc==="actual"?paginas.filter(function(p){return p.url===actual}):paginas;
+      if(!sel.length)sel=paginas.slice(0,1);
+      var lineas=construyeResumen(sel,$("asig-niv").value);
+      var meta={asig:nombreAsig()};
+      return guionPodcast(lineas,meta);
+    }).then(function(g){ window.__guion=g; hablarGuion(g) })
+      .catch(function(){ $("asig-est").textContent="No he encontrado contenido para el podcast." });
+  }
+  function descargaGuion(){
+    cargaFuentes().then(function(paginas){
+      var alc=$("asig-alc").value, actual=location.href.split("#")[0];
+      var sel=alc==="actual"?paginas.filter(function(p){return p.url===actual}):paginas;
+      if(!sel.length)sel=paginas.slice(0,1);
+      var g=guionPodcast(construyeResumen(sel,$("asig-niv").value),{asig:nombreAsig()});
+      var txt="Guion de podcast · "+nombreAsig()+"\n\n"+g.map(function(l){return (l.v==="A"?"Locutora A: ":"Locutor B: ")+l.t}).join("\n\n")+"\n";
+      descarga(new Blob([txt],{type:"text/plain;charset=utf-8"}),slug(nombreAsig())+"-guion-podcast.txt");
+      $("asig-est").textContent="Guion descargado.";
+    });
+  }
+
   function monta(){
     var st=document.createElement("style");st.textContent=CSS;document.head.appendChild(st);
     document.body.classList.add("asig-p");
@@ -295,10 +404,11 @@
       '<button type="button" class="sec" id="asig-bq">Buscar</button><div class="e" id="asig-qest"></div><div class="r" id="asig-res"></div>'+
       '<h3>📝 Resumen y esquema</h3>'+
       '<label for="asig-tipo">Qué quieres</label><select id="asig-tipo"><option value="resumen">Resumen</option><option value="esquema">Esquema mental</option></select>'+
-      '<div class="fila"><div><label for="asig-fmt">Formato</label><select id="asig-fmt"><option value="pdf">PDF</option><option value="md">Markdown (.md)</option><option value="txt">Texto (.txt)</option></select></div>'+
+      '<div class="fila"><div><label for="asig-fmt">Formato</label><select id="asig-fmt"><option value="pdf">PDF</option><option value="md">Markdown (.md)</option><option value="txt">Texto (.txt)</option><option value="png">Imagen PNG (esquema)</option></select></div>'+
       '<div><label for="asig-niv">Nivel</label><select id="asig-niv"><option value="basico">Básico</option><option value="medio" selected>Medio</option><option value="detallado">Detallado</option></select></div></div>'+
       '<label for="asig-alc">Alcance</label><select id="asig-alc"><option value="todo">Toda la asignatura</option><option value="actual">Solo esta página</option></select>'+
       '<button type="button" id="asig-gen">Generar y descargar</button><div class="e" id="asig-est"></div>'+
+      '<h3>🎙 Podcast</h3><div class="fila"><button type="button" class="sec" id="asig-pl">▶ Reproducir</button><button type="button" class="sec" id="asig-st">■ Detener</button></div><button type="button" class="sec" id="asig-gs">Descargar guion (.txt)</button><p class="e">Lee el temario con dos voces del navegador. El audio no se descarga: depende de las voces de tu dispositivo.</p>'+
       '<p class="e">Se crea a partir del texto de las páginas de la asignatura. Cuanto más detallado el nivel, más texto incluye.</p>';
     document.body.appendChild(p);
     var t=document.createElement("button");t.id="asig-toggle";t.type="button";t.textContent="🔎 Herramientas";
@@ -307,6 +417,7 @@
     $("asig-bq").onclick=buscar;
     $("asig-q").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();buscar()}});
     $("asig-gen").onclick=generar;
+    $("asig-pl").onclick=podcast; $("asig-st").onclick=detener; $("asig-gs").onclick=descargaGuion;
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",monta);else monta();
 })();
