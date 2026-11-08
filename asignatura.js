@@ -112,6 +112,32 @@
     return lineas;
   }
 
+  function tarjetasDe(paginas,nivel){
+    var lineas=[], lim=nivel==="basico"?1:(nivel==="medio"?2:99);
+    paginas.forEach(function(pg){
+      var cartas=[], bl=pg.bloques;
+      for(var i=0;i<bl.length;i++){
+        var b=bl[i];
+        if(b.k==="dt"){
+          var r=[]; for(var j=i+1;j<bl.length&&bl[j].k==="li";j++) r.push(bl[j].t);
+          if(r.length) cartas.push([b.t,r.join(" ")]);
+        }else if(b.k==="h"&&b.n>=2&&b.n<=3&&norm(b.t)!==norm(pg.titulo)){
+          var p=null;
+          for(var k=i+1;k<bl.length&&bl[k].k!=="h";k++){ if(bl[k].k==="p"){p=bl[k].t;break} }
+          if(p) cartas.push([b.t,p]);
+        }
+      }
+      cartas=cartas.filter(function(c){return c[1].length>=15});
+      if(!cartas.length)return;
+      lineas.push({k:"H1",t:pg.titulo});
+      cartas.forEach(function(c){
+        lineas.push({k:"h",n:3,t:c[0]});
+        lineas.push({k:"p",t:frases(c[1],lim)});
+      });
+    });
+    return lineas;
+  }
+
   function construyeEsquema(paginas,nivel){
     var arbol=[];
     paginas.forEach(function(pg){
@@ -209,7 +235,7 @@
     }
     var H=297;
     escribe(meta.titulo,{bold:true,size:18,color:[15,40,70],after:2,lh:8});
-    escribe("Asignatura: "+meta.asig+" · "+(tipo==="resumen"?"Resumen":"Esquema mental")+" · Nivel: "+meta.nivelTxt,{size:9,color:[110,110,110],after:4});
+    escribe("Asignatura: "+meta.asig+" · "+(meta.etiqueta||(tipo==="resumen"?"Resumen":"Esquema mental"))+" · Nivel: "+meta.nivelTxt,{size:9,color:[110,110,110],after:4});
     doc.setDrawColor(234,88,12);doc.setLineWidth(.6);doc.line(M,y,W-M,y);y+=6;
     if(tipo==="resumen"){
       datos.forEach(function(l){
@@ -328,9 +354,13 @@
     btn.disabled=true; btnV.disabled=true; estado.textContent=vista?"Preparando vista previa…":"Preparando contenido…";
     cargaFuentes(function(h,t){estado.textContent="Leyendo páginas "+h+" de "+t+"…"}).then(function(){ return seleccion() }).then(function(sel){
       if(!sel.length)throw new Error("sin contenido");
-      var meta={titulo:(tipo==="resumen"?"Resumen":"Esquema mental")+" · "+nombreAsig(),asig:nombreAsig(),nivelTxt:{basico:"básico",medio:"medio",detallado:"detallado"}[nivel]};
+      var etiqueta=tipo==="tarjetas"?"Tarjetas de repaso":(tipo==="resumen"?"Resumen":"Esquema mental");
+      var meta={titulo:etiqueta+" · "+nombreAsig(),etiqueta:etiqueta,asig:nombreAsig(),nivelTxt:{basico:"básico",medio:"medio",detallado:"detallado"}[nivel]};
+      if(tipo==="tarjetas"&&fmt==="png") fmt="pdf";
       if(fmt==="png"){ tipo="esquema" }
-      var datos=tipo==="resumen"?construyeResumen(sel,nivel):construyeEsquema(sel,nivel);
+      var datos=tipo==="esquema"?construyeEsquema(sel,nivel):(tipo==="tarjetas"?tarjetasDe(sel,nivel):construyeResumen(sel,nivel));
+      var docTipo=tipo==="esquema"?"esquema":"resumen";
+      if(!datos.length)throw new Error("sin contenido");
       if(fmt==="png"){
         estado.textContent="Creando imagen…";
         var trozos=[], seg=null;
@@ -356,13 +386,13 @@
           });
         },Promise.resolve());
       }
-      var base=slug(nombreAsig())+"-"+(tipo==="resumen"?"resumen":"esquema")+"-"+nivel;
+      var base=slug(nombreAsig())+"-"+(tipo==="tarjetas"?"tarjetas":(tipo==="resumen"?"resumen":"esquema"))+"-"+nivel;
       if(fmt==="pdf"){
         estado.textContent="Creando PDF…";
-        return cargaJsPDF().then(function(JS){ descarga(aPDF(tipo,datos,meta,JS),base+".pdf") });
+        return cargaJsPDF().then(function(JS){ descarga(aPDF(docTipo,datos,meta,JS),base+".pdf") });
       }
-      if(fmt==="md"){descarga(new Blob([aMarkdown(tipo,datos,meta)],{type:"text/markdown;charset=utf-8"}),base+".md")}
-      else{descarga(new Blob([aTexto(tipo,datos,meta)],{type:"text/plain;charset=utf-8"}),base+".txt")}
+      if(fmt==="md"){descarga(new Blob([aMarkdown(docTipo,datos,meta)],{type:"text/markdown;charset=utf-8"}),base+".md")}
+      else{descarga(new Blob([aTexto(docTipo,datos,meta)],{type:"text/plain;charset=utf-8"}),base+".txt")}
     }).then(function(){
       if(recogidos&&recogidos.length){ var it=recogidos; recogidos=null; mostrarVista(it); estado.textContent="Vista previa lista. Puedes descargar cada archivo desde ahí." }
       else { recogidos=null; estado.textContent=vista?"No hay nada que previsualizar.":"Descargado." }
@@ -520,7 +550,7 @@
       '<label for="asig-q">Palabra o frase</label><input type="text" id="asig-q" placeholder="Ej.: etiqueta, TCP, colspan">'+
       '<button type="button" class="sec" id="asig-bq">Buscar</button><div class="e" id="asig-qest"></div><div class="r" id="asig-res"></div>'+
       '<h3>📝 Resumen y esquema</h3>'+
-      '<label for="asig-tipo">Qué quieres</label><select id="asig-tipo"><option value="resumen">Resumen</option><option value="esquema">Esquema mental</option></select>'+
+      '<label for="asig-tipo">Qué quieres</label><select id="asig-tipo"><option value="resumen">Resumen</option><option value="esquema">Esquema mental</option><option value="tarjetas">Tarjetas de repaso</option></select>'+
       '<div class="fila"><div><label for="asig-fmt">Formato</label><select id="asig-fmt"><option value="pdf">PDF</option><option value="md">Markdown (.md)</option><option value="txt">Texto (.txt)</option><option value="png">Imagen PNG (esquema)</option></select></div>'+
       '<div><label for="asig-niv">Nivel</label><select id="asig-niv"><option value="basico">Básico</option><option value="medio" selected>Medio</option><option value="detallado">Detallado</option></select></div></div>'+
       '<label for="asig-alc">Alcance</label><select id="asig-alc"><option value="todo">Toda la asignatura</option><option value="paginas">Páginas marcadas</option><option value="apartado">Un apartado concreto</option></select><div id="asig-sel"></div>'+
