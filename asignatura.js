@@ -17,6 +17,9 @@
   "#asig-panel mark{background:#fde68a;color:#111;border-radius:3px;padding:0 2px}"+
   "#asig-panel .e{font-size:.83rem;color:var(--suave,#52637a);margin-top:6px;min-height:1.2em}"+
   "#asig-panel .fila{display:grid;grid-template-columns:1fr 1fr;gap:8px}"+
+  "#asig-panel .lista{max-height:220px;overflow:auto;border:1px solid var(--linea,#d7e0ec);border-radius:10px;padding:6px 8px;background:var(--bg,#f3f6fb)}"+
+  "#asig-panel .op{display:flex;gap:6px;align-items:flex-start;margin:4px 0;color:var(--tinta,#0f1b2d)}"+
+  "#asig-panel .op input{width:auto;margin-top:3px;min-height:0}"+
   "#asig-toggle{display:none;position:fixed;right:14px;bottom:14px;z-index:60;border:0;border-radius:999px;padding:12px 16px;background:var(--c,#2563eb);color:#fff;font:600 15px system-ui,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.25);min-height:48px;cursor:pointer}"+
   "@media (min-width:1100px){body.asig-p{padding-left:300px}}"+
   "@media (max-width:1099px){#asig-panel{transform:translateX(-105%);transition:transform .2s;width:min(88vw,340px);box-shadow:0 0 30px rgba(0,0,0,.3)}body.asig-open #asig-panel{transform:none}#asig-toggle{display:block}}"+
@@ -236,17 +239,61 @@
     setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1000);
   }
 
+
+  function seccionesDe(pg){
+    var out=[];
+    pg.bloques.forEach(function(b,i){ if(b.k==="h"&&b.n<=2)out.push({i:i,t:b.t}) });
+    if(!out.length)pg.bloques.forEach(function(b,i){ if(b.k==="h"&&b.n<=3&&out.length<40)out.push({i:i,t:b.t}) });
+    return out;
+  }
+  function trozoSeccion(pg,i){
+    var n=pg.bloques[i].n, j=i+1;
+    while(j<pg.bloques.length&&!(pg.bloques[j].k==="h"&&pg.bloques[j].n<=n))j++;
+    return {url:pg.url,titulo:pg.titulo+" · "+pg.bloques[i].t,bloques:pg.bloques.slice(i,j)};
+  }
+  function rellenaSel(){
+    var alc=$("asig-alc").value, box=$("asig-sel");
+    box.innerHTML="";
+    if(alc==="todo"){ return }
+    cargaFuentes().then(function(paginas){
+      if(alc==="paginas"){
+        box.innerHTML='<label>Marca las páginas</label><div class="lista">'+paginas.map(function(p,k){
+          return '<label class="op"><input type="checkbox" data-k="'+k+'" checked> '+esc(p.titulo)+'</label>'}).join("")+'</div>';
+      }else{
+        box.innerHTML='<label for="asig-pg">Página</label><select id="asig-pg">'+paginas.map(function(p,k){return '<option value="'+k+'">'+esc(p.titulo)+'</option>'}).join("")+'</select>'+
+          '<label for="asig-sec">Apartado</label><select id="asig-sec"></select>';
+        $("asig-pg").onchange=rellenaSecciones;
+        rellenaSecciones();
+      }
+    });
+  }
+  function rellenaSecciones(){
+    cargaFuentes().then(function(paginas){
+      var pg=paginas[+$("asig-pg").value]; var ss=seccionesDe(pg);
+      $("asig-sec").innerHTML='<option value="all">Toda la página</option>'+ss.map(function(x){return '<option value="'+x.i+'">'+esc(x.t)+'</option>'}).join("");
+    });
+  }
+  function seleccion(){
+    return cargaFuentes().then(function(paginas){
+      var alc=$("asig-alc").value;
+      if(alc==="paginas"){
+        var marcadas=[].slice.call(document.querySelectorAll('#asig-sel input[type=checkbox]:checked')).map(function(c){return paginas[+c.getAttribute("data-k")]});
+        if(!marcadas.length)throw new Error("sin contenido");
+        return marcadas;
+      }
+      if(alc==="apartado"){
+        var pg=paginas[+$("asig-pg").value], sec=$("asig-sec").value;
+        return [sec==="all"?pg:trozoSeccion(pg,+sec)];
+      }
+      return paginas;
+    });
+  }
+
   function generar(){
     var tipo=$("asig-tipo").value, fmt=$("asig-fmt").value, nivel=$("asig-niv").value, alc=$("asig-alc").value;
     var estado=$("asig-est"), btn=$("asig-gen");
     btn.disabled=true; estado.textContent="Preparando contenido…";
-    cargaFuentes(function(h,t){estado.textContent="Leyendo páginas "+h+" de "+t+"…"}).then(function(paginas){
-      var sel=paginas;
-      if(alc==="actual"){
-        var actual=location.href.split("#")[0];
-        sel=paginas.filter(function(p){return p.url===actual});
-        if(!sel.length)sel=paginas.slice(0,1);
-      }
+    cargaFuentes(function(h,t){estado.textContent="Leyendo páginas "+h+" de "+t+"…"}).then(function(){ return seleccion() }).then(function(sel){
       if(!sel.length)throw new Error("sin contenido");
       var meta={titulo:(tipo==="resumen"?"Resumen":"Esquema mental")+" · "+nombreAsig(),asig:nombreAsig(),nivelTxt:{basico:"básico",medio:"medio",detallado:"detallado"}[nivel]};
       if(fmt==="png"){ tipo="esquema" }
@@ -258,9 +305,9 @@
         var lista=[];
         trozos.forEach(function(tz,ti){
           var n=0;
-          for(var st=0; st<tz.filas.length; st+=(st===0?90:89)){
-            var parte=st===0?tz.filas.slice(0,90):[tz.filas[0]].concat(tz.filas.slice(st,st+89));
-            lista.push({filas:parte,titulo:meta.titulo+" · "+tz.t+(n||tz.filas.length>90?" (parte "+(n+1)+")":""),num:ti+1,n:n+1});
+          for(var st=0; st<tz.filas.length; st+=(st===0?60:59)){
+            var parte=st===0?tz.filas.slice(0,60):[tz.filas[0]].concat(tz.filas.slice(st,st+59));
+            lista.push({filas:parte,titulo:meta.titulo+" · "+tz.t+(n||tz.filas.length>60?" (parte "+(n+1)+")":""),num:ti+1,n:n+1});
             n++;
           }
         });
@@ -268,7 +315,7 @@
         estado.textContent="Creando "+lista.length+" imagen(es)…";
         return lista.reduce(function(prev,it){
           return prev.then(function(){
-            var m={titulo:it.titulo,asig:meta.asig,nivelTxt:meta.nivelTxt};
+            var m={titulo:it.titulo,asig:meta.asig,nivelTxt:meta.nivelTxt,color:colorAsig()};
             return aPNG(it.filas,m).then(function(b){
               descarga(b,slug(nombreAsig())+"-esquema-"+nivel+"-unidad"+it.num+(it.n>1?"-parte"+it.n:"")+".png");
               return new Promise(function(r){setTimeout(r,700)});
@@ -319,42 +366,59 @@
     var t=txt;while(t.length>1&&ctx.measureText(t+"…").width>max)t=t.slice(0,-1);
     return t+"…";
   }
+  function colorAsig(){
+    var el=document.querySelector(".hero")||document.body;
+    var c=getComputedStyle(el).backgroundColor||"";
+    var m=c.match(/\d+(\.\d+)?/g);
+    if(m&&m.length>=3&&!(+m[3]===0&&m.length>3))return [+m[0],+m[1],+m[2]];
+    return [37,99,235];
+  }
+  function mezcla(c,blanco){ return "rgb("+c.map(function(v){return Math.round(v+(255-v)*blanco)}).join(",")+")" }
   function aPNG(filas,meta){
     return new Promise(function(ok,ko){
       try{
+        var base=meta.color||[37,99,235];
+        var oscuro="rgb("+base.map(function(v){return Math.round(v*0.35)}).join(",")+")";
         var c=document.createElement("canvas"), ctx=c.getContext("2d");
-        var DPR=1, M=24, H_ROW=34, BW=280, BH=28, SANG=300;
+        var DPR=1, M=26, H_ROW=36, BW=300, BH=30, SANG=330, CAB=96;
         var maxP=0; filas.forEach(function(f){ if(f.prof>maxP)maxP=f.prof });
-        var titulo=meta.titulo;
-        var W=M*2+(maxP+1)*SANG+BW-SANG+40, Hh=M*2+70+filas.length*H_ROW;
+        var W=M*2+(maxP+1)*SANG+BW-SANG+30, Hh=CAB+M+filas.length*H_ROW+50;
         c.width=W*DPR; c.height=Hh*DPR; ctx.scale(DPR,DPR);
-        ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,W,Hh);
-        ctx.fillStyle="#0f1b2d"; ctx.font="700 22px system-ui, Arial, sans-serif";
-        ctx.fillText(recorta(ctx,titulo,W-2*M),M,M+18);
-        ctx.fillStyle="#52637a"; ctx.font="13px system-ui, Arial, sans-serif";
-        ctx.fillText("Esquema mental · "+meta.asig+" · nivel "+meta.nivelTxt,M,M+38);
-        var y0=M+70;
+        // fondo y cabecera de color de la asignatura
+        var fondo=ctx.createLinearGradient(0,0,0,Hh); fondo.addColorStop(0,mezcla(base,.93)); fondo.addColorStop(1,"#ffffff");
+        ctx.fillStyle=fondo; ctx.fillRect(0,0,W,Hh);
+        var cab=ctx.createLinearGradient(0,0,W,0); cab.addColorStop(0,"rgb("+base.join(",")+")"); cab.addColorStop(1,mezcla(base,.25));
+        ctx.fillStyle=cab; ctx.fillRect(0,0,W,CAB);
+        ctx.fillStyle="#ffffff"; ctx.font="700 24px system-ui, Arial, sans-serif"; ctx.textBaseline="alphabetic";
+        ctx.fillText(recorta(ctx,meta.titulo,W-2*M),M,44);
+        ctx.font="14px system-ui, Arial, sans-serif"; ctx.globalAlpha=.9;
+        ctx.fillText("Esquema mental · "+meta.asig+" · nivel "+meta.nivelTxt,M,70); ctx.globalAlpha=1;
+        var y0=CAB+M;
         var pos=[], pila=[];
         filas.forEach(function(f,i){
           var x=M+f.prof*SANG, y=y0+i*H_ROW;
           pos[i]={x:x,y:y};
           while(pila.length&&filas[pila[pila.length-1]].prof>=f.prof)pila.pop();
           if(pila.length){
-            var pi=pila[pila.length-1], pp=pos[pi];
-            ctx.beginPath(); ctx.strokeStyle="#b8c4d2"; ctx.lineWidth=1.4;
+            var pp=pos[pila[pila.length-1]];
+            ctx.beginPath(); ctx.strokeStyle=mezcla(base,.45); ctx.lineWidth=2;
             var x1=pp.x+BW, y1=pp.y+BH/2, x2=x, y2=y+BH/2, mx=(x1+x2)/2;
             ctx.moveTo(x1,y1); ctx.bezierCurveTo(mx,y1,mx,y2,x2,y2); ctx.stroke();
           }
           pila.push(i);
-          var raiz=f.raiz, es=f.h;
-          ctx.beginPath(); ctx.roundRect?ctx.roundRect(x,y,BW,BH,8):ctx.rect(x,y,BW,BH);
-          if(raiz){ ctx.fillStyle="#ea580c"; ctx.fill(); }
-          else if(es){ ctx.fillStyle="#eef4ff"; ctx.fill(); ctx.strokeStyle="#2563eb"; ctx.lineWidth=1.5; ctx.stroke(); }
-          else { ctx.fillStyle="#ffffff"; ctx.fill(); ctx.strokeStyle="#d7e0ec"; ctx.lineWidth=1; ctx.stroke(); }
-          ctx.fillStyle=raiz?"#ffffff":(es?"#1e3a8a":"#0f1b2d");
-          ctx.font=(raiz||es?"700 ":"")+(raiz?"14px":"13px")+" system-ui, Arial, sans-serif";
+          var d=f.prof, esR=f.raiz, esS=f.h;
+          ctx.save();
+          ctx.shadowColor="rgba(0,0,0,.10)"; ctx.shadowBlur=6; ctx.shadowOffsetY=2;
+          ctx.beginPath(); if(ctx.roundRect) ctx.roundRect(x,y,BW,BH,9); else ctx.rect(x,y,BW,BH);
+          if(esR){ ctx.fillStyle="rgb("+base.join(",")+")"; ctx.fill(); }
+          else if(esS&&d===1){ ctx.fillStyle=mezcla(base,.78); ctx.fill(); }
+          else if(esS){ ctx.fillStyle="#ffffff"; ctx.fill(); ctx.shadowColor="transparent"; ctx.strokeStyle=mezcla(base,.5); ctx.lineWidth=1.5; ctx.stroke(); }
+          else { ctx.fillStyle=mezcla(base,.9); ctx.fill(); }
+          ctx.restore();
+          ctx.fillStyle=esR?"#ffffff":(esS&&d===1?oscuro:"#1f2937");
+          ctx.font=(esR||esS?"700 ":"")+(esR?"15px":"13px")+" system-ui, Arial, sans-serif";
           ctx.textBaseline="middle";
-          ctx.fillText(recorta(ctx,pdfSeguro(f.t),BW-16),x+8,y+BH/2+1);
+          ctx.fillText(recorta(ctx,pdfSeguro(f.t),BW-16),x+9,y+BH/2+1);
           ctx.textBaseline="alphabetic";
         });
         c.toBlob(function(b){ b?ok(b):ko(new Error("png")) },"image/png");
@@ -395,10 +459,7 @@
   }
   function detener(){ if(window.speechSynthesis)speechSynthesis.cancel(); reproduciendo=null; $("asig-est").textContent="Detenido." }
   function podcast(){
-    cargaFuentes().then(function(paginas){
-      var alc=$("asig-alc").value, actual=location.href.split("#")[0];
-      var sel=alc==="actual"?paginas.filter(function(p){return p.url===actual}):paginas;
-      if(!sel.length)sel=paginas.slice(0,1);
+    seleccion().then(function(sel){
       var lineas=construyeResumen(sel,$("asig-niv").value);
       var meta={asig:nombreAsig()};
       return guionPodcast(lineas,meta);
@@ -406,10 +467,7 @@
       .catch(function(){ $("asig-est").textContent="No he encontrado contenido para el podcast." });
   }
   function descargaGuion(){
-    cargaFuentes().then(function(paginas){
-      var alc=$("asig-alc").value, actual=location.href.split("#")[0];
-      var sel=alc==="actual"?paginas.filter(function(p){return p.url===actual}):paginas;
-      if(!sel.length)sel=paginas.slice(0,1);
+    seleccion().then(function(sel){
       var g=guionPodcast(construyeResumen(sel,$("asig-niv").value),{asig:nombreAsig()});
       var txt="Guion de podcast · "+nombreAsig()+"\n\n"+g.map(function(l){return (l.v==="A"?"Locutora A: ":"Locutor B: ")+l.t}).join("\n\n")+"\n";
       descarga(new Blob([txt],{type:"text/plain;charset=utf-8"}),slug(nombreAsig())+"-guion-podcast.txt");
@@ -429,7 +487,7 @@
       '<label for="asig-tipo">Qué quieres</label><select id="asig-tipo"><option value="resumen">Resumen</option><option value="esquema">Esquema mental</option></select>'+
       '<div class="fila"><div><label for="asig-fmt">Formato</label><select id="asig-fmt"><option value="pdf">PDF</option><option value="md">Markdown (.md)</option><option value="txt">Texto (.txt)</option><option value="png">Imagen PNG (esquema)</option></select></div>'+
       '<div><label for="asig-niv">Nivel</label><select id="asig-niv"><option value="basico">Básico</option><option value="medio" selected>Medio</option><option value="detallado">Detallado</option></select></div></div>'+
-      '<label for="asig-alc">Alcance</label><select id="asig-alc"><option value="todo">Toda la asignatura</option><option value="actual">Solo esta página</option></select>'+
+      '<label for="asig-alc">Alcance</label><select id="asig-alc"><option value="todo">Toda la asignatura</option><option value="paginas">Páginas marcadas</option><option value="apartado">Un apartado concreto</option></select><div id="asig-sel"></div>'+
       '<button type="button" id="asig-gen">Generar y descargar</button><div class="e" id="asig-est"></div>'+
       '<h3>🎙 Podcast</h3><div class="fila"><button type="button" class="sec" id="asig-pl">▶ Reproducir</button><button type="button" class="sec" id="asig-st">■ Detener</button></div><button type="button" class="sec" id="asig-gs">Descargar guion (.txt)</button><p class="e">Lee el temario con dos voces del navegador. El audio no se descarga: depende de las voces de tu dispositivo.</p>'+
       '<p class="e">Se crea a partir del texto de las páginas de la asignatura. Cuanto más detallado el nivel, más texto incluye.</p>';
@@ -440,6 +498,7 @@
     $("asig-bq").onclick=buscar;
     $("asig-q").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();buscar()}});
     $("asig-gen").onclick=generar;
+    $("asig-alc").onchange=rellenaSel;
     $("asig-pl").onclick=podcast; $("asig-st").onclick=detener; $("asig-gs").onclick=descargaGuion;
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",monta);else monta();
