@@ -253,7 +253,28 @@
       var datos=tipo==="resumen"?construyeResumen(sel,nivel):construyeEsquema(sel,nivel);
       if(fmt==="png"){
         estado.textContent="Creando imagen…";
-        return aPNG(datos,meta).then(function(b){ descarga(b,slug(nombreAsig())+"-esquema-"+nivel+".png") });
+        var trozos=[], seg=null;
+        datos.forEach(function(f){ if(f.raiz){ seg=[]; trozos.push({t:f.t,filas:seg}) } if(seg)seg.push(f) });
+        var lista=[];
+        trozos.forEach(function(tz,ti){
+          var n=0;
+          for(var st=0; st<tz.filas.length; st+=(st===0?90:89)){
+            var parte=st===0?tz.filas.slice(0,90):[tz.filas[0]].concat(tz.filas.slice(st,st+89));
+            lista.push({filas:parte,titulo:meta.titulo+" · "+tz.t+(n||tz.filas.length>90?" (parte "+(n+1)+")":""),num:ti+1,n:n+1});
+            n++;
+          }
+        });
+        if(!lista.length)throw new Error("sin contenido");
+        estado.textContent="Creando "+lista.length+" imagen(es)…";
+        return lista.reduce(function(prev,it){
+          return prev.then(function(){
+            var m={titulo:it.titulo,asig:meta.asig,nivelTxt:meta.nivelTxt};
+            return aPNG(it.filas,m).then(function(b){
+              descarga(b,slug(nombreAsig())+"-esquema-"+nivel+"-unidad"+it.num+(it.n>1?"-parte"+it.n:"")+".png");
+              return new Promise(function(r){setTimeout(r,700)});
+            });
+          });
+        },Promise.resolve());
       }
       var base=slug(nombreAsig())+"-"+(tipo==="resumen"?"resumen":"esquema")+"-"+nivel;
       if(fmt==="pdf"){
@@ -263,7 +284,9 @@
       if(fmt==="md"){descarga(new Blob([aMarkdown(tipo,datos,meta)],{type:"text/markdown;charset=utf-8"}),base+".md")}
       else{descarga(new Blob([aTexto(tipo,datos,meta)],{type:"text/plain;charset=utf-8"}),base+".txt")}
     }).then(function(){estado.textContent="Descargado."}).catch(function(e){
-      estado.textContent=e&&e.message==="red"?"No se pudo cargar el generador de PDF (sin conexión). Prueba con Markdown o TXT.":"No he encontrado contenido para generar el documento.";
+      if(e&&e.message==="red")estado.textContent="No se pudo cargar el generador de PDF (sin conexión). Prueba con Markdown o TXT.";
+      else if(e&&e.message==="png")estado.textContent="Tu navegador no pudo crear la imagen. Prueba con un nivel más básico o con PDF.";
+      else estado.textContent="No he encontrado contenido para generar el documento.";
     }).then(function(){btn.disabled=false});
   }
 
@@ -300,7 +323,7 @@
     return new Promise(function(ok,ko){
       try{
         var c=document.createElement("canvas"), ctx=c.getContext("2d");
-        var DPR=1.5, M=28, H_ROW=44, BW=340, BH=32, SANG=380;
+        var DPR=1, M=24, H_ROW=34, BW=280, BH=28, SANG=300;
         var maxP=0; filas.forEach(function(f){ if(f.prof>maxP)maxP=f.prof });
         var titulo=meta.titulo;
         var W=M*2+(maxP+1)*SANG+BW-SANG+40, Hh=M*2+70+filas.length*H_ROW;
