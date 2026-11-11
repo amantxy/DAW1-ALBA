@@ -2,7 +2,7 @@
 
 [← Volver a la portada](../README.md) · [Página de inicio](https://amantxy.github.io/DAW1-ALBA/)
 
-Temario organizado según el índice de *English for Information Technology and Telecommunications* (ISBN 978-84-942595-8-6). El material es propio. Las unidades 7 y 8 son una propuesta.
+Temario según el índice de *English for Information Technology and Telecommunications* (ISBN 978-84-942595-8-6). Las explicaciones, lecturas y ejercicios son material propio; el libro tiene los textos originales y los audios.
 
 - [Unit 1: Computer Architecture](https://amantxy.github.io/DAW1-ALBA/ingles-profesional/unidad-01.html)
 - [Unit 2: Operating Systems](https://amantxy.github.io/DAW1-ALBA/ingles-profesional/unidad-02.html)
