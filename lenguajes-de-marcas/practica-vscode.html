@@ -149,8 +149,8 @@ function panel(t){
   </div></details>`;
   el.querySelector('[data-nuevo]').onclick=()=>nuevo(t);
   el.querySelector('[data-chk]').onclick=()=>comprobar(t);
-  el.querySelector('[data-pista]').onclick=()=>{const ex=state[t];el.querySelector('[data-pistatxt]').textContent=ex?'Pista: '+ex.hint:''};
-  el.querySelector('[data-sol]').onclick=()=>{const ex=state[t];const b=el.querySelector('[data-solbox]');if(!ex)return;b.hidden=false;b.innerHTML='<b>Solución:</b><pre><code></code></pre>';b.querySelector('code').textContent=ex.sol};
+  el.querySelector('[data-pista]').onclick=()=>{const ex=state[t]||nuevo(t);el.querySelector('[data-pistatxt]').textContent='Pista: '+ex.hint};
+  el.querySelector('[data-sol]').onclick=()=>{const ex=state[t]||nuevo(t);const b=el.querySelector('[data-solbox]');b.hidden=false;b.innerHTML='<b>Solución:</b><pre><code></code></pre>';b.querySelector('code').textContent=ex.sol};
   const pv=el.querySelector('[data-prev]');
   if(pv)pv.onclick=()=>{const code=el.querySelector('[data-ed]').value;const f=el.querySelector('[data-prevfr]');f.hidden=false;f.srcdoc=t==='t2'?code:SCAF.replace('</head>','<style>'+code.replace(/<\/style/gi,'')+'</style></head>')};
   const ta=el.querySelector('[data-ed]');
@@ -158,6 +158,7 @@ function panel(t){
   el.querySelector('[data-test-nuevo]').onclick=()=>test(t);
   el.querySelector('[data-test-ok]').onclick=()=>corregirTest(t);
   test(t);
+  nuevo(t);
 }
 function nuevo(t){
   const lvl=document.querySelector(`#p-${t} [data-lvl]`).value;
