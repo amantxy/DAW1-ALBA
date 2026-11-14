@@ -1,0 +1,207 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Práctica en el editor · Lenguaje de Marcas</title><style>
+:root{--bg:#f6f3ef;--hoja:#fff;--tinta:#1d1812;--suave:#6a5d50;--linea:#e6dccf;--c:#c2410c;--cs:#fdeee3}
+@media (prefers-color-scheme:dark){:root{--bg:#15110d;--hoja:#1e1812;--tinta:#efe6db;--suave:#b3a493;--linea:#3a2e22;--c:#ff9a55;--cs:#3a2114;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tinta);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.hero{background:var(--c);color:#fff;padding:22px 0 20px}@media (prefers-color-scheme:dark){.hero{color:#1f0e04}}
+.wrap{max-width:860px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 60px max(16px,env(safe-area-inset-left))}
+.hero .wrap{padding-bottom:0}.hero h1{margin:4px 0 0;font-size:clamp(1.4rem,4.5vw,2rem);line-height:1.2}
+.back{color:inherit;font-weight:600;text-decoration:none;font-size:.92rem;display:inline-block;padding:6px 0}
+nav.toc{background:var(--hoja);border:1px solid var(--linea);border-radius:12px;margin:18px 0;padding:6px 16px}
+nav.toc summary{cursor:pointer;font-weight:700;color:var(--c);padding:10px 0;min-height:44px}
+nav.toc a{display:block;padding:7px 0;color:inherit;text-decoration:none;border-top:1px solid var(--linea)}
+nav.toc a:hover{color:var(--c)}
+h2{color:var(--c);margin:2.2em 0 .4em;padding-top:.4em;border-top:2px solid var(--linea);font-size:1.4rem;scroll-margin-top:8px}
+h3{margin:1.5em 0 .3em;font-size:1.1rem}
+code{background:var(--cs);border-radius:5px;padding:1px 6px;font:.88em ui-monospace,Consolas,monospace;overflow-wrap:anywhere}
+pre{background:var(--cs);border:1px solid var(--linea);border-left:4px solid var(--c);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.5}
+pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+.call{background:var(--cs);border:1px dashed var(--c);border-radius:10px;padding:12px 16px;margin:14px 0}
+.tw{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.95rem;background:var(--hoja)}
+th,td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--cs)}
+ul{padding-left:1.3em}li{margin:.25em 0}
+a.next{display:inline-block;margin-top:30px;padding:12px 18px;border-radius:10px;background:var(--c);color:#fff;text-decoration:none;font-weight:600}
+@media (prefers-color-scheme:dark){a.next{color:#1f0e04}}
+</style><link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script><script src="../acceso.js"></script><style>
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 16px}
+.tab{padding:9px 14px;border:1px solid var(--linea);border-radius:999px;background:var(--hoja);color:var(--tinta);font:600 .95rem system-ui;cursor:pointer}
+.tab.on{background:var(--c);color:#fff;border-color:var(--c)}
+.panel{display:none}.panel.on{display:block}
+.bloque{background:var(--hoja);border:1px solid var(--linea);border-radius:12px;padding:16px;margin:0 0 18px}
+.tit{margin:0 0 10px}
+.fila{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.fila label{font-weight:600}
+select,button{font:inherit;padding:8px 12px;border-radius:8px;border:1px solid var(--linea);background:var(--hoja);color:var(--tinta);cursor:pointer}
+button.p{background:var(--c);color:#fff;border-color:var(--c)}
+.enun{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:12px;margin:8px 0}
+.ed{width:100%;min-height:220px;font:14px/1.5 ui-monospace,Consolas,monospace;padding:12px;border-radius:8px;border:1px solid var(--linea);background:#0f172a;color:#e2e8f0;tab-size:2;box-sizing:border-box}
+.pista{color:var(--suave);margin:6px 0}
+.res{list-style:none;padding:0;margin:8px 0}
+.res li{padding:6px 8px;border-radius:6px;margin:4px 0}
+.res li.bien{background:#dcfce7;color:#14532d}.res li.mal{background:#fee2e2;color:#7f1d1d}
+@media (prefers-color-scheme:dark){.res li.bien{background:#14532d;color:#dcfce7}.res li.mal{background:#7f1d1d;color:#fee2e2}}
+.sol pre{margin:6px 0}
+.prev{width:100%;height:280px;border:1px solid var(--linea);border-radius:8px;background:#fff;margin-top:8px}
+.preg{border:1px solid var(--linea);border-radius:8px;padding:10px;margin:8px 0}
+.preg label{display:block;padding:3px 0}
+</style>
+</head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Práctica en el editor</h1><p>Como en Visual Studio Code: escribe el código, comprueba y compara con la solución. Ejercicios al azar por niveles.</p></div></div>
+<div class="wrap">
+<nav class="tabs" role="tablist">
+  <button role="tab" data-tab="t1" class="tab on">Tema 1 · XML</button>
+  <button role="tab" data-tab="t2" class="tab">Tema 2 · HTML</button>
+  <button role="tab" data-tab="t3" class="tab">Tema 3 · CSS</button>
+</nav>
+
+<section class="panel on" id="p-t1" data-tab="t1"></section>
+<section class="panel" id="p-t2" data-tab="t2"></section>
+<section class="panel" id="p-t3" data-tab="t3"></section>
+
+<p class="sub" style="margin-top:18px">Ejercicios al azar: cada vez que pulses «Nuevo ejercicio» sale uno distinto del nivel elegido. «Comprobar» revisa el código punto por punto.</p>
+</div>
+<script>
+(function(){
+const R=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const chk=(ok,msg)=>({ok:!!ok,msg});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const parseH=c=>new DOMParser().parseFromString(c,'text/html');
+const parseX=c=>{const d=new DOMParser().parseFromString(c.trim(),'application/xml');return {d,err:d.getElementsByTagName('parsererror').length>0}};
+const NOMBRE={basico:'Básico',medio:'Medio',avanzado:'Avanzado'};
+const RGB={red:'rgb(255, 0, 0)',navy:'rgb(0, 0, 128)',green:'rgb(0, 128, 0)',yellow:'rgb(255, 255, 0)',lightblue:'rgb(173, 216, 230)',pink:'rgb(255, 192, 203)',orange:'rgb(255, 165, 0)',gray:'rgb(128, 128, 128)'};
+const SCAF='<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:8px"><h1 id="titulo">Título</h1><p>Párrafo normal</p><p class="destacado">Párrafo destacado</p><div id="caja" class="caja">Caja</div><ul><li>Uno</li><li>Dos</li></ul><a href="#" id="enlace">Enlace</a></body></html>';
+
+/* ---------- Tema 2 · HTML ---------- */
+const H={basico:[],medio:[],avanzado:[]};
+H.basico.push(()=>{const t=R(['Mi página','Bienvenido','Sobre mí','Mis apuntes']);return{enun:`Crea un encabezado <h1> con el texto «${t}».`,hint:'Usa <h1> y su etiqueta de cierre </h1>.',sol:`<h1>${t}</h1>`,check:c=>{const hs=parseH(c).querySelectorAll('h1');return[chk(hs.length>=1,'Hay un <h1>'),chk(hs[0]&&hs[0].textContent.trim()===t,`El texto es «${t}»`)]}}});
+H.basico.push(()=>{const n=R([3,4]);const items=shuffle(['Pan','Leche','Huevos','Café','Arroz']).slice(0,n);return{enun:`Crea una lista desordenada (<ul>) con ${n} elementos: ${items.join(', ')}.`,hint:'Cada elemento va en un <li>.',sol:`<ul>\n${items.map(i=>`  <li>${i}</li>`).join('\n')}\n</ul>`,check:c=>{const ul=parseH(c).querySelector('ul');const lis=ul?[...ul.querySelectorAll('li')].map(li=>li.textContent.trim()):[];return[chk(ul,'Hay una lista <ul>'),chk(lis.length===n,`Tiene ${n} elementos <li>`),chk(JSON.stringify(lis)===JSON.stringify(items),'Los elementos están en el orden pedido')]}}});
+H.basico.push(()=>{const url=R(['https://www.example.com','https://www.wikipedia.org']);const txt=R(['Visítala','Más información']);return{enun:`Crea un enlace (<a>) a ${url} con el texto «${txt}».`,hint:'El destino va en el atributo href.',sol:`<a href="${url}">${txt}</a>`,check:c=>{const a=parseH(c).querySelector('a');return[chk(a,'Hay un enlace <a>'),chk(a&&a.getAttribute('href')===url,'El href es correcto'),chk(a&&a.textContent.trim()===txt,'El texto es correcto')]}}});
+H.medio.push(()=>{const r=R([2,3]),cc=R([2,3]);const head=Array.from({length:cc},(_,i)=>`Col ${i+1}`);return{enun:`Crea una tabla con una fila de cabecera (<th>) de ${cc} columnas y ${r} filas de datos (<td>).`,hint:'La cabecera usa <th>, las filas de datos <td>, cada fila va en <tr>.',sol:`<table>\n  <tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr>\n${Array.from({length:r},()=>`  <tr>${'<td>dato</td>'.repeat(cc)}</tr>`).join('\n')}\n</table>`,check:c=>{const t=parseH(c).querySelector('table');if(!t)return[chk(false,'Hay una tabla <table>')];const rows=[...t.querySelectorAll('tr')];const th=rows[0]?rows[0].querySelectorAll('th').length:0;return[chk(rows.length===r+1,`Tiene ${r+1} filas (1 de cabecera + ${r} de datos)`),chk(th===cc,`La cabecera tiene ${cc} celdas <th>`),chk(rows.slice(1).every(tr=>tr.querySelectorAll('td').length===cc),`Cada fila de datos tiene ${cc} celdas <td>`)]}}});
+H.medio.push(()=>{const src=R(['foto.jpg','logo.png']),alt=R(['Logo','Foto de perfil']),w=R([200,300]);return{enun:`Inserta la imagen ${src} con el texto alternativo «${alt}» y un ancho de ${w} píxeles.`,hint:'Usa <img> con src, alt y width.',sol:`<img src="${src}" alt="${alt}" width="${w}">`,check:c=>{const im=parseH(c).querySelector('img');return[chk(im,'Hay una imagen <img>'),chk(im&&im.getAttribute('src')===src,'El src es correcto'),chk(im&&im.getAttribute('alt')===alt,'El alt es correcto'),chk(im&&im.getAttribute('width')===String(w),'El ancho es correcto')]}}});
+H.medio.push(()=>({enun:'Crea un formulario con un campo de texto obligatorio llamado nombre y un botón de envío.',hint:'El campo necesita name="nombre" y el atributo required. El botón, type="submit".',sol:'<form>\n  <input type="text" name="nombre" required>\n  <button type="submit">Enviar</button>\n</form>',check:c=>{const d=parseH(c);return[chk(d.querySelector('form'),'Hay un <form>'),chk(d.querySelector('input[name="nombre"][required]'),'Campo nombre obligatorio'),chk(d.querySelector('button[type="submit"], input[type="submit"]'),'Botón de envío')]}}));
+H.avanzado.push(()=>{const id=R(['intro','contacto','sobre']);return{enun:`Dentro de un <section id="${id}"> pon un <article> con un <h2> y un <p>.`,hint:'El <article> debe ser hijo directo de <section>.',sol:`<section id="${id}">\n  <article>\n    <h2>Título</h2>\n    <p>Texto</p>\n  </article>\n</section>`,check:c=>{const d=parseH(c);const s=d.querySelector('section#'+id);const a=s&&s.querySelector(':scope > article');return[chk(s,`Existe un section con id="${id}"`),chk(a,'El article es hijo directo de section'),chk(a&&a.querySelector('h2'),'Dentro del article hay un h2'),chk(a&&a.querySelector('p'),'Dentro del article hay un p')]}}});
+H.avanzado.push(()=>{const c0=R([3,4]);return{enun:`Crea una tabla con una celda de cabecera (<th>) que ocupe ${c0} columnas (colspan) y, debajo, una fila con ${c0} celdas (<td>).`,hint:'colspan va en el <th> y su valor es el número de columnas.',sol:`<table>\n  <tr><th colspan="${c0}">Cabecera</th></tr>\n  <tr>${'<td>1</td>'.repeat(c0)}</tr>\n</table>`,check:c=>{const d=parseH(c);const th=d.querySelector(`th[colspan="${c0}"]`);const rows=[...d.querySelectorAll('table tr')];return[chk(th,`Hay un th con colspan="${c0}"`),chk(rows.length>=2&&rows[1].querySelectorAll('td').length===c0,`La fila tiene ${c0} celdas td`)]}}});
+H.avanzado.push(()=>({enun:'Crea la estructura <header>, <main> y <footer>. Dentro de <main> pon un <nav> con dos enlaces a #inicio y #contacto.',hint:'Las etiquetas semánticas van directamente en el body; el <nav> va dentro del <main>.',sol:'<header>Cabecera</header>\n<main>\n  <nav>\n    <a href="#inicio">Inicio</a>\n    <a href="#contacto">Contacto</a>\n  </nav>\n</main>\n<footer>Pie</footer>',check:c=>{const d=parseH(c);const m=d.querySelector('main');const nav=m&&m.querySelector('nav');return[chk(d.querySelector('header'),'Hay un header'),chk(m,'Hay un main'),chk(nav,'El nav está dentro de main'),chk(nav&&nav.querySelectorAll('a[href^="#"]').length>=2,'Dos enlaces internos dentro del nav'),chk(d.querySelector('footer'),'Hay un footer')]}}));
+
+/* ---------- Tema 3 · CSS (se comprueba aplicando el CSS a una página de prueba) ---------- */
+function cssLab(code){return new Promise(res=>{const f=document.createElement('iframe');f.style.cssText='position:absolute;left:-10000px;top:0;width:700px;height:500px;border:0';f.onload=()=>res({d:f.contentDocument,w:f.contentWindow,done:()=>f.remove()});f.srcdoc=SCAF.replace('</head>','<style>'+code.replace(/<\/style/gi,'')+'</style></head>');document.body.appendChild(f)})}
+const CS={basico:[],medio:[],avanzado:[]};
+CS.basico.push(()=>{const c=R(['red','navy','green']);return{enun:`Pon el texto de todos los párrafos (<p>) en color ${c}.`,hint:'Selector p y la propiedad color.',sol:`p {\n  color: ${c};\n}`,check:async code=>{const lab=await cssLab(code);const ps=[...lab.d.querySelectorAll('p')];const r=[chk(ps.every(p=>lab.w.getComputedStyle(p).color===RGB[c]),`Todos los párrafos están en ${c}`)];lab.done();return r}}});
+CS.basico.push(()=>{const c=R(['yellow','lightblue','pink']);return{enun:`Pon de fondo ${c} el título (<h1>).`,hint:'Usa background-color.',sol:`h1 {\n  background-color: ${c};\n}`,check:async code=>{const lab=await cssLab(code);const h=lab.d.querySelector('h1');const r=[chk(h&&lab.w.getComputedStyle(h).backgroundColor===RGB[c],`El fondo del h1 es ${c}`)];lab.done();return r}}});
+CS.basico.push(()=>({enun:'Quita las viñetas de la lista (<ul>) con list-style: none.',hint:'La propiedad es list-style y el valor none.',sol:'ul {\n  list-style: none;\n}',check:async code=>{const lab=await cssLab(code);const ul=lab.d.querySelector('ul');const r=[chk(ul&&lab.w.getComputedStyle(ul).listStyleType==='none','La lista no tiene viñetas')];lab.done();return r}}));
+CS.medio.push(()=>{const c=R(['red','navy','orange']);return{enun:`Crea la clase .destacado con texto en negrita (bold) y color ${c}.`,hint:'Recuerda el punto delante del nombre de la clase.',sol:`.destacado {\n  font-weight: bold;\n  color: ${c};\n}`,check:async code=>{const lab=await cssLab(code);const p=lab.d.querySelector('p.destacado');const cs=p&&lab.w.getComputedStyle(p);const r=[chk(cs&&parseInt(cs.fontWeight,10)>=600,'El texto va en negrita'),chk(cs&&cs.color===RGB[c],`El color es ${c}`)];lab.done();return r}}});
+CS.medio.push(()=>{const w=R([2,4]),c=R(['navy','red','green']);return{enun:`Da al elemento #caja un borde sólido de ${w}px de color ${c}.`,hint:'Puedes usar la shorthand border: grosor estilo color.',sol:`#caja {\n  border: ${w}px solid ${c};\n}`,check:async code=>{const lab=await cssLab(code);const el=lab.d.getElementById('caja');const cs=el&&lab.w.getComputedStyle(el);const r=[chk(cs&&cs.borderTopStyle==='solid','El borde es sólido'),chk(cs&&cs.borderTopWidth===w+'px',`El grosor es ${w}px`),chk(cs&&cs.borderTopColor===RGB[c],`El color es ${c}`)];lab.done();return r}}});
+CS.medio.push(()=>{const m=R([20,40]);return{enun:`Pon un margen de ${m}px a todos los lados del elemento #caja.`,hint:'La propiedad es margin.',sol:`#caja {\n  margin: ${m}px;\n}`,check:async code=>{const lab=await cssLab(code);const el=lab.d.getElementById('caja');const cs=el&&lab.w.getComputedStyle(el);const r=[chk(cs&&cs.marginTop===m+'px'&&cs.marginRight===m+'px'&&cs.marginBottom===m+'px'&&cs.marginLeft===m+'px',`Margen de ${m}px en los cuatro lados`)];lab.done();return r}}});
+CS.avanzado.push(()=>{const w=R([300,400]);return{enun:`Centra horizontalmente #caja: ancho ${w}px y margin: 0 auto.`,hint:'auto en margin reparte el espacio sobrante a izquierda y derecha.',sol:`#caja {\n  width: ${w}px;\n  margin: 0 auto;\n}`,check:async code=>{const lab=await cssLab(code);const el=lab.d.getElementById('caja');const cs=el&&lab.w.getComputedStyle(el);const r=[chk(cs&&cs.width===w+'px',`El ancho es ${w}px`),chk(cs&&parseFloat(cs.marginLeft)>0&&cs.marginLeft===cs.marginRight,'Márgenes izquierdo y derecho iguales y positivos')];lab.done();return r}}});
+CS.avanzado.push(()=>{const p=R([10,20]);return{enun:`En #caja pon box-sizing: border-box, width: 200px y padding: ${p}px. El ancho total debe seguir siendo 200px.`,hint:'Con border-box el padding entra dentro del ancho.',sol:`#caja {\n  box-sizing: border-box;\n  width: 200px;\n  padding: ${p}px;\n}`,check:async code=>{const lab=await cssLab(code);const el=lab.d.getElementById('caja');const cs=el&&lab.w.getComputedStyle(el);const r=[chk(cs&&cs.boxSizing==='border-box','box-sizing es border-box'),chk(el&&el.getBoundingClientRect().width===200,'El ancho total es 200px')];lab.done();return r}}});
+CS.avanzado.push(()=>({enun:'Haz que los enlaces (<a>) cambien a color red al pasar el ratón (:hover).',hint:'Pseudo-clase :hover después del selector a.',sol:'a:hover {\n  color: red;\n}',check:async code=>[chk(/a\s*:hover\s*\{[^}]*color\s*:\s*red/i.test(code),'Hay una regla a:hover con color: red')]}));
+
+/* ---------- Tema 1 · XML ---------- */
+const X={basico:[],medio:[],avanzado:[]};
+X.basico.push(()=>{const root=R(['biblioteca','agenda','tienda']),item=R(['libro','contacto','producto']),n=R([2,3]);return{enun:`Escribe un documento XML con la raíz <${root}> y ${n} elementos <${item}> dentro.`,hint:'Solo puede haber una raíz, y todas las etiquetas se cierran.',sol:`<${root}>\n${Array.from({length:n},()=>`  <${item}></${item}>`).join('\n')}\n</${root}>`,check:c=>{const r=parseX(c);if(r.err)return[chk(false,'El XML está bien formado')];const rt=r.d.documentElement;return[chk(true,'Está bien formado'),chk(rt.tagName===root,`La raíz es <${root}>`),chk(rt.getElementsByTagName(item).length===n,`Hay ${n} elementos <${item}>`)]}}});
+X.basico.push(()=>({enun:'Escribe un XML que empiece por la declaración <?xml version="1.0" encoding="UTF-8"?> y tenga como raíz <libro></libro>.',hint:'La declaración va en la primera línea, sin nada antes.',sol:'<?xml version="1.0" encoding="UTF-8"?>\n<libro></libro>',check:c=>{const r=parseX(c);return[chk(/^<\?xml\s+version="1\.0"\s+encoding="UTF-8"\s*\?>/.test(c.trim()),'La declaración está al principio y es correcta'),chk(!r.err,'Está bien formado'),chk(r.d.documentElement&&r.d.documentElement.tagName==='libro','La raíz es <libro>')]}}));
+X.medio.push(()=>{const id=R(['A1','P-07','x42']),nom=R(['Ana','Luis','Marta']);return{enun:`Crea un elemento <persona> con el atributo id="${id}" y un hijo <nombre> con el texto ${nom}.`,hint:'Los atributos van dentro de la etiqueta de apertura: nombre="valor".',sol:`<persona id="${id}">\n  <nombre>${nom}</nombre>\n</persona>`,check:c=>{const r=parseX(c);if(r.err)return[chk(false,'Está bien formado')];const p=r.d.documentElement;const nm=p.getElementsByTagName('nombre')[0];return[chk(true,'Está bien formado'),chk(p.tagName==='persona','La raíz es <persona>'),chk(p.getAttribute('id')===id,`El atributo id es "${id}"`),chk(nm&&nm.textContent.trim()===nom,`El hijo <nombre> contiene ${nom}`)]}}});
+X.medio.push(()=>{const v=R([['<alumno><nombre>Ana</alumno></nombre>','alumno','Ana'],['<nota><valor>7</nota></valor>','nota','7']]);const [bad,root,txt]=v;const tag=root==='alumno'?'nombre':'valor';return{enun:`Corrige este XML para que esté bien formado: ${bad}`,hint:'Cada etiqueta debe cerrarse en orden inverso al de apertura.',sol:`<${root}><${tag}>${txt}</${tag}></${root}>`,check:c=>{const r=parseX(c);if(r.err)return[chk(false,'Está bien formado')];const rt=r.d.documentElement;const el=rt.getElementsByTagName(tag)[0];return[chk(true,'Está bien formado'),chk(rt.tagName===root,`La raíz es <${root}>`),chk(el&&el.textContent.trim()===txt,`El texto de <${tag}> es ${txt}`)]}}});
+X.avanzado.push(()=>{const uri=R(['http://ejemplo.com/tienda','http://ejemplo.com/biblioteca']),p=R(['ns','t']),prod=R(['Teclado','Ratón']);return{enun:`Crea la raíz <${p}:catalogo> con el espacio de nombres xmlns:${p}="${uri}" y dentro un <${p}:producto> con el texto ${prod}.`,hint:'El prefijo se declara en la raíz con xmlns:prefijo="URI".',sol:`<${p}:catalogo xmlns:${p}="${uri}">\n  <${p}:producto>${prod}</${p}:producto>\n</${p}:catalogo>`,check:c=>{const r=parseX(c);if(r.err)return[chk(false,'Está bien formado')];const rt=r.d.documentElement;const pr=rt.getElementsByTagNameNS(uri,'producto')[0];return[chk(true,'Está bien formado'),chk(rt.localName==='catalogo'&&rt.namespaceURI===uri,`La raíz es catalogo del espacio ${uri}`),chk(pr&&pr.textContent.trim()===prod,`El producto contiene ${prod}`)]}}});
+X.avanzado.push(()=>({enun:'Dentro de <mensaje> incluye un comentario y una sección CDATA con el texto <b>hola</b>.',hint:'Comentario: <!-- ... -->. CDATA: <![CDATA[ ... ]]>.',sol:'<mensaje>\n  <!-- aviso -->\n  <![CDATA[<b>hola</b>]]>\n</mensaje>',check:c=>{const r=parseX(c);const rt=r.d.documentElement;return[chk(!r.err,'Está bien formado'),chk(rt&&rt.tagName==='mensaje','La raíz es <mensaje>'),chk(/<!--[\s\S]*?-->/.test(c),'Hay un comentario'),chk(/<!\[CDATA\[[\s\S]*?<b>hola<\/b>[\s\S]*?\]\]>/.test(c),'Hay una sección CDATA con <b>hola</b>')]}}));
+
+const GEN={t1:X,t2:H,t3:CS};
+const TIPO={t1:'xml',t2:'html',t3:'css'};
+const TEST={
+ t1:[{q:'¿Qué significa XML?',o:['eXtensible Markup Language','Extra Modern Link','Xtra Markup Language','X Multimedia Language'],a:0,e:'XML son las siglas de eXtensible Markup Language.'},
+     {q:'¿Qué hace que un documento XML esté bien formado?',o:['Tener una sola raíz y todas las etiquetas cerradas','Usar solo mayúsculas','Tener estilos CSS','Que el navegador lo muestre'],a:0,e:'Bien formado = una raíz, etiquetas cerradas y bien anidadas.'},
+     {q:'¿Qué puerto usa HTTPS por defecto?',o:['80','443','21','25'],a:1,e:'HTTP usa el 80 y HTTPS el 443.'},
+     {q:'¿Qué sintaxis es un comentario válido en XML?',o:['// comentario','<!-- comentario -->','/* comentario */','# comentario'],a:1,e:'En XML los comentarios van entre <!-- y -->.'},
+     {q:'¿Para qué sirve un espacio de nombres (namespace)?',o:['Para dar estilo a la página','Para evitar confusiones entre etiquetas con el mismo nombre','Para cifrar el documento','Para acelerar la carga'],a:1,e:'Los namespaces distinguen etiquetas de vocabularios distintos.'}],
+ t2:[{q:'¿Qué atributo indica el destino de un enlace <a>?',o:['src','href','link','url'],a:1,e:'href indica el destino del enlace.'},
+     {q:'¿Qué atributo describe una imagen para lectores de pantalla?',o:['title','alt','name','desc'],a:1,e:'alt es el texto alternativo de la imagen.'},
+     {q:'¿Qué etiqueta crea una lista ordenada numerada?',o:['<ul>','<ol>','<li>','<dl>'],a:1,e:'<ol> es lista ordenada; <ul>, desordenada.'},
+     {q:'¿Qué declaración va al principio de un documento HTML5?',o:['<html5>','<!DOCTYPE html>','<head>','<meta>'],a:1,e:'<!DOCTYPE html> indica HTML5.'},
+     {q:'¿Qué etiqueta semántica agrupa la navegación principal?',o:['<nav>','<div>','<span>','<font>'],a:0,e:'<nav> agrupa los enlaces de navegación.'}],
+ t3:[{q:'¿Qué selector tiene más especificidad?',o:['p','.clase','#id','*'],a:2,e:'Un id pesa más que una clase, y una clase más que un elemento.'},
+     {q:'¿Qué propiedad controla el espacio interior de una caja?',o:['margin','padding','border','outline'],a:1,e:'padding es el espacio entre el contenido y el borde.'},
+     {q:'¿Qué hace box-sizing: border-box?',o:['Quita el borde','El ancho incluye padding y borde','Dibuja un marco','Ajusta la fuente'],a:1,e:'Con border-box el padding y el borde caben dentro del width.'},
+     {q:'¿Qué valor centra horizontalmente un bloque con ancho fijo?',o:['margin: 0 auto','padding: auto','text-align: block','float: 0'],a:0,e:'margin: 0 auto reparte el espacio libre a los dos lados.'},
+     {q:'¿Qué diferencia hay entre display:none y visibility:hidden?',o:['Ninguna','display:none quita el elemento del diseño; visibility:hidden lo oculta pero deja su espacio','visibility quita el elemento','display conserva el espacio'],a:1,e:'display:none no ocupa espacio; visibility:hidden sí.'}]
+};
+
+const state={};
+function panel(t){
+  const nom={t1:'Tema 1 · XML',t2:'Tema 2 · HTML',t3:'Tema 3 · CSS'}[t];
+  const el=document.getElementById('p-'+t);
+  el.innerHTML=`<h2 class="tit">${nom}</h2>
+  <div class="bloque">
+    <div class="fila"><label>Nivel <select data-lvl>${['basico','medio','avanzado'].map(k=>`<option value="${k}">${NOMBRE[k]}</option>`).join('')}</select></label>
+    <button class="p" data-nuevo>Nuevo ejercicio</button></div>
+    <div class="enun" data-enun>Pulsa «Nuevo ejercicio» para empezar.</div>
+    <textarea class="ed" data-ed spellcheck="false" aria-label="Editor de código" placeholder="Escribe aquí tu código"></textarea>
+    <div class="fila"><button data-chk>Comprobar</button><button data-pista>Pista</button><button data-sol>Ver solución</button>${t!=='t1'?'<button data-prev>Ver resultado</button>':''}</div>
+    <p class="pista" data-pistatxt></p>
+    <ul class="res" data-res></ul>
+    <div class="sol" data-solbox hidden></div>
+    ${t!=='t1'?'<iframe class="prev" data-prevfr hidden title="Resultado"></iframe>':''}
+  </div>
+  <div class="bloque">
+    <h3>Test rápido</h3>
+    <p class="sub">5 preguntas al azar del tema. Marca una opción en cada pregunta y pulsa «Corregir».</p>
+    <div data-test></div>
+    <div class="fila"><button data-test-nuevo>Nuevas preguntas</button><button class="p" data-test-ok>Corregir</button></div>
+    <p class="pista" data-test-res></p>
+  </div>`;
+  el.querySelector('[data-nuevo]').onclick=()=>nuevo(t);
+  el.querySelector('[data-chk]').onclick=()=>comprobar(t);
+  el.querySelector('[data-pista]').onclick=()=>{const ex=state[t];el.querySelector('[data-pistatxt]').textContent=ex?'Pista: '+ex.hint:''};
+  el.querySelector('[data-sol]').onclick=()=>{const ex=state[t];const b=el.querySelector('[data-solbox]');if(!ex)return;b.hidden=false;b.innerHTML='<b>Solución:</b><pre><code></code></pre>';b.querySelector('code').textContent=ex.sol};
+  const pv=el.querySelector('[data-prev]');
+  if(pv)pv.onclick=()=>{const code=el.querySelector('[data-ed]').value;const f=el.querySelector('[data-prevfr]');f.hidden=false;f.srcdoc=t==='t2'?code:SCAF.replace('</head>','<style>'+code.replace(/<\/style/gi,'')+'</style></head>')};
+  const ta=el.querySelector('[data-ed]');
+  ta.addEventListener('keydown',e=>{if(e.key==='Tab'){e.preventDefault();const s=ta.selectionStart;ta.value=ta.value.slice(0,s)+'  '+ta.value.slice(ta.selectionEnd);ta.selectionStart=ta.selectionEnd=s+2}});
+  el.querySelector('[data-test-nuevo]').onclick=()=>test(t);
+  el.querySelector('[data-test-ok]').onclick=()=>corregirTest(t);
+  test(t);
+}
+function nuevo(t){
+  const lvl=document.querySelector(`#p-${t} [data-lvl]`).value;
+  const pool=GEN[t][lvl];
+  const ex=R(pool)();
+  state[t]=ex;
+  const el=document.getElementById('p-'+t);
+  el.querySelector('[data-enun]').textContent=`[${NOMBRE[lvl]}] ${ex.enun}`;
+  el.querySelector('[data-ed]').value='';
+  el.querySelector('[data-res]').innerHTML='';
+  el.querySelector('[data-solbox]').hidden=true;
+  el.querySelector('[data-pistatxt]').textContent='';
+  const f=el.querySelector('[data-prevfr]');if(f)f.hidden=true;
+  return ex;
+}
+async function comprobar(t){
+  const ex=state[t];
+  const el=document.getElementById('p-'+t);
+  const ul=el.querySelector('[data-res]');
+  if(!ex){ul.innerHTML='<li>Primero pulsa «Nuevo ejercicio».</li>';return}
+  const code=el.querySelector('[data-ed]').value;
+  const r=await ex.check(code);
+  const ok=r.every(x=>x.ok);
+  ul.innerHTML=r.map(x=>`<li class="${x.ok?'bien':'mal'}">${x.ok?'✔':'✘'} ${x.msg}</li>`).join('')+`<li class="${ok?'bien':'mal'}"><b>${ok?'¡Correcto! Todo el ejercicio está bien.':'Aún no está completo. Revisa los puntos marcados.'}</b></li>`;
+}
+function test(t){
+  const el=document.getElementById('p-'+t);
+  const preg=shuffle(TEST[t]).slice(0,5).map(p=>{const ops=p.o.map((o,i)=>({o,i}));return{...p,ops:shuffle(ops)}});
+  state['test'+t]=preg;
+  el.querySelector('[data-test]').innerHTML=preg.map((p,k)=>`<fieldset class="preg"><legend>${k+1}. ${esc(p.q)}</legend>${p.ops.map((x,j)=>`<label><input type="radio" name="q${t}${k}" value="${x.i}"> ${esc(x.o)}</label>`).join('')}</fieldset>`).join('');
+  el.querySelector('[data-test-res]').textContent='';
+}
+function corregirTest(t){
+  const el=document.getElementById('p-'+t);
+  const preg=state['test'+t]||[];
+  let n=0;const notas=[];
+  preg.forEach((p,k)=>{const sel=el.querySelector(`input[name="q${t}${k}"]:checked`);const ok=sel&&Number(sel.value)===p.a;if(ok)n++;notas.push((ok?'✔ ':'✘ ')+esc(p.q)+' — '+esc(p.e))});
+  el.querySelector('[data-test-res]').innerHTML=`<b>${n} de ${preg.length} correctas.</b><br>`+notas.join('<br>');
+}
+['t1','t2','t3'].forEach(panel);
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>show(b.dataset.tab));
+function show(t){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.dataset.tab===t));history.replaceState(null,'','#'+t)}
+const h=(location.hash||'#t1').slice(1);show(['t1','t2','t3'].includes(h)?h:'t1');
+window.__practica={nuevo,comprobar,state,GEN};
+})();
+</script>
+</body></html>
