@@ -125,7 +125,7 @@ $("#btGua").onclick=function(){baja(new Blob([JSON.stringify(M,null,1)],{type:"a
 $("#btAbr").onclick=function(){$("#arch").click()};
 $("#arch").onchange=function(e){var f=e.target.files[0];e.target.value="";if(!f)return;var r=new FileReader;r.onload=function(){try{var d=JSON.parse(r.result);if(!Array.isArray(d.n)||!Array.isArray(d.l))throw 0;d.n.forEach(function(n){if(!TIPOS[n.k]||typeof n.x!=="number"||typeof n.y!=="number")throw 0;n.t=String(n.t||"")});foto();M=d;M.next=d.n.concat(d.l).reduce(function(a,o){return Math.max(a,o.id+1)},1);sel=selL=con=null;cambio();ajusta()}catch(x){aviso("Ese archivo no es un diagrama válido.",true)}};r.readAsText(f)};
 $("#btVac").onclick=function(){if(!M.n.length)return;foto();M={n:[],l:[],next:1};sel=selL=con=null;cambio();aviso("Lienzo vacío. Si ha sido sin querer, pulsa Deshacer.")};
-var zona=$("#zona");$("#btFull").onclick=function(){var on=zona.classList.toggle("full");document.body.classList.toggle("sinscroll",on);this.textContent=on?"Salir":"Pantalla completa";aplicaVista();ajusta()};
+var zona=$("#zona");$("#btFull").onclick=function(){var on=zona.classList.toggle("full");document.body.classList.toggle("sinscroll",on);this.textContent=on?"✕":"⛶";this.title=on?"Salir de pantalla completa":"Pantalla completa";this.setAttribute("aria-label",this.title);aplicaVista();ajusta()};
 /* Solución a partir del enunciado */
 var nombreBase=function(s){return s.split("|")[0]};
 function modeloSolucion(ej){var m={n:[],l:[],next:1},pos={},por={},Y=270,X=430;function nu(k,x,y,t){var n={id:m.next++,k:k,x:Math.round(x),y:Math.round(y),t:t};m.n.push(n);return n}function li(a,b,c){m.l.push({id:m.next++,a:a,b:b,c:c||""})}
