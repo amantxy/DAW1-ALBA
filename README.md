@@ -12,7 +12,8 @@ Material de estudio de DAW 1. Una carpeta por asignatura y, dentro de cada una, 
 
 ### [Lenguaje de Marcas](lenguajes-de-marcas/README.md)
 
-- [1-LDM-HTML-Teoriaypractica.html](https://amantxy.github.io/DAW1-ALBA/lenguajes-de-marcas/1-LDM-HTML-Teoriaypractica.html) · HTML teoría y práctica: plan de 6 días, flashcards, test y ejercicios para el examen del 9 de noviembre
+- [1-LDM-HTML-Teoriaypractica.html](https://amantxy.github.io/DAW1-ALBA/lenguajes-de-marcas/1-LDM-HTML-Teoriaypractica.html) · HTML teoría y práctica: flashcards, test y ejercicios
+- [teoria-3-css.html](https://amantxy.github.io/DAW1-ALBA/lenguajes-de-marcas/teoria-3-css.html) · Unidad 3: CSS, hojas de estilo, diseño y maquetación
 
 ### [Bases de Datos](bases-de-datos/README.md)
 
