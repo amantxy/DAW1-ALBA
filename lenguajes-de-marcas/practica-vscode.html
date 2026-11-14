@@ -44,6 +44,7 @@ button.p{background:var(--c);color:#fff;border-color:var(--c)}
 .preg{border:1px solid var(--linea);border-radius:8px;padding:10px;margin:8px 0}
 .preg label{display:block;padding:3px 0}
 </style>
+<style>details.test{margin:10px 0 18px}details.test>summary{list-style:none;cursor:pointer;padding:12px 16px;background:var(--hoja);border:1px solid var(--linea);border-radius:12px}details.test>summary::-webkit-details-marker{display:none}details.test>summary small{display:block;color:var(--suave)}details.test .in{padding:12px 4px}</style>
 </head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Práctica en el editor</h1><p>Como en Visual Studio Code: escribe el código, comprueba y compara con la solución. Ejercicios al azar por niveles.</p></div></div>
 <div class="wrap">
 <nav class="tabs" role="tablist">
@@ -140,13 +141,12 @@ function panel(t){
     <div class="sol" data-solbox hidden></div>
     ${t!=='t1'?'<iframe class="prev" data-prevfr hidden title="Resultado"></iframe>':''}
   </div>
-  <div class="bloque">
-    <h3>Test rápido</h3>
-    <p class="sub">5 preguntas al azar del tema. Marca una opción en cada pregunta y pulsa «Corregir».</p>
+  <details class="fold test"><summary><span><b>Test rápido</b><small>5 preguntas al azar del tema</small></span></summary><div class="in">
+    <p class="sub">Marca una opción en cada pregunta y pulsa «Corregir».</p>
     <div data-test></div>
     <div class="fila"><button data-test-nuevo>Nuevas preguntas</button><button class="p" data-test-ok>Corregir</button></div>
     <p class="pista" data-test-res></p>
-  </div>`;
+  </div></details>`;
   el.querySelector('[data-nuevo]').onclick=()=>nuevo(t);
   el.querySelector('[data-chk]').onclick=()=>comprobar(t);
   el.querySelector('[data-pista]').onclick=()=>{const ex=state[t];el.querySelector('[data-pistatxt]').textContent=ex?'Pista: '+ex.hint:''};
