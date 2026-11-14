@@ -1,0 +1,57 @@
+/* Heladería La Nube · práctica Tema 3 (CSS) */
+
+/* Paso 4: colores de la página */
+body {
+  background-color: #fdeef3;
+  color: #4a2c2a;
+}
+
+/* Paso 5: títulos en granate (una sola regla para varios selectores) */
+h1, h2 {
+  color: #8c2f4b;
+}
+
+/* Paso 6: cabecera con cucuruchos repetidos */
+header {
+  background-color: #f7c6d0;
+  background-image: url("../img/cucuruchos.svg");
+  background-repeat: repeat;
+}
+
+/* Paso 7: contenido principal con la ilustración que cubre la caja */
+#sabores {
+  background: #7cc6bf url("../img/helados.svg") no-repeat center / cover;
+}
+
+/* Paso 8: franja blanca al 75 % detrás de los títulos (rgba, no opacity) */
+header h1, #sabores h2 {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 0.2em 0.5em;
+}
+
+/* Paso 9: sabor nuevo y precios en granate oscuro */
+.nuevo, .importe {
+  color: #6e1f38;
+}
+
+/* Paso 10: pie granate oscuro con la nube a la derecha */
+footer {
+  background-color: #3d2c3e;
+  background-image: url("../img/nube.svg");
+  background-repeat: no-repeat;
+  background-position: right center;
+  color: #f6e7d8;
+}
+
+/* Paso 11: horario más apagado */
+.horario {
+  opacity: 0.7;
+}
+
+/* Paso 12: enlaces según su destino (sin clases en el HTML) */
+header nav a[href^="#"] {
+  color: #6e1f38;
+}
+footer a[href^="https"] {
+  color: #f7c6d0;
+}

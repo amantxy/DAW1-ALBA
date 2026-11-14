@@ -1,0 +1,83 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Práctica Tema 3 · Heladería La Nube</title><style>
+:root{--bg:#f6f3ef;--hoja:#fff;--tinta:#1d1812;--suave:#6a5d50;--linea:#e6dccf;--c:#c2410c;--cs:#fdeee3}
+@media (prefers-color-scheme:dark){:root{--bg:#15110d;--hoja:#1e1812;--tinta:#efe6db;--suave:#b3a493;--linea:#3a2e22;--c:#ff9a55;--cs:#3a2114;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tinta);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.hero{background:var(--c);color:#fff;padding:22px 0 20px}@media (prefers-color-scheme:dark){.hero{color:#1f0e04}}
+.wrap{max-width:860px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 60px max(16px,env(safe-area-inset-left))}
+.hero .wrap{padding-bottom:0}.hero h1{margin:4px 0 0;font-size:clamp(1.4rem,4.5vw,2rem);line-height:1.2}
+.back{color:inherit;font-weight:600;text-decoration:none;font-size:.92rem;display:inline-block;padding:6px 0}
+nav.toc{background:var(--hoja);border:1px solid var(--linea);border-radius:12px;margin:18px 0;padding:6px 16px}
+nav.toc summary{cursor:pointer;font-weight:700;color:var(--c);padding:10px 0;min-height:44px}
+nav.toc a{display:block;padding:7px 0;color:inherit;text-decoration:none;border-top:1px solid var(--linea)}
+nav.toc a:hover{color:var(--c)}
+h2{color:var(--c);margin:2.2em 0 .4em;padding-top:.4em;border-top:2px solid var(--linea);font-size:1.4rem;scroll-margin-top:8px}
+h3{margin:1.5em 0 .3em;font-size:1.1rem}
+code{background:var(--cs);border-radius:5px;padding:1px 6px;font:.88em ui-monospace,Consolas,monospace;overflow-wrap:anywhere}
+pre{background:var(--cs);border:1px solid var(--linea);border-left:4px solid var(--c);border-radius:8px;padding:12px 14px;overflow-x:auto;line-height:1.5}
+pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+.call{background:var(--cs);border:1px dashed var(--c);border-radius:10px;padding:12px 16px;margin:14px 0}
+.tw{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.95rem;background:var(--hoja)}
+th,td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--cs)}
+ul{padding-left:1.3em}li{margin:.25em 0}
+a.next{display:inline-block;margin-top:30px;padding:12px 18px;border-radius:10px;background:var(--c);color:#fff;text-decoration:none;font-weight:600}
+@media (prefers-color-scheme:dark){a.next{color:#1f0e04}}
+
+details.paso{background:var(--hoja);border:1px solid var(--linea);border-radius:12px;margin:12px 0;padding:4px 16px}
+details.paso summary{cursor:pointer;font-weight:700;color:var(--c);padding:12px 0;min-height:44px}
+details.paso[open] summary{border-bottom:1px solid var(--linea);margin-bottom:10px}
+details.paso p{margin:.5em 0}
+iframe.demo{width:100%;height:520px;border:1px solid var(--linea);border-radius:12px;background:#fff}
+</style><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Práctica · Heladería La Nube</h1></div></div>
+<div class="wrap">
+<p>Práctica del Tema 3 (CSS). Vas a crear una web con cabecera, contenido principal y pie. Cada parte tiene un fondo distinto: uno se repite, otro se expande y otro se coloca en un sitio concreto. Abre cada desplegable para ver cómo se hace.</p>
+<h2>Así queda</h2>
+<iframe class="demo" src="practicas/heladeria/index.html" title="Resultado de la práctica Heladería La Nube"></iframe>
+<p><a href="practicas/heladeria/index.html">Abrir la práctica en otra pestaña</a></p>
+<h2>Cómo se hace, paso a paso</h2>
+<details class="paso"><summary>Antes de empezar: carpetas y rutas</summary><p>Tu web necesita esta estructura: <code>index.html</code> en la raíz, la carpeta <code>css/</code> con <code>estilos.css</code> y la carpeta <code>img/</code> con las imágenes.</p><p>La ruta de una imagen se escribe <strong>desde el archivo donde está</strong>. En el HTML, <code>img/logo.svg</code>. En el CSS, que está dentro de <code>css/</code>, hay que subir una carpeta: <code>../img/cucuruchos.svg</code>.</p><pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/estilos.css&quot;&gt;</code></pre></details><details class="paso"><summary>Paso 1 · HTML de la cabecera</summary><p>La cabecera (<code>&lt;header&gt;</code>) agrupa el logo, el título y el menú. El logo lleva <code>width</code> y <code>height</code> de 64 px y un <code>alt</code> para lectores de pantalla.</p><p>Los enlaces <code>href="#sabores"</code> llevan a la parte de la página cuyo <code>id</code> es <code>sabores</code>. El <code>#</code> indica que es un enlace interno.</p><pre><code>&lt;header&gt;
+  &lt;img src=&quot;img/logo.svg&quot; width=&quot;64&quot; height=&quot;64&quot; alt=&quot;Logo de La Nube&quot;&gt;
+  &lt;h1&gt;Heladería La Nube&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;a href=&quot;#sabores&quot;&gt;Sabores&lt;/a&gt;
+    &lt;a href=&quot;#contacto&quot;&gt;Dónde estamos&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;</code></pre></details><details class="paso"><summary>Paso 2 · HTML del contenido principal</summary><p>El contenido va en <code>&lt;main id="sabores"&gt;</code>. Una lista desordenada (<code>ul</code>) con un <code>li</code> por sabor.</p><p>Para marcar solo un trozo de una línea se usa un elemento en línea, como <code>&lt;span&gt;</code>. Así el pistacho o el importe se pueden seleccionar sin tocar el resto del texto. Por eso el importe va en un <code>span</code> y no en un bloque.</p><pre><code>&lt;main id=&quot;sabores&quot;&gt;
+  ...
+  &lt;li&gt;&lt;span class=&quot;nuevo&quot;&gt;Pistacho salado&lt;/span&gt;&lt;/li&gt;
+  ...
+  &lt;div class=&quot;precio&quot;&gt;Una bola: &lt;span class=&quot;importe&quot;&gt;2,50 €&lt;/span&gt;&lt;/div&gt;
+&lt;/main&gt;</code></pre></details><details class="paso"><summary>Paso 3 · HTML del pie</summary><p>El pie (<code>&lt;footer id="contacto"&gt;</code>) tiene tres líneas, cada una en su contenedor. Un enlace externo empieza por <code>https://</code>, a diferencia de los internos, que empiezan por <code>#</code>.</p><pre><code>&lt;footer id=&quot;contacto&quot;&gt;
+  &lt;p&gt;Calle de los Barquillos, 7&lt;/p&gt;
+  &lt;p class=&quot;horario&quot;&gt;Abrimos todos los días de 12:00 a 22:00.&lt;/p&gt;
+  &lt;p&gt;&lt;a href=&quot;https://example.com/mapa&quot;&gt;Ver en el mapa&lt;/a&gt;&lt;/p&gt;
+&lt;/footer&gt;</code></pre></details><details class="paso"><summary>Paso 4 · Colores de la página</summary><p>Una regla con un selector (<code>body</code>) afecta a toda la página. <code>background-color</code> pone el color de fondo y <code>color</code> el del texto.</p><pre><code>body {
+  background-color: #fdeef3;
+  color: #4a2c2a;
+}</code></pre></details><details class="paso"><summary>Paso 5 · Títulos en granate</summary><p>Puedes aplicar una sola regla a varios selectores separándolos con comas. Así <code>h1</code> y <code>h2</code> comparten el mismo color.</p><pre><code>h1, h2 {
+  color: #8c2f4b;
+}</code></pre></details><details class="paso"><summary>Paso 6 · Fondo que se repite (cabecera)</summary><p><code>background-image</code> pone una imagen de fondo. Por defecto se repite en horizontal y en vertical, así que <code>repeat</code> es el valor normal.</p><p>El color de fondo sirve de respaldo si la imagen no carga.</p><pre><code>header {
+  background-color: #f7c6d0;
+  background-image: url(&quot;../img/cucuruchos.svg&quot;);
+  background-repeat: repeat;
+}</code></pre></details><details class="paso"><summary>Paso 7 · Fondo que se expande (contenido principal)</summary><p>La propiedad <code>background</code> (abreviada) reúne color, imagen, repetición y posición en una línea.</p><p><code>no-repeat</code> evita que la imagen se repita. <code>center / cover</code> la centra y, con <code>cover</code>, la escala hasta cubrir toda la caja. Lo que sobra se recorta. La barra separa la posición del tamaño.</p><pre><code>#sabores {
+  background: #7cc6bf url(&quot;../img/helados.svg&quot;) no-repeat center / cover;
+}</code></pre></details><details class="paso"><summary>Paso 8 · Franja blanca sin apagar el texto</summary><p>Si pones <code>opacity</code> en un elemento, se vuelve transparente <strong>todo</strong>, incluido el texto. Para que solo el fondo sea transparente, escribe el color con <code>rgba()</code>: rojo, verde, azul y, al final, la opacidad (de 0 a 1). Aquí 0.75 es el 75 %.</p><p>El <code>padding</code> deja aire alrededor del texto dentro de la franja.</p><pre><code>header h1, #sabores h2 {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 0.2em 0.5em;
+}</code></pre></details><details class="paso"><summary>Paso 9 · Sabor nuevo y precios</summary><p>Una clase (<code>.nombre</code>) sirve para escoger elementos concretos. Se escribe el punto delante del nombre, y en el HTML se pone <code>class="nombre"</code>.</p><pre><code>.nuevo, .importe {
+  color: #6e1f38;
+}</code></pre></details><details class="paso"><summary>Paso 10 · Fondo colocado (pie)</summary><p><code>background-position</code> coloca la imagen en un sitio concreto: <code>right center</code> es a la derecha y centrada en vertical.</p><p><code>no-repeat</code> hace que aparezca una sola vez.</p><pre><code>footer {
+  background-color: #3d2c3e;
+  color: #f6e7d8;
+  background-image: url(&quot;../img/nube.svg&quot;);
+  background-repeat: no-repeat;
+  background-position: right center;
+}</code></pre></details><details class="paso"><summary>Paso 11 · Horario apagado</summary><p><code>opacity</code> de 0 a 1 apaga el elemento completo. Aquí se usa sobre el texto, y está bien porque no hay fondo que deba quedarse opaco.</p><pre><code>.horario {
+  opacity: 0.7;
+}</code></pre></details><details class="paso"><summary>Paso 12 · Enlaces según su destino</summary><p>Los selectores de atributo buscan elementos por un atributo. <code>a[href^="#"]</code> elige los enlaces cuyo <code>href</code> <strong>empieza</strong> por <code>#</code> (internos). <code>a[href^="https"]</code> elige los que empiezan por <code>https</code> (externos).</p><p>Así no hace falta ninguna clase en el HTML.</p><pre><code>header nav a[href^=&quot;#&quot;] {
+  color: #6e1f38;
+}
+footer a[href^=&quot;https&quot;] {
+  color: #f7c6d0;
+}</code></pre></details>
+<a class="next" href="index.html">Volver a Lenguaje de Marcas</a></div><script src="../tema.js"></script><script src="../acceso.js"></script><script src="../plegar.js"></script></body></html>
