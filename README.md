@@ -19,6 +19,7 @@ Material de estudio de DAW 1. Una carpeta por asignatura y, dentro de cada una, 
 - [Tema 1: Fundamentos](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/tema-1.html) · Teoría con sus imágenes
 - [Tema 2: Diseño conceptual y lógico](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/tema-2.html) · Teoría con sus imágenes
 - [Tema 3: Modelo Relacional](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/tema-3.html) · Teoría con sus imágenes
+- [Tema 4: Formas Normales](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/tema-4.html) · Dependencias funcionales, 1FN, 2FN y 3FN
 - [Ponte a prueba](https://amantxy.github.io/DAW1-ALBA/bases-de-datos/ponte-a-prueba.html) · 100 preguntas tipo test por tema, por niveles, en tests de 40
 
 ### [Sistemas Informáticos](sistemas-informaticos/README.md)

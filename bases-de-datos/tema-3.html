@@ -58,7 +58,7 @@ figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;backgr
 figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
 h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
 table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
-</style><link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script><script src="../acceso.js"></script></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Tema 3: Modelo Relacional</h1><p>Teoría del tema, con sus imágenes y la normalización (1FN, 2FN y 3FN)</p></div></div><div class="wrap"><details class="fold" id="r1"><summary><span><b>1. Modelo Relacional</b><small>Relación, atributos, dominios y representación</small></span></summary><div class="in">
+</style><link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script><script src="../acceso.js"></script></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Tema 3: Modelo Relacional</h1><p>Teoría del tema, con sus imágenes</p></div></div><div class="wrap"><details class="fold" id="r1"><summary><span><b>1. Modelo Relacional</b><small>Relación, atributos, dominios y representación</small></span></summary><div class="in">
 <p><b><i>Una base de datos relacional es un conjunto de datos de una o más tablas en registros (filas) y campos (columnas).</i></b></p>
 <p><b>Relación:</b> es el elemento básico que puede representarse en forma de tabla. Fundamentalmente es una estructura de datos que se representa con un <u>nombre</u> y un <u>conjunto de atributos o columnas</u>.</p>
 <p><b>Ejemplo:</b> JUGADORES (id_jugador entero(4), dni entero(8), nombre character(10), equipo carácter(20), edad entero(3)).</p>
@@ -187,49 +187,5 @@ empleados_supervisores(#(-id_empleado_supervisor, -id_empleado_supervisado))</pr
 <p>Algunos casos particulares pueden ser:</p>
 <ul><li><b>Datos temporales:</b> cómo representar en un modelo relacional datos que tienen fecha de caducidad (los precios de un producto del que queremos tener un histórico de precios...).</li><li><b>Datos eliminados:</b> cómo representar en un modelo relacional datos que se desean eliminar, pero que por alguna razón necesitamos que sigan estando almacenados en la base de datos (productos descatalogados, alumnos que terminan sus estudios...).</li><li><b>Registro o auditoría:</b> cómo podemos registrar las acciones de los usuarios o de la aplicación durante el ciclo de vida de la Base de Datos.</li><li><b>Bloqueo de registros:</b> cómo podemos bloquear el acceso a un registro para evitar la modificación simultánea del mismo dato por más de un usuario desde la aplicación que conecta con la Base de Datos.</li></ul>
 <p>En cualquier caso, aplicar correctamente al modelo relacional resultante las <b>reglas de normalización</b> eliminará todas las anomalías que nuestro modelo pueda contener.</p>
-<p>Así, hay que tener en cuenta que el modelo relacional que hemos obtenido en este momento todavía puede no ser el definitivo y puede sufrir transformaciones (e incluso se pueden añadir nuevas tablas) como resultado de aplicar las reglas de normalización que se explicarán posteriormente.</p></div></details></div></details><details class="fold" id="r-nf"><summary><span><b>5. Normalización: 1FN, 2FN y 3FN</b><small>Dependencias funcionales y cómo eliminar la redundancia</small></span></summary><div class="in">
-<h3>¿Para qué normalizar?</h3>
-<p>Un mal diseño provoca tres problemas: <b>redundancia</b> (el mismo dato repetido), <b>inconsistencia</b> (el mismo dato escrito de dos formas distintas) y <b>desperdicio de espacio</b>. Normalizar consiste en partir una tabla en varias más simples, de forma que cada dato se guarde una sola vez. Si una base de datos cumple las tres primeras formas normales (1FN, 2FN y 3FN), ya tiene un nivel de normalización suficiente.</p>
-
-<h3>Dependencia funcional</h3>
-<p>Decimos que B <b>depende funcionalmente</b> de A (A → B) si a cada valor de A le corresponde un único valor de B. Por ejemplo, con un DNI obtenemos un único nombre, así que <code>DNI → Nombre</code>. Lo contrario no se cumple: el nombre no identifica a una sola persona.</p>
-<pre class="code">TRABAJADOR (DNI, Nombre, Departamento)
-12345345G | Andrea | Dirección
-12345345G | Andrea | Gestión
-
-DNI → Nombre         (sí: 12345345G siempre es Andrea)
-DNI → Departamento   (no: una persona puede estar en varios)</pre>
-
-<h3>Primera forma normal (1FN)</h3>
-<p>Una tabla está en 1FN si cada celda contiene <b>un solo valor</b>, no hay grupos de columnas repetidas (teléfono1, teléfono2, teléfono3...) y no hay filas idénticas.</p>
-<p>Si un cliente tiene varios teléfonos, no los metemos en columnas ni en una lista separada por comas. Creamos una tabla aparte:</p>
-<pre class="code">CLIENTES (#id, nombre, apellidos)
-TELEFONOS (#id, numero, -id_cliente)
-
--- Un cliente con dos teléfonos ocupa dos filas en TELEFONOS</pre>
-<p class="nota">Con esta solución, preguntas como «¿cuántos teléfonos tiene el cliente 456?» se resuelven contando filas, sin tener columnas vacías.</p>
-
-<h3>Segunda forma normal (2FN)</h3>
-<p>La 2FN solo importa cuando la clave primaria es <b>compuesta</b> (formada por varias columnas). Una tabla está en 2FN si está en 1FN y todo atributo que no forma parte de la clave depende de la clave <b>completa</b>, no de una parte de ella.</p>
-<p>Supongamos esta tabla, con clave (DNI, CodCurso):</p>
-<table class="g"><tr><th>DNI</th><th>CodCurso</th><th>Nombre</th><th>Apellido</th><th>Nota</th></tr>
-<tr><td>12121219A</td><td>34</td><td>Pedro</td><td>Valiente</td><td>9</td></tr>
-<tr><td>12121219A</td><td>25</td><td>Pedro</td><td>Valiente</td><td>8</td></tr>
-<tr><td>5674378J</td><td>34</td><td>Sara</td><td>Crespo</td><td>6</td></tr></table>
-<p>El nombre y el apellido dependen solo del DNI, no del curso, y la nota sí depende de las dos columnas. Hay que separar:</p>
-<pre class="code">ALUMNOS (#DNI, nombre, apellido)
-NOTAS (#(-DNI, -CodCurso), nota)</pre>
-
-<h3>Tercera forma normal (3FN)</h3>
-<p>Una tabla está en 3FN si está en 2FN y <b>no hay dependencias transitivas</b>: ningún atributo que no es clave depende de otro atributo que tampoco es clave. Dicho de otra forma, un dato no clave debe depender de la clave y no de otro dato no clave.</p>
-<p>Ejemplo: en la tabla de alumnos, el nombre de la provincia depende del código de provincia, y no de la clave DNI.</p>
-<table class="g"><tr><th>DNI</th><th>Nombre</th><th>CodProvincia</th><th>Provincia</th></tr>
-<tr><td>12121349A</td><td>Salvador</td><td>34</td><td>Palencia</td></tr>
-<tr><td>12121219A</td><td>Pedro</td><td>34</td><td>Palencia</td></tr>
-<tr><td>3457775G</td><td>Ana</td><td>47</td><td>Valladolid</td></tr></table>
-<p>Lo separamos en dos tablas:</p>
-<pre class="code">ALUMNOS (#DNI, nombre, -CodProvincia)
-PROVINCIAS (#CodProvincia, provincia)</pre>
-<p class="nota"><b>Truco para recordarlo:</b> en 1FN cada celda tiene un solo valor; en 2FN cada dato depende de toda la clave; en 3FN cada dato depende solo de la clave, y no de otro dato.</p>
-</div></details>
+<p>Así, hay que tener en cuenta que el modelo relacional que hemos obtenido en este momento todavía puede no ser el definitivo y puede sufrir transformaciones (e incluso se pueden añadir nuevas tablas) como resultado de aplicar las reglas de normalización que se explicarán posteriormente.</p></div></details></div></details>
 </div><script>(function(){function a(){var d=location.hash&&document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS"){for(var x=d;x;x=x.parentElement)if(x.tagName==="DETAILS")x.open=true;d.scrollIntoView()}}addEventListener("hashchange",a);a()})();</script><script src="visor.js"></script><script src="../plegar.js"></script></body></html>

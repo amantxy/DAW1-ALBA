@@ -1,0 +1,106 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tema 4: Formas Normales · Bases de Datos</title><style>
+:root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#059669;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#34d399;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.hero{background:var(--c);color:#fff;padding:28px 0 26px;margin-bottom:24px}
+@media (prefers-color-scheme:dark){.hero{color:#0b1220}}
+.hero .wrap{padding-bottom:0}
+.hero h1{margin:0;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.15}
+.hero p{margin:6px 0 0;opacity:.92}
+.back{display:inline-block;color:inherit;text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 0;margin-bottom:6px;opacity:.95}
+.back:hover{text-decoration:underline}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+a.card,div.card{display:block;position:relative;background:var(--hoja);border:1px solid var(--linea);border-top:6px solid var(--c);border-radius:12px;padding:16px 18px;color:inherit;text-decoration:none;min-height:104px}
+a.card:hover,a.card:focus-visible{box-shadow:0 6px 20px rgb(0 0 0/.12);transform:translateY(-2px);outline:none}
+a.card{transition:transform .15s,box-shadow .15s}
+.card b{display:block;font-size:1.1rem;color:var(--c);margin-bottom:2px}
+.card span{color:var(--suave);font-size:.9rem}
+.card .ico{position:absolute;right:14px;top:12px;font:700 1.3rem ui-monospace,Consolas,monospace;color:var(--c);opacity:.35}
+.card.off{opacity:.5;border-top-style:dashed}
+details.fold{position:relative;margin:32px 0 18px;--f:color-mix(in srgb,var(--c) 20%,var(--hoja))}
+details.fold>summary{list-style:none;cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;min-height:72px;padding:16px 18px;background:var(--f);border:2px solid var(--c);border-radius:0 12px 12px 12px}
+details.fold>summary::before{content:"";position:absolute;left:-2px;bottom:100%;width:min(46%,170px);height:17px;background:var(--c);border-radius:10px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+details.fold>summary:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary>svg{display:none}
+details.fold>summary b{font-size:1.15rem}
+details.fold>summary small{display:block;color:var(--suave);font-size:.88rem}
+details.fold>summary::after{content:"▾";margin-left:auto;color:var(--tinta);transition:transform .2s}
+details.fold[open]>summary{border-radius:0 12px 0 0}
+details.fold[open]>summary::after{transform:rotate(180deg)}
+.in{padding:14px 16px 18px;background:var(--hoja);border:2px solid var(--c);border-top:0;border-radius:0 0 12px 12px}
+.in h3{margin:14px 0 8px;font-size:.95rem;color:var(--c);display:flex;align-items:center;gap:8px}
+.in h3 svg{width:20px;height:20px}
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
+a.t,div.t{display:block;background:var(--cs);border:1px solid var(--linea);border-radius:10px;padding:12px 14px;color:inherit;text-decoration:none;min-height:64px}
+a.t:hover,a.t:focus-visible{border-color:var(--c);outline:none}
+.t b{display:block;font-size:.98rem}
+.t span{color:var(--suave);font-size:.82rem}
+div.t{opacity:.5;border-style:dashed}
+.sub{position:relative;margin-top:26px;padding:6px 12px 14px;background:var(--cs);border:1.5px solid var(--c);border-radius:0 10px 10px 10px}
+.sub::before{content:"";position:absolute;left:-1.5px;bottom:100%;width:min(46%,130px);height:13px;background:var(--c);border-radius:8px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+</style><link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script><script src="../acceso.js"></script></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Tema 4: Formas Normales</h1><p>Dependencias funcionales, 1FN, 2FN y 3FN</p></div></div><div class="wrap"><details class="fold" id="r-nf"><summary><span><b>Normalización: 1FN, 2FN y 3FN</b><small>Dependencias funcionales y cómo eliminar la redundancia</small></span></summary><div class="in">
+<h3>¿Para qué normalizar?</h3>
+<p>Un mal diseño provoca tres problemas: <b>redundancia</b> (el mismo dato repetido), <b>inconsistencia</b> (el mismo dato escrito de dos formas distintas) y <b>desperdicio de espacio</b>. Normalizar consiste en partir una tabla en varias más simples, de forma que cada dato se guarde una sola vez. Si una base de datos cumple las tres primeras formas normales (1FN, 2FN y 3FN), ya tiene un nivel de normalización suficiente.</p>
+
+<h3>Dependencia funcional</h3>
+<p>Decimos que B <b>depende funcionalmente</b> de A (A → B) si a cada valor de A le corresponde un único valor de B. Por ejemplo, con un DNI obtenemos un único nombre, así que <code>DNI → Nombre</code>. Lo contrario no se cumple: el nombre no identifica a una sola persona.</p>
+<pre class="code">TRABAJADOR (DNI, Nombre, Departamento)
+12345345G | Andrea | Dirección
+12345345G | Andrea | Gestión
+
+DNI → Nombre         (sí: 12345345G siempre es Andrea)
+DNI → Departamento   (no: una persona puede estar en varios)</pre>
+
+<h3>Primera forma normal (1FN)</h3>
+<p>Una tabla está en 1FN si cada celda contiene <b>un solo valor</b>, no hay grupos de columnas repetidas (teléfono1, teléfono2, teléfono3...) y no hay filas idénticas.</p>
+<p>Si un cliente tiene varios teléfonos, no los metemos en columnas ni en una lista separada por comas. Creamos una tabla aparte:</p>
+<pre class="code">CLIENTES (#id, nombre, apellidos)
+TELEFONOS (#id, numero, -id_cliente)
+
+-- Un cliente con dos teléfonos ocupa dos filas en TELEFONOS</pre>
+<p class="nota">Con esta solución, preguntas como «¿cuántos teléfonos tiene el cliente 456?» se resuelven contando filas, sin tener columnas vacías.</p>
+
+<h3>Segunda forma normal (2FN)</h3>
+<p>La 2FN solo importa cuando la clave primaria es <b>compuesta</b> (formada por varias columnas). Una tabla está en 2FN si está en 1FN y todo atributo que no forma parte de la clave depende de la clave <b>completa</b>, no de una parte de ella.</p>
+<p>Supongamos esta tabla, con clave (DNI, CodCurso):</p>
+<table class="g"><tr><th>DNI</th><th>CodCurso</th><th>Nombre</th><th>Apellido</th><th>Nota</th></tr>
+<tr><td>12121219A</td><td>34</td><td>Pedro</td><td>Valiente</td><td>9</td></tr>
+<tr><td>12121219A</td><td>25</td><td>Pedro</td><td>Valiente</td><td>8</td></tr>
+<tr><td>5674378J</td><td>34</td><td>Sara</td><td>Crespo</td><td>6</td></tr></table>
+<p>El nombre y el apellido dependen solo del DNI, no del curso, y la nota sí depende de las dos columnas. Hay que separar:</p>
+<pre class="code">ALUMNOS (#DNI, nombre, apellido)
+NOTAS (#(-DNI, -CodCurso), nota)</pre>
+
+<h3>Tercera forma normal (3FN)</h3>
+<p>Una tabla está en 3FN si está en 2FN y <b>no hay dependencias transitivas</b>: ningún atributo que no es clave depende de otro atributo que tampoco es clave. Dicho de otra forma, un dato no clave debe depender de la clave y no de otro dato no clave.</p>
+<p>Ejemplo: en la tabla de alumnos, el nombre de la provincia depende del código de provincia, y no de la clave DNI.</p>
+<table class="g"><tr><th>DNI</th><th>Nombre</th><th>CodProvincia</th><th>Provincia</th></tr>
+<tr><td>12121349A</td><td>Salvador</td><td>34</td><td>Palencia</td></tr>
+<tr><td>12121219A</td><td>Pedro</td><td>34</td><td>Palencia</td></tr>
+<tr><td>3457775G</td><td>Ana</td><td>47</td><td>Valladolid</td></tr></table>
+<p>Lo separamos en dos tablas:</p>
+<pre class="code">ALUMNOS (#DNI, nombre, -CodProvincia)
+PROVINCIAS (#CodProvincia, provincia)</pre>
+<p class="nota"><b>Truco para recordarlo:</b> en 1FN cada celda tiene un solo valor; en 2FN cada dato depende de toda la clave; en 3FN cada dato depende solo de la clave, y no de otro dato.</p>
+</div></details>
+</div><script>(function(){function a(){var d=location.hash&&document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS"){for(var x=d;x;x=x.parentElement)if(x.tagName==="DETAILS")x.open=true;d.scrollIntoView()}}addEventListener("hashchange",a);a()})();</script><script src="visor.js"></script><script src="../plegar.js"></script></body></html>
