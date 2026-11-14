@@ -615,7 +615,7 @@ double media = (double) suma / total;</code></pre>
 
 <!-- ================= UT 3 ================= -->
 <h2 class="tema" id="ut3">UT 3 · Objetos</h2>
-<p class="sub">Fuente: U3_A_Funciones.docx del profesor.</p>
+<p class="sub">Fuentes: U3_A_Funciones.docx, U3_B_UsoObjetos.docx y Ejercicios varios.docx del profesor.</p>
 
 <section class="sec"><h3>1. Estructura de un método</h3><div class="body">
 <p>En Java las funciones se llaman <b>métodos</b> y se declaran dentro de una clase. Sirven para organizar, reutilizar y dividir un problema en tareas pequeñas.</p>
@@ -781,6 +781,101 @@ factorial(4);   // 4 × 3 × 2 × 1 = 24</code></pre>
 
 
 
+<section class="sec"><h3>11. Clases, objetos y métodos</h3><div class="body"><p>Una <b>clase</b> describe un tipo y las operaciones que se pueden hacer con él. Un <b>objeto</b> es un ejemplar concreto de esa clase. Cada objeto tiene un <b>estado</b> (sus datos), un <b>comportamiento</b> (lo que sabe hacer) y una identidad propia: una variable de tipo objeto guarda una referencia a él.</p><pre><code>import java.awt.Point;
+
+Point punto = new Point(2, 3);
+punto.setLocation(4, 5);   // cambia la posición a (4, 5)</code></pre><p>El <code>import</code> va al principio del archivo y permite usar el nombre corto <code>Point</code>.</p></div></section>
+<section class="sec"><h3>12. Paquetes y import</h3><div class="body"><p>Un <b>paquete</b> agrupa clases relacionadas. En <code>java.awt.Point</code>, <code>java.awt</code> es el paquete y <code>Point</code> la clase.</p><ul><li><code>java.lang</code>: clases fundamentales como <code>Math</code>, <code>Integer</code> o <code>String</code>. No necesitan import.</li><li><code>java.util</code>: utilidades, como <code>Scanner</code>.</li><li><code>java.io</code>: entrada y salida de datos.</li><li><code>java.time</code>: fechas y horas, como <code>LocalDate</code>.</li></ul><p>Un import no instala nada: solo permite usar el nombre corto. La clase ya forma parte de Java.</p></div></section>
+<section class="sec"><h3>13. Leer la documentación de la API</h3><div class="body"><p>La documentación de Java indica, para cada clase, sus <b>constructores</b> (cómo se crea un objeto), sus <b>métodos</b> (qué parámetros piden y qué devuelven) y las excepciones que pueden lanzar. Busca la clase por su nombre en la documentación de la versión de Java que uses.</p><ul><li>Si el método es <code>static</code>, se llama con el nombre de la clase: <code>Math.sqrt(25)</code>.</li><li>Si necesitas un objeto, usa <code>new</code> con un constructor público, o un método estático que te lo devuelva.</li><li>Los métodos de instancia se llaman con la referencia del objeto: <code>punto.getX()</code>.</li></ul><pre><code>Point punto = new Point(2, 3);
+double x = punto.getX();   // 2.0
+Point origen = new Point(); // (0, 0)</code></pre><p class="nota">Declarar <code>Point punto;</code> solo reserva la variable. Hasta que no le asignes un objeto con <code>new</code> (u otro método que lo devuelva), no puedes usarla.</p></div></section>
+<section class="sec"><h3>14. Math y métodos estáticos</h3><div class="body"><p><code>Math</code> ofrece constantes y operaciones matemáticas sin necesidad de crear objetos.</p><pre><code>Math.sqrt(25);       // 5.0
+Math.pow(2, 3);      // 8.0
+Math.max(4, 9);      // 9
+Math.abs(-7);        // 7
+Math.round(3.6);     // 4 (long)
+Math.PI;             // 3.14159...</code></pre><p>La firma del método indica el tipo de los argumentos y del resultado: <code>sqrt</code> devuelve un <code>double</code>.</p></div></section>
+<section class="sec"><h3>15. Clases envoltorio (wrapper)</h3><div class="body"><p>Java tiene ocho tipos primitivos (<code>int</code>, <code>double</code>, <code>char</code>, <code>boolean</code>...). Sus <b>clases envoltorio</b> los representan como objetos y ofrecen métodos para convertirlos y comprobarlos.</p><table><tr><th>Primitivo</th><th>Envoltorio</th></tr><tr><td>int</td><td>Integer</td></tr><tr><td>double</td><td>Double</td></tr><tr><td>char</td><td>Character</td></tr><tr><td>boolean</td><td>Boolean</td></tr><tr><td>long, float, byte, short</td><td>Long, Float, Byte, Short</td></tr></table><p><b>Autoboxing</b> (primitivo a objeto) y <b>unboxing</b> (objeto a primitivo) se hacen solos: <code>Integer n = 25; int m = n;</code>.</p><p>Métodos que más se usan:</p><table><tr><th>Clase</th><th>Método</th><th>Para qué</th></tr><tr><td>Integer</td><td>parseInt(texto)</td><td>Texto a entero</td></tr><tr><td>Integer</td><td>toString(n)</td><td>Entero a texto</td></tr><tr><td>Double</td><td>parseDouble(texto)</td><td>Texto a decimal (con punto)</td></tr><tr><td>Character</td><td>isDigit(c), isLetter(c)</td><td>Comprobar si es dígito o letra</td></tr><tr><td>Character</td><td>isUpperCase(c), toUpperCase(c)</td><td>Mayúsculas</td></tr><tr><td>Boolean</td><td>parseBoolean(texto)</td><td>Texto a booleano</td></tr></table><pre><code>String texto = &quot;125&quot;;
+int numero = Integer.parseInt(texto);
+System.out.println(numero + 10);   // 135
+
+System.out.println(&quot;125&quot; + 10);       // 12510 (concatena)</code></pre><p class="nota"><b>Cuidado:</b> <code>Integer.parseInt("hola")</code> lanza <code>NumberFormatException</code>. Un envoltorio puede valer <code>null</code>, y hacer unboxing de un <code>null</code> lanza <code>NullPointerException</code>. Para cálculos sencillos, usa primitivos.</p></div></section>
+<section class="sec"><h3>16. Entrada por teclado con Scanner</h3><div class="body"><p><code>System.in</code> es la entrada estándar (el teclado) y <code>System.out</code> la salida (la consola).</p><pre><code>import java.util.Scanner;
+
+Scanner teclado = new Scanner(System.in);
+int numero = teclado.nextInt();
+System.out.println(numero * 2);</code></pre><ul><li><code>nextInt()</code>, <code>nextDouble()</code>, <code>next()</code> (una palabra) y <code>nextLine()</code> (una línea completa).</li><li>Si el dato no es del tipo pedido, se produce <code>InputMismatchException</code>.</li><li>Cerrar un <code>Scanner</code> asociado a <code>System.in</code> cierra también el teclado: ciérralo solo al final.</li></ul></div></section>
+<section class="sec"><h3>17. La clase String</h3><div class="body"><p><code>String</code> representa texto. Los <b>String son inmutables</b>: los métodos que transforman el texto devuelven uno nuevo, así que hay que guardar el resultado.</p><pre><code>String palabra = &quot;Java&quot;;
+int longitud = palabra.length();            // 4
+char primera = palabra.charAt(0);            // J
+String parte = palabra.substring(0, 2);      // &quot;Ja&quot;
+boolean igual = palabra.equals(&quot;Java&quot;);      // true
+String cambio = palabra.replace(&quot;J&quot;, &quot;L&quot;);   // &quot;Lava&quot;</code></pre><p>Para comparar el contenido usa <code>equals</code>, no <code>==</code>. El operador <code>==</code> compara si son el mismo objeto.</p></div></section>
+<section class="sec"><h3>18. Ejercicios varios</h3><div class="body"><p>Intenta cada ejercicio antes de abrir la solución.</p><h4>Ejercicio 1. Clase Producto</h4><p>Crea una clase <code>Producto</code> con los atributos <code>nombre</code> (texto) y <code>precio</code> (decimal). En una clase <code>Principal</code>, crea un objeto <code>producto1</code> con nombre «Teclado» y precio 29.90, y muestra sus datos en pantalla.</p><details><summary>Ver solución</summary><pre><code>public class Producto {
+    String nombre;
+    double precio;
+}
+
+public class Principal {
+    public static void main(String[] args) {
+        Producto producto1 = new Producto();
+        producto1.nombre = &quot;Teclado&quot;;
+        producto1.precio = 29.90;
+        System.out.println(&quot;Nombre: &quot; + producto1.nombre);
+        System.out.println(&quot;Precio: &quot; + producto1.precio + &quot; €&quot;);
+    }
+}</code></pre></details><h4>Ejercicio 2. Clase Calculadora</h4><p>Crea una clase <code>Calculadora</code> con dos métodos de instancia, <code>sumar</code> y <code>restar</code>, que reciban dos enteros y devuelvan el resultado. Desde <code>main</code>, crea un objeto <code>calc1</code>, usa <code>a = 10</code> y <code>b = 5</code> y muestra la suma y la resta.</p><details><summary>Ver solución</summary><pre><code>public class Calculadora {
+    public int sumar(int a, int b) { return a + b; }
+    public int restar(int a, int b) { return a - b; }
+}
+
+public class Principal {
+    public static void main(String[] args) {
+        Calculadora calc1 = new Calculadora();
+        int a = 10, b = 5;
+        System.out.println(&quot;Suma: &quot; + calc1.sumar(a, b));
+        System.out.println(&quot;Resta: &quot; + calc1.restar(a, b));
+    }
+}</code></pre></details><h4>Ejercicio 3. Diagonal de un rectángulo</h4><p>Pide por teclado la base y la altura (decimales). Crea el método <code>calcularDiagonal(base, altura)</code>, que devuelva √(base² + altura²) usando <code>Math.sqrt</code>. Muestra el resultado. Con base 3 y altura 4 debe salir 5.0.</p><details><summary>Ver solución</summary><pre><code>import java.util.Scanner;
+
+public class Rectangulo {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        System.out.print(&quot;Introduce la base: &quot;);
+        double base = teclado.nextDouble();
+        System.out.print(&quot;Introduce la altura: &quot;);
+        double altura = teclado.nextDouble();
+        System.out.println(&quot;La diagonal es: &quot; + calcularDiagonal(base, altura));
+    }
+
+    public static double calcularDiagonal(double base, double altura) {
+        return Math.sqrt(base * base + altura * altura);
+    }
+}</code></pre></details><h4>Ejercicio 4. Sumar dígitos</h4><p>Declara dos <code>char</code> con los valores '6' y '7'. Si ambos son dígitos (<code>Character.isDigit</code>), convierte cada uno a número con <code>Character.getNumericValue</code> y muestra su suma. Si no, muestra «No son los dos numéricos». Resultado esperado: 13.</p><details><summary>Ver solución</summary><pre><code>public class SumaCaracteres {
+    public static void main(String[] args) {
+        char a = &#x27;6&#x27;;
+        char b = &#x27;7&#x27;;
+        if (Character.isDigit(a) &amp;&amp; Character.isDigit(b)) {
+            int suma = Character.getNumericValue(a) + Character.getNumericValue(b);
+            System.out.println(&quot;La suma es &quot; + suma);
+        } else {
+            System.out.println(&quot;No son los dos numéricos&quot;);
+        }
+    }
+}</code></pre></details><h4>Ejercicio 5. ¿Desea salir?</h4><p>Pregunta «¿Desea salir (S/s)?» hasta que el usuario escriba S o s. Usa un bucle <code>do-while</code> y <code>Scanner</code>. Al final, muestra «Programa finalizado».</p><details><summary>Ver solución</summary><pre><code>import java.util.Scanner;
+
+public class Salir {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        char respuesta;
+        do {
+            System.out.print(&quot;¿Desea salir (S/s)? &quot;);
+            respuesta = sc.next().charAt(0);
+        } while (respuesta != &#x27;S&#x27; &amp;&amp; respuesta != &#x27;s&#x27;);
+        System.out.println(&quot;Programa finalizado&quot;);
+        sc.close();
+    }
+}</code></pre></details></div></section>
 <h2 class="tema" id="ejercicios">Ejercicios</h2>
 
 <div class="tabpane on" id="ej-U1" data-label="Unidad 1">

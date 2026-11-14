@@ -29,6 +29,8 @@ Fuente: Google Site del profesor (Programación 1 DAM).
 
 **UT 3**
 - U3_A_Funciones.docx
+- U3_B_UsoObjetos.docx (clases de la biblioteca: Math, envoltorios, Scanner, String)
+- Ejercicios varios.docx (Producto, Calculadora)
 
 ## Pendiente
 - Libro completo (221 págs.): cap. 1 desde el ejercicio 10 y cap. 2 en adelante.
