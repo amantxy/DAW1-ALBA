@@ -44,7 +44,7 @@ button.p{background:var(--c);color:#fff;border-color:var(--c)}
 .preg{border:1px solid var(--linea);border-radius:8px;padding:10px;margin:8px 0}
 .preg label{display:block;padding:3px 0}
 </style>
-<style>details.test{margin:10px 0 18px}details.test>summary{list-style:none;cursor:pointer;padding:12px 16px;background:var(--hoja);border:1px solid var(--linea);border-radius:12px}details.test>summary::-webkit-details-marker{display:none}details.test>summary small{display:block;color:var(--suave)}details.test .in{padding:12px 4px}</style>
+<style>details.test{margin:10px 0 18px}details.test>summary{list-style:none;cursor:pointer;padding:12px 16px;background:var(--hoja);border:1px solid var(--linea);border-radius:12px}details.test>summary::-webkit-details-marker{display:none}details.test>summary small{display:block;color:var(--suave)}details.test .in{padding:12px 4px}<style>.fr{min-height:140px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.15rem;font-weight:600;padding:18px;border-radius:14px;background:var(--cs);border:2px solid var(--c);cursor:pointer;user-select:none}.fr.atras{background:var(--hoja)}.card-f{margin:8px 0}details.flash{margin:10px 0 18px}details.flash>summary{list-style:none;cursor:pointer;padding:12px 16px;background:var(--hoja);border:1px solid var(--linea);border-radius:12px}details.flash>summary::-webkit-details-marker{display:none}details.flash>summary small{display:block;color:var(--suave)}details.flash .in{padding:12px 4px}</style>
 </head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Práctica en el editor</h1><p>Como en Visual Studio Code: escribe el código, comprueba y compara con la solución. Ejercicios al azar por niveles.</p></div></div>
 <div class="wrap">
 <nav class="tabs" role="tablist">
@@ -125,6 +125,11 @@ const TEST={
      {q:'¿Qué diferencia hay entre display:none y visibility:hidden?',o:['Ninguna','display:none quita el elemento del diseño; visibility:hidden lo oculta pero deja su espacio','visibility quita el elemento','display conserva el espacio'],a:1,e:'display:none no ocupa espacio; visibility:hidden sí.'}]
 };
 
+const FLASH={
+ t1:[["¿Qué es XML?","Un lenguaje de marcas extensible: tú defines las etiquetas para describir datos."],["¿Qué significa que un XML esté «bien formado»?","Tiene una sola raíz, todas las etiquetas cerradas y bien anidadas."],["¿Para qué sirve un namespace?","Para distinguir etiquetas con el mismo nombre de vocabularios distintos."],["¿Qué define un DTD o un XML Schema?","La estructura válida del documento: qué elementos y atributos puede tener."],["¿Qué es un comentario en XML?","<!-- texto -->. El analizador lo ignora."],["¿Qué es una dirección IP?","Un identificador numérico de un equipo en una red IP."],["¿Qué hace un servidor DNS?","Traduce nombres de dominio (ejemplo.com) a direcciones IP."],["¿Qué añade HTTPS frente a HTTP?","Cifrado (TLS). Usa el puerto 443 por defecto; HTTP usa el 80."]],
+ t2:[["¿Para qué sirve <!DOCTYPE html>?","Indica al navegador que el documento es HTML5."],["¿Cuál es la diferencia entre id y class?","id es único en la página; class puede repetirse en varios elementos."],["¿Para qué sirve <meta charset=\"utf-8\">?","Indica la codificación de caracteres, para que las tildes y la ñ se vean bien."],["¿Qué hace el atributo alt de una imagen?","Ofrece un texto alternativo para lectores de pantalla y si la imagen no carga."],["¿Qué es un elemento de bloque?","Ocupa una línea entera, como <div> o <p>. Un elemento en línea, como <span> o <a>, solo ocupa su contenido."],["¿Qué etiquetas semánticas conoces?","header, nav, main, section, article, footer."],["¿Qué hace target=\"_blank\" en un enlace?","Abre el enlace en una pestaña nueva."],["¿Diferencia entre ruta absoluta y relativa?","La absoluta es la URL completa o desde la raíz; la relativa parte de la carpeta del archivo actual."]],
+ t3:[["¿Qué es CSS?","El lenguaje que define el aspecto visual de la página. Separa contenido (HTML) y presentación."],["¿Cómo se escribe una regla CSS?","selector { propiedad: valor; }"],["¿Cuáles son las tres formas de aplicar CSS?","En línea (atributo style), interna (bloque <style>) y externa (archivo .css con <link>). La externa es la recomendada."],["¿Qué decide la cascada?","El origen, después la especificidad y, si empatan, el orden de aparición."],["¿Qué selector tiene más especificidad?","El id (#) pesa más que la clase (.) o el atributo, y estos más que el elemento."],["¿Cuáles son las cuatro capas de una caja?","Contenido, padding, border y margin, de dentro hacia fuera."],["¿Qué hace box-sizing: border-box?","Hace que el width incluya el padding y el borde."],["¿Qué valores tiene position?","static (por defecto), relative, absolute, fixed y sticky."]]
+};
 const state={};
 function panel(t){
   const nom={t1:'Tema 1 · XML',t2:'Tema 2 · HTML',t3:'Tema 3 · CSS'}[t];
@@ -146,6 +151,11 @@ function panel(t){
     <div data-test></div>
     <div class="fila"><button data-test-nuevo>Nuevas preguntas</button><button class="p" data-test-ok>Corregir</button></div>
     <p class="pista" data-test-res></p>
+  </div></details>
+  <details class="fold flash"><summary><span><b>Flashcards</b><small>Repasa los conceptos del tema</small></span></summary><div class="in">
+    <div class="card-f" data-card></div>
+    <div class="fila"><button data-prev>Anterior</button><button data-flip>Dar la vuelta</button><button data-next>Siguiente</button><button data-shuffle>Barajar</button></div>
+    <p class="sub" data-count></p>
   </div></details>`;
   el.querySelector('[data-nuevo]').onclick=()=>nuevo(t);
   el.querySelector('[data-chk]').onclick=()=>comprobar(t);
@@ -159,6 +169,16 @@ function panel(t){
   el.querySelector('[data-test-ok]').onclick=()=>corregirTest(t);
   test(t);
   nuevo(t);
+  let deck=FLASH[t].slice(),idx=0,vuelta=false;
+  const card=el.querySelector('[data-card]'),cnt=el.querySelector('[data-count]');
+  const pinta=()=>{const c=deck[idx];vuelta=false;card.innerHTML='';const f=document.createElement('div');f.className='fr';f.textContent=c[0];card.appendChild(f);cnt.textContent=(idx+1)+' de '+deck.length};
+  const girar=()=>{const c=deck[idx];vuelta=!vuelta;const f=card.querySelector('.fr');f.textContent=vuelta?c[1]:c[0];f.classList.toggle('atras',vuelta)};
+  el.querySelector('[data-flip]').onclick=girar;
+  card.onclick=girar;
+  el.querySelector('[data-next]').onclick=()=>{idx=(idx+1)%deck.length;pinta()};
+  el.querySelector('[data-prev]').onclick=()=>{idx=(idx-1+deck.length)%deck.length;pinta()};
+  el.querySelector('[data-shuffle]').onclick=()=>{deck=shuffle(deck);idx=0;pinta()};
+  pinta();
 }
 function nuevo(t){
   const lvl=document.querySelector(`#p-${t} [data-lvl]`).value;
@@ -201,7 +221,9 @@ function corregirTest(t){
 ['t1','t2','t3'].forEach(panel);
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>show(b.dataset.tab));
 function show(t){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.dataset.tab===t));history.replaceState(null,'','#'+t)}
-const h=(location.hash||'#t1').slice(1);show(['t1','t2','t3'].includes(h)?h:'t1');
+const h=(location.hash||'#t1').slice(1);const base=h.slice(0,2);const quiereT=h.slice(3);
+show(['t1','t2','t3'].includes(base)?base:'t1');
+if(quiereT){const pn=document.getElementById('p-'+base);const sec=pn.querySelector(quiereT==='test'?'details.test':'details.flash');if(sec){sec.open=true;setTimeout(()=>sec.scrollIntoView({behavior:'smooth'}),80)}}
 window.__practica={nuevo,comprobar,state,GEN};
 })();
 </script>
