@@ -40,6 +40,9 @@ function pintaFlujo(){$("#flujoEd").innerHTML=P.diagrama("Proceso Solucion",arbo
 var AY={Definir:["Definir","a, b Como Entero"],Leer:["Leer","a"],Escribir:["Escribir",'"Resultado: ", a'],Asignar:["Asignar","a <- a + 1"],Si:["Si (condición)","a > 0"],Segun:["Segun (variable)","opcion"],Mientras:["Mientras (condición)","a > 0"],Repetir:["Repetir hasta que (condición)","a > 0"],Para:["Para","i <- 1 Hasta 5"],Dimension:["Dimension","v[3]"]};
 var dlgP=$("#dlgPal"),dlgT=$("#dlgTxt"),pend=null;
 $("#flujoEd").addEventListener("click",function(e){var i=e.target.closest(".ins"),b=e.target.closest(".bl");
+ var cs=e.target.closest(".cs"),ac=e.target.closest(".addc");
+ if(ac){var na=buscaN(arbol,+ac.dataset.uid);var va=prompt("Valor del nuevo caso (por ejemplo 3):");if(na&&va&&va.trim()){na.casos.push({txt:va.trim(),body:[]});pintaFlujo()}return}
+ if(cs){var nc=buscaN(arbol,+cs.dataset.uid);if(!nc)return;var vc=prompt("Valor de este caso:",nc.casos[+cs.dataset.ci].txt);if(vc&&vc.trim()){nc.casos[+cs.dataset.ci].txt=vc.trim();pintaFlujo()}return}
  if(i){pend={lista:i.dataset.lista,i:+i.dataset.i};dlgP.showModal();return}
  if(b){var n=buscaN(arbol,+b.dataset.uid);if(!n)return;pend={uid:n.uid};abreTxt(n.t,n.txt);return}});
 [].forEach.call(document.querySelectorAll("#dlgPal button[data-t]"),function(b){b.onclick=function(){dlgP.close();pend.t=b.dataset.t;abreTxt(b.dataset.t,"")}});
