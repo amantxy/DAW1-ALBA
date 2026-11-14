@@ -14,8 +14,14 @@
     '.pc-sel textarea.ed{height:100%!important}'+
     '#pc-btn{position:absolute;z-index:9999;width:40px;height:40px;padding:0;margin:0;border:0;border-radius:8px;background:rgb(29 24 18/.82);color:#fff;font:600 18px/1 system-ui,sans-serif;cursor:pointer;display:none;box-shadow:0 1px 4px rgb(0 0 0/.3)}'+
     '#pc-btn.pc-dentro{top:8px;right:8px;left:auto}'+
+    '#pc-ventana{position:absolute;z-index:9999;height:40px;padding:0 10px;margin:0;border:0;border-radius:8px;background:rgb(29 24 18/.82);color:#fff;font:600 13px/1 system-ui,sans-serif;cursor:pointer;display:none;white-space:nowrap}'+
     '#pc-btn:focus-visible{outline:3px solid #2563eb;outline-offset:2px}';
   document.head.appendChild(st);
+  var solo=/[?&]solo=editor(?:&|$)/.test(location.search);
+  var sinIcono=!!(document.currentScript&&document.currentScript.dataset.sinIcono!==undefined);
+  var bv=document.createElement('button'); bv.type='button'; bv.id='pc-ventana';
+  bv.textContent='⧉ Ventana aparte'; bv.title='Abrir el editor en una ventana nueva, para la segunda pantalla';
+  bv.setAttribute('aria-label','Abrir el editor en una ventana aparte');
   var b=document.createElement('button'); b.type='button'; b.id='pc-btn';
   var ocultos=[], cur=null;
   function objetivo(){ return sel ? document.querySelector(sel) : null }
@@ -28,14 +34,19 @@
     b.setAttribute('aria-pressed', on ? 'true' : 'false');
   }
   function posiciona(){
-    if(b.parentNode!==document.body) return;
+    if(solo){ b.style.display='none'; bv.style.display='none'; return }
     var el=objetivo();
-    if(!el || el.getBoundingClientRect().height===0){ b.style.display='none'; return }
+    if(!el || el.getBoundingClientRect().height===0){ b.style.display='none'; bv.style.display='none'; return }
     var r=el.getBoundingClientRect(), fb=document.documentElement.classList.contains('pc-fb');
-    b.style.display='block';
-    b.style.top=(r.top+(fb?0:window.scrollY)+8)+'px';
-    b.style.left=(r.right+(fb?0:window.scrollX)-48)+'px';
+    var x=r.right+(fb?0:window.scrollX), y=r.top+(fb?0:window.scrollY)+8;
+    if(b.parentNode===document.body && !sinIcono){ b.style.display='block'; b.style.top=y+'px'; b.style.left=(x-48)+'px' }
+    bv.style.display='block'; bv.style.top=y+'px';
+    bv.style.left=(x-48-8-bv.offsetWidth)+'px';
   }
+  bv.onclick=function(){
+    var u=new URL(location.href); u.hash=''; u.searchParams.set('solo','editor');
+    window.open(u.toString(),'_blank','width=960,height=720');
+  };
   function marca(el){
     cur=el; el.classList.add('pc-sel');
     for(var n=el.parentElement; n && n!==document.body; n=n.parentElement) n.classList.add('pc-anc');
@@ -44,7 +55,7 @@
     var n=el;
     while(n && n!==document.body){
       Array.prototype.forEach.call(n.parentElement.children,function(c){
-        if(c!==n && c!==b && c.tagName!=='SCRIPT' && c.tagName!=='STYLE'){ ocultos.push([c,c.style.display]); c.style.display='none' }
+        if(c!==n && c!==b && c!==bv && c.tagName!=='SCRIPT' && c.tagName!=='STYLE'){ ocultos.push([c,c.style.display]); c.style.display='none' }
       });
       n=n.parentElement;
     }
@@ -90,5 +101,6 @@
   window.addEventListener('resize',posiciona);
   document.addEventListener('click',function(){ setTimeout(posiciona,0) },true);
   setInterval(posiciona,400);
-  document.body.appendChild(b); pinta(); posiciona();
+  document.body.appendChild(b); document.body.appendChild(bv); pinta(); posiciona();
+  if(solo){ document.title='Editor · '+document.title; entraFB() }
 })();
