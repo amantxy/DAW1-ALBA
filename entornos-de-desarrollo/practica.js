@@ -26,16 +26,18 @@ var CMD={Definir:"Definir | Como Entero;",Leer:"Leer |;",Escribir:'Escribir "|";
 function codigoDe(L,sang){var o="",s=sang||"    ";(L||[]).forEach(function(n){switch(n.t){
  case"Definir":o+=s+"Definir "+n.txt+";\n";break;case"Dimension":o+=s+"Dimension "+n.txt+";\n";break;case"Leer":o+=s+"Leer "+n.txt+";\n";break;case"Escribir":o+=s+"Escribir "+n.txt+";\n";break;case"Asignar":o+=s+n.txt+";\n";break;
  case"Si":o+=s+"Si "+n.txt+" Entonces\n"+codigoDe(n.body,s+"    ");if(n.sino&&n.sino.length)o+=s+"Sino\n"+codigoDe(n.sino,s+"    ");o+=s+"FinSi\n";break;
+ case"Segun":o+=s+"Segun "+n.txt+" Hacer\n";(n.casos||[]).forEach(function(c){o+=s+"    "+c.txt+":\n"+codigoDe(c.body,s+"        ")});o+=s+"    De Otro Modo:\n"+codigoDe(n.otro,s+"        ")+s+"FinSegun\n";break;
  case"Mientras":o+=s+"Mientras "+n.txt+" Hacer\n"+codigoDe(n.body,s+"    ")+s+"FinMientras\n";break;
  case"Repetir":o+=s+"Repetir\n"+codigoDe(n.body,s+"    ")+s+"Hasta Que "+n.txt+"\n";break;
  case"Para":o+=s+"Para "+n.txt+" Hacer\n"+codigoDe(n.body,s+"    ")+s+"FinPara\n";break}});return o}
 function codigoArbol(){return"Proceso Solucion\n"+codigoDe(arbol)+"FinProceso\n"}
-function listaDe(id){if(id==="raiz")return arbol;var q=id.split(":"),n=buscaN(arbol,+q[0]);return n&&n[q[1]]}
-function buscaN(L,u){for(var i=0;i<L.length;i++){var n=L[i];if(n.uid===u)return n;var x=buscaN(n.body||[],u)||buscaN(n.sino||[],u);if(x)return x}return null}
-function quitaN(L,u){for(var i=0;i<L.length;i++){if(L[i].uid===u){L.splice(i,1);return true}if(quitaN(L[i].body||[],u)||quitaN(L[i].sino||[],u))return true}return false}
-function maxU(L){var m=0;(L||[]).forEach(function(n){m=Math.max(m,n.uid||0,maxU(n.body),maxU(n.sino))});return m}
+function listaDe(id){if(id==="raiz")return arbol;var q=id.split(":"),n=buscaN(arbol,+q[0]);if(!n)return null;if(q[1]==="casos")return n.casos[+q[2]].body;return n[q[1]]}
+function hijos(n){var r=[n.body,n.sino,n.otro];(n.casos||[]).forEach(function(c){r.push(c.body)});return r.filter(Boolean)}
+function buscaN(L,u){for(var i=0;i<L.length;i++){var n=L[i];if(n.uid===u)return n;var ls=hijos(n);for(var j=0;j<ls.length;j++){var x=buscaN(ls[j],u);if(x)return x}}return null}
+function quitaN(L,u){for(var i=0;i<L.length;i++){if(L[i].uid===u){L.splice(i,1);return true}var ls=hijos(L[i]);for(var j=0;j<ls.length;j++){if(quitaN(ls[j],u))return true}}return false}
+function maxU(L){var m=0;(L||[]).forEach(function(n){m=Math.max(m,n.uid||0);hijos(n).forEach(function(l){m=Math.max(m,maxU(l))})});return m}
 function pintaFlujo(){$("#flujoEd").innerHTML=P.diagrama("Proceso Solucion",arbol,{edit:true});$("#codgen").textContent=codigoArbol();borrador()}
-var AY={Definir:["Definir","a, b Como Entero"],Leer:["Leer","a"],Escribir:["Escribir",'"Resultado: ", a'],Asignar:["Asignar","a <- a + 1"],Si:["Si (condición)","a > 0"],Mientras:["Mientras (condición)","a > 0"],Repetir:["Repetir hasta que (condición)","a > 0"],Para:["Para","i <- 1 Hasta 5"],Dimension:["Dimension","v[3]"]};
+var AY={Definir:["Definir","a, b Como Entero"],Leer:["Leer","a"],Escribir:["Escribir",'"Resultado: ", a'],Asignar:["Asignar","a <- a + 1"],Si:["Si (condición)","a > 0"],Segun:["Segun (variable)","opcion"],Mientras:["Mientras (condición)","a > 0"],Repetir:["Repetir hasta que (condición)","a > 0"],Para:["Para","i <- 1 Hasta 5"],Dimension:["Dimension","v[3]"]};
 var dlgP=$("#dlgPal"),dlgT=$("#dlgTxt"),pend=null;
 $("#flujoEd").addEventListener("click",function(e){var i=e.target.closest(".ins"),b=e.target.closest(".bl");
  if(i){pend={lista:i.dataset.lista,i:+i.dataset.i};dlgP.showModal();return}
@@ -46,8 +48,8 @@ function abreTxt(t,v){$("#txtTit").textContent=AY[t][0];var inp=$("#txtVal");inp
 $("#txtCan").onclick=function(){dlgT.close()};
 $("#txtBor").onclick=function(){quitaN(arbol,pend.uid);dlgT.close();pintaFlujo()};
 $("#txtFrm").onsubmit=function(e){e.preventDefault();var v=$("#txtVal").value.trim().replace(/;+\s*$/,"");if(!v){$("#txtErr").textContent="Escribe el contenido del bloque.";return}
- var prueba={t:pend.tipo,txt:v,body:[],sino:[]};try{P.analiza("Proceso X\n"+codigoDe([prueba])+"FinProceso")}catch(x){$("#txtErr").textContent=x.message;return}
- if(pend.uid){buscaN(arbol,pend.uid).txt=v}else{var n={t:pend.tipo,txt:v,uid:uid++};if(["Si","Mientras","Repetir","Para"].indexOf(n.t)>=0){n.body=[];if(n.t==="Si")n.sino=[]}listaDe(pend.lista).splice(pend.i,0,n)}
+ var prueba={t:pend.tipo,txt:v,body:[],sino:[],casos:[{txt:"1",body:[]},{txt:"2",body:[]}],otro:[]};try{P.analiza("Proceso X\n"+codigoDe([prueba])+"FinProceso")}catch(x){$("#txtErr").textContent=x.message;return}
+ if(pend.uid){buscaN(arbol,pend.uid).txt=v}else{var n={t:pend.tipo,txt:v,uid:uid++};if(["Si","Mientras","Repetir","Para","Segun"].indexOf(n.t)>=0){n.body=[];if(n.t==="Si")n.sino=[];if(n.t==="Segun"){n.casos=[{txt:"1",body:[]},{txt:"2",body:[]}];n.otro=[]}}listaDe(pend.lista).splice(pend.i,0,n)}
  dlgT.close();pintaFlujo()};
 
 /* ---------- Ejercicio ---------- */
