@@ -246,46 +246,577 @@ FinProceso</code></pre></div></details></div></details>
 <article class="rs">
 <h3>UT1 · Software, licencias y ciclo de vida</h3><small>PDF «Apuntes UT1: Teoría y PSeInt», apartados 1 a 5</small>
 <ul>
-<li><b>Hardware</b>: componentes físicos (monitor, placa base, RAM, disco). <b>Software</b>: parte lógica; la RAE lo define como programas, instrucciones y reglas; el IEEE 729 añade documentación y datos.</li>
-<li><b>Por tarea</b>: software de sistema (SO, drivers, diagnóstico), de aplicación (ofimática, CAD, educativo) y de programación (IDE).</li>
-<li><b>Por distribución</b>: shareware (prueba gratis un tiempo y luego pagas), freeware (gratis con restricciones: no se modifica ni se vende), adware (gratis con publicidad) y uso específico.</li>
-<li><b>Libre</b>: cuatro libertades (usar, estudiar, distribuir, mejorar) y acceso al código fuente. Licencia GPL: si distribuyes una versión modificada, debe ir con su código y bajo la misma licencia.</li>
-<li><b>Propietario</b>: binario, sin código fuente, sin copiar ni modificar sin permiso. <b>Dominio público</b>: sin licencia o autor desconocido; puede usarse libremente, también para productos propietarios.</li>
-<li><b>Ciclo de vida</b> (ISO/IEC 12207-1): cinco etapas: análisis, diseño, codificación, pruebas y mantenimiento. Cada una recibe los documentos de la anterior y genera otros.</li>
-<li><b>Cascada</b>: etapas en orden estricto; la variante con realimentación permite volver atrás. <b>Incremental</b>: entregas parciales que ya funcionan. <b>Espiral</b>: prototipos y análisis de riesgos en cada vuelta.</li>
+<li><b>Hardware</b>: componentes físicos que se pueden ver y tocar (monitor, teclado, placa base, RAM, microprocesador, disco duro).</li>
+<li><b>Software</b>: parte lógica. La RAE lo define como programas, instrucciones y reglas para ejecutar tareas en un ordenador. El IEEE 729 es más amplio: incluye también la documentación y los datos asociados.</li>
+<li><b>Por tarea</b>: software de <i>sistema</i> (SO, drivers, diagnóstico y optimización), de <i>aplicación</i> (ofimática, educativo, médico, contabilidad, CAD) y de <i>programación</i> (IDE, normalmente con GUI).</li>
+<li><b>Por distribución</b>: <i>shareware</i> (pruebas gratis un tiempo y luego pagas, p. ej. WinRAR), <i>freeware</i> (sin coste, pero no se puede modificar ni vender), <i>adware</i> (gratis con publicidad que desaparece al comprar la licencia), <i>multimedia</i> y de <i>uso específico</i> (hecho para un problema concreto de una organización).</li>
+<li><b>Licencia</b>: contrato que fija los derechos y deberes de desarrollador y usuario. Ejemplo: el contrato de usuario final que aceptas al instalar un antivirus.</li>
+<li><b>Software libre</b>: cuatro libertades (usar, estudiar, distribuir y mejorar). Para estudiarlo y mejorarlo hace falta el código fuente. Licencia más usada: <b>GPL</b>. Si distribuyes una versión modificada, debe publicarse con su código y bajo la misma licencia; si solo la usas en privado, no hay obligación de publicarla.</li>
+<li><b>Software propietario</b>: se distribuye en binario (compilado, sin código fuente). Prohíbe redistribuir, modificar, copiar o usar en varios equipos sin permiso.</li>
+<li><b>Dominio público</b>: sin licencia o con autor desconocido. Cualquiera puede usarlo, incluso para crear productos propietarios.</li>
+<li><b>Ciclo de vida</b> (ISO/IEC 12207-1): marco que recoge los procesos desde la definición de requisitos hasta el fin de uso. Cinco etapas: <b>análisis, diseño, codificación, pruebas y mantenimiento</b>. Cada etapa recibe los documentos de la anterior y genera otros nuevos.</li>
+<li><b>Cascada</b>: etapas en orden estricto y revisión al final de cada una. Su variante con <i>realimentación</i> permite volver a una etapa anterior. Ventajas: fácil de planificar y de alta calidad. Inconvenientes: exige requisitos fijados desde el principio y el producto no se ve hasta el final. Se recomienda si el proyecto es parecido a otro ya hecho y los requisitos son estables.</li>
+<li><b>Incremental</b>: repite ciclos en cascada y entrega partes pequeñas pero utilizables (incrementos). Ejemplo: un procesador de textos con funciones básicas, luego corrector y luego paginación. Inconvenientes: difícil estimar coste y riesgo de no terminar. No recomendable en tiempo real ni en sistemas de alta seguridad.</li>
+<li><b>Espiral</b>: combina cascada y prototipos. Cada vuelta incluye determinar objetivos, evaluar alternativas y <b>analizar riesgos</b>, desarrollar y probar, y planificar la siguiente. Se recomienda en proyectos grandes con cambios constantes.</li>
 </ul>
-<div class="rec"><b>Recuerda</b>Freeware no es software libre: el freeware es gratis pero cerrado. Solo el modelo en espiral analiza el riesgo en cada ciclo.</div>
+<div class="rec"><b>Recuerda</b>Freeware no es software libre (gratis pero cerrado). Solo la espiral incorpora análisis de riesgos en cada vuelta. Casi todos los ciclos pasan por análisis y diseño antes de codificar.</div>
 </article>
 <article class="rs v2">
-<h3>UT1 · Fases, lenguajes y compilación</h3><small>PDF «Apuntes UT1: Teoría y PSeInt», apartados 6 a 11 y 13</small>
+<h3>UT1 · Fases, lenguajes, compilación, JVM y normas Java</h3><small>PDF «Apuntes UT1: Teoría y PSeInt», apartados 6 a 11 y 13</small>
 <ul>
-<li><b>Fases</b>: análisis, diseño, codificación, pruebas, documentación, explotación y mantenimiento.</li>
-<li><b>Análisis</b>: requisitos funcionales (qué hace el sistema) y no funcionales (fiabilidad, plataforma, restricciones). <b>Diseño</b> estructurado (datos, arquitectura, interfaz, procedimientos) u orientado a objetos (UML).</li>
-<li><b>Pruebas</b>: verificación (¿lo construimos bien?) y validación (¿construimos lo que pidió el cliente?). Caja blanca mira el código; caja negra solo mira entradas y salidas.</li>
-<li><b>Mantenimiento</b> (IEEE 1219): correctivo (fallos), adaptativo (cambios del entorno, el más habitual), perfectivo (mejoras) y preventivo (facilitar el mantenimiento futuro).</li>
-<li><b>Von Neumann</b>: la CPU tiene unidad de control, UAL y registros. CP = siguiente instrucción; RI = instrucción actual; RDM = dirección de memoria; RIM = dato leído o escrito. Ciclo: búsqueda y ejecución.</li>
-<li><b>Lenguajes</b>: léxico (símbolos), sintaxis (cómo combinarlos) y semántica (su significado). Niveles: máquina, ensamblador, medio (C) y alto (Java, Python).</li>
-<li><b>Compilador</b> traduce todo antes de ejecutar y no genera código objeto si hay errores; <b>intérprete</b> traduce y ejecuta instrucción a instrucción. Java: .java → bytecode (.class) → JVM.</li>
-<li><b>JVM</b>: máquina virtual de proceso; gestiona memoria, se comunica con el SO y vela por la seguridad. Ejemplo de máquina virtual de sistema: VirtualBox.</li>
-<li><b>Normas Java</b> (apartado 11): una clase pública por fichero; sangría de cuatro espacios; líneas de hasta 80 caracteres; llaves siempre; <code>return total;</code> sin paréntesis; clases con mayúscula inicial, métodos y variables en camelCase, constantes en MAYÚSCULAS_CON_GUION_BAJO.</li>
+<li><b>Fases del desarrollo</b>: análisis, diseño, codificación, pruebas, documentación, explotación y mantenimiento.</li>
+<li><b>Análisis</b> (¿qué hay que hacer?): requisitos funcionales (qué hace el sistema) y no funcionales (fiabilidad, plataforma, restricciones). Técnicas: entrevistas, JAD/JRP, brainstorming, prototipos y casos de uso. Herramientas: DFD (flujo de datos), DFC (flujo de control), DTE (transición de estados), DER (entidad-relación) y diccionario de datos.</li>
+<li><b>Diseño</b> (¿cómo se resuelve?): <i>estructurado</i>, con cuatro elementos (datos, arquitectura, interfaz y procedimientos), o <i>orientado a objetos</i>, con UML y cuatro capas (responsabilidades, mensajes, clases y objetos, subsistemas). Los componentes se diseñan con secuencia, condición y repetición.</li>
+<li><b>Codificación</b>: el diseño se convierte en código fuente. Luego el compilador genera el objeto y el enlazador el ejecutable.</li>
+<li><b>Pruebas</b>: verificación (¿lo construimos bien?) y validación (¿construimos lo que pidió el cliente?). Caso de prueba: entradas, salida esperada y condiciones previas. Una prueba tiene éxito si descubre un error. Caja blanca (estructura interna) y caja negra (solo entradas y salidas).</li>
+<li><b>Documentación</b>: de proceso (planes, horarios, normas) y de producto (técnica para el sistema y de usuario). La de usuario incluye la descripción funcional, el documento de instalación, el manual introductorio, el de referencia y la guía del administrador.</li>
+<li><b>Explotación</b>: implantación en el entorno del cliente, pruebas de operación de cada versión y soporte al usuario.</li>
+<li><b>Mantenimiento</b> (IEEE 1219): correctivo (fallos), adaptativo (cambios del entorno, el más habitual), perfectivo (mejoras y nuevas funciones) y preventivo (facilitar el mantenimiento futuro; incluye la reingeniería).</li>
+<li><b>Von Neumann</b>: programa y datos en la misma memoria. CPU con unidad de control, UAL y registros de trabajo. Registros de la UC: CP (siguiente instrucción), RI (instrucción actual), RDM (dirección de memoria) y RIM (dato leído o escrito). Cada instrucción tiene fase de búsqueda (fetch) y de ejecución (execute).</li>
+<li><b>Lenguajes</b>: léxico (símbolos), sintaxis (cómo combinarlos) y semántica (su significado). Por nivel: máquina (ceros y unos), ensamblador, medio (C) y alto (Java, Python, C++). Por paradigma: imperativo, funcional, lógico, estructurado, modular y orientado a objetos.</li>
+<li><b>Compilador</b> traduce todo el programa; si hay errores no genera código objeto. <b>Intérprete</b> traduce y ejecuta instrucción a instrucción. Java combina ambos: .java → bytecode (.class) → JVM.</li>
+<li><b>Código fuente → objeto → ejecutable</b>. Fases del compilador: léxico (tokens), sintáctico, semántico (tipos y declaraciones) y generación y optimización de código.</li>
+<li><b>JVM</b>: máquina virtual de proceso. Reserva y libera memoria, se comunica con el SO y vela por la seguridad. VirtualBox es una máquina virtual de sistema.</li>
+<li><b>Normas Java</b> (apartado 11): un fichero con una sola clase pública, que es la primera; orden: comentario inicial, package, import y clase. Sangría de cuatro espacios; líneas de hasta 80 caracteres (70 en comentarios). Una variable por línea; bloques siempre entre llaves; <code>return total;</code> sin paréntesis; dos líneas en blanco entre clases y una entre métodos.</li>
+<li><b>Nombres</b>: paquetes en minúsculas (<code>java.io</code>); clases con mayúscula inicial (<code>HiloServidor</code>); métodos y variables en camelCase (<code>asignarDestino()</code>); constantes en MAYÚSCULAS_CON_GUION_BAJO (<code>MAX_VALOR</code>).</li>
 </ul>
-<div class="rec"><b>Recuerda</b>Compilación: léxico → sintáctico → semántico → generación y optimización. Fuente → objeto → ejecutable (con el enlazador).</div>
+<div class="rec"><b>Recuerda</b>Verificación frente a validación; caja blanca frente a caja negra; compilador frente a intérprete; y en Java, <code>import java.io.*;</code> con asterisco.</div>
 </article>
 <article class="rs v3">
 <h3>PSeInt y diagramas de flujo</h3><small>PDF «Apuntes UT1: Teoría y PSeInt», apartados 14 a 21</small>
 <ul>
-<li><b>Algoritmo</b>: secuencia ordenada, precisa, definida y finita. Esquema entrada → proceso → salida. Se dibuja como diagrama de flujo u ordinograma.</li>
-<li><b>Perfil Estricto</b>: obliga a declarar con <code>Definir</code>, dar valor antes de usar, terminar cada instrucción con punto y coma, usar <code>Segun</code> solo con valores numéricos y empezar los arreglos en 0.</li>
-<li><b>Símbolos</b>: terminal (inicio y fin), proceso, entrada (<code>Leer</code>), salida (<code>Escribir</code>), decisión <code>Si</code> (V y F) y selección múltiple <code>Segun</code>.</li>
-<li><b>Escribir</b>: el texto va entre comillas; <code>Escribir edad;</code> muestra el valor, <code>Escribir "edad";</code> muestra la palabra.</li>
-<li><b>Estructuras</b>: <code>Si … Sino … FinSi</code>; <code>Mientras</code> (comprueba antes); <code>Repetir … Hasta Que</code> (comprueba después, al menos una vez); <code>Para</code> con variable, inicio, final y paso.</li>
-<li><b>Patrones</b>: contador (se pone a 0 antes del bucle y suma 1), acumulador (suma cantidades), bandera (variable lógica que recuerda un suceso), validación con <code>Repetir</code> y lectura adelantada con centinela.</li>
-<li><b>Arreglos y subprocesos</b>: <code>Dimension notas[3]</code> (índices 0, 1 y 2); una matriz tiene dos índices. Un subproceso agrupa instrucciones con nombre y puede recibir parámetros o devolver un valor.</li>
-<li><b>Método</b>: primero entender el enunciado, después las variables y las entradas, luego el proceso y, por último, la salida; hacer una traza para comprobar el resultado.</li>
+<li><b>Algoritmo</b>: secuencia ordenada, precisa, definida y finita. Esquema entrada → proceso → salida. Puede escribirse en pseudocódigo o dibujarse como diagrama de flujo (ordinograma). PSeInt convierte uno en otro.</li>
+<li><b>Perfil Estricto</b> (Configurar → Opciones del lenguaje): obliga a declarar con <code>Definir</code> antes de usar; dar valor antes de consultar; terminar cada instrucción con punto y coma; usar <code>Segun</code> solo con valores numéricos; empezar los arreglos en 0.</li>
+<li><b>Símbolos del diagrama</b>: terminal (inicio y fin, uno de cada), proceso (<code>Definir</code>, asignaciones, cálculos), entrada (<code>Leer</code>), salida (<code>Escribir</code>), decisión <code>Si</code> (dos salidas V y F), selección múltiple <code>Segun</code>, condición de bucle, bucle <code>Para</code> y línea de flujo.</li>
+<li><b>Buen diagrama</b>: un único inicio y un único fin; avanza de arriba abajo; etiqueta V y F en cada decisión; vuelve a unir las ramas; no deja ningún bloque sin salida.</li>
+<li><b>Datos</b>: <code>Definir x Como Entero / Real / Logico / Caracter</code>. Constantes, operadores aritméticos (+ − * / ^ MOD y paréntesis) y de comparación (= &lt;&gt; &lt; &gt; &lt;= &gt;=). Lógicos: Y (ambas), O (una) y NO (invierte). Asignación con <code>&lt;-</code>.</li>
+<li><b>Escribir y Leer</b>: el texto va entre comillas; <code>Escribir edad;</code> muestra el valor y <code>Escribir "edad";</code> la palabra. <code>Leer</code> guarda lo que escribe el usuario. Antes de cada Leer, un Escribir con la pregunta exacta del enunciado.</li>
+<li><b>Condicionales</b>: <code>Si … Entonces … SiNo … FinSi</code> (el SiNo es opcional). <code>Segun … De Otro Modo … FinSegun</code> para varias opciones.</li>
+<li><b>Bucles</b>: <code>Mientras</code> comprueba antes (puede hacer 0 vueltas); <code>Repetir … Hasta Que</code> comprueba después (al menos 1); <code>Para i &lt;- 1 Hasta n Con Paso p Hacer</code> cuando conoces el número de vueltas.</li>
+<li><b>Patrones</b>: <i>contador</i> (a 0 antes del bucle, suma 1); <i>acumulador</i> (a 0 antes, suma cantidades); <i>bandera</i> (variable lógica que recuerda un suceso; para validar varios datos con un único mensaje de error); <i>validación con Repetir</i>; <i>lectura adelantada</i> con centinela (lees antes del Mientras y al final del cuerpo); <i>pregunta «¿otra vez?»</i> con Repetir.</li>
+<li><b>Arreglos y matrices</b>: <code>Dimension notas[3]</code> guarda varios valores del mismo tipo con un nombre y un índice. Una matriz tiene dos índices: <code>Dimension tabla[2,3]</code> crea 2 filas y 3 columnas.</li>
+<li><b>Subprocesos</b>: agrupan instrucciones con nombre para llamarlas desde el principal. Pueden recibir parámetros (por valor: copia; por referencia: modifican la original) y devolver un valor.</li>
+<li><b>Método</b>: entender el enunciado; identificar datos de entrada, cálculos y salida; escribir primero las variables; construir por partes; probar con valores sencillos y con casos límite.</li>
 </ul>
 <div class="rec"><b>Recuerda</b>Traza: anota cómo cambia cada variable en cada vuelta. Al sumar 6, 8 y 10 con un acumulador, la suma pasa por 0, 6, 14 y 24.</div>
 </article>
 </div>
+</div></details>
+<details class="sec"><summary><b>9. PSeInt desde cero hasta algoritmia avanzada</b></summary><div class="secin">
+<p>Guía de PSeInt para el examen: desde variables y condicionales hasta vectores, matrices, funciones, búsqueda y ordenación.</p>
+<details class="fold"><summary><span><b>Método para cualquier ejercicio</b><small>Base</small></span></summary><div class="in">
+<table><tr><th>Paso</th><th>Pregunta que debes hacerte</th></tr>
+<tr><td>1. Entender</td><td>¿Qué me pide exactamente el enunciado?</td></tr>
+<tr><td>2. Entrada</td><td>¿Qué datos tengo que pedir o recibir?</td></tr>
+<tr><td>3. Variables</td><td>¿Qué nombres y tipos de datos necesito?</td></tr>
+<tr><td>4. Proceso</td><td>¿Qué cálculos, comparaciones o repeticiones hacen falta?</td></tr>
+<tr><td>5. Salida</td><td>¿Qué resultado debo mostrar?</td></tr>
+<tr><td>6. Prueba</td><td>¿Funciona con datos normales y con casos límite?</td></tr></table>
+<p class="nota"><b>Idea clave.</b> Casi todos los ejercicios son: entrada (datos), proceso (operaciones) y salida (resultados).</p>
+<p><b>Un algoritmo</b> es una secuencia ordenada y finita de pasos. Debe ser preciso, definido (mismos datos, mismo resultado) y finito.</p>
+</div></details>
+<details class="fold"><summary><span><b>Primer programa, variables, Leer y Escribir</b><small>Base</small></span></summary><div class="in">
+<p>Un programa mínimo:</p>
+<pre><code>Algoritmo MiPrimerPrograma
+    Escribir &quot;Hola, mundo&quot;
+FinAlgoritmo</code></pre>
+<table><tr><th>Instrucción</th><th>Significado</th></tr>
+<tr><td>Algoritmo</td><td>Marca el comienzo y da nombre al programa.</td></tr>
+<tr><td>Escribir</td><td>Muestra un texto o un valor en pantalla.</td></tr>
+<tr><td>FinAlgoritmo</td><td>Marca el final.</td></tr></table>
+<p><b>Variable</b>: un espacio con nombre que guarda un dato, que puede cambiar. <code>Definir edad Como Entero</code> la crea; <code>edad &lt;- 30</code> le asigna un valor.</p>
+<table><tr><th>Tipo</th><th>Qué almacena</th><th>Ejemplos</th></tr>
+<tr><td>Entero</td><td>Números sin parte decimal</td><td>5, 20, -3</td></tr>
+<tr><td>Real</td><td>Números con decimales</td><td>3.5, 8.75</td></tr>
+<tr><td>Caracter</td><td>Texto</td><td>"Alba", "Hola"</td></tr>
+<tr><td>Logico</td><td>Verdadero o Falso</td><td>Verdadero</td></tr></table>
+<p class="rec"><b>Regla rápida:</b> edad suele ser Entero; precio suele ser Real; nombre suele ser Caracter; sí/no suele ser Logico.</p>
+<p><b>Leer</b> guarda lo que escribe el usuario. Antes de cada Leer conviene un Escribir con la pregunta.</p>
+<pre><code>Algoritmo SumarDosNumeros
+    Definir numero1, numero2, resultado Como Real
+    Escribir &quot;Introduce el primer numero:&quot;
+    Leer numero1
+    Escribir &quot;Introduce el segundo numero:&quot;
+    Leer numero2
+    resultado &lt;- numero1 + numero2
+    Escribir &quot;La suma es: &quot;, resultado
+FinAlgoritmo</code></pre>
+<p>Ejemplo resuelto: si introduces 5 y 8, muestra 13.</p>
+</div></details>
+<details class="fold"><summary><span><b>Operadores: matemáticos, MOD, comparación y lógicos</b><small>Base</small></span></summary><div class="in">
+<table><tr><th>Operación</th><th>Ejemplo</th><th>Resultado</th></tr>
+<tr><td>Suma / resta</td><td>5 + 3 / 5 - 3</td><td>8 / 2</td></tr>
+<tr><td>Multiplicación / división</td><td>5 * 3 / 10 / 2</td><td>15 / 5</td></tr>
+<tr><td>Potencia</td><td>2 ^ 3</td><td>8</td></tr>
+<tr><td>Parte entera</td><td>Trunc(7/2)</td><td>3</td></tr>
+<tr><td>Resto</td><td>7 MOD 2</td><td>1</td></tr></table>
+<p><b>MOD</b> devuelve el resto. Si <code>numero MOD 2 = 0</code>, el número es par.</p>
+<pre><code>Algoritmo ParOImpar
+    Definir numero Como Entero
+    Escribir &quot;Introduce un numero:&quot;
+    Leer numero
+    Si numero MOD 2 = 0 Entonces
+        Escribir &quot;El numero es par&quot;
+    SiNo
+        Escribir &quot;El numero es impar&quot;
+    FinSi
+FinAlgoritmo</code></pre>
+<table><tr><th>Comparación</th><th>Significado</th></tr>
+<tr><td>=</td><td>Igual</td></tr><tr><td>&lt;&gt;</td><td>Distinto</td></tr>
+<tr><td>&gt; / &lt;</td><td>Mayor / menor</td></tr><tr><td>&gt;= / &lt;=</td><td>Mayor o igual / menor o igual</td></tr></table>
+<p class="nota"><b>Muy importante:</b> para asignar se usa <code>&lt;-</code>; para comparar se usa <code>=</code>.</p>
+<table><tr><th>Lógico</th><th>Significado</th><th>Ejemplo</th></tr>
+<tr><td>Y</td><td>Deben cumplirse ambas</td><td>edad &gt;= 18 Y edad &lt;= 65</td></tr>
+<tr><td>O</td><td>Basta una</td><td>dia = 6 O dia = 7</td></tr>
+<tr><td>NO</td><td>Invierte el valor</td><td>NO (edad &gt;= 18)</td></tr></table>
+</div></details>
+<details class="fold"><summary><span><b>Condicionales: Si, SiNo y Segun</b><small>Medio</small></span></summary><div class="in">
+<p>El condicional ejecuta unas instrucciones si se cumple una condición y otras si no.</p>
+<pre><code>Algoritmo MayorEdad
+    Definir edad Como Entero
+    Escribir &quot;Introduce tu edad:&quot;
+    Leer edad
+    Si edad &gt;= 18 Entonces
+        Escribir &quot;Eres mayor de edad&quot;
+    SiNo
+        Escribir &quot;Eres menor de edad&quot;
+    FinSi
+FinAlgoritmo</code></pre>
+<p>Cada <code>Si</code> se cierra con su propio <code>FinSi</code>. Con varios anidados, cuenta aperturas y cierres.</p>
+<pre><code>Algoritmo Calificacion
+    Definir nota Como Real
+    Escribir &quot;Introduce la nota:&quot;
+    Leer nota
+    Si nota &lt; 0 O nota &gt; 10 Entonces
+        Escribir &quot;Nota no valida&quot;
+    SiNo
+        Si nota &lt; 5 Entonces
+            Escribir &quot;Suspenso&quot;
+        SiNo
+            Si nota &lt; 7 Entonces
+                Escribir &quot;Aprobado&quot;
+            SiNo
+                Si nota &lt; 9 Entonces
+                    Escribir &quot;Notable&quot;
+                SiNo
+                    Escribir &quot;Sobresaliente&quot;
+                FinSi
+            FinSi
+        FinSi
+    FinSi
+FinAlgoritmo</code></pre>
+<p class="rec"><b>Recuerda:</b> Si sirve para evaluar condiciones; Segun sirve para elegir entre opciones o casos.</p>
+<p><b>Segun</b> sirve para un menú. Ejemplo: una calculadora.</p><pre><code>Algoritmo Calculadora
+    Definir opcion Como Entero
+    Definir a, b Como Real
+    Escribir &quot;1. Sumar&quot;
+    Escribir &quot;2. Restar&quot;
+    Escribir &quot;3. Multiplicar&quot;
+    Escribir &quot;4. Dividir&quot;
+    Leer opcion
+    Escribir &quot;Introduce dos numeros:&quot;
+    Leer a, b
+    Segun opcion Hacer
+        1:
+            Escribir a + b
+        2:
+            Escribir a - b
+        3:
+            Escribir a * b
+        4:
+            Si b &lt;&gt; 0 Entonces
+                Escribir a / b
+            SiNo
+                Escribir &quot;No se puede dividir entre cero&quot;
+            FinSi
+        De Otro Modo:
+            Escribir &quot;Opcion incorrecta&quot;
+    FinSegun
+FinAlgoritmo</code></pre></div></details>
+<details class="fold"><summary><span><b>Bucles: Para, Mientras y Repetir</b><small>Medio</small></span></summary><div class="in">
+<table><tr><th>Bucle</th><th>Cuándo conviene</th></tr>
+<tr><td>Para</td><td>Sé cuántas repeticiones necesito.</td></tr>
+<tr><td>Mientras</td><td>Repito mientras una condición sea verdadera (comprueba antes; puede no ejecutarse).</td></tr>
+<tr><td>Repetir</td><td>Ejecuto al menos una vez y compruebo después (validar entradas).</td></tr></table>
+<h4>Para</h4>
+<pre><code>Algoritmo Numeros
+    Definir i Como Entero
+    Para i &lt;- 1 Hasta 5 Hacer
+        Escribir i
+    FinPara
+FinAlgoritmo</code></pre>
+<h4>Mientras</h4>
+<p>Hay que actualizar la variable de control para no crear un bucle infinito.</p>
+<pre><code>Algoritmo Mientras
+    Definir numero Como Entero
+    numero &lt;- 1
+    Mientras numero &lt;= 5 Hacer
+        Escribir numero
+        numero &lt;- numero + 1
+    FinMientras
+FinAlgoritmo</code></pre>
+<h4>Repetir</h4>
+<pre><code>Algoritmo ValidarPositivo
+    Definir numero Como Real
+    Repetir
+        Escribir &quot;Introduce un numero positivo:&quot;
+        Leer numero
+    Hasta Que numero &gt; 0
+    Escribir &quot;Numero correcto&quot;
+FinAlgoritmo</code></pre>
+</div></details>
+<details class="fold"><summary><span><b>Contadores y acumuladores</b><small>Medio</small></span></summary><div class="in">
+<table><tr><th>Concepto</th><th>Actualización típica</th><th>Para qué sirve</th></tr>
+<tr><td>Contador</td><td>contador &lt;- contador + 1</td><td>Contar elementos que cumplen una condición.</td></tr>
+<tr><td>Acumulador</td><td>suma &lt;- suma + numero</td><td>Sumar cantidades o calcular totales.</td></tr></table>
+<p class="nota">Ponlos a 0 <b>antes</b> del bucle. Si olvidas inicializarlos, el resultado es incorrecto.</p>
+<pre><code>Algoritmo ContadorPositivos
+    Definir numero, contador, i Como Entero
+    contador &lt;- 0
+    Para i &lt;- 1 Hasta 5 Hacer
+        Escribir &quot;Introduce un numero:&quot;
+        Leer numero
+        Si numero &gt; 0 Entonces
+            contador &lt;- contador + 1
+        FinSi
+    FinPara
+    Escribir &quot;Numeros positivos: &quot;, contador
+FinAlgoritmo</code></pre>
+<p><b>Media:</b> acumula todas las notas y divide entre cuántas son (no entre otro número).</p>
+<pre><code>Algoritmo Media
+    Definir nota, suma, media Como Real
+    Definir i Como Entero
+    suma &lt;- 0
+    Para i &lt;- 1 Hasta 5 Hacer
+        Escribir &quot;Introduce una nota:&quot;
+        Leer nota
+        suma &lt;- suma + nota
+    FinPara
+    media &lt;- suma / 5
+    Escribir &quot;La media es: &quot;, media
+FinAlgoritmo</code></pre>
+</div></details>
+<details class="fold"><summary><span><b>Matemáticas: raíces, valor absoluto y factorial</b><small>Medio</small></span></summary><div class="in">
+<table><tr><th>Matemáticas</th><th>PSeInt</th></tr>
+<tr><td>2 elevado a 3</td><td>2^3</td></tr>
+<tr><td>Raíz cuadrada de 25</td><td>RC(25)</td></tr>
+<tr><td>Valor absoluto de -5</td><td>ABS(-5)</td></tr></table>
+<p><b>Factorial</b> de n: producto de 1 a n (n! = 5 × 4 × 3 × 2 × 1 = 120). Por definición, 0! = 1.</p>
+<pre><code>Algoritmo Factorial
+    Definir numero, factorial, i Como Entero
+    Escribir &quot;Introduce un numero:&quot;
+    Leer numero
+    Si numero &lt; 0 Entonces
+        Escribir &quot;No existe factorial para negativos&quot;
+    SiNo
+        factorial &lt;- 1
+        Para i &lt;- 1 Hasta numero Hacer
+            factorial &lt;- factorial * i
+        FinPara
+        Escribir &quot;El factorial es: &quot;, factorial
+    FinSi
+FinAlgoritmo</code></pre>
+<p class="nota">Se empieza en 1 porque es el elemento neutro de la multiplicación: si n es 0, el resultado sigue siendo 1.</p>
+</div></details>
+<details class="fold"><summary><span><b>Números primos</b><small>Difícil</small></span></summary><div class="in">
+<p>Un primo es un entero mayor o igual que 2 que solo tiene dos divisores positivos: 1 y él mismo. 2, 3, 5 y 7 son primos; 9 no, porque también es divisible entre 3.</p>
+<p>Idea: probar divisores desde 2 hasta la raíz cuadrada del número.</p>
+<pre><code>Algoritmo NumeroPrimo
+    Definir numero, i Como Entero
+    Definir primo Como Logico
+    Escribir &quot;Introduce un numero:&quot;
+    Leer numero
+    primo &lt;- Verdadero
+    Si numero &lt; 2 Entonces
+        primo &lt;- Falso
+    SiNo
+        Para i &lt;- 2 Hasta RC(numero) Hacer
+            Si numero MOD i = 0 Entonces
+                primo &lt;- Falso
+            FinSi
+        FinPara
+    FinSi
+    Si primo Entonces
+        Escribir &quot;Es primo&quot;
+    SiNo
+        Escribir &quot;No es primo&quot;
+    FinSi
+FinAlgoritmo</code></pre>
+</div></details>
+<details class="fold"><summary><span><b>Ecuaciones de segundo grado</b><small>Difícil</small></span></summary><div class="in">
+<p>Forma: ax² + bx + c = 0 (a no puede ser 0). Primero el discriminante <b>D = b² − 4ac</b>:</p>
+<table><tr><th>Discriminante</th><th>Soluciones reales</th></tr>
+<tr><td>D &gt; 0</td><td>Dos soluciones distintas</td></tr>
+<tr><td>D = 0</td><td>Una solución doble</td></tr>
+<tr><td>D &lt; 0</td><td>Ninguna real</td></tr></table>
+<p><b>Ejemplo:</b> x² − 5x + 6 = 0 → a = 1, b = −5, c = 6 → D = 25 − 24 = 1 → x1 = 3 y x2 = 2.</p>
+<pre><code>Algoritmo EcuacionSegundoGrado
+    Definir a, b, c, discriminante, x1, x2 Como Real
+    Escribir &quot;Introduce el valor de a:&quot;
+    Leer a
+    Escribir &quot;Introduce el valor de b:&quot;
+    Leer b
+    Escribir &quot;Introduce el valor de c:&quot;
+    Leer c
+    Si a = 0 Entonces
+        Escribir &quot;No es una ecuacion de segundo grado&quot;
+    SiNo
+        discriminante &lt;- b^2 - 4*a*c
+        Si discriminante &gt; 0 Entonces
+            x1 &lt;- (-b + RC(discriminante)) / (2*a)
+            x2 &lt;- (-b - RC(discriminante)) / (2*a)
+            Escribir &quot;Primera solucion: &quot;, x1
+            Escribir &quot;Segunda solucion: &quot;, x2
+        SiNo
+            Si discriminante = 0 Entonces
+                x1 &lt;- -b / (2*a)
+                Escribir &quot;Solucion doble: &quot;, x1
+            SiNo
+                Escribir &quot;No existen soluciones reales&quot;
+            FinSi
+        FinSi
+    FinSi
+FinAlgoritmo</code></pre>
+<p class="nota">Comprueba siempre que a &lt;&gt; 0 antes de dividir entre 2a.</p>
+</div></details>
+<details class="fold"><summary><span><b>Vectores</b><small>Medio</small></span></summary><div class="in">
+<p>Un vector es una colección de datos del mismo tipo con un único nombre y una posición. Se declara con <code>Definir</code> y se reserva espacio con <code>Dimension</code>.</p>
+<p class="nota"><b>Ojo con los índices.</b> La guía usa posiciones desde 1 (notas[1] es el primero). Las diapositivas de la UT1 y el perfil Estricto indican que los arreglos empiezan en 0. <b>Comprueba cuál exige tu profesor</b> antes del examen y usa siempre ese criterio.</p>
+<pre><code>Algoritmo VectorNotas
+    Definir notas Como Real
+    Definir i Como Entero
+    Dimension notas[5]
+    Para i &lt;- 1 Hasta 5 Hacer
+        Escribir &quot;Introduce una nota:&quot;
+        Leer notas[i]
+    FinPara
+    Para i &lt;- 1 Hasta 5 Hacer
+        Escribir &quot;Nota &quot;, i, &quot;: &quot;, notas[i]
+    FinPara
+FinAlgoritmo</code></pre>
+<p><b>Mayor de un vector:</b> empieza con el primer elemento y compara con el resto. Así funciona aunque todos sean negativos.</p>
+<pre><code>Algoritmo MayorVector
+    Definir numeros, mayor Como Real
+    Definir i Como Entero
+    Dimension numeros[5]
+    Para i &lt;- 1 Hasta 5 Hacer
+        Escribir &quot;Introduce un numero:&quot;
+        Leer numeros[i]
+    FinPara
+    mayor &lt;- numeros[1]
+    Para i &lt;- 2 Hasta 5 Hacer
+        Si numeros[i] &gt; mayor Entonces
+            mayor &lt;- numeros[i]
+        FinSi
+    FinPara
+    Escribir &quot;El mayor es: &quot;, mayor
+FinAlgoritmo</code></pre>
+</div></details>
+<details class="fold"><summary><span><b>Matrices</b><small>Difícil</small></span></summary><div class="in">
+<p>Una matriz tiene dos dimensiones (filas y columnas) y se accede con dos índices: <code>notas[2,1]</code> es fila 2, columna 1. Un bucle dentro de otro se llama <b>bucle anidado</b>: el primero recorre las filas y el segundo las columnas.</p>
+<pre><code>Algoritmo MatrizNotas
+    Definir notas Como Real
+    Definir fila, columna Como Entero
+    Dimension notas[3,2]
+    Para fila &lt;- 1 Hasta 3 Hacer
+        Para columna &lt;- 1 Hasta 2 Hacer
+            Escribir &quot;Introduce la nota:&quot;
+            Leer notas[fila,columna]
+        FinPara
+    FinPara
+    Para fila &lt;- 1 Hasta 3 Hacer
+        Para columna &lt;- 1 Hasta 2 Hacer
+            Escribir &quot;Fila &quot;, fila, &quot; columna &quot;, columna, &quot;: &quot;, notas[fila,columna]
+        FinPara
+    FinPara
+FinAlgoritmo</code></pre>
+</div></details>
+<details class="fold"><summary><span><b>Subprocesos y funciones</b><small>Difícil</small></span></summary><div class="in">
+<p>Un subproceso agrupa instrucciones con nombre para reutilizarlas. Una <b>función</b> hace lo mismo y además <b>devuelve un resultado</b> que puede usarse en una asignación o expresión.</p>
+<pre><code>SubProceso Saludar(nombre)
+    Escribir &quot;Hola &quot;, nombre
+FinSubProceso
+
+Algoritmo Principal
+    Definir nombre Como Caracter
+    Escribir &quot;Introduce tu nombre:&quot;
+    Leer nombre
+    Saludar(nombre)
+FinAlgoritmo</code></pre>
+<pre><code>Funcion resultado &lt;- Cuadrado(numero)
+    resultado &lt;- numero * numero
+FinFuncion
+
+Algoritmo Principal
+    Definir n, resultado Como Real
+    Escribir &quot;Introduce un numero:&quot;
+    Leer n
+    resultado &lt;- Cuadrado(n)
+    Escribir &quot;El cuadrado es: &quot;, resultado
+FinAlgoritmo</code></pre>
+</div></details>
+<details class="fold"><summary><span><b>Búsqueda y ordenación (burbuja)</b><small>Difícil</small></span></summary><div class="in">
+<p><b>Búsqueda secuencial:</b> recorre los elementos uno a uno hasta encontrar el valor o llegar al final. Funciona aunque el vector no esté ordenado.</p>
+<pre><code>Algoritmo Busqueda
+    Definir numeros Como Entero
+    Definir i, buscado, posicion Como Entero
+    Dimension numeros[5]
+    Para i &lt;- 1 Hasta 5 Hacer
+        Escribir &quot;Introduce un numero:&quot;
+        Leer numeros[i]
+    FinPara
+    Escribir &quot;Numero que quieres buscar:&quot;
+    Leer buscado
+    posicion &lt;- 0
+    Para i &lt;- 1 Hasta 5 Hacer
+        Si numeros[i] = buscado Entonces
+            posicion &lt;- i
+        FinSi
+    FinPara
+    Si posicion &lt;&gt; 0 Entonces
+        Escribir &quot;Encontrado en posicion: &quot;, posicion
+    SiNo
+        Escribir &quot;No encontrado&quot;
+    FinSi
+FinAlgoritmo</code></pre>
+<p><b>Burbuja:</b> compara vecinos e intercambia si están desordenados; repite pasadas hasta dejarlo ordenado. <b>AUX</b> es una variable temporal que evita perder un valor al intercambiar. Ejemplo: guardas 5 en aux, pones 2 en la primera posición y recuperas 5 para la segunda. [5, 2] → [2, 5].</p>
+<pre><code>Algoritmo OrdenarBurbuja
+    Definir numeros Como Entero
+    Definir i, j, aux Como Entero
+    Dimension numeros[4]
+    Para i &lt;- 1 Hasta 4 Hacer
+        Escribir &quot;Introduce un numero:&quot;
+        Leer numeros[i]
+    FinPara
+    Para i &lt;- 1 Hasta 3 Hacer
+        Para j &lt;- 1 Hasta 4-i Hacer
+            Si numeros[j] &gt; numeros[j+1] Entonces
+                aux &lt;- numeros[j]
+                numeros[j] &lt;- numeros[j+1]
+                numeros[j+1] &lt;- aux
+            FinSi
+        FinPara
+    FinPara
+    Escribir &quot;Numeros ordenados:&quot;
+    Para i &lt;- 1 Hasta 4 Hacer
+        Escribir numeros[i]
+    FinPara
+FinAlgoritmo</code></pre>
+</div></details>
+<details class="fold"><summary><span><b>Cómo reconocer qué estructura pide el enunciado</b><small>Base</small></span></summary><div class="in">
+<table><tr><th>Pistas del enunciado</th><th>Estructura probable</th></tr>
+<tr><td>Calcula dos números</td><td>Operaciones y variables</td></tr>
+<tr><td>Comprueba si es mayor, menor, par o impar</td><td>Si</td></tr>
+<tr><td>Elige una opción de menú</td><td>Segun</td></tr>
+<tr><td>Muestra del 1 al 100</td><td>Para</td></tr>
+<tr><td>Repite hasta introducir un dato correcto</td><td>Repetir</td></tr>
+<tr><td>Repite mientras se cumpla una condición</td><td>Mientras</td></tr>
+<tr><td>Suma varios números</td><td>Acumulador</td></tr>
+<tr><td>Cuenta cuántos cumplen algo</td><td>Contador</td></tr>
+<tr><td>Guarda 10 notas o valores</td><td>Vector</td></tr>
+<tr><td>Guarda datos en filas y columnas</td><td>Matriz</td></tr>
+<tr><td>Encuentra un elemento</td><td>Búsqueda</td></tr>
+<tr><td>Ordena valores</td><td>Ordenación</td></tr>
+<tr><td>Reutiliza una operación y devuelve un valor</td><td>Función</td></tr></table>
+</div></details>
+<details class="fold"><summary><span><b>Errores frecuentes en el examen</b><small>Importante</small></span></summary><div class="in">
+<ul>
+<li>Confundir asignación y comparación: <code>&lt;-</code> asigna; <code>=</code> compara.</li>
+<li>Olvidar definir una variable antes de usarla.</li>
+<li>Usar Entero cuando el dato puede tener decimales.</li>
+<li>No inicializar un acumulador en 0 (o un producto en 1).</li>
+<li>No actualizar la variable de control en Mientras y crear un bucle infinito.</li>
+<li>Olvidar FinSi, FinPara, FinMientras o FinSegun.</li>
+<li>Dividir entre cero sin comprobarlo.</li>
+<li>Acceder a una posición de vector o matriz fuera de sus límites.</li>
+<li>Calcular una media sin dividir entre el número de datos.</li>
+<li>En un factorial, olvidar que 0! = 1.</li>
+</ul>
+</div></details>
+<details class="fold"><summary><span><b>Ejercicios de práctica por niveles</b><small>Práctica</small></span></summary><div class="in">
+<p>Intenta resolverlos sin mirar los ejemplos. Después comprueba los casos límite.</p>
+<h4>Nivel 1 · Básico</h4>
+<ul><li>Mostrar un mensaje por pantalla.</li><li>Pedir dos números y mostrar suma, resta, producto y división (controlando el cero).</li><li>Pedir base y altura y calcular el área de un rectángulo.</li><li>Determinar si un número es par o impar.</li></ul>
+<h4>Nivel 2 · Intermedio</h4>
+<ul><li>Leer tres números y mostrar el mayor.</li><li>Crear una calculadora con Segun.</li><li>Mostrar los pares del 1 al 100.</li><li>Leer diez notas y calcular la media.</li></ul>
+<h4>Nivel 3 · Matemático</h4>
+<ul><li>Calcular el factorial de un número no negativo.</li><li>Determinar si un número es primo.</li><li>Resolver una ecuación de segundo grado.</li><li>Calcular la suma de los números desde 1 hasta N.</li></ul>
+<h4>Nivel 4 · Avanzado</h4>
+<ul><li>Leer cinco números en un vector y mostrar el mayor y el menor.</li><li>Leer una matriz de 3 filas y 2 columnas y sumar todos sus elementos.</li><li>Buscar un número en un vector e indicar si aparece.</li><li>Ordenar un vector de menor a mayor mediante burbuja.</li></ul>
+<h4>Nivel 5 · Combinado</h4>
+<ul><li>Leer números hasta que se introduzca cero y contar cuántos eran positivos.</li><li>Leer las notas de varios alumnos, mostrar cuántos aprueban y la media.</li><li>Crear una función que reciba dos números y devuelva el mayor.</li><li>Crear un menú que permita cargar un vector, mostrarlo, buscar un dato y salir.</li></ul>
+</div></details>
+<details class="fold"><summary><span><b>Mini examen de conceptos (con soluciones al final)</b><small>Autoevaluación</small></span></summary><div class="in">
+<ol>
+<li>¿Qué instrucción permite pedir un dato al usuario?</li>
+<li>¿Qué tipo de variable sirve para guardar 7,5?</li>
+<li>¿Qué significa <code>numero &lt;- 10</code>?</li>
+<li>¿Qué estructura conviene para repetir exactamente 20 veces?</li>
+<li>¿Qué devuelve 17 MOD 5?</li>
+<li>¿Qué diferencia hay entre contador y acumulador?</li>
+<li>¿Qué estructura ejecuta al menos una vez antes de comprobar la condición?</li>
+<li>¿Qué significa D &lt; 0 en una ecuación de segundo grado?</li>
+<li>¿Cuántos índices se usan para acceder a una matriz?</li>
+<li>¿Para qué sirve AUX en la burbuja?</li>
+</ol>
+<details class="sec"><summary><b>Ver soluciones</b></summary><div class="secin"><ol>
+<li>Leer.</li><li>Real.</li><li>Guardar/asignar el valor 10 en la variable numero.</li><li>Para.</li><li>2.</li>
+<li>El contador suele aumentar de uno en uno; el acumulador suma cantidades.</li><li>Repetir.</li>
+<li>No hay soluciones reales.</li><li>Dos: fila y columna.</li><li>Para guardar temporalmente un valor durante un intercambio.</li></ol></div></details>
+</div></details>
+<details class="fold"><summary><span><b>Estrategia para el día del examen</b><small>Importante</small></span></summary><div class="in">
+<ul>
+<li>Lee todo el enunciado antes de escribir.</li>
+<li>Subraya los datos que entran, los cálculos y los resultados que hay que mostrar.</li>
+<li>Escribe primero las variables y sus tipos.</li>
+<li>Construye el algoritmo por partes: entrada, proceso y salida.</li>
+<li>Prueba con valores sencillos y después con límites: cero, negativos, valores repetidos y datos inválidos.</li>
+<li>Si te bloqueas, escribe primero el pseudocódigo en lenguaje normal y luego tradúcelo a PSeInt.</li>
+<li>Comprueba que todos los Si, bucles y Segun estén cerrados.</li>
+</ul>
+<p class="rec"><b>No intentes memorizar todos los algoritmos avanzados de golpe.</b> Lo importante es reconocer qué herramientas necesitas y saber combinarlas.</p>
+</div></details>
+<details class="fold" open><summary><span><b>Repaso de última hora: estructuras básicas</b><small>Repaso</small></span></summary><div class="in">
+<pre><code>Algoritmo Nombre
+    // Definir variables
+    // Leer datos
+    // Procesar
+    // Mostrar resultados
+FinAlgoritmo
+
+Si condicion Entonces
+    instrucciones
+SiNo
+    otras_instrucciones
+FinSi
+
+Segun opcion Hacer
+    1:
+        instrucciones
+    2:
+        instrucciones
+    De Otro Modo:
+        instrucciones
+FinSegun
+
+Para i &lt;- 1 Hasta n Hacer
+    instrucciones
+FinPara
+
+Mientras condicion Hacer
+    instrucciones
+FinMientras
+
+Repetir
+    instrucciones
+Hasta Que condicion
+
+contador &lt;- contador + 1
+suma &lt;- suma + valor
+
+Dimension datos[5]
+Dimension tabla[3,2]</code></pre>
+</div></details>
 </div></details>
 <p><a href="index.html">Volver a Entornos de desarrollo</a></p>
 </div>
