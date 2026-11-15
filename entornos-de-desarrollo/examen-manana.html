@@ -114,8 +114,7 @@ details.sec>summary b{font-weight:700}
 <p>Antes de empezar, lee los <b>errores típicos</b> al final. Son los que más puntos quitan.</p>
 </div></details>
 <details class="sec"><summary><b>1. Teoría tipo test (UT1)</b></summary><div class="secin">
-<div class="fold" style="padding:14px 16px"><p><b>Test de 10 preguntas al azar del banco de la UT1, ordenadas de fácil a difícil.</b> Marca una opción por pregunta y corrige.</p><div id="quiz"></div><p><button type="button" id="corr" class="bt">Corregir</button> <button type="button" id="otra" class="bt">Nuevas preguntas</button></p><p id="res" class="pista"></p></div></div>
-</div></details>
+<div class="fold" style="padding:14px 16px"><p><b>Test de 10 preguntas al azar del banco de la UT1, ordenadas de fácil a difícil.</b> Marca una opción por pregunta y corrige.</p><div id="quiz"></div><p><button type="button" id="corr" class="bt">Corregir</button> <button type="button" id="otra" class="bt">Nuevas preguntas</button></p><p id="res" class="pista"></p></div></div></details>
 <details class="sec"><summary><b>2. Pseudocódigo</b></summary><div class="secin">
 <p>Escribe la solución tú antes de abrirla. Luego compara.</p>
 <details class="fold" open><summary><span><b>1. Media de cinco notas y aprobado</b><small>Medio</small></span></summary><div class="in"><p>Lee cinco notas, muestra su media y escribe «Aprobado» si la media es 5 o más, o «Suspenso» si no.</p><p class="nota"><b>Pista.</b> Usa una variable suma que acumule las notas y un Para de 1 a 5. Después calcula la media dividiendo entre 5.</p><details class="fold"><summary><span><b>Ver solución</b><small>Media de cinco notas y aprobado</small></span></summary><div class="in"><pre><code>Proceso Notas
@@ -245,46 +244,46 @@ FinProceso</code></pre></div></details></div></details>
 <details class="sec"><summary><b>8. Resúmenes de los PDF originales</b></summary><div class="secin">
 <div class="rs-grid">
 <article class="rs">
-<h3>UT1 · Software, licencias y ciclo de vida</h3><small>PDF «UT1: Desarrollo de software», apartados 1.1 a 1.3</small>
+<h3>UT1 · Software, licencias y ciclo de vida</h3><small>PDF «Apuntes UT1: Teoría y PSeInt», apartados 1 a 5</small>
 <ul>
-<li><b>Hardware</b>: componentes que se pueden tocar. <b>Software</b>: programas, instrucciones y reglas; según IEEE 729 incluye también documentación y datos.</li>
-<li><b>Por tarea</b>: software de sistema (permite que el hardware funcione: SO, controladores), de aplicación (tareas concretas: ofimática, CAD) y de programación (IDE).</li>
-<li><b>Por distribución</b>: shareware (evaluación limitada y luego pagas), freeware (sin cargo, con restricciones: no modificar ni vender; no es software libre), adware (publicidad) y uso específico.</li>
-<li><b>Licencia</b>: contrato que fija los derechos y deberes de desarrollador y usuario.</li>
-<li><b>Software libre</b>: cede cuatro libertades (usar, estudiar, distribuir, mejorar) y exige código fuente. Licencia más usada: GPL, que obliga a hacer públicas las versiones modificadas.</li>
-<li><b>Propietario</b>: binario sin código fuente, con copia y modificación prohibidas. <b>Dominio público</b>: sin licencia o autor desconocido; se puede usar libremente.</li>
-<li><b>Ciclo de vida</b> (ISO/IEC 12207-1): cada etapa recibe documentos de la anterior y produce documentos nuevos.</li>
-<li><b>Cascada</b>: etapas secuenciales; la variante con realimentación permite volver atrás. <b>Incremental</b>: entrega partes utilizables. <b>Espiral</b>: cascada con prototipos y análisis de riesgos en cada ciclo.</li>
+<li><b>Hardware</b>: componentes físicos (monitor, placa base, RAM, disco). <b>Software</b>: parte lógica; la RAE lo define como programas, instrucciones y reglas; el IEEE 729 añade documentación y datos.</li>
+<li><b>Por tarea</b>: software de sistema (SO, drivers, diagnóstico), de aplicación (ofimática, CAD, educativo) y de programación (IDE).</li>
+<li><b>Por distribución</b>: shareware (prueba gratis un tiempo y luego pagas), freeware (gratis con restricciones: no se modifica ni se vende), adware (gratis con publicidad) y uso específico.</li>
+<li><b>Libre</b>: cuatro libertades (usar, estudiar, distribuir, mejorar) y acceso al código fuente. Licencia GPL: si distribuyes una versión modificada, debe ir con su código y bajo la misma licencia.</li>
+<li><b>Propietario</b>: binario, sin código fuente, sin copiar ni modificar sin permiso. <b>Dominio público</b>: sin licencia o autor desconocido; puede usarse libremente, también para productos propietarios.</li>
+<li><b>Ciclo de vida</b> (ISO/IEC 12207-1): cinco etapas: análisis, diseño, codificación, pruebas y mantenimiento. Cada una recibe los documentos de la anterior y genera otros.</li>
+<li><b>Cascada</b>: etapas en orden estricto; la variante con realimentación permite volver atrás. <b>Incremental</b>: entregas parciales que ya funcionan. <b>Espiral</b>: prototipos y análisis de riesgos en cada vuelta.</li>
 </ul>
-<div class="rec"><b>Recuerda</b>Software libre no es lo mismo que freeware. El modelo en espiral es el que incorpora análisis de riesgos en cada ciclo.</div>
+<div class="rec"><b>Recuerda</b>Freeware no es software libre: el freeware es gratis pero cerrado. Solo el modelo en espiral analiza el riesgo en cada ciclo.</div>
 </article>
 <article class="rs v2">
-<h3>UT1 · Fases, máquina y lenguajes</h3><small>PDF «UT1: Desarrollo de software», apartados 1.4 a 1.8</small>
+<h3>UT1 · Fases, lenguajes y compilación</h3><small>PDF «Apuntes UT1: Teoría y PSeInt», apartados 6 a 11 y 13</small>
 <ul>
 <li><b>Fases</b>: análisis, diseño, codificación, pruebas, documentación, explotación y mantenimiento.</li>
-<li><b>Análisis</b>: requisitos funcionales (qué hace) y no funcionales (fiabilidad, plataforma, restricciones). Herramientas: DFD, DFC, DTE, DER y diccionario de datos.</li>
-<li><b>Diseño</b>: estructurado (datos, arquitectura, interfaz y procedimientos; secuencial, condicional y repetitiva) u orientado a objetos (cuatro capas, UML).</li>
-<li><b>Pruebas</b>: verificación (¿lo construimos bien?) y validación (¿construimos lo que pidió el cliente?). Caja blanca frente a caja negra. Una prueba tiene éxito si descubre un error.</li>
-<li><b>Mantenimiento</b> (IEEE 1219): correctivo, adaptativo (el más usual), perfectivo y preventivo.</li>
-<li><b>Von Neumann</b>: la CPU tiene UC (control), UAL (cálculo y comparaciones) y registros (CP, RI, RDM, RIM). Ciclo fetch-execute.</li>
-<li><b>Lenguajes</b>: léxico, sintaxis y semántica. Según el nivel: máquina, ensamblador, medio (C) y alto (Java, Python).</li>
-<li><b>Compilador</b> (traduce todo; si hay errores no genera código objeto) frente a <b>intérprete</b> (traduce y ejecuta al momento). Java combina ambos: .java → bytecode (.class) → JVM.</li>
+<li><b>Análisis</b>: requisitos funcionales (qué hace el sistema) y no funcionales (fiabilidad, plataforma, restricciones). <b>Diseño</b> estructurado (datos, arquitectura, interfaz, procedimientos) u orientado a objetos (UML).</li>
+<li><b>Pruebas</b>: verificación (¿lo construimos bien?) y validación (¿construimos lo que pidió el cliente?). Caja blanca mira el código; caja negra solo mira entradas y salidas.</li>
+<li><b>Mantenimiento</b> (IEEE 1219): correctivo (fallos), adaptativo (cambios del entorno, el más habitual), perfectivo (mejoras) y preventivo (facilitar el mantenimiento futuro).</li>
+<li><b>Von Neumann</b>: la CPU tiene unidad de control, UAL y registros. CP = siguiente instrucción; RI = instrucción actual; RDM = dirección de memoria; RIM = dato leído o escrito. Ciclo: búsqueda y ejecución.</li>
+<li><b>Lenguajes</b>: léxico (símbolos), sintaxis (cómo combinarlos) y semántica (su significado). Niveles: máquina, ensamblador, medio (C) y alto (Java, Python).</li>
+<li><b>Compilador</b> traduce todo antes de ejecutar y no genera código objeto si hay errores; <b>intérprete</b> traduce y ejecuta instrucción a instrucción. Java: .java → bytecode (.class) → JVM.</li>
+<li><b>JVM</b>: máquina virtual de proceso; gestiona memoria, se comunica con el SO y vela por la seguridad. Ejemplo de máquina virtual de sistema: VirtualBox.</li>
+<li><b>Normas Java</b> (apartado 11): una clase pública por fichero; sangría de cuatro espacios; líneas de hasta 80 caracteres; llaves siempre; <code>return total;</code> sin paréntesis; clases con mayúscula inicial, métodos y variables en camelCase, constantes en MAYÚSCULAS_CON_GUION_BAJO.</li>
 </ul>
-<div class="rec"><b>Recuerda</b>Compilación: léxico → sintáctico → semántico → generación y optimización. Código fuente → objeto → ejecutable (enlazador).</div>
+<div class="rec"><b>Recuerda</b>Compilación: léxico → sintáctico → semántico → generación y optimización. Fuente → objeto → ejecutable (con el enlazador).</div>
 </article>
 <article class="rs v3">
-<h3>PSeInt · Manual «From Zero to Hero»</h3><small>Algoritmos, datos, condiciones, ciclos, arreglos y subprocesos</small>
+<h3>PSeInt y diagramas de flujo</h3><small>PDF «Apuntes UT1: Teoría y PSeInt», apartados 14 a 21</small>
 <ul>
-<li><b>Algoritmo</b>: secuencia ordenada y precisa de pasos. Entrada → proceso → salida. Usa el perfil <b>Estricto</b>.</li>
-<li><b>Variables y tipos</b>: <code>Definir x Como Entero</code>, Real, Logico, Caracter o Cadena (texto). Declarar no es asignar: da un valor antes de usarla.</li>
-<li><b>Asignación</b> <code>&lt;-</code> (primero se calcula la derecha). Operadores: + − * / ^ MOD (resto) y paréntesis. <code>7 MOD 2 = 1</code>.</li>
-<li><b>Entrada y salida</b>: <code>Escribir</code> pide o muestra; <code>Leer</code> guarda lo que introduces; <code>Sin Saltar</code> evita el salto de línea.</li>
-<li><b>Condiciones</b>: =, &lt;&gt;, &lt;, &gt;, &lt;=, &gt;=. Y exige ambas; O basta una; NO invierte. <code>Si … Entonces … Sino … FinSi</code> y <code>Segun … De Otro Modo … FinSegun</code>.</li>
-<li><b>Ciclos</b>: <b>Mientras</b> comprueba antes (puede hacer 0 vueltas); <b>Repetir … Hasta Que</b> comprueba después (al menos 1); <b>Para i &lt;- 1 Hasta n Con Paso p</b> si conoces las vueltas.</li>
-<li><b>Arreglos y matrices</b>: con <code>Dimension</code> y base 0 (la primera casilla es la 0). Una matriz tiene dos índices: <code>tabla[fila,columna]</code>.</li>
-<li><b>Subprocesos</b>: agrupan tareas con nombre y pueden recibir parámetros o devolver un valor. Se definen fuera de <code>Proceso Principal</code>.</li>
+<li><b>Algoritmo</b>: secuencia ordenada, precisa, definida y finita. Esquema entrada → proceso → salida. Se dibuja como diagrama de flujo u ordinograma.</li>
+<li><b>Perfil Estricto</b>: obliga a declarar con <code>Definir</code>, dar valor antes de usar, terminar cada instrucción con punto y coma, usar <code>Segun</code> solo con valores numéricos y empezar los arreglos en 0.</li>
+<li><b>Símbolos</b>: terminal (inicio y fin), proceso, entrada (<code>Leer</code>), salida (<code>Escribir</code>), decisión <code>Si</code> (V y F) y selección múltiple <code>Segun</code>.</li>
+<li><b>Escribir</b>: el texto va entre comillas; <code>Escribir edad;</code> muestra el valor, <code>Escribir "edad";</code> muestra la palabra.</li>
+<li><b>Estructuras</b>: <code>Si … Sino … FinSi</code>; <code>Mientras</code> (comprueba antes); <code>Repetir … Hasta Que</code> (comprueba después, al menos una vez); <code>Para</code> con variable, inicio, final y paso.</li>
+<li><b>Patrones</b>: contador (se pone a 0 antes del bucle y suma 1), acumulador (suma cantidades), bandera (variable lógica que recuerda un suceso), validación con <code>Repetir</code> y lectura adelantada con centinela.</li>
+<li><b>Arreglos y subprocesos</b>: <code>Dimension notas[3]</code> (índices 0, 1 y 2); una matriz tiene dos índices. Un subproceso agrupa instrucciones con nombre y puede recibir parámetros o devolver un valor.</li>
+<li><b>Método</b>: primero entender el enunciado, después las variables y las entradas, luego el proceso y, por último, la salida; hacer una traza para comprobar el resultado.</li>
 </ul>
-<div class="rec"><b>Recuerda</b>Contador: <code>c &lt;- c + 1</code>, puesto a 0 antes del bucle. Acumulador: <code>suma &lt;- suma + numero</code>, también a 0 antes. Si olvidas aumentar el contador en Mientras, el ciclo no termina.</div>
+<div class="rec"><b>Recuerda</b>Traza: anota cómo cambia cada variable en cada vuelta. Al sumar 6, 8 y 10 con un acumulador, la suma pasa por 0, 6, 14 y 24.</div>
 </article>
 </div>
 </div></details>
