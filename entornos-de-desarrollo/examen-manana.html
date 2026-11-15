@@ -70,6 +70,17 @@ table{width:100%;border-collapse:collapse;margin:8px 0}td{border-bottom:1px soli
 .bt:focus-visible{outline:3px solid var(--c);outline-offset:2px}
 .q{border:1px solid var(--linea);border-radius:10px;padding:8px 12px;margin:10px 0}.q label{display:block;padding:4px 0;cursor:pointer}
 .ok{color:#15803d;font-weight:600}.ko{color:#b91c1c;font-weight:600}
+
+.mn{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));margin:10px 0 18px}
+.mn div{border:1px solid var(--linea);border-left:5px solid var(--c);border-radius:10px;padding:10px 12px;background:var(--hoja)}
+.mn b{display:block;margin-bottom:4px}
+.mn p{margin:0;font-size:.95rem}
+.fc{border:2px solid var(--c);border-radius:12px;padding:16px;margin:12px 0;min-height:150px;background:var(--hoja)}
+.fc .lab{font-size:.8rem;color:var(--suave);text-transform:uppercase;letter-spacing:.04em}
+.fc .txt{font-size:1.05rem;margin:8px 0 12px;font-weight:600}
+.fc .resp{display:none;border-top:1px solid var(--linea);padding-top:10px}
+.fc.vuelta .resp{display:block}
+.fc-b{display:flex;flex-wrap:wrap;gap:8px}
 </style></head><body>
 <div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver a Entornos de desarrollo</a><h1>Examen de mañana · preparación desde cero</h1><p>Teoría tipo test, pseudocódigo y diagramas de flujo. Plan de 8 horas.</p></div></div>
 <div class="wrap">
@@ -193,6 +204,12 @@ FinProceso</code></pre></div></details></div></details>
 
 <h2>4. Errores típicos</h2>
 <ul><li>Olvidar que el Segun compara una variable con varios valores, y Si con Y/O compara condiciones.</li><li>Usar = para asignar: en PSeInt la asignación es &lt;- y la comparación es =.</li><li>Repetir Hasta cumple la condición al revés: el bucle sigue mientras la condición es falsa.</li><li>Dejar un contador sin inicializar (sin poner a 0 antes del bucle).</li><li>En diagramas, olvidar la flecha de vuelta al rombo de control del bucle.</li><li>Poner la lectura dentro del Mientras sin volver a leer al final (el bucle no avanza).</li></ul>
+<h2>5. Ayudas y reglas nemotécnicas</h2>
+<div class="mn"><div><b>Ciclo de vida</b><p>Análisis, Diseño, Codificación, Pruebas, Mantenimiento: «Ana Diseña Código, Prueba y Mantiene».</p></div><div><b>Cascada</b><p>Etapas en fila, como una cascada: no empiezas una hasta acabar la anterior. Con realimentación puedes volver atrás.</p></div><div><b>Incremental</b><p>«Incremento» = pequeñas partes que sirven. Entregas cada parte y la siguiente se suma a la anterior.</p></div><div><b>Espiral</b><p>Da vueltas y en cada vuelta mira los riesgos: «la espiral analiza riesgos».</p></div><div><b>Tipos de software</b><p>Sistema = hace funcionar el hardware (SO). Aplicación = tarea concreta (Word, CAD). Programación = herramientas para programar (IDE).</p></div><div><b>Shareware</b><p>«Share» = compartes para probar; luego pagas. Freeware = gratis, pero no modificar ni vender.</p></div><div><b>Adware</b><p>«Ad» = anuncio: se descarga publicidad al ejecutarse.</p></div><div><b>Software libre</b><p>Cuatro libertades: usar, estudiar, distribuir y mejorar. Necesita código fuente. Licencia típica: GPL.</p></div><div><b>Software propietario</b><p>«Propiedad»: se da en binario, sin código fuente, y el dueño prohíbe copiar o modificar.</p></div><div><b>Dominio público</b><p>«Es de todos»: sin licencia o autor desconocido; se puede usar libremente.</p></div><div><b>Nombres en Java</b><p>Clases con mayúscula (HiloServidor). Métodos camelCase (ejecutar). Constantes MAYÚSCULAS_CON_GUION. Paquetes en minúscula (java.io).</p></div><div><b>Formato Java</b><p>Sangría de 4 espacios, 80 caracteres por línea de código (70 en comentarios). Una variable por línea.</p></div><div><b>Comentarios Java</b><p>/** */ = documentación (va justo antes de la clase o método, lo lee Javadoc). /* */ y // = implementación.</p></div><div><b>Ficheros Java</b><p>Extensión .java al escribir y .class al compilar. Un solo public class por fichero, y debe ser la primera clase.</p></div><div><b>PSeInt: asignar y comparar</b><p>Asignar es <- (flecha que mete el valor). Comparar es = (signo igual). Definir x Como Real declara la variable.</p></div><div><b>PSeInt: MOD y DIV</b><p>MOD = resto (7 MOD 3 = 1). DIV = división entera (7 DIV 2 = 3). «MOD mira lo que sobra».</p></div><div><b>Mientras vs Repetir</b><p>Mientras comprueba antes (puede no entrar). Repetir comprueba después: entra al menos una vez.</p></div><div><b>Y / O</b><p>Y (AND) = tienen que cumplirse las dos. O (OR) = basta con una.</p></div><div><b>Diagramas: símbolos</b><p>Óvalo = inicio/fin (una pastilla). Rombo = decisión, dos salidas Sí/No. Rectángulo = proceso. Paralelogramo = entrada/salida de datos.</p></div><div><b>Diagramas: bucle</b><p>Si el rombo vuelve hacia atrás, es un bucle. Antes de volver, pon el contador a 0 y súmale en cada vuelta.</p></div></div>
+<h2>6. Flashcards de teoría UT1</h2>
+<p>Pulsa la tarjeta o «Ver respuesta» para girarla. Usa «Siguiente» y «Anterior» para moverte, y «Mezclar» para cambiar el orden.</p>
+<div class="fc" id="fc" role="button" tabindex="0" aria-label="Tarjeta de estudio"><div class="lab" id="fcN"></div><div class="txt" id="fcQ"></div><div class="resp" id="fcA"></div></div>
+<div class="fc-b"><button type="button" class="bt" id="fcP">← Anterior</button><button type="button" class="bt" id="fcV">Ver respuesta</button><button type="button" class="bt" id="fcS">Siguiente →</button><button type="button" class="bt" id="fcM">Mezclar</button></div>
 <p><a href="index.html">Volver a Entornos de desarrollo</a></p>
 </div>
 <script>
@@ -213,5 +230,19 @@ document.getElementById('corr').onclick=function(){
 };
 document.getElementById('otra').onclick=barajar;
 barajar();
+</script>
+<script>
+(function(){
+  var F=Q.map(function(q){return {q:q.q,a:q.o[q.a]}}),i=0;
+  function pinta(){var c=F[i];document.getElementById('fcN').textContent='Tarjeta '+(i+1)+' de '+F.length;document.getElementById('fcQ').textContent=c.q;document.getElementById('fcA').textContent=c.a;document.getElementById('fc').classList.remove('vuelta');document.getElementById('fcV').textContent='Ver respuesta';}
+  function gira(){var f=document.getElementById('fc');f.classList.toggle('vuelta');document.getElementById('fcV').textContent=f.classList.contains('vuelta')?'Ocultar respuesta':'Ver respuesta';}
+  document.getElementById('fc').onclick=gira;
+  document.getElementById('fc').onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();gira()}};
+  document.getElementById('fcV').onclick=gira;
+  document.getElementById('fcS').onclick=function(){i=(i+1)%F.length;pinta()};
+  document.getElementById('fcP').onclick=function(){i=(i-1+F.length)%F.length;pinta()};
+  document.getElementById('fcM').onclick=function(){F.sort(function(){return Math.random()-.5});i=0;pinta()};
+  pinta();
+})();
 </script>
 </body></html>
