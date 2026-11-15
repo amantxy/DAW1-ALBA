@@ -304,6 +304,93 @@ FinProceso</code></pre></div></details></div></details>
 </div></details>
 <details class="sec"><summary><b>9. PSeInt desde cero hasta algoritmia avanzada</b></summary><div class="secin">
 <p>Guía de PSeInt para el examen: desde variables y condicionales hasta vectores, matrices, funciones, búsqueda y ordenación.</p>
+<details class="fold" open><summary><span><b>Cómo se usa cada estructura en un diagrama de flujo</b><small>Diagramas</small></span></summary><div class="in">
+<p>En PSeInt cada instrucción tiene su símbolo. Esta tabla dice qué símbolo usar y para qué.</p>
+<table><tr><th>Concepto</th><th>Símbolo en PSeInt</th><th>Qué escribes dentro</th></tr>
+<tr><td>Inicio y fin</td><td>Terminal (óvalo)</td><td>Un único inicio (Proceso) y un único fin (FinProceso).</td></tr>
+<tr><td>Declarar variables</td><td>Proceso</td><td>Definir a, b Como Real.</td></tr>
+<tr><td>Pedir un dato</td><td>Salida (Escribir) y después Entrada (Leer)</td><td>Escribir "Introduce a:" y luego Leer a. Son dos bloques distintos.</td></tr>
+<tr><td>Calcular o asignar</td><td>Proceso</td><td>suma &lt;- a + b.</td></tr>
+<tr><td>Mostrar un resultado</td><td>Salida</td><td>Escribir "La suma es: ", suma.</td></tr>
+<tr><td>Decidir (Si)</td><td>Decisión (rombo)</td><td>La condición, por ejemplo edad &gt;= 18. Sale por V (verdadero) y por F (falso).</td></tr>
+<tr><td>Elegir entre opciones (Segun)</td><td>Selección múltiple</td><td>Una salida por cada valor; la salida De Otro Modo cubre el resto.</td></tr>
+<tr><td>Bucle Mientras</td><td>Condición de bucle</td><td>La condición va antes del cuerpo. Si es V, entra al cuerpo y vuelve al rombo; si es F, sale.</td></tr>
+<tr><td>Bucle Repetir</td><td>Condición de bucle</td><td>La condición va después del cuerpo. Si es F, vuelve al inicio del cuerpo; si es V, sale.</td></tr>
+<tr><td>Bucle Para</td><td>Bucle Para</td><td>La variable, el valor inicial, el final y el paso.</td></tr>
+<tr><td>Unir ramas</td><td>Línea de flujo</td><td>Tras un Si, las dos ramas vuelven a unirse antes de seguir.</td></tr></table>
+
+<h4>Si / SiNo</h4>
+<p>La decisión tiene dos salidas etiquetadas. Ambas ramas se vuelven a unir antes de seguir.</p>
+<pre><code>        [ edad &gt;= 18 ? ]  (rombo)
+           V /       \ F
+  [ Escribir &quot;Mayor&quot; ]   [ Escribir &quot;Menor&quot; ]
+           \       /
+          [ siguiente paso ]</code></pre>
+<h4>Según (menú)</h4>
+<p>Una salida por cada opción y una salida De Otro Modo para el resto. Cada salida se une al final antes de seguir.</p>
+<pre><code>        [ opcion ]  (selección múltiple)
+     1 /     2 |      3 |   De Otro Modo \
+  [ suma ]  [ resta ] [ producto ]   [ &quot;Opcion incorrecta&quot; ]
+     \       |         |          /
+          [ siguiente paso ]</code></pre>
+<h4>Mientras (comprueba antes)</h4>
+<p>El rombo está antes del cuerpo. La flecha de vuelta sube desde el final del cuerpo hasta el rombo.</p>
+<pre><code>   [ Inicio ]
+        |
+   [ numero &lt;- 1 ]
+        |
+  &lt;  numero &lt;= 5 ?  &gt;  --F--&gt;  [ siguiente paso ]
+        | V
+   [ Escribir numero ]
+   [ numero &lt;- numero + 1 ]
+        |  (vuelve al rombo)
+   (la flecha sube hasta el rombo)</code></pre>
+<h4>Repetir (comprueba después)</h4>
+<p>El cuerpo va primero. El rombo está al final: la rama F vuelve al inicio del cuerpo y la rama V sale del bucle.</p>
+<pre><code>   [ Inicio ]
+        |
+   [ Leer numero ]
+        |
+   [ Escribir numero ]
+        |
+  &lt;  numero &gt; 0 ?  &gt;  --F-- (vuelve a Leer numero)
+        | V
+   [ siguiente paso ]</code></pre>
+<h4>Para (contador)</h4>
+<p>Dentro del símbolo de bucle se indican la variable, el valor inicial, el final y el paso. El cuerpo va dentro del bucle.</p>
+<pre><code>   [ Para i &lt;- 1 Hasta 5 Con Paso 1 ]  (símbolo de bucle)
+        |
+   [ Escribir i ]
+        |
+   (la flecha vuelve al símbolo de bucle hasta cumplirse)
+        |
+   [ siguiente paso ]</code></pre>
+<h4>Contador, acumulador y bandera</h4>
+<p>Son procesos de asignación dentro del cuerpo del bucle. Inicialízalos en un proceso antes del bucle.</p>
+<pre><code>   [ contador &lt;- 0 ]     (ANTES del bucle)
+   [ suma &lt;- 0 ]
+        |
+   (bucle)  [ Leer numero ]
+            [ contador &lt;- contador + 1 ]    (contador)
+            [ suma &lt;- suma + numero ]       (acumulador)</code></pre>
+<h4>Validar un dato con Repetir</h4>
+<p>Escribir → Leer → decisión. Si el dato no es válido, la flecha F vuelve a Escribir.</p>
+<pre><code>   [ Escribir &quot;Introduce nota:&quot; ]
+        |
+   [ Leer nota ]
+        |
+  &lt;  (nota &gt;= 0) Y (nota &lt;= 100) ?  &gt;  --F-- (vuelve a Escribir)
+        | V</code></pre>
+<h4>Arreglos</h4>
+<p>Dimension se dibuja como proceso. Cada acceso se escribe dentro de un proceso o una entrada/salida con el índice entre corchetes, por ejemplo notas[i].</p>
+<pre><code>   [ Dimension notas[3] ]
+   [ Leer notas[1] ]     (cada posición con su índice)
+   [ Escribir notas[2] ]</code></pre>
+<h4>Subprocesos y funciones</h4>
+<p>Un subproceso o función se dibuja en un diagrama aparte. En el programa principal se llama con un proceso (por ejemplo, Saludar(nombre) o resultado &lt;- Cuadrado(n)).</p>
+<p class="rec"><b>Reglas de oro:</b> un único inicio y fin; el flujo avanza de arriba abajo; cada decisión tiene V y F; las ramas se unen; ningún bloque queda sin salida; el símbolo de Entrada siempre va después de su Escribir.</p>
+</div></details>
+
 <details class="fold"><summary><span><b>Método para cualquier ejercicio</b><small>Base</small></span></summary><div class="in">
 <table><tr><th>Paso</th><th>Pregunta que debes hacerte</th></tr>
 <tr><td>1. Entender</td><td>¿Qué me pide exactamente el enunciado?</td></tr>
