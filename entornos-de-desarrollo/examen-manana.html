@@ -242,53 +242,49 @@ FinProceso</code></pre></div></details></div></details>
 <div class="dia-sel"><button type="button" class="bt" data-d="a">Pensamiento algorítmico y PSeInt</button><button type="button" class="bt" data-d="b">El ecosistema del software</button><button type="button" class="bt" data-d="c">Fundamentos del desarrollo de software</button><button type="button" class="bt" data-d="d">Lógica de programación con PSeInt</button></div>
 <div class="dia"><img id="diaImg" alt="Diapositiva" loading="lazy"><div class="pie"><button type="button" class="bt" id="diaP">← Anterior</button><span id="diaN"></span><button type="button" class="bt" id="diaS">Siguiente →</button></div></div>
 </div></details>
-<details class="sec"><summary><b>8. Resúmenes de las tres partes</b></summary><div class="secin">
+<details class="sec"><summary><b>8. Resúmenes de los PDF originales</b></summary><div class="secin">
 <div class="rs-grid">
 <article class="rs">
-<h3>Parte 1 · Fundamentos del desarrollo</h3><small>Software, ciclo de vida, modelos, Von Neumann y Java</small>
+<h3>UT1 · Software, licencias y ciclo de vida</h3><small>PDF «UT1: Desarrollo de software», apartados 1.1 a 1.3</small>
 <ul>
-<li><b>Hardware</b> = componentes físicos; <b>software</b> = programas, procedimientos, reglas, documentación y datos (IEEE 729).</li>
-<li><b>Tipos por tarea</b>: sistema (SO, drivers), programación (IDE, compiladores) y aplicación (ofimática, CAD).</li>
-<li><b>Distribución</b>: shareware (prueba limitada y luego pagas), freeware (gratis pero cerrado), adware (con publicidad).</li>
-<li><b>Ciclo de vida</b> (ISO/IEC 12207-1): análisis, diseño, codificación, pruebas y mantenimiento.</li>
-<li><b>Modelos</b>: cascada (orden estricto, con realimentación), incremental (entrega partes utilizables) y espiral (riesgos en cada vuelta).</li>
-<li><b>Análisis</b>: requisitos funcionales (el qué) y no funcionales (el cómo). Diseño estructurado (DFD) frente a orientado a objetos (UML).</li>
-<li><b>Pruebas</b>: caja blanca (ve el código) y caja negra (solo entradas y salidas). Una prueba tiene éxito si encuentra un error.</li>
-<li><b>Mantenimiento</b> (IEEE 1219): correctivo, perfectivo, preventivo y adaptativo (el más habitual).</li>
-<li><b>Von Neumann</b>: programa y datos en la misma memoria; ciclo fetch-execute con CP, RI, RDM y RIM.</li>
-<li><b>Java</b>: .java → javac → .class (bytecode) → JVM. Compilador (traduce todo de golpe) frente a intérprete (instrucción a instrucción).</li>
+<li><b>Hardware</b>: componentes que se pueden tocar. <b>Software</b>: programas, instrucciones y reglas; según IEEE 729 incluye también documentación y datos.</li>
+<li><b>Por tarea</b>: software de sistema (permite que el hardware funcione: SO, controladores), de aplicación (tareas concretas: ofimática, CAD) y de programación (IDE).</li>
+<li><b>Por distribución</b>: shareware (evaluación limitada y luego pagas), freeware (sin cargo, con restricciones: no modificar ni vender; no es software libre), adware (publicidad) y uso específico.</li>
+<li><b>Licencia</b>: contrato que fija los derechos y deberes de desarrollador y usuario.</li>
+<li><b>Software libre</b>: cede cuatro libertades (usar, estudiar, distribuir, mejorar) y exige código fuente. Licencia más usada: GPL, que obliga a hacer públicas las versiones modificadas.</li>
+<li><b>Propietario</b>: binario sin código fuente, con copia y modificación prohibidas. <b>Dominio público</b>: sin licencia o autor desconocido; se puede usar libremente.</li>
+<li><b>Ciclo de vida</b> (ISO/IEC 12207-1): cada etapa recibe documentos de la anterior y produce documentos nuevos.</li>
+<li><b>Cascada</b>: etapas secuenciales; la variante con realimentación permite volver atrás. <b>Incremental</b>: entrega partes utilizables. <b>Espiral</b>: cascada con prototipos y análisis de riesgos en cada ciclo.</li>
 </ul>
-<div class="rec"><b>Fe de erratas (para el examen)</b>Dominio público: permite desarrollar productos propietarios. GPL: obliga a liberar código solo si distribuyes. While comprueba antes; do-while, después. Compilador: optimiza para ejecutar más rápido. Usa import java.io.*;</div>
+<div class="rec"><b>Recuerda</b>Software libre no es lo mismo que freeware. El modelo en espiral es el que incorpora análisis de riesgos en cada ciclo.</div>
 </article>
 <article class="rs v2">
-<h3>Parte 2 · El ecosistema del software</h3><small>Hardware, software, licencias y ciclo de vida</small>
+<h3>UT1 · Fases, máquina y lenguajes</h3><small>PDF «UT1: Desarrollo de software», apartados 1.4 a 1.8</small>
 <ul>
-<li><b>Capas</b>: hardware (la base), sistema (SO, drivers), programación (IDE, compiladores) y aplicación (tareas del usuario).</li>
-<li><b>Licencia libre</b>: cuatro libertades (usar, estudiar, distribuir, mejorar) y acceso al código fuente. Su licencia típica es la GPL.</li>
-<li><b>Propietario</b>: se distribuye en binario, sin código fuente, y prohíbe copiar o modificar.</li>
-<li><b>Dominio público</b>: sin licencia o autor desconocido. Se puede usar libremente, incluso para productos propietarios.</li>
-<li><b>Ciclo de vida</b>: cada fase recibe documentos de la anterior y genera otros nuevos. La documentación es continua.</li>
-<li><b>Cascada</b>: fases en orden, con vuelta atrás si hay errores. Sirve si los requisitos están claros.</li>
-<li><b>Incremental</b>: el cliente recibe partes utilizables pronto. No es recomendable para tiempo real ni alta seguridad.</li>
-<li><b>Espiral</b>: combina cascada con prototipos y el análisis de riesgos en cada vuelta.</li>
-<li><b>Mantenimiento</b>: correctivo (errores no detectados), adaptativo (cambios en el entorno), perfectivo (nuevas funciones) y preventivo (refactorizar).</li>
+<li><b>Fases</b>: análisis, diseño, codificación, pruebas, documentación, explotación y mantenimiento.</li>
+<li><b>Análisis</b>: requisitos funcionales (qué hace) y no funcionales (fiabilidad, plataforma, restricciones). Herramientas: DFD, DFC, DTE, DER y diccionario de datos.</li>
+<li><b>Diseño</b>: estructurado (datos, arquitectura, interfaz y procedimientos; secuencial, condicional y repetitiva) u orientado a objetos (cuatro capas, UML).</li>
+<li><b>Pruebas</b>: verificación (¿lo construimos bien?) y validación (¿construimos lo que pidió el cliente?). Caja blanca frente a caja negra. Una prueba tiene éxito si descubre un error.</li>
+<li><b>Mantenimiento</b> (IEEE 1219): correctivo, adaptativo (el más usual), perfectivo y preventivo.</li>
+<li><b>Von Neumann</b>: la CPU tiene UC (control), UAL (cálculo y comparaciones) y registros (CP, RI, RDM, RIM). Ciclo fetch-execute.</li>
+<li><b>Lenguajes</b>: léxico, sintaxis y semántica. Según el nivel: máquina, ensamblador, medio (C) y alto (Java, Python).</li>
+<li><b>Compilador</b> (traduce todo; si hay errores no genera código objeto) frente a <b>intérprete</b> (traduce y ejecuta al momento). Java combina ambos: .java → bytecode (.class) → JVM.</li>
 </ul>
-<div class="rec"><b>Recuerda</b>El diferenciador de la espiral es el análisis de riesgos continuo. El ciclo de vida va en este orden: análisis, diseño, codificación, pruebas y mantenimiento.</div>
+<div class="rec"><b>Recuerda</b>Compilación: léxico → sintáctico → semántico → generación y optimización. Código fuente → objeto → ejecutable (enlazador).</div>
 </article>
 <article class="rs v3">
-<h3>Parte 3 · Pensamiento algorítmico y PSeInt</h3><small>Algoritmos, variables, condiciones, bucles y método de trabajo</small>
+<h3>PSeInt · Manual «From Zero to Hero»</h3><small>Algoritmos, datos, condiciones, ciclos, arreglos y subprocesos</small>
 <ul>
-<li><b>Algoritmo</b>: secuencia ordenada, precisa, definida y finita. Estructura: entrada → proceso → salida.</li>
-<li><b>Variables</b>: entero, real (con punto), lógico (verdadero/falso) y carácter o cadena. Una variable guarda un solo valor.</li>
-<li><b>Asignación</b> <code>&lt;-</code>: calcula lo de la derecha y lo guarda a la izquierda (no es una ecuación). Ej.: <code>c &lt;- c + 1</code>.</li>
-<li><b>Leer</b> debe ir precedido de un <b>Escribir</b> que pregunte.</li>
-<li><b>Lógica</b>: <b>Y</b> = se cumplen las dos; <b>O</b> = basta una. Orden: () ^ * / MOD + − &lt; &gt; = NO Y O.</li>
-<li><b>Condicionales</b>: Si-Entonces-Sino para rangos; <b>Segun</b> para valores numéricos concretos con De Otro Modo.</li>
-<li><b>Bucles</b>: <b>Mientras</b> comprueba antes (puede no entrar); <b>Repetir</b> comprueba después (entra al menos una vez); <b>Para</b> si se conoce el número de vueltas.</li>
-<li><b>Herramientas</b>: contador (a 0 antes del bucle), acumulador, bandera (<code>datosOk</code>) y lectura adelantada.</li>
-<li><b>Método de 6 pasos</b>: comprender, inventario, selección de estructuras, esqueleto lógico, diagrama en PSeInt y verificación con casos límite.</li>
+<li><b>Algoritmo</b>: secuencia ordenada y precisa de pasos. Entrada → proceso → salida. Usa el perfil <b>Estricto</b>.</li>
+<li><b>Variables y tipos</b>: <code>Definir x Como Entero</code>, Real, Logico, Caracter o Cadena (texto). Declarar no es asignar: da un valor antes de usarla.</li>
+<li><b>Asignación</b> <code>&lt;-</code> (primero se calcula la derecha). Operadores: + − * / ^ MOD (resto) y paréntesis. <code>7 MOD 2 = 1</code>.</li>
+<li><b>Entrada y salida</b>: <code>Escribir</code> pide o muestra; <code>Leer</code> guarda lo que introduces; <code>Sin Saltar</code> evita el salto de línea.</li>
+<li><b>Condiciones</b>: =, &lt;&gt;, &lt;, &gt;, &lt;=, &gt;=. Y exige ambas; O basta una; NO invierte. <code>Si … Entonces … Sino … FinSi</code> y <code>Segun … De Otro Modo … FinSegun</code>.</li>
+<li><b>Ciclos</b>: <b>Mientras</b> comprueba antes (puede hacer 0 vueltas); <b>Repetir … Hasta Que</b> comprueba después (al menos 1); <b>Para i &lt;- 1 Hasta n Con Paso p</b> si conoces las vueltas.</li>
+<li><b>Arreglos y matrices</b>: con <code>Dimension</code> y base 0 (la primera casilla es la 0). Una matriz tiene dos índices: <code>tabla[fila,columna]</code>.</li>
+<li><b>Subprocesos</b>: agrupan tareas con nombre y pueden recibir parámetros o devolver un valor. Se definen fuera de <code>Proceso Principal</code>.</li>
 </ul>
-<div class="rec"><b>Recuerda</b>Prueba siempre los bordes: si la condición es edad &lt; 18, prueba 17, 18 y 19. Antes de entregar, revisa que los textos de Escribir estén exactamente como pide el enunciado.</div>
+<div class="rec"><b>Recuerda</b>Contador: <code>c &lt;- c + 1</code>, puesto a 0 antes del bucle. Acumulador: <code>suma &lt;- suma + numero</code>, también a 0 antes. Si olvidas aumentar el contador en Mientras, el ciclo no termina.</div>
 </article>
 </div>
 </div></details>
