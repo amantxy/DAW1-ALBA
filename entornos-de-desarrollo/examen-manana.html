@@ -81,6 +81,11 @@ table{width:100%;border-collapse:collapse;margin:8px 0}td{border-bottom:1px soli
 .fc .resp{display:none;border-top:1px solid var(--linea);padding-top:10px}
 .fc.vuelta .resp{display:block}
 .fc-b{display:flex;flex-wrap:wrap;gap:8px}
+
+.dia{border:2px solid var(--c);border-radius:12px;padding:10px;background:var(--hoja);margin:12px 0}
+.dia img{display:block;width:100%;height:auto;border-radius:8px;background:#0b1220}
+.dia .pie{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+.dia-sel{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
 </style></head><body>
 <div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver a Entornos de desarrollo</a><h1>Examen de mañana · preparación desde cero</h1><p>Teoría tipo test, pseudocódigo y diagramas de flujo. Plan de 8 horas.</p></div></div>
 <div class="wrap">
@@ -210,6 +215,10 @@ FinProceso</code></pre></div></details></div></details>
 <p>Pulsa la tarjeta o «Ver respuesta» para girarla. Usa «Siguiente» y «Anterior» para moverte, y «Mezclar» para cambiar el orden.</p>
 <div class="fc" id="fc" role="button" tabindex="0" aria-label="Tarjeta de estudio"><div class="lab" id="fcN"></div><div class="txt" id="fcQ"></div><div class="resp" id="fcA"></div></div>
 <div class="fc-b"><button type="button" class="bt" id="fcP">← Anterior</button><button type="button" class="bt" id="fcV">Ver respuesta</button><button type="button" class="bt" id="fcS">Siguiente →</button><button type="button" class="bt" id="fcM">Mezclar</button></div>
+<h2>7. Diapositivas (NotebookLM)</h2>
+<p>Elige el tema y pasa las diapositivas con «Anterior» y «Siguiente».</p>
+<div class="dia-sel"><button type="button" class="bt" data-d="a">Pensamiento algorítmico y PSeInt</button><button type="button" class="bt" data-d="b">El ecosistema del software</button><button type="button" class="bt" data-d="c">Fundamentos del desarrollo de software</button></div>
+<div class="dia"><img id="diaImg" alt="Diapositiva" loading="lazy"><div class="pie"><button type="button" class="bt" id="diaP">← Anterior</button><span id="diaN"></span><button type="button" class="bt" id="diaS">Siguiente →</button></div></div>
 <p><a href="index.html">Volver a Entornos de desarrollo</a></p>
 </div>
 <script>
@@ -242,6 +251,16 @@ barajar();
   document.getElementById('fcS').onclick=function(){i=(i+1)%F.length;pinta()};
   document.getElementById('fcP').onclick=function(){i=(i-1+F.length)%F.length;pinta()};
   document.getElementById('fcM').onclick=function(){F.sort(function(){return Math.random()-.5});i=0;pinta()};
+  pinta();
+})();
+</script>
+<script>
+(function(){
+  var N={a:14,b:15,c:20},T={a:'Pensamiento algorítmico y PSeInt',b:'El ecosistema del software',c:'Fundamentos del desarrollo de software'},tema='a',i=1;
+  function pinta(){var n=N[tema];document.getElementById('diaImg').src='img/examen/'+tema+'-'+(i<10?'0':'')+i+'.jpg';document.getElementById('diaImg').alt=T[tema]+', diapositiva '+i;document.getElementById('diaN').textContent=T[tema]+' · '+i+' de '+n;}
+  document.querySelectorAll('.dia-sel button').forEach(function(b){b.onclick=function(){tema=b.dataset.d;i=1;pinta()}});
+  document.getElementById('diaS').onclick=function(){i=i>=N[tema]?1:i+1;pinta()};
+  document.getElementById('diaP').onclick=function(){i=i<=1?N[tema]:i-1;pinta()};
   pinta();
 })();
 </script>
