@@ -304,92 +304,6 @@ FinProceso</code></pre></div></details></div></details>
 </div></details>
 <details class="sec"><summary><b>9. PSeInt desde cero hasta algoritmia avanzada</b></summary><div class="secin">
 <p>Guía de PSeInt para el examen: desde variables y condicionales hasta vectores, matrices, funciones, búsqueda y ordenación.</p>
-<details class="fold" open><summary><span><b>Cómo se usa cada estructura en un diagrama de flujo</b><small>Diagramas</small></span></summary><div class="in">
-<p>En PSeInt cada instrucción tiene su símbolo. Esta tabla dice qué símbolo usar y para qué.</p>
-<table><tr><th>Concepto</th><th>Símbolo en PSeInt</th><th>Qué escribes dentro</th></tr>
-<tr><td>Inicio y fin</td><td>Terminal (óvalo)</td><td>Un único inicio (Proceso) y un único fin (FinProceso).</td></tr>
-<tr><td>Declarar variables</td><td>Proceso</td><td>Definir a, b Como Real.</td></tr>
-<tr><td>Pedir un dato</td><td>Salida (Escribir) y después Entrada (Leer)</td><td>Escribir "Introduce a:" y luego Leer a. Son dos bloques distintos.</td></tr>
-<tr><td>Calcular o asignar</td><td>Proceso</td><td>suma &lt;- a + b.</td></tr>
-<tr><td>Mostrar un resultado</td><td>Salida</td><td>Escribir "La suma es: ", suma.</td></tr>
-<tr><td>Decidir (Si)</td><td>Decisión (rombo)</td><td>La condición, por ejemplo edad &gt;= 18. Sale por V (verdadero) y por F (falso).</td></tr>
-<tr><td>Elegir entre opciones (Segun)</td><td>Selección múltiple</td><td>Una salida por cada valor; la salida De Otro Modo cubre el resto.</td></tr>
-<tr><td>Bucle Mientras</td><td>Condición de bucle</td><td>La condición va antes del cuerpo. Si es V, entra al cuerpo y vuelve al rombo; si es F, sale.</td></tr>
-<tr><td>Bucle Repetir</td><td>Condición de bucle</td><td>La condición va después del cuerpo. Si es F, vuelve al inicio del cuerpo; si es V, sale.</td></tr>
-<tr><td>Bucle Para</td><td>Bucle Para</td><td>La variable, el valor inicial, el final y el paso.</td></tr>
-<tr><td>Unir ramas</td><td>Línea de flujo</td><td>Tras un Si, las dos ramas vuelven a unirse antes de seguir.</td></tr></table>
-
-<h4>Si / SiNo</h4>
-<p>La decisión tiene dos salidas etiquetadas. Ambas ramas se vuelven a unir antes de seguir.</p>
-<pre><code>        [ edad &gt;= 18 ? ]  (rombo)
-           V /       \ F
-  [ Escribir &quot;Mayor&quot; ]   [ Escribir &quot;Menor&quot; ]
-           \       /
-          [ siguiente paso ]</code></pre>
-<h4>Según (menú)</h4>
-<p>Una salida por cada opción y una salida De Otro Modo para el resto. Cada salida se une al final antes de seguir.</p>
-<pre><code>        [ opcion ]  (selección múltiple)
-     1 /     2 |      3 |   De Otro Modo \
-  [ suma ]  [ resta ] [ producto ]   [ &quot;Opcion incorrecta&quot; ]
-     \       |         |          /
-          [ siguiente paso ]</code></pre>
-<h4>Mientras (comprueba antes)</h4>
-<p>El rombo está antes del cuerpo. La flecha de vuelta sube desde el final del cuerpo hasta el rombo.</p>
-<pre><code>   [ Inicio ]
-        |
-   [ numero &lt;- 1 ]
-        |
-  &lt;  numero &lt;= 5 ?  &gt;  --F--&gt;  [ siguiente paso ]
-        | V
-   [ Escribir numero ]
-   [ numero &lt;- numero + 1 ]
-        |  (vuelve al rombo)
-   (la flecha sube hasta el rombo)</code></pre>
-<h4>Repetir (comprueba después)</h4>
-<p>El cuerpo va primero. El rombo está al final: la rama F vuelve al inicio del cuerpo y la rama V sale del bucle.</p>
-<pre><code>   [ Inicio ]
-        |
-   [ Leer numero ]
-        |
-   [ Escribir numero ]
-        |
-  &lt;  numero &gt; 0 ?  &gt;  --F-- (vuelve a Leer numero)
-        | V
-   [ siguiente paso ]</code></pre>
-<h4>Para (contador)</h4>
-<p>Dentro del símbolo de bucle se indican la variable, el valor inicial, el final y el paso. El cuerpo va dentro del bucle.</p>
-<pre><code>   [ Para i &lt;- 1 Hasta 5 Con Paso 1 ]  (símbolo de bucle)
-        |
-   [ Escribir i ]
-        |
-   (la flecha vuelve al símbolo de bucle hasta cumplirse)
-        |
-   [ siguiente paso ]</code></pre>
-<h4>Contador, acumulador y bandera</h4>
-<p>Son procesos de asignación dentro del cuerpo del bucle. Inicialízalos en un proceso antes del bucle.</p>
-<pre><code>   [ contador &lt;- 0 ]     (ANTES del bucle)
-   [ suma &lt;- 0 ]
-        |
-   (bucle)  [ Leer numero ]
-            [ contador &lt;- contador + 1 ]    (contador)
-            [ suma &lt;- suma + numero ]       (acumulador)</code></pre>
-<h4>Validar un dato con Repetir</h4>
-<p>Escribir → Leer → decisión. Si el dato no es válido, la flecha F vuelve a Escribir.</p>
-<pre><code>   [ Escribir &quot;Introduce nota:&quot; ]
-        |
-   [ Leer nota ]
-        |
-  &lt;  (nota &gt;= 0) Y (nota &lt;= 100) ?  &gt;  --F-- (vuelve a Escribir)
-        | V</code></pre>
-<h4>Arreglos</h4>
-<p>Dimension se dibuja como proceso. Cada acceso se escribe dentro de un proceso o una entrada/salida con el índice entre corchetes, por ejemplo notas[i].</p>
-<pre><code>   [ Dimension notas[3] ]
-   [ Leer notas[1] ]     (cada posición con su índice)
-   [ Escribir notas[2] ]</code></pre>
-<h4>Subprocesos y funciones</h4>
-<p>Un subproceso o función se dibuja en un diagrama aparte. En el programa principal se llama con un proceso (por ejemplo, Saludar(nombre) o resultado &lt;- Cuadrado(n)).</p>
-<p class="rec"><b>Reglas de oro:</b> un único inicio y fin; el flujo avanza de arriba abajo; cada decisión tiene V y F; las ramas se unen; ningún bloque queda sin salida; el símbolo de Entrada siempre va después de su Escribir.</p>
-</div></details>
 
 <details class="fold"><summary><span><b>Método para cualquier ejercicio</b><small>Base</small></span></summary><div class="in">
 <table><tr><th>Paso</th><th>Pregunta que debes hacerte</th></tr>
@@ -429,7 +343,18 @@ FinAlgoritmo</code></pre>
     Escribir &quot;La suma es: &quot;, resultado
 FinAlgoritmo</code></pre>
 <p>Ejemplo resuelto: si introduces 5 y 8, muestra 13.</p>
-</div></details>
+<h4>En pseudocódigo</h4><p>Se declara con <code>Definir</code>, se asigna con <code>&lt;-</code>, se pide con <code>Escribir</code> seguido de <code>Leer</code>, y se muestra con <code>Escribir</code>.</p><h4>En diagrama de flujo</h4><pre><code>[ Inicio ]
+     |
+[ Definir numero1, numero2, resultado Como Real ]
+     |
+[ Escribir &quot;Introduce el primer numero:&quot; ]   (salida)
+[ Leer numero1 ]                              (entrada)
+     |
+[ resultado &lt;- numero1 + numero2 ]            (proceso)
+     |
+[ Escribir &quot;La suma es: &quot;, resultado ]        (salida)
+     |
+[ Fin ]</code></pre><p>Un Escribir va antes de cada Leer, y la pregunta debe coincidir con la del enunciado. Cada bloque es un símbolo distinto.</p></div></details>
 <details class="fold"><summary><span><b>Operadores: matemáticos, MOD, comparación y lógicos</b><small>Base</small></span></summary><div class="in">
 <table><tr><th>Operación</th><th>Ejemplo</th><th>Resultado</th></tr>
 <tr><td>Suma / resta</td><td>5 + 3 / 5 - 3</td><td>8 / 2</td></tr>
@@ -456,7 +381,13 @@ FinAlgoritmo</code></pre>
 <tr><td>Y</td><td>Deben cumplirse ambas</td><td>edad &gt;= 18 Y edad &lt;= 65</td></tr>
 <tr><td>O</td><td>Basta una</td><td>dia = 6 O dia = 7</td></tr>
 <tr><td>NO</td><td>Invierte el valor</td><td>NO (edad &gt;= 18)</td></tr></table>
-</div></details>
+<h4>En pseudocódigo</h4><p>La comparación con <code>=</code> va dentro de la condición de un <code>Si</code>; la asignación con <code>&lt;-</code> es una instrucción aparte.</p><h4>En diagrama de flujo</h4><pre><code>[ numero &lt;- leido ]          (proceso)
+     |
+&lt;  numero MOD 2 = 0 ?  &gt;       (decisión)
+   V /           \ F
+[ Escribir &quot;par&quot; ] [ Escribir &quot;impar&quot; ]
+   \           /
+    [ Fin ]</code></pre><p>En el diagrama, MOD y las comparaciones van dentro del rombo; el resultado se ve en la rama V o F.</p></div></details>
 <details class="fold"><summary><span><b>Condicionales: Si, SiNo y Segun</b><small>Medio</small></span></summary><div class="in">
 <p>El condicional ejecuta unas instrucciones si se cumple una condición y otras si no.</p>
 <pre><code>Algoritmo MayorEdad
@@ -519,7 +450,17 @@ FinAlgoritmo</code></pre>
         De Otro Modo:
             Escribir &quot;Opcion incorrecta&quot;
     FinSegun
-FinAlgoritmo</code></pre></div></details>
+FinAlgoritmo</code></pre><h4>En pseudocódigo</h4><p><code>Si … Entonces … SiNo … FinSi</code> para dos caminos. <code>Segun … De Otro Modo … FinSegun</code> para varias opciones.</p><h4>En diagrama de flujo</h4><pre><code>&lt;  edad &gt;= 18 ?  &gt;         (decisión Si)
+   V /         \ F
+[ Escribir &quot;Mayor&quot; ] [ Escribir &quot;Menor&quot; ]
+   \         /
+   [ siguiente paso ]
+
+[ opcion ]                    (selección múltiple Según)
+ 1 /   2 |   3 |  De Otro Modo \
+[ suma ] [ resta ] [ producto ] [ &quot;Opcion incorrecta&quot; ]
+ \      |         |           /
+   [ siguiente paso ]</code></pre><p>Cada rama termina en el mismo punto de unión. Las decisiones siempre tienen V y F o, en Según, una salida por opción.</p></div></details>
 <details class="fold"><summary><span><b>Bucles: Para, Mientras y Repetir</b><small>Medio</small></span></summary><div class="in">
 <table><tr><th>Bucle</th><th>Cuándo conviene</th></tr>
 <tr><td>Para</td><td>Sé cuántas repeticiones necesito.</td></tr>
@@ -551,7 +492,14 @@ FinAlgoritmo</code></pre>
     Hasta Que numero &gt; 0
     Escribir &quot;Numero correcto&quot;
 FinAlgoritmo</code></pre>
-</div></details>
+<h4>En pseudocódigo</h4><p><code>Para</code> con contador; <code>Mientras</code> comprueba antes; <code>Repetir … Hasta Que</code> comprueba después y se ejecuta al menos una vez.</p><h4>En diagrama de flujo</h4><pre><code>PARA                        MIENTRAS                   REPETIR
+[ Inicio ]                  [ numero &lt;- 1 ]            [ Escribir &quot;Introduce numero:&quot; ]
+     |                            |                     [ Leer numero ]
+[ Para i &lt;- 1 Hasta 5 ]    &lt; numero &lt;= 5 ? &gt;               |
+     |                      V /     \ F           &lt; numero &gt; 0 ? &gt;
+[ Escribir i ]    [ Escribir numero ]  [ siguiente ]    F |   | V
+     |            [ numero &lt;- numero+1 ]                  (vuelve)  [ siguiente ]
+(vuelve al símbolo)  (vuelve al rombo)</code></pre><p>En Mientras y Repetir la flecha de vuelta regresa al rombo; en Repetir, la rama F vuelve al inicio del cuerpo. En Para, el símbolo de bucle lleva la variable y el final.</p></div></details>
 <details class="fold"><summary><span><b>Contadores y acumuladores</b><small>Medio</small></span></summary><div class="in">
 <table><tr><th>Concepto</th><th>Actualización típica</th><th>Para qué sirve</th></tr>
 <tr><td>Contador</td><td>contador &lt;- contador + 1</td><td>Contar elementos que cumplen una condición.</td></tr>
@@ -582,7 +530,22 @@ FinAlgoritmo</code></pre>
     media &lt;- suma / 5
     Escribir &quot;La media es: &quot;, media
 FinAlgoritmo</code></pre>
-</div></details>
+<h4>En pseudocódigo</h4><p>El contador y el acumulador se inicializan antes del bucle y se actualizan dentro del cuerpo.</p><h4>En diagrama de flujo</h4><pre><code>[ Inicio ]
+[ contador &lt;- 0 ]              (antes del bucle)
+[ suma &lt;- 0 ]
+     |
+[ Para i &lt;- 1 Hasta 5 ]        (símbolo de bucle)
+     |
+[ Leer numero ]
+     |
+&lt; numero &gt; 0 ? &gt;
+  V |          F |
+[ contador &lt;- contador + 1 ]   (contador)
+     |
+[ suma &lt;- suma + numero ]      (acumulador)
+     |  (vuelve al símbolo de bucle)
+[ Escribir contador, suma ]
+[ Fin ]</code></pre><p>Si olvidas la inicialización, la línea del contador o acumulador tendrá un valor sin sentido. El contador va dentro de la rama V de la decisión.</p></div></details>
 <details class="fold"><summary><span><b>Matemáticas: raíces, valor absoluto y factorial</b><small>Medio</small></span></summary><div class="in">
 <table><tr><th>Matemáticas</th><th>PSeInt</th></tr>
 <tr><td>2 elevado a 3</td><td>2^3</td></tr>
@@ -604,7 +567,17 @@ FinAlgoritmo</code></pre>
     FinSi
 FinAlgoritmo</code></pre>
 <p class="nota">Se empieza en 1 porque es el elemento neutro de la multiplicación: si n es 0, el resultado sigue siendo 1.</p>
-</div></details>
+<h4>En pseudocódigo</h4><p>La raíz se escribe <code>RC(numero)</code>, el valor absoluto <code>ABS(x)</code> y la potencia <code>^</code>. El factorial usa un <code>Para</code> dentro de un <code>Si</code>.</p><h4>En diagrama de flujo</h4><pre><code>[ Leer numero ]
+     |
+&lt; numero &lt; 0 ? &gt;
+  V |        F |
+[ Escribir &quot;No existe&quot; ] [ factorial &lt;- 1 ]
+                              |
+                    [ Para i &lt;- 1 Hasta numero ]
+                              |
+                    [ factorial &lt;- factorial * i ]
+                              |  (vuelve al símbolo)
+                    [ Escribir &quot;El factorial es: &quot;, factorial ]</code></pre><p>El factorial se calcula dentro de la rama F del Si. Empieza en 1 porque es el elemento neutro de la multiplicación.</p></div></details>
 <details class="fold"><summary><span><b>Números primos</b><small>Difícil</small></span></summary><div class="in">
 <p>Un primo es un entero mayor o igual que 2 que solo tiene dos divisores positivos: 1 y él mismo. 2, 3, 5 y 7 son primos; 9 no, porque también es divisible entre 3.</p>
 <p>Idea: probar divisores desde 2 hasta la raíz cuadrada del número.</p>
@@ -629,7 +602,16 @@ FinAlgoritmo</code></pre>
         Escribir &quot;No es primo&quot;
     FinSi
 FinAlgoritmo</code></pre>
-</div></details>
+<h4>En pseudocódigo</h4><p>Se usa un <code>Para</code> desde 2 hasta <code>RC(numero)</code> y un <code>Si</code> con <code>MOD</code> dentro.</p><h4>En diagrama de flujo</h4><pre><code>[ Leer numero ]
+[ primo &lt;- Verdadero ]
+&lt; numero &lt; 2 ? &gt;  V -&gt; [ primo &lt;- Falso ]
+     | F
+[ Para i &lt;- 2 Hasta RC(numero) ]
+     |
+&lt; numero MOD i = 0 ? &gt;  V -&gt; [ primo &lt;- Falso ]
+     | F
+     |  (vuelve al símbolo Para)
+&lt; primo ? &gt;  V -&gt; [ Escribir &quot;Es primo&quot; ]   F -&gt; [ Escribir &quot;No es primo&quot; ]</code></pre><p>El Para queda dentro del flujo y el Si con MOD dentro del bucle. La salida depende del valor de primo al final.</p></div></details>
 <details class="fold"><summary><span><b>Ecuaciones de segundo grado</b><small>Difícil</small></span></summary><div class="in">
 <p>Forma: ax² + bx + c = 0 (a no puede ser 0). Primero el discriminante <b>D = b² − 4ac</b>:</p>
 <table><tr><th>Discriminante</th><th>Soluciones reales</th></tr>
@@ -665,7 +647,15 @@ FinAlgoritmo</code></pre>
     FinSi
 FinAlgoritmo</code></pre>
 <p class="nota">Comprueba siempre que a &lt;&gt; 0 antes de dividir entre 2a.</p>
-</div></details>
+<h4>En pseudocódigo</h4><p>Se calcula el discriminante con <code>^</code> y <code>RC</code>, y después se elige la rama según D sea mayor, igual o menor que 0, con un <code>Si</code> anidado.</p><h4>En diagrama de flujo</h4><pre><code>[ Leer a, b, c ]
+&lt; a = 0 ? &gt;   V -&gt; [ Escribir &quot;No es de segundo grado&quot; ]
+   | F
+[ discriminante &lt;- b^2 - 4*a*c ]
+&lt; discriminante &gt; 0 ? &gt;
+  V |                   F |
+[ x1 y x2 con RC ]   &lt; discriminante = 0 ? &gt;
+                        V |          F |
+                 [ x1 = -b/(2a) ]  [ Escribir &quot;No existen soluciones reales&quot; ]</code></pre><p>Las comprobaciones de a y de D son decisiones en cascada. Cada rama termina en su propia salida.</p></div></details>
 <details class="fold"><summary><span><b>Vectores</b><small>Medio</small></span></summary><div class="in">
 <p>Un vector es una colección de datos del mismo tipo con un único nombre y una posición. Se declara con <code>Definir</code> y se reserva espacio con <code>Dimension</code>.</p>
 <p class="nota"><b>Ojo con los índices.</b> La guía usa posiciones desde 1 (notas[1] es el primero). Las diapositivas de la UT1 y el perfil Estricto indican que los arreglos empiezan en 0. <b>Comprueba cuál exige tu profesor</b> antes del examen y usa siempre ese criterio.</p>
@@ -698,7 +688,14 @@ FinAlgoritmo</code></pre>
     FinPara
     Escribir &quot;El mayor es: &quot;, mayor
 FinAlgoritmo</code></pre>
-</div></details>
+<h4>En pseudocódigo</h4><p><code>Dimension notas[5]</code> reserva el espacio. Cada posición se usa como <code>notas[i]</code> dentro de un <code>Para</code>.</p><h4>En diagrama de flujo</h4><pre><code>[ Dimension notas[5] ]
+[ Para i &lt;- 1 Hasta 5 ]        (símbolo de bucle)
+     |
+[ Escribir &quot;Introduce una nota:&quot; ]
+[ Leer notas[i] ]
+     |  (vuelve al símbolo Para)
+[ Para i &lt;- 1 Hasta 5 ]
+[ Escribir &quot;Nota &quot;, i, &quot;: &quot;, notas[i] ]</code></pre><p>El índice va entre corchetes en cada proceso o salida. Recuerda el aviso sobre si la base es 0 o 1.</p></div></details>
 <details class="fold"><summary><span><b>Matrices</b><small>Difícil</small></span></summary><div class="in">
 <p>Una matriz tiene dos dimensiones (filas y columnas) y se accede con dos índices: <code>notas[2,1]</code> es fila 2, columna 1. Un bucle dentro de otro se llama <b>bucle anidado</b>: el primero recorre las filas y el segundo las columnas.</p>
 <pre><code>Algoritmo MatrizNotas
@@ -717,7 +714,15 @@ FinAlgoritmo</code></pre>
         FinPara
     FinPara
 FinAlgoritmo</code></pre>
-</div></details>
+<h4>En pseudocódigo</h4><p><code>Dimension notas[3,2]</code> y dos <code>Para</code> anidados: el externo recorre las filas y el interno las columnas.</p><h4>En diagrama de flujo</h4><pre><code>[ Dimension notas[3,2] ]
+[ Para fila &lt;- 1 Hasta 3 ]         (bucle exterior)
+     |
+[ Para columna &lt;- 1 Hasta 2 ]      (bucle interior)
+     |
+[ Escribir &quot;Introduce la nota:&quot; ]
+[ Leer notas[fila,columna] ]
+     |  (vuelve al interior)
+     |  (vuelve al exterior)</code></pre><p>Un bucle dentro de otro se dibuja con el interno dentro del cuerpo del externo.</p></div></details>
 <details class="fold"><summary><span><b>Subprocesos y funciones</b><small>Difícil</small></span></summary><div class="in">
 <p>Un subproceso agrupa instrucciones con nombre para reutilizarlas. Una <b>función</b> hace lo mismo y además <b>devuelve un resultado</b> que puede usarse en una asignación o expresión.</p>
 <pre><code>SubProceso Saludar(nombre)
@@ -741,7 +746,13 @@ Algoritmo Principal
     resultado &lt;- Cuadrado(n)
     Escribir &quot;El cuadrado es: &quot;, resultado
 FinAlgoritmo</code></pre>
-</div></details>
+<h4>En pseudocódigo</h4><p>Un subproceso se declara con <code>SubProceso</code> y se llama con su nombre. Una función devuelve un valor con <code>Funcion resultado &lt;- Nombre(...)</code>.</p><h4>En diagrama de flujo</h4><pre><code>Diagrama principal                  Diagrama del subproceso
+[ Inicio ]                           [ SubProceso Saludar(nombre) ]
+[ Leer nombre ]                      [ Escribir &quot;Hola &quot;, nombre ]
+[ Saludar(nombre) ]  (llamada) ---&gt;  [ Fin subproceso ]
+[ Fin ]
+
+Función: [ resultado &lt;- Cuadrado(n) ]  (llamada en un proceso)</code></pre><p>El subproceso va en su propio diagrama. En el principal se dibuja como un proceso con la llamada.</p></div></details>
 <details class="fold"><summary><span><b>Búsqueda y ordenación (burbuja)</b><small>Difícil</small></span></summary><div class="in">
 <p><b>Búsqueda secuencial:</b> recorre los elementos uno a uno hasta encontrar el valor o llegar al final. Funciona aunque el vector no esté ordenado.</p>
 <pre><code>Algoritmo Busqueda
@@ -789,7 +800,15 @@ FinAlgoritmo</code></pre>
         Escribir numeros[i]
     FinPara
 FinAlgoritmo</code></pre>
-</div></details>
+<h4>En pseudocódigo</h4><p>La búsqueda recorre el vector con un <code>Para</code> y un <code>Si</code>. La burbuja usa dos <code>Para</code> anidados y un intercambio con <code>aux</code>.</p><h4>En diagrama de flujo</h4><pre><code>BÚSQUEDA                            BURBUJA
+[ posicion &lt;- 0 ]                    [ Para i &lt;- 1 Hasta 3 ]
+[ Para i &lt;- 1 Hasta 5 ]             [ Para j &lt;- 1 Hasta 4-i ]
+     |                                  |
+&lt; numeros[i] = buscado ? &gt;          &lt; numeros[j] &gt; numeros[j+1] ? &gt;
+  V -&gt; [ posicion &lt;- i ]              V |
+     |  (vuelve)                  [ aux &lt;- numeros[j] ]
+[ Si posicion &lt;&gt; 0 ... ]           [ numeros[j] &lt;- numeros[j+1] ]
+                                    [ numeros[j+1] &lt;- aux ]</code></pre><p>La decisión decide si hay intercambio. El AUX es el paso intermedio: sin él se pierde un valor.</p></div></details>
 <details class="fold"><summary><span><b>Cómo reconocer qué estructura pide el enunciado</b><small>Base</small></span></summary><div class="in">
 <table><tr><th>Pistas del enunciado</th><th>Estructura probable</th></tr>
 <tr><td>Calcula dos números</td><td>Operaciones y variables</td></tr>
