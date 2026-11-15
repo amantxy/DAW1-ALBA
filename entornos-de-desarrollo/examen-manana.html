@@ -86,18 +86,27 @@ table{width:100%;border-collapse:collapse;margin:8px 0}td{border-bottom:1px soli
 .dia img{display:block;width:100%;height:auto;border-radius:8px;background:#0b1220}
 .dia .pie{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
 .dia-sel{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+
+details.sec{border:2px solid var(--c);border-radius:12px;background:var(--hoja);margin:14px 0;overflow:hidden}
+details.sec>summary{cursor:pointer;list-style:none;padding:14px 16px;min-height:52px;display:flex;align-items:center;font-size:1.1rem;color:var(--c);background:var(--cs)}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::after{content:"▾";margin-left:auto;transition:transform .2s}
+details.sec[open]>summary::after{transform:rotate(180deg)}
+details.sec>summary b{font-weight:700}
+.secin{padding:4px 16px 14px}
+.secin h3{margin-top:18px}
 </style></head><body>
 <div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver a Entornos de desarrollo</a><h1>Examen de mañana · preparación desde cero</h1><p>Teoría tipo test, pseudocódigo y diagramas de flujo. Plan de 8 horas.</p></div></div>
 <div class="wrap">
 <div class="aviso"><b>Temporal.</b> Esta página se borrará después del examen. Así lo pediste.</div>
-<h2>Plan de 8 horas</h2>
+<details class="sec"><summary><b>Plan de 8 horas</b></summary><div class="secin">
 <div class="tw"><table><tr><td><b>0:00 – 1:00</b></td><td>Teoría tipo test, preguntas fáciles primero (símbolos, operadores, estructuras)</td></tr><tr><td><b>1:00 – 2:30</b></td><td>Diagramas 6 y 7 (sin bucles, los más sencillos)</td></tr><tr><td><b>2:30 – 3:30</b></td><td>Pseudocódigo 1 y 2: Para y Si/SiNo</td></tr><tr><td><b>3:30 – 4:30</b></td><td>Pseudocódigo 3: Mientras</td></tr><tr><td><b>4:30 – 5:30</b></td><td>Pseudocódigo 4 y 5: Repetir y Segun</td></tr><tr><td><b>5:30 – 6:30</b></td><td>Diagrama 8 (bucle, el más difícil) y repetir los que fallaste</td></tr><tr><td><b>6:30 – 7:30</b></td><td>Test completo y revisar errores</td></tr><tr><td><b>7:30 – 8:00</b></td><td>Repaso ligero de la lista de errores, descanso</td></tr></table></div>
 <p>Antes de empezar, lee los <b>errores típicos</b> al final. Son los que más puntos quitan.</p>
-
-<h2>1. Teoría tipo test (UT1)</h2>
+</div></details>
+<details class="sec"><summary><b>1. Teoría tipo test (UT1)</b></summary><div class="secin">
 <div class="fold" style="padding:14px 16px"><p><b>Test de 10 preguntas al azar del banco de la UT1, ordenadas de fácil a difícil.</b> Marca una opción por pregunta y corrige.</p><div id="quiz"></div><p><button type="button" id="corr" class="bt">Corregir</button> <button type="button" id="otra" class="bt">Nuevas preguntas</button></p><p id="res" class="pista"></p></div></div>
-
-<h2>2. Pseudocódigo</h2>
+</div></details>
+<details class="sec"><summary><b>2. Pseudocódigo</b></summary><div class="secin">
 <p>Escribe la solución tú antes de abrirla. Luego compara.</p>
 <details class="fold" open><summary><span><b>1. Media de cinco notas y aprobado</b><small>Medio</small></span></summary><div class="in"><p>Lee cinco notas, muestra su media y escribe «Aprobado» si la media es 5 o más, o «Suspenso» si no.</p><p class="nota"><b>Pista.</b> Usa una variable suma que acumule las notas y un Para de 1 a 5. Después calcula la media dividiendo entre 5.</p><details class="fold"><summary><span><b>Ver solución</b><small>Media de cinco notas y aprobado</small></span></summary><div class="in"><pre><code>Proceso Notas
   Definir i, nota, suma, media Como Real
@@ -164,8 +173,8 @@ FinProceso</code></pre></div></details></div></details>
   FinSegun
   Escribir &quot;Resultado: &quot;, r
 FinProceso</code></pre></div></details></div></details>
-
-<h2>3. Diagramas de flujo</h2>
+</div></details>
+<details class="sec"><summary><b>3. Diagramas de flujo</b></summary><div class="secin">
 <p>Los diagramas se dibujan con estos símbolos: óvalo (inicio y fin), rectángulo (proceso), paralelogramo (entrada y salida) y rombo (decisión). En las soluciones usamos texto para que se vea la estructura.</p>
 <details class="fold" open><summary><span><b>6. Diagrama: suma, resta y producto de dos números</b><small>Fácil</small></span></summary><div class="in"><p>Dibuja el diagrama que lee dos números y muestra su suma, su resta y su producto.</p><p class="nota"><b>Pista.</b> Sigue el orden: Inicio, Leer, tres cálculos o salidas, Fin. Cada paso es un símbolo distinto.</p><details class="fold"><summary><span><b>Ver solución</b><small>Diagrama: suma, resta y producto de dos números</small></span></summary><div class="in"><pre><code>[ Inicio ]  (óvalo)
       |
@@ -206,19 +215,23 @@ FinProceso</code></pre></div></details></div></details>
 [ i &lt;- i + 1 ]
    |
    +--(vuelve al rombo)</code></pre></div></details></div></details>
-
-<h2>4. Errores típicos</h2>
+</div></details>
+<details class="sec"><summary><b>4. Errores típicos</b></summary><div class="secin">
 <ul><li>Olvidar que el Segun compara una variable con varios valores, y Si con Y/O compara condiciones.</li><li>Usar = para asignar: en PSeInt la asignación es &lt;- y la comparación es =.</li><li>Repetir Hasta cumple la condición al revés: el bucle sigue mientras la condición es falsa.</li><li>Dejar un contador sin inicializar (sin poner a 0 antes del bucle).</li><li>En diagramas, olvidar la flecha de vuelta al rombo de control del bucle.</li><li>Poner la lectura dentro del Mientras sin volver a leer al final (el bucle no avanza).</li></ul>
-<h2>5. Ayudas y reglas nemotécnicas</h2>
+</div></details>
+<details class="sec"><summary><b>5. Ayudas y reglas nemotécnicas</b></summary><div class="secin">
 <div class="mn"><div><b>Ciclo de vida</b><p>Análisis, Diseño, Codificación, Pruebas, Mantenimiento: «Ana Diseña Código, Prueba y Mantiene».</p></div><div><b>Cascada</b><p>Etapas en fila, como una cascada: no empiezas una hasta acabar la anterior. Con realimentación puedes volver atrás.</p></div><div><b>Incremental</b><p>«Incremento» = pequeñas partes que sirven. Entregas cada parte y la siguiente se suma a la anterior.</p></div><div><b>Espiral</b><p>Da vueltas y en cada vuelta mira los riesgos: «la espiral analiza riesgos».</p></div><div><b>Tipos de software</b><p>Sistema = hace funcionar el hardware (SO). Aplicación = tarea concreta (Word, CAD). Programación = herramientas para programar (IDE).</p></div><div><b>Shareware</b><p>«Share» = compartes para probar; luego pagas. Freeware = gratis, pero no modificar ni vender.</p></div><div><b>Adware</b><p>«Ad» = anuncio: se descarga publicidad al ejecutarse.</p></div><div><b>Software libre</b><p>Cuatro libertades: usar, estudiar, distribuir y mejorar. Necesita código fuente. Licencia típica: GPL.</p></div><div><b>Software propietario</b><p>«Propiedad»: se da en binario, sin código fuente, y el dueño prohíbe copiar o modificar.</p></div><div><b>Dominio público</b><p>«Es de todos»: sin licencia o autor desconocido; se puede usar libremente.</p></div><div><b>Nombres en Java</b><p>Clases con mayúscula (HiloServidor). Métodos camelCase (ejecutar). Constantes MAYÚSCULAS_CON_GUION. Paquetes en minúscula (java.io).</p></div><div><b>Formato Java</b><p>Sangría de 4 espacios, 80 caracteres por línea de código (70 en comentarios). Una variable por línea.</p></div><div><b>Comentarios Java</b><p>/** */ = documentación (va justo antes de la clase o método, lo lee Javadoc). /* */ y // = implementación.</p></div><div><b>Ficheros Java</b><p>Extensión .java al escribir y .class al compilar. Un solo public class por fichero, y debe ser la primera clase.</p></div><div><b>PSeInt: asignar y comparar</b><p>Asignar es <- (flecha que mete el valor). Comparar es = (signo igual). Definir x Como Real declara la variable.</p></div><div><b>PSeInt: MOD y DIV</b><p>MOD = resto (7 MOD 3 = 1). DIV = división entera (7 DIV 2 = 3). «MOD mira lo que sobra».</p></div><div><b>Mientras vs Repetir</b><p>Mientras comprueba antes (puede no entrar). Repetir comprueba después: entra al menos una vez.</p></div><div><b>Y / O</b><p>Y (AND) = tienen que cumplirse las dos. O (OR) = basta con una.</p></div><div><b>Diagramas: símbolos</b><p>Óvalo = inicio/fin (una pastilla). Rombo = decisión, dos salidas Sí/No. Rectángulo = proceso. Paralelogramo = entrada/salida de datos.</p></div><div><b>Diagramas: bucle</b><p>Si el rombo vuelve hacia atrás, es un bucle. Antes de volver, pon el contador a 0 y súmale en cada vuelta.</p></div></div>
-<h2>6. Flashcards de teoría UT1</h2>
+</div></details>
+<details class="sec"><summary><b>6. Flashcards de teoría UT1</b></summary><div class="secin">
 <p>Pulsa la tarjeta o «Ver respuesta» para girarla. Usa «Siguiente» y «Anterior» para moverte, y «Mezclar» para cambiar el orden.</p>
 <div class="fc" id="fc" role="button" tabindex="0" aria-label="Tarjeta de estudio"><div class="lab" id="fcN"></div><div class="txt" id="fcQ"></div><div class="resp" id="fcA"></div></div>
 <div class="fc-b"><button type="button" class="bt" id="fcP">← Anterior</button><button type="button" class="bt" id="fcV">Ver respuesta</button><button type="button" class="bt" id="fcS">Siguiente →</button><button type="button" class="bt" id="fcM">Mezclar</button></div>
-<h2>7. Diapositivas (NotebookLM)</h2>
+</div></details>
+<details class="sec"><summary><b>7. Diapositivas (NotebookLM)</b></summary><div class="secin">
 <p>Elige el tema y pasa las diapositivas con «Anterior» y «Siguiente».</p>
 <div class="dia-sel"><button type="button" class="bt" data-d="a">Pensamiento algorítmico y PSeInt</button><button type="button" class="bt" data-d="b">El ecosistema del software</button><button type="button" class="bt" data-d="c">Fundamentos del desarrollo de software</button><button type="button" class="bt" data-d="d">Lógica de programación con PSeInt</button></div>
 <div class="dia"><img id="diaImg" alt="Diapositiva" loading="lazy"><div class="pie"><button type="button" class="bt" id="diaP">← Anterior</button><span id="diaN"></span><button type="button" class="bt" id="diaS">Siguiente →</button></div></div>
+</div></details>
 <p><a href="index.html">Volver a Entornos de desarrollo</a></p>
 </div>
 <script>
