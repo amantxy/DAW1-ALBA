@@ -1,0 +1,217 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Examen de mañana · preparación</title><style>
+:root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#0891b2;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#4fd1e8;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.hero{background:var(--c);color:#fff;padding:28px 0 26px;margin-bottom:24px}
+@media (prefers-color-scheme:dark){.hero{color:#0b1220}}
+.hero .wrap{padding-bottom:0}
+.hero h1{margin:0;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.15}
+.hero p{margin:6px 0 0;opacity:.92}
+.back{display:inline-block;color:inherit;text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 0;margin-bottom:6px;opacity:.95}
+.back:hover{text-decoration:underline}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+a.card,div.card{display:block;position:relative;background:var(--hoja);border:1px solid var(--linea);border-top:6px solid var(--c);border-radius:12px;padding:16px 18px;color:inherit;text-decoration:none;min-height:104px}
+a.card:hover,a.card:focus-visible{box-shadow:0 6px 20px rgb(0 0 0/.12);transform:translateY(-2px);outline:none}
+a.card{transition:transform .15s,box-shadow .15s}
+.card b{display:block;font-size:1.1rem;color:var(--c);margin-bottom:2px}
+.card span{color:var(--suave);font-size:.9rem}
+.card .ico{position:absolute;right:14px;top:12px;font:700 1.3rem ui-monospace,Consolas,monospace;color:var(--c);opacity:.35}
+.card.off{opacity:.5;border-top-style:dashed}
+details.fold{position:relative;margin:32px 0 18px;--f:color-mix(in srgb,var(--c) 20%,var(--hoja))}
+details.fold>summary{list-style:none;cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;min-height:72px;padding:16px 18px;background:var(--f);border:2px solid var(--c);border-radius:0 12px 12px 12px}
+details.fold>summary::before{content:"";position:absolute;left:-2px;bottom:100%;width:min(46%,170px);height:17px;background:var(--c);border-radius:10px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+details.fold>summary:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary>svg{display:none}
+details.fold>summary b{font-size:1.15rem}
+details.fold>summary small{display:block;color:var(--suave);font-size:.88rem}
+details.fold>summary::after{content:"▾";margin-left:auto;color:var(--tinta);transition:transform .2s}
+details.fold[open]>summary{border-radius:0 12px 0 0}
+details.fold[open]>summary::after{transform:rotate(180deg)}
+.in{padding:14px 16px 18px;background:var(--hoja);border:2px solid var(--c);border-top:0;border-radius:0 0 12px 12px}
+.in h3{margin:14px 0 8px;font-size:.95rem;color:var(--c);display:flex;align-items:center;gap:8px}
+.in h3 svg{width:20px;height:20px}
+.tiles{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(100%,170px),1fr))}
+a.t,div.t{display:block;background:var(--cs);border:1px solid var(--linea);border-radius:10px;padding:12px 14px;color:inherit;text-decoration:none;min-height:64px}
+a.t:hover,a.t:focus-visible{border-color:var(--c);outline:none}
+.t b{display:block;font-size:.98rem}
+.t span{color:var(--suave);font-size:.82rem}
+div.t{opacity:.5;border-style:dashed}
+.sub{position:relative;margin-top:26px;padding:6px 12px 14px;background:var(--cs);border:1.5px solid var(--c);border-radius:0 10px 10px 10px}
+.sub::before{content:"";position:absolute;left:-1.5px;bottom:100%;width:min(46%,130px);height:13px;background:var(--c);border-radius:8px 0 0 0;clip-path:polygon(0 0,84% 0,100% 100%,0 100%)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.fold .fold{margin:26px 0 12px}.in p{margin:0 0 12px}.in h3{font-size:1.05rem;color:var(--c);margin:20px 0 8px;display:block}.in ul,.in ol{margin:0 0 12px;padding-left:22px}.in li{margin-bottom:6px}.in li ul{margin-top:6px}
+.in code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);border-radius:5px;padding:1px 5px}.in a{color:var(--c)}
+.nota{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:10px 12px}
+figure{margin:12px 0 16px}figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--linea);border-radius:8px}figcaption{color:var(--suave);font-size:.85rem;margin-top:5px}
+figure.one{max-width:560px}figure.small{max-width:280px}pre.code{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px 14px;overflow-x:auto;font:.86rem/1.5 ui-monospace,Consolas,monospace;margin:0 0 14px}.no{color:#b91c1c}.si{color:#15803d}@media (prefers-color-scheme:dark){.no{color:#f87171}.si{color:#4ade80}}.sol{margin:8px 0}.sol summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;color:var(--c)}li figure{margin-top:10px}.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:12px 0}.figs figure{margin:0}
+h3.ico{display:flex!important;align-items:center;gap:10px}h3.ico img{width:40px;height:auto}
+table.g{width:100%;border-collapse:collapse;margin:0 0 14px}@media (max-width:620px){table.g{display:block;overflow-x:auto}}table.g th,table.g td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top;overflow-wrap:break-word}table.g th{background:var(--cs)}
+
+.pasos{display:flex;flex-wrap:wrap;gap:6px 8px;margin:0 0 14px}.pasos span{background:var(--cs);border:1px solid var(--linea);border-radius:8px;padding:6px 10px;font-weight:600}.pasos span+span::before{content:"→ ";color:var(--c)}
+figure.mini{max-width:110px}figure.flujo{max-width:min(100%,520px)}figure.flujo img{background:#fff}.sol{border:1px solid var(--linea);border-radius:10px;padding:0 12px;margin:12px 0}.sol>div{padding:0 0 4px}.fold .in>p:first-child{margin-top:4px}p.nota{margin:12px 0}
+pre.code{white-space:pre;overflow-x:auto}
+
+.aviso{background:#fff4d6;color:#4a3300;border:1px solid #e6c46a;border-radius:10px;padding:10px 14px;margin:14px 0}
+@media (prefers-color-scheme:dark){.aviso{background:#3a2e10;color:#ffe9a8;border-color:#7a5d17}}
+table{width:100%;border-collapse:collapse;margin:8px 0}td{border-bottom:1px solid var(--linea);padding:8px 6px;vertical-align:top}
+.bt{min-height:44px;padding:8px 14px;border-radius:8px;border:1px solid var(--linea);background:var(--cs);color:inherit;font:inherit;cursor:pointer}
+.bt:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+.q{border:1px solid var(--linea);border-radius:10px;padding:8px 12px;margin:10px 0}.q label{display:block;padding:4px 0;cursor:pointer}
+.ok{color:#15803d;font-weight:600}.ko{color:#b91c1c;font-weight:600}
+</style></head><body>
+<div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver a Entornos de desarrollo</a><h1>Examen de mañana · preparación desde cero</h1><p>Teoría tipo test, pseudocódigo y diagramas de flujo. Plan de 8 horas.</p></div></div>
+<div class="wrap">
+<div class="aviso"><b>Temporal.</b> Esta página se borrará después del examen. Así lo pediste.</div>
+<h2>Plan de 8 horas</h2>
+<div class="tw"><table><tr><td><b>0:00 – 1:00</b></td><td>Teoría tipo test (símbolos, operadores, estructuras)</td></tr><tr><td><b>1:00 – 2:30</b></td><td>Pseudocódigo 1 y 2: Para y Si/SiNo</td></tr><tr><td><b>2:30 – 3:30</b></td><td>Pseudocódigo 3: Mientras</td></tr><tr><td><b>3:30 – 4:30</b></td><td>Pseudocódigo 4 y 5: Repetir y Segun</td></tr><tr><td><b>4:30 – 5:30</b></td><td>Diagramas 6 y 7</td></tr><tr><td><b>5:30 – 6:30</b></td><td>Diagrama 8 (bucle) y repetir los que fallaste</td></tr><tr><td><b>6:30 – 7:30</b></td><td>Test completo y revisar errores</td></tr><tr><td><b>7:30 – 8:00</b></td><td>Repaso ligero de la lista de errores, descanso</td></tr></table></div>
+<p>Antes de empezar, lee los <b>errores típicos</b> al final. Son los que más puntos quitan.</p>
+
+<h2>1. Teoría tipo test</h2>
+<div class="fold" style="padding:14px 16px"><p><b>Test de 10 preguntas.</b> Marca una opción por pregunta y corrige.</p><div id="quiz"></div><p><button type="button" id="corr" class="bt">Corregir</button> <button type="button" id="otra" class="bt">Nuevas preguntas</button></p><p id="res" class="pista"></p></div></div>
+
+<h2>2. Pseudocódigo</h2>
+<p>Escribe la solución tú antes de abrirla. Luego compara.</p>
+<details class="fold" open><summary><span><b>1. Media de cinco notas y aprobado</b><small>Medio</small></span></summary><div class="in"><p>Lee cinco notas, muestra su media y escribe «Aprobado» si la media es 5 o más, o «Suspenso» si no.</p><p class="nota"><b>Pista.</b> Usa una variable suma que acumule las notas y un Para de 1 a 5. Después calcula la media dividiendo entre 5.</p><details class="fold"><summary><span><b>Ver solución</b><small>Media de cinco notas y aprobado</small></span></summary><div class="in"><pre><code>Proceso Notas
+  Definir i, nota, suma, media Como Real
+  suma&lt;-0
+  Para i&lt;-1 Hasta 5 Hacer
+    Escribir &quot;Nota &quot;, i, &quot;: &quot; Sin Saltar
+    Leer nota
+    suma&lt;-suma+nota
+  FinPara
+  media&lt;-suma/5
+  Escribir &quot;Media: &quot;, media
+  Si media&gt;=5 Entonces
+    Escribir &quot;Aprobado&quot;
+  SiNo
+    Escribir &quot;Suspenso&quot;
+  FinSi
+FinProceso</code></pre></div></details></div></details>
+<details class="fold" open><summary><span><b>2. El mayor de tres números</b><small>Medio</small></span></summary><div class="in"><p>Lee tres números distintos y muestra cuál es el mayor.</p><p class="nota"><b>Pista.</b> Compara el primero con el segundo y el ganador con el tercero. Con Si y Sino Si puedes cubrir todos los casos.</p><details class="fold"><summary><span><b>Ver solución</b><small>El mayor de tres números</small></span></summary><div class="in"><pre><code>Proceso Mayor
+  Definir a, b, c, m Como Real
+  Leer a, b, c
+  Si a&gt;=b Y a&gt;=c Entonces
+    m&lt;-a
+  SiNo
+    Si b&gt;=c Entonces
+      m&lt;-b
+    SiNo
+      m&lt;-c
+    FinSi
+  FinSi
+  Escribir &quot;El mayor es &quot;, m
+FinProceso</code></pre></div></details></div></details>
+<details class="fold" open><summary><span><b>3. Contar pares hasta leer un 0</b><small>Medio-difícil</small></span></summary><div class="in"><p>Lee números enteros hasta que el usuario introduzca un 0. Al final muestra cuántos han sido pares. El 0 no cuenta.</p><p class="nota"><b>Pista.</b> El bucle debe leer antes de comprobar, así que una forma sencilla es leer un número fuera del bucle y otro dentro. Usa Mientras con la condición num<>0.</p><details class="fold"><summary><span><b>Ver solución</b><small>Contar pares hasta leer un 0</small></span></summary><div class="in"><pre><code>Proceso ContarPares
+  Definir num, pares Como Entero
+  pares&lt;-0
+  Escribir &quot;Introduce un número (0 para acabar):&quot;
+  Leer num
+  Mientras num&lt;&gt;0 Hacer
+    Si num MOD 2 = 0 Entonces
+      pares&lt;-pares+1
+    FinSi
+    Leer num
+  FinMientras
+  Escribir &quot;Pares: &quot;, pares
+FinProceso</code></pre></div></details></div></details>
+<details class="fold" open><summary><span><b>4. Pedir una nota válida con Repetir</b><small>Difícil</small></span></summary><div class="in"><p>Pide una nota entre 0 y 10. Si el usuario escribe un valor fuera de ese rango, vuelve a pedirla hasta que sea válida. Después muestra la nota.</p><p class="nota"><b>Pista.</b> Repetir Hasta se ejecuta al menos una vez, perfecto para validar. La condición de salida es que la nota esté entre 0 y 10.</p><details class="fold"><summary><span><b>Ver solución</b><small>Pedir una nota válida con Repetir</small></span></summary><div class="in"><pre><code>Proceso NotaValida
+  Definir nota Como Real
+  Repetir
+    Escribir &quot;Nota (0 a 10):&quot;
+    Leer nota
+  Hasta Que nota&gt;=0 Y nota&lt;=10
+  Escribir &quot;Nota válida: &quot;, nota
+FinProceso</code></pre></div></details></div></details>
+<details class="fold" open><summary><span><b>5. Calculadora con Segun</b><small>Medio</small></span></summary><div class="in"><p>Pide dos números y una opción: 1 suma, 2 resta, 3 multiplica, cualquier otra cosa muestra «Opción no válida».</p><p class="nota"><b>Pista.</b> Segun opcion Hacer … De Otro Modo … FinSegun. Recuerda que el Segun compara el valor de una sola variable.</p><details class="fold"><summary><span><b>Ver solución</b><small>Calculadora con Segun</small></span></summary><div class="in"><pre><code>Proceso Calculadora
+  Definir a, b, r Como Real
+  Definir op Como Entero
+  Leer a, b
+  Escribir &quot;1 suma, 2 resta, 3 multiplica:&quot;
+  Leer op
+  Segun op Hacer
+    1: r&lt;-a+b
+    2: r&lt;-a-b
+    3: r&lt;-a*b
+    De Otro Modo: Escribir &quot;Opción no válida&quot;
+  FinSegun
+  Escribir &quot;Resultado: &quot;, r
+FinProceso</code></pre></div></details></div></details>
+
+<h2>3. Diagramas de flujo</h2>
+<p>Los diagramas se dibujan con estos símbolos: óvalo (inicio y fin), rectángulo (proceso), paralelogramo (entrada y salida) y rombo (decisión). En las soluciones usamos texto para que se vea la estructura.</p>
+<details class="fold" open><summary><span><b>6. Diagrama: suma, resta y producto de dos números</b><small>Fácil</small></span></summary><div class="in"><p>Dibuja el diagrama que lee dos números y muestra su suma, su resta y su producto.</p><p class="nota"><b>Pista.</b> Sigue el orden: Inicio, Leer, tres cálculos o salidas, Fin. Cada paso es un símbolo distinto.</p><details class="fold"><summary><span><b>Ver solución</b><small>Diagrama: suma, resta y producto de dos números</small></span></summary><div class="in"><pre><code>[ Inicio ]  (óvalo)
+      |
+[ Leer a, b ]  (paralelogramo)
+      |
+[ r1 &lt;- a + b ]  (rectángulo)
+      |
+[ Escribir r1 ]  (paralelogramo)
+      |
+[ r2 &lt;- a - b ]
+      |
+[ Escribir r2 ]
+      |
+[ r3 &lt;- a * b ]
+      |
+[ Escribir r3 ]
+      |
+[ Fin ]  (óvalo)</code></pre></div></details></div></details>
+<details class="fold" open><summary><span><b>7. Diagrama: clasificar por edad</b><small>Medio</small></span></summary><div class="in"><p>Lee una edad. Si es menor de 18, escribe «Menor»; si está entre 18 y 64, escribe «Adulto»; si es 65 o más, escribe «Mayor».</p><p class="nota"><b>Pista.</b> Usa dos rombos seguidos. El primero separa menores; el segundo, adultos y mayores.</p><details class="fold"><summary><span><b>Ver solución</b><small>Diagrama: clasificar por edad</small></span></summary><div class="in"><pre><code>[ Inicio ]
+   |
+[ Leer edad ]
+   |
+&lt;edad &lt; 18 ?&gt; --Sí--&gt; [ Escribir &quot;Menor&quot; ] --&gt; [ Fin ]
+   | No
+&lt;edad &lt; 65 ?&gt; --Sí--&gt; [ Escribir &quot;Adulto&quot; ] --&gt; [ Fin ]
+   | No
+[ Escribir &quot;Mayor&quot; ] --&gt; [ Fin ]</code></pre></div></details></div></details>
+<details class="fold" open><summary><span><b>8. Diagrama con bucle: suma de 1 a N</b><small>Difícil</small></span></summary><div class="in"><p>Lee un número N y calcula la suma de todos los números del 1 al N. Dibuja el bucle con un rombo de control.</p><p class="nota"><b>Pista.</b> Necesitas tres variables: i (contador), suma y N. El rombo comprueba si i sigue siendo menor o igual que N, y la flecha de retorno vuelve a él.</p><details class="fold"><summary><span><b>Ver solución</b><small>Diagrama con bucle: suma de 1 a N</small></span></summary><div class="in"><pre><code>[ Inicio ]
+   |
+[ Leer N ]
+   |
+[ suma &lt;- 0 ; i &lt;- 1 ]
+   |
+&lt;i &lt;= N ?&gt; --No--&gt; [ Escribir suma ] --&gt; [ Fin ]
+   | Sí
+[ suma &lt;- suma + i ]
+   |
+[ i &lt;- i + 1 ]
+   |
+   +--(vuelve al rombo)</code></pre></div></details></div></details>
+
+<h2>4. Errores típicos</h2>
+<ul><li>Olvidar que el Segun compara una variable con varios valores, y Si con Y/O compara condiciones.</li><li>Usar = para asignar: en PSeInt la asignación es &lt;- y la comparación es =.</li><li>Repetir Hasta cumple la condición al revés: el bucle sigue mientras la condición es falsa.</li><li>Dejar un contador sin inicializar (sin poner a 0 antes del bucle).</li><li>En diagramas, olvidar la flecha de vuelta al rombo de control del bucle.</li><li>Poner la lectura dentro del Mientras sin volver a leer al final (el bucle no avanza).</li></ul>
+<p><a href="index.html">Volver a Entornos de desarrollo</a></p>
+</div>
+<script>
+var Q=[{"q": "¿Qué símbolo se usa en un diagrama de flujo para una decisión (Si/No)?", "o": ["Rectángulo", "Rombo", "Óvalo", "Paralelogramo"], "a": 1, "e": "El rombo tiene dos salidas: Sí y No."}, {"q": "¿Qué símbolo marca el Inicio y el Fin de un diagrama?", "o": ["Rombo", "Rectángulo", "Óvalo", "Flecha"], "a": 2, "e": "El óvalo (elipse) indica comienzo y final."}, {"q": "¿Qué símbolo se usa para leer datos o mostrar resultados?", "o": ["Paralelogramo", "Rombo", "Rectángulo", "Círculo"], "a": 0, "e": "El paralelogramo es la entrada o salida de datos."}, {"q": "En PSeInt, ¿cómo se declara una variable real llamada x?", "o": ["x Real", "Definir x Como Real", "Variable x: real", "Real x = 0"], "a": 1, "e": "Se usa Definir nombre Como tipo."}, {"q": "¿Cuánto vale 7 MOD 3 en PSeInt?", "o": ["2", "1", "3", "2.33"], "a": 1, "e": "MOD es el resto de la división: 7 = 2·3 + 1."}, {"q": "¿Cuánto vale 7 DIV 2 en PSeInt?", "o": ["3.5", "4", "3", "2"], "a": 2, "e": "DIV es la división entera: 7 entre 2 da 3."}, {"q": "¿Cuál es la diferencia principal entre Mientras y Repetir?", "o": ["Repetir comprueba la condición antes de entrar", "Mientras no se ejecuta nunca", "Repetir se ejecuta al menos una vez", "No hay diferencia"], "a": 2, "e": "Repetir Hasta comprueba la condición al final, así que el bloque se ejecuta al menos una vez."}, {"q": "Para i<-1 Hasta 5 Con Paso 2: ¿qué valores toma i?", "o": ["1, 2, 3, 4, 5", "1, 3, 5", "2, 4", "1, 2, 5"], "a": 1, "e": "Empieza en 1 y suma 2 cada vez: 1, 3, 5."}, {"q": "Si una condición compuesta usa Y (AND), ¿cuándo es verdadera?", "o": ["Cuando al menos una parte lo es", "Cuando ninguna parte lo es", "Cuando ambas partes son verdaderas", "Siempre"], "a": 2, "e": "Y exige que se cumplan las dos partes."}, {"q": "¿Qué hace un Si sin SiNo?", "o": ["Ejecuta siempre el bloque", "Ejecuta el bloque solo si la condición es verdadera", "Da error", "Repite el bloque"], "a": 1, "e": "Sin SiNo, si la condición es falsa no pasa nada."}];
+var orden=[],resp=[];
+function barajar(){orden=Q.map(function(_,i){return i}).sort(function(){return Math.random()-.5}).slice(0,10);resp=[];pinta()}
+function pinta(){
+  var h='';orden.forEach(function(qi,k){var q=Q[qi];h+='<fieldset class="q"><legend><b>'+(k+1)+'. '+q.q+'</b></legend>';
+    q.o.forEach(function(t,j){h+='<label><input type="radio" name="p'+k+'" value="'+j+'"> '+t+'</label>'});h+='</fieldset>'});
+  document.getElementById('quiz').innerHTML=h;document.getElementById('res').textContent='';
+}
+document.getElementById('corr').onclick=function(){
+  var n=0,items=[];
+  orden.forEach(function(qi,k){var q=Q[qi],s=document.querySelector('input[name="p'+k+'"]:checked'),ok=s&&Number(s.value)===q.a;if(ok)n++;
+    var f=document.querySelector('input[name="p'+k+'"]').closest('fieldset');
+    var m=document.createElement('p');m.className=ok?'ok':'ko';m.textContent=(ok?'Correcta. ':'Incorrecta. ')+q.e;f.appendChild(m);});
+  document.getElementById('res').innerHTML='<b>'+n+' de '+orden.length+' correctas.</b>';
+};
+document.getElementById('otra').onclick=barajar;
+barajar();
+</script>
+</body></html>
