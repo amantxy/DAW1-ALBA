@@ -32,7 +32,6 @@ function vistaEv(e){var a=asig(e.asignatura),us=unidades(e),H=leeH(e.id),p=plan(
  if(!e.hecho&&!pasado(e)){o+='<div class="sec2"><h2>Táctica de estudio</h2>';
   if(!us.length&&e.tipo==="examen")o+='<div class="nota">Todavía no se ha indicado el temario. La táctica será más útil cuando se elija.</div>';
   o+='<div class="barra" role="img" aria-label="'+pct+' % hecho"><i style="width:'+pct+'%"></i></div><p style="margin:0 0 8px;color:var(--suave)">'+hech+' de '+todas.length+' tareas hechas. Se guardan en este navegador.</p>';
-  if(p.min>e.minutos)o+='<div class="nota">Vas justa de tiempo: algún día necesitarás unos '+p.min+' minutos, más de los '+e.minutos+' previstos.</div>';
   if(atr.length)o+='<div class="dp hoy"><h3>Pendiente de días anteriores</h3>'+atr.map(function(x){return tarea(e.id,x,H)}).join("")+'</div>';
   p.dias.forEach(function(d,i){if(d.f<hoy)return;var m=d.ts.reduce(function(s,x){return s+x.min},0);o+='<div class="dp'+(d.f===hoy?" hoy":"")+'"><h3>'+(d.f===hoy?"Hoy, ":"")+bonita(d.f)+' <small>· '+m+' min</small></h3>'+d.ts.map(function(x){return tarea(e.id,x,H)}).join("")+'</div>'});
   o+='<div class="dp"><h3>'+bonita(e.fecha)+'</h3><p style="margin:0">'+(e.tipo==="examen"?"¡Día del examen! Lee cada pregunta con calma y empieza por lo que mejor sepas.":"Último día para entregar.")+'</p></div></div>'}
