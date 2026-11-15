@@ -95,6 +95,16 @@ details.sec[open]>summary::after{transform:rotate(180deg)}
 details.sec>summary b{font-weight:700}
 .secin{padding:4px 16px 14px}
 .secin h3{margin-top:18px}
+
+.rs-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));margin:10px 0 6px}
+.rs{border:1px solid var(--linea);border-radius:14px;padding:16px 16px 14px;background:var(--hoja);border-top:6px solid var(--c)}
+.rs.v2{border-top-color:#7c3aed}.rs.v3{border-top-color:#15803d}
+@media (prefers-color-scheme:dark){.rs.v2{border-top-color:#a78bfa}.rs.v3{border-top-color:#4ade80}}
+.rs h3{margin:0 0 4px;color:var(--c);font-size:1.1rem}
+.rs small{display:block;color:var(--suave);margin-bottom:10px}
+.rs ul{margin:0 0 12px;padding-left:20px}.rs li{margin-bottom:6px;font-size:.95rem}
+.rs .rec{background:var(--cs);border-left:5px solid var(--c);border-radius:8px;padding:9px 12px;font-size:.92rem}
+.rs .rec b{display:block;margin-bottom:3px}
 </style></head><body>
 <div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver a Entornos de desarrollo</a><h1>Examen de mañana · preparación desde cero</h1><p>Teoría tipo test, pseudocódigo y diagramas de flujo. Plan de 8 horas.</p></div></div>
 <div class="wrap">
@@ -231,6 +241,56 @@ FinProceso</code></pre></div></details></div></details>
 <p>Elige el tema y pasa las diapositivas con «Anterior» y «Siguiente».</p>
 <div class="dia-sel"><button type="button" class="bt" data-d="a">Pensamiento algorítmico y PSeInt</button><button type="button" class="bt" data-d="b">El ecosistema del software</button><button type="button" class="bt" data-d="c">Fundamentos del desarrollo de software</button><button type="button" class="bt" data-d="d">Lógica de programación con PSeInt</button></div>
 <div class="dia"><img id="diaImg" alt="Diapositiva" loading="lazy"><div class="pie"><button type="button" class="bt" id="diaP">← Anterior</button><span id="diaN"></span><button type="button" class="bt" id="diaS">Siguiente →</button></div></div>
+</div></details>
+<details class="sec"><summary><b>8. Resúmenes de las tres partes</b></summary><div class="secin">
+<div class="rs-grid">
+<article class="rs">
+<h3>Parte 1 · Fundamentos del desarrollo</h3><small>Software, ciclo de vida, modelos, Von Neumann y Java</small>
+<ul>
+<li><b>Hardware</b> = componentes físicos; <b>software</b> = programas, procedimientos, reglas, documentación y datos (IEEE 729).</li>
+<li><b>Tipos por tarea</b>: sistema (SO, drivers), programación (IDE, compiladores) y aplicación (ofimática, CAD).</li>
+<li><b>Distribución</b>: shareware (prueba limitada y luego pagas), freeware (gratis pero cerrado), adware (con publicidad).</li>
+<li><b>Ciclo de vida</b> (ISO/IEC 12207-1): análisis, diseño, codificación, pruebas y mantenimiento.</li>
+<li><b>Modelos</b>: cascada (orden estricto, con realimentación), incremental (entrega partes utilizables) y espiral (riesgos en cada vuelta).</li>
+<li><b>Análisis</b>: requisitos funcionales (el qué) y no funcionales (el cómo). Diseño estructurado (DFD) frente a orientado a objetos (UML).</li>
+<li><b>Pruebas</b>: caja blanca (ve el código) y caja negra (solo entradas y salidas). Una prueba tiene éxito si encuentra un error.</li>
+<li><b>Mantenimiento</b> (IEEE 1219): correctivo, perfectivo, preventivo y adaptativo (el más habitual).</li>
+<li><b>Von Neumann</b>: programa y datos en la misma memoria; ciclo fetch-execute con CP, RI, RDM y RIM.</li>
+<li><b>Java</b>: .java → javac → .class (bytecode) → JVM. Compilador (traduce todo de golpe) frente a intérprete (instrucción a instrucción).</li>
+</ul>
+<div class="rec"><b>Fe de erratas (para el examen)</b>Dominio público: permite desarrollar productos propietarios. GPL: obliga a liberar código solo si distribuyes. While comprueba antes; do-while, después. Compilador: optimiza para ejecutar más rápido. Usa import java.io.*;</div>
+</article>
+<article class="rs v2">
+<h3>Parte 2 · El ecosistema del software</h3><small>Hardware, software, licencias y ciclo de vida</small>
+<ul>
+<li><b>Capas</b>: hardware (la base), sistema (SO, drivers), programación (IDE, compiladores) y aplicación (tareas del usuario).</li>
+<li><b>Licencia libre</b>: cuatro libertades (usar, estudiar, distribuir, mejorar) y acceso al código fuente. Su licencia típica es la GPL.</li>
+<li><b>Propietario</b>: se distribuye en binario, sin código fuente, y prohíbe copiar o modificar.</li>
+<li><b>Dominio público</b>: sin licencia o autor desconocido. Se puede usar libremente, incluso para productos propietarios.</li>
+<li><b>Ciclo de vida</b>: cada fase recibe documentos de la anterior y genera otros nuevos. La documentación es continua.</li>
+<li><b>Cascada</b>: fases en orden, con vuelta atrás si hay errores. Sirve si los requisitos están claros.</li>
+<li><b>Incremental</b>: el cliente recibe partes utilizables pronto. No es recomendable para tiempo real ni alta seguridad.</li>
+<li><b>Espiral</b>: combina cascada con prototipos y el análisis de riesgos en cada vuelta.</li>
+<li><b>Mantenimiento</b>: correctivo (errores no detectados), adaptativo (cambios en el entorno), perfectivo (nuevas funciones) y preventivo (refactorizar).</li>
+</ul>
+<div class="rec"><b>Recuerda</b>El diferenciador de la espiral es el análisis de riesgos continuo. El ciclo de vida va en este orden: análisis, diseño, codificación, pruebas y mantenimiento.</div>
+</article>
+<article class="rs v3">
+<h3>Parte 3 · Pensamiento algorítmico y PSeInt</h3><small>Algoritmos, variables, condiciones, bucles y método de trabajo</small>
+<ul>
+<li><b>Algoritmo</b>: secuencia ordenada, precisa, definida y finita. Estructura: entrada → proceso → salida.</li>
+<li><b>Variables</b>: entero, real (con punto), lógico (verdadero/falso) y carácter o cadena. Una variable guarda un solo valor.</li>
+<li><b>Asignación</b> <code>&lt;-</code>: calcula lo de la derecha y lo guarda a la izquierda (no es una ecuación). Ej.: <code>c &lt;- c + 1</code>.</li>
+<li><b>Leer</b> debe ir precedido de un <b>Escribir</b> que pregunte.</li>
+<li><b>Lógica</b>: <b>Y</b> = se cumplen las dos; <b>O</b> = basta una. Orden: () ^ * / MOD + − &lt; &gt; = NO Y O.</li>
+<li><b>Condicionales</b>: Si-Entonces-Sino para rangos; <b>Segun</b> para valores numéricos concretos con De Otro Modo.</li>
+<li><b>Bucles</b>: <b>Mientras</b> comprueba antes (puede no entrar); <b>Repetir</b> comprueba después (entra al menos una vez); <b>Para</b> si se conoce el número de vueltas.</li>
+<li><b>Herramientas</b>: contador (a 0 antes del bucle), acumulador, bandera (<code>datosOk</code>) y lectura adelantada.</li>
+<li><b>Método de 6 pasos</b>: comprender, inventario, selección de estructuras, esqueleto lógico, diagrama en PSeInt y verificación con casos límite.</li>
+</ul>
+<div class="rec"><b>Recuerda</b>Prueba siempre los bordes: si la condición es edad &lt; 18, prueba 17, 18 y 19. Antes de entregar, revisa que los textos de Escribir estén exactamente como pide el enunciado.</div>
+</article>
+</div>
 </div></details>
 <p><a href="index.html">Volver a Entornos de desarrollo</a></p>
 </div>
