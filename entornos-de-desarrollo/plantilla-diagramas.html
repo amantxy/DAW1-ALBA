@@ -1,0 +1,197 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Plantilla para diagramas y pseudocódigo</title><style>
+:root{--bg:#f3f6fb;--hoja:#fff;--tinta:#0f1b2d;--suave:#52637a;--linea:#d7e0ec;--c:#0891b2;--cs:color-mix(in srgb,var(--c) 12%,var(--hoja))}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1220;--hoja:#131c2e;--tinta:#e8eef8;--suave:#9aabc4;--linea:#25324a;--c:#4fd1e8;--cs:color-mix(in srgb,var(--c) 16%,var(--hoja));color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tinta);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right)) 56px max(16px,env(safe-area-inset-left))}
+.hero{background:var(--c);color:#fff;padding:28px 0 26px;margin-bottom:24px}
+@media (prefers-color-scheme:dark){.hero{color:#0b1220}}
+.hero .wrap{padding-bottom:0}
+.hero h1{margin:0;font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.15}
+.hero p{margin:6px 0 0;opacity:.92}
+.back{display:inline-block;color:inherit;text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 0;margin-bottom:6px;opacity:.95}
+.back:hover{text-decoration:underline}
+
+.acciones{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+.acciones a{background:var(--c);color:#fff;text-decoration:none;font-weight:600;padding:10px 16px;border-radius:10px}
+@media (prefers-color-scheme:dark){.acciones a{color:#0b1220}}
+.acciones a.sec{background:transparent;color:var(--c);border:2px solid var(--c)}
+.blk{background:var(--hoja);border:1px solid var(--linea);border-top:6px solid var(--c);border-radius:12px;padding:16px 18px;margin:0 0 18px}
+.blk h2{margin:0 0 8px;font-size:1.25rem;color:var(--c)}
+.blk p{margin:6px 0}
+.code{position:relative}
+pre{margin:8px 0 0;background:var(--cs);border:1px solid var(--linea);border-left:4px solid var(--c);border-radius:8px;padding:12px 14px;overflow-x:auto;font:13.5px/1.45 ui-monospace,Consolas,"DejaVu Sans Mono",monospace;white-space:pre}
+button.copiar{position:absolute;top:8px;right:8px;background:var(--c);color:#fff;border:0;border-radius:8px;padding:6px 10px;font-weight:600;cursor:pointer}
+@media (prefers-color-scheme:dark){button.copiar{color:#0b1220}}
+.tip{background:var(--cs);border-radius:10px;padding:10px 14px;margin-top:10px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin:8px 0}
+th{background:var(--c);color:#fff;text-align:left;padding:7px 9px}
+@media (prefers-color-scheme:dark){th{color:#0b1220}}
+td{border:1px solid var(--linea);padding:6px 9px;vertical-align:top}
+code{font-family:ui-monospace,Consolas,monospace;background:var(--cs);padding:0 3px;border-radius:3px;font-size:.9em}
+details.ej{border:1px solid var(--linea);border-radius:10px;margin:8px 0;background:var(--hoja)}
+details.ej>summary{cursor:pointer;padding:10px 14px;font-weight:700;color:var(--c)}
+details.ej>.code{padding:0 12px 12px}
+</style><link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script><script src="../acceso.js"></script></head><body><div class="hero"><div class="wrap"><a class="back" href="index.html">← Volver</a><h1>Plantilla para diagramas y pseudocódigo</h1><p>Una plantilla base en comentarios para cualquier ejercicio, con equivalencias de cada figura, bucles y funciones</p></div></div><div class="wrap">
+<div class="acciones"><a href="plantilla-diagramas.pdf" download>Descargar PDF</a><a class="sec" href="plantilla-diagramas.pdf" target="_blank" rel="noopener">Abrir el PDF</a></div>
+
+<section class="blk"><h2>Cómo se usa</h2>
+<ol><li>Copia la plantilla como comentarios al principio del diagrama (o del pseudocódigo).</li>
+<li>Rellena los huecos con lo que dice el enunciado y borra los pasos que no necesites.</li>
+<li>Debajo de cada línea <code>//</code> coloca su figura (mira la tabla de equivalencias).</li>
+<li>Ejecútalo con el ejemplo del enunciado y con casos límite.</li></ol></section>
+
+<section class="blk"><h2>Plantilla universal</h2><div class="code"><button class="copiar" data-for="c1">Copiar</button><pre id="c1">// ===== PLANTILLA UNIVERSAL =====
+// 0. DATOS DEL ENUNCIADO (apúntalo antes de empezar)
+//    ENTRAN (lo que se pregunta): ________________________________
+//    SALEN (mensajes exactos):    ________________________________
+//    CALCULO / RECUERDO:          ________________________________
+//    ¿Se repite algo? NO / SÍ -&gt; ¿al menos 1 vez? SÍ=Repetir  NO=Mientras  (nº fijo=Para)
+
+// 1. DEFINIR variables
+//    Definir ____ Como Entero      (números sin decimales, opciones 1-2-3, contadores)
+//    Definir ____ Como Real        (decimales, dinero, kWh, km)
+//    Definir ____ Como Caracter    (respuestas S/N)
+//    Definir ____ Como Logico      (banderas: valido, hayautopista, horario...)
+
+// 2. VALORES FIJOS E INICIALES (ANTES de cualquier bucle)
+//    CONSTANTE_EN_MAYUSCULAS &lt;- valor   (precios, porcentajes, límites)
+//    contador &lt;- 0 ; acumulador &lt;- 0 ; bandera &lt;- Falso
+
+// 3. [BUCLE si hay] Repetir ... / Mientras condición Hacer ...
+//    (si es Mientras: 1ª lectura ANTES del bucle y la siguiente al FINAL)
+
+// 4. PEDIR DATOS (por cada dato: Escribir &quot;mensaje exacto&quot; + Leer variable)
+
+// 5. VALIDAR
+//    valido &lt;- (dato1 en rango) Y (dato2 en rango) ...
+//    Si NO valido -&gt; &quot;mensaje de error&quot;
+//    SiNo -&gt; seguir con el paso 6
+
+// 6. DECIDIR / CALCULAR
+//    Varias opciones concretas (1, 2, 3) -&gt; Según variable
+//    Condiciones -&gt; Si ... SiNo (de lo MÁS concreto a lo más general)
+//    Cosas independientes -&gt; Si separados, uno detrás de otro
+//    Contar -&gt; contador &lt;- contador + 1 ; Sumar -&gt; total &lt;- total + cantidad
+
+// 7. [FIN DEL BUCLE si hay]
+//    Escribir &quot;¿Otro...? (S/N)&quot; ; Leer resp
+//    Hasta Que resp &lt;&gt; &quot;S&quot; Y resp &lt;&gt; &quot;s&quot;   /   FinMientras
+
+// 8. MOSTRAR RESULTADO (mensajes exactos, con la coma para juntar texto y variable)
+//    Escribir &quot;Texto: &quot;, variable
+
+// 9. PROBAR con el ejemplo del enunciado + casos límite (0, máximo, valores no válidos)</pre></div>
+<div class="tip"><b>Preguntas rápidas para rellenarla:</b><br>
+1. ¿Qué me pide que pregunte? → variables + Leer.<br>
+2. ¿Qué tengo que calcular o contar? → variables + ←.<br>
+3. ¿El dato solo puede valer 1, 2, 3…? → Según. ¿Es una condición? → Si.<br>
+4. ¿Se repite? ¿Siempre al menos una vez? → Repetir. ¿Puede no hacerse? → Mientras.<br>
+5. ¿Qué mensajes exactos tengo que mostrar? → copiarlos tal cual del enunciado.</div></section>
+
+<section class="blk"><h2>A qué equivale cada cosa en el diagrama de flujo</h2>
+<p>En el editor de diagramas de PSeInt cada instrucción es una figura que se arrastra y se suelta <b>sobre una flecha</b>; luego doble clic para escribir dentro.</p>
+<div class="tw"><table><tr><th>En el esquema / pseudocódigo</th><th>Figura en el diagrama</th><th>Qué escribes dentro</th></tr><tr><td>Proceso / FinProceso</td><td>Óvalo (ya viene puesto)</td><td>El nombre del algoritmo</td></tr><tr><td>Definir … Como Entero</td><td>Rectángulo (asignación / instrucción)</td><td><code>Definir edad, dia Como Entero</code></td></tr><tr><td>x &lt;- valor (asignar, contador, acumulador)</td><td>Rectángulo (asignación)</td><td><code>tiradas &lt;- tiradas + 1</code></td></tr><tr><td>MOSTRAR / Escribir</td><td>Paralelogramo con flecha hacia fuera ↗</td><td><code>"Créditos: ", creditos</code></td></tr><tr><td>PEDIR / Leer</td><td>Un Escribir (la pregunta) y luego el paralelogramo con flecha hacia dentro ↙</td><td>La variable: <code>edad</code></td></tr><tr><td>Si … Entonces … SiNo</td><td>Rombo con salidas V (sí) y F (no); abajo se juntan</td><td>Solo la condición: <code>edad &lt; 12 O edad &gt;= 65</code></td></tr><tr><td>Según x Hacer</td><td>Triángulo ancho, una columna por caso (+ De Otro Modo)</td><td>La variable arriba y el valor en cada columna</td></tr><tr><td>Mientras … Hacer</td><td>Rombo ARRIBA; por V entra y vuelve al rombo; por F sale</td><td>Condición para SEGUIR: <code>distancia &gt; 0</code></td></tr><tr><td>Repetir … Hasta Que</td><td>Bloque con el rombo ABAJO; por F vuelve arriba; por V sale</td><td>Condición para PARAR: <code>otro &lt;&gt; "S" Y otro &lt;&gt; "s"</code></td></tr><tr><td>Para i &lt;- 1 Hasta N</td><td>Bloque Para (con contador)</td><td>Variable, inicio, final y paso</td></tr><tr><td>// comentario</td><td>Comentario</td><td>El texto que quieras</td></tr></table></div></section>
+
+<section class="blk"><h2>Los bucles</h2><div class="tw"><table><tr><th>Bucle</th><th>Sintaxis</th><th>Cuándo</th><th>Ejemplo</th></tr><tr><td><b>Mientras</b></td><td><code>Mientras condición Hacer … FinMientras</code></td><td>Puede ejecutarse 0 veces. Pregunta ANTES. Repite mientras la condición sea VERDADERA.</td><td>Tramos del coche: <code>Mientras distancia &gt; 0</code> (1ª lectura antes, la siguiente al final)</td></tr><tr><td><b>Repetir</b></td><td><code>Repetir … Hasta Que condición</code></td><td>Al menos 1 vez. Pregunta DESPUÉS. Para cuando la condición es VERDADERA.</td><td>Gimnasio, carga del coche, tragaperras</td></tr><tr><td><b>Para</b></td><td><code>Para i &lt;- 1 Hasta 10 Con Paso 1 Hacer … FinPara</code></td><td>Sabes cuántas vueltas hay.</td><td>«Pide 10 notas»</td></tr></table></div><div class="tip"><b>Truco:</b> Mientras y Repetir usan condiciones <b>contrarias</b>: <code>Mientras otro = "S"</code> ≈ <code>Hasta Que otro &lt;&gt; "S"</code>. Para darle la vuelta: = ↔ &lt;&gt;, &lt; ↔ &gt;=, &gt; ↔ &lt;=, Y ↔ O.</div></section>
+
+<section class="blk"><h2>Funciones útiles (azar, texto, números)</h2><div class="tw"><table><tr><th>Función</th><th>Qué hace</th><th>Ejemplo</th></tr><tr><td><b>Azar(n)</b></td><td>Entero al azar de <b>0 a n−1</b></td><td><code>Azar(3) + 1</code> → 1, 2 o 3</td></tr><tr><td><b>Aleatorio(a, b)</b></td><td>Entero al azar de <b>a a b</b> (incluidos)</td><td><code>Aleatorio(1, 3)</code> → 1, 2 o 3</td></tr><tr><td><b>Mayusculas(texto)</b></td><td>Pasa a mayúsculas</td><td><code>Mayusculas("s")</code> → "S"</td></tr><tr><td><b>Minusculas(texto)</b></td><td>Pasa a minúsculas</td><td><code>Minusculas("S")</code> → "s"</td></tr><tr><td><b>Longitud(texto)</b></td><td>Número de letras</td><td><code>Longitud("Hola")</code> → 4</td></tr><tr><td><b>Trunc(x)</b></td><td>Quita los decimales</td><td><code>Trunc(7.9)</code> → 7</td></tr><tr><td><b>Redon(x)</b></td><td>Redondea</td><td><code>Redon(7.5)</code> → 8</td></tr><tr><td><b>Abs(x)</b></td><td>Valor absoluto</td><td><code>Abs(-5)</code> → 5</td></tr><tr><td><b>RC(x)</b></td><td>Raíz cuadrada</td><td><code>RC(16)</code> → 4</td></tr><tr><td><b>MOD</b></td><td>Resto de la división</td><td><code>10 MOD 3</code> → 1 · par si <code>x MOD 2 = 0</code></td></tr></table></div><p>Operadores: <code>=</code> igual · <code>&lt;&gt;</code> distinto · <code>&lt;</code> · <code>&lt;=</code> · <code>&gt;</code> · <code>&gt;=</code> · <b>Y</b> (las dos) · <b>O</b> (al menos una) · <b>NO</b> (lo contrario). Decimales con punto: 6.50.</p></section>
+
+<section class="blk"><h2>Ejemplos: la plantilla aplicada a las prácticas</h2><p>Esquemas de las prácticas de diagramas de flujo (cine, tragaperras, gimnasio y coche eléctrico), listos para copiar.</p>
+<details class="ej"><summary>Esquema general (sirve para cualquier ejercicio)</summary><div class="code"><button class="copiar" data-for="c2">Copiar</button><pre id="c2">// 1. DEFINIR variables (qué pregunto + qué calculo) con su tipo
+// 2. VALORES INICIALES (contadores a 0, valores fijos)
+// 3. PEDIR DATOS (Escribir + Leer)
+// 4. COMPROBAR que los datos son válidos
+// 5. DECIDIR / CALCULAR (Si, Según)
+// 6. BUCLE si algo se repite (Repetir si al menos 1 vez / Mientras si puede ser 0)
+// 7. MOSTRAR resultado (mensajes exactos)</pre></div></details><details class="ej"><summary>Ejercicio 1: Taquilla del cine</summary><div class="code"><button class="copiar" data-for="c3">Copiar</button><pre id="c3">// DEFINIR: edad, dia, sala (Entero); carnetjoven (Caracter); valido (Logico); preciob, preciof, descuento (Real)
+// PEDIR: &quot;Edad:&quot; -&gt; edad
+// PEDIR: &quot;Dia de la semana (1 lunes ... 7 domingo):&quot; -&gt; dia
+// PEDIR: &quot;Sala (1 Normal, 2 3D, 3 VIP):&quot; -&gt; sala
+// PEDIR: &quot;Tiene carnet joven? (S/N):&quot; -&gt; carnetjoven
+// valido &lt;- Verdadero
+// Si edad &lt; 0 O edad &gt; 120 -&gt; valido &lt;- Falso
+// Si dia &lt; 1 O dia &gt; 7 -&gt; valido &lt;- Falso
+// Si sala &lt; 1 O sala &gt; 3 -&gt; valido &lt;- Falso
+// Si NO valido -&gt; &quot;Datos invalidos&quot;
+// SiNo:
+//   Si sala = 3 Y edad &lt; 16 -&gt; &quot;Entrada no permitida&quot;
+//   SiNo:
+//     Según sala: 1 -&gt; preciob 6.50 | 2 -&gt; 8.50 | 3 -&gt; 12.00
+//     descuento &lt;- 0
+//     Si edad &lt; 12 O edad &gt;= 65 -&gt; descuento &lt;- preciob * 0.30
+//     SiNo: Si carnet S/s Y edad 14..25 -&gt; descuento &lt;- preciob * 0.20
+//     preciof &lt;- preciob - descuento
+//     Si dia = 3 Y sala &lt;&gt; 3 -&gt; preciof &lt;- preciof - 2
+//     Si dia = 6 O dia = 7 -&gt; preciof &lt;- preciof + 1
+//     MOSTRAR &quot;Precio base: &quot;, preciob
+//     MOSTRAR &quot;Precio final: &quot;, preciof</pre></div></details><details class="ej"><summary>Ejercicio 2: Tragaperras</summary><div class="code"><button class="copiar" data-for="c4">Copiar</button><pre id="c4">// DEFINIR: creditos, tiradas, simb1, simb2, simb3 (Entero); eleccion (Caracter)
+// creditos &lt;- 10 ; tiradas &lt;- 0
+// MOSTRAR &quot;Empiezas con &quot;, creditos, &quot; créditos&quot;
+// REPETIR (la primera tirada siempre se hace)
+//   creditos &lt;- creditos - 1 ; tiradas &lt;- tiradas + 1
+//   simb1, simb2, simb3 &lt;- Azar(3) + 1   (da 1, 2 o 3)
+//   MOSTRAR &quot;Rodillos: &quot;, simb1, &quot; - &quot;, simb2, &quot; - &quot;, simb3
+//   Si los 3 = 3 -&gt; &quot;¡Premio gordo!&quot; y creditos + 10
+//   SiNo: Si simb1 = simb2 Y simb2 = simb3 -&gt; &quot;Tres iguales&quot; y creditos + 5
+//   SiNo: Si simb1=simb2 O simb1=simb3 O simb2=simb3 -&gt; &quot;Dos iguales&quot; y creditos + 1
+//   SiNo -&gt; &quot;Sin premio&quot;
+//   MOSTRAR &quot;Créditos: &quot;, creditos
+//   Si creditos &gt; 0 -&gt; PEDIR &quot;¿Otra tirada? (S/N):&quot; -&gt; eleccion
+// HASTA QUE creditos &lt;= 0 O (eleccion &lt;&gt; &quot;S&quot; Y eleccion &lt;&gt; &quot;s&quot;)
+// MOSTRAR &quot;Tiradas realizadas: &quot;, tiradas
+// Si creditos &lt;= 0 -&gt; &quot;Te has quedado sin créditos&quot;
+// SiNo -&gt; &quot;Te retiras con &quot;, creditos, &quot; créditos&quot;</pre></div></details><details class="ej"><summary>Ejercicio 3: Torno del gimnasio</summary><div class="code"><button class="copiar" data-for="c5">Copiar</button><pre id="c5">// DEFINIR: abono, dia, hora, permitidos, denegados (Entero); cuota, otro (Caracter); valido, horario (Logico)
+// permitidos &lt;- 0 ; denegados &lt;- 0   (FUERA del bucle)
+// REPETIR (siempre pasa al menos un socio)
+//   PEDIR &quot;Tipo de abono (1 Mañana, 2 Tarde, 3 Completo):&quot; -&gt; abono
+//   PEDIR &quot;Día de la semana (1 lunes ... 7 domingo):&quot; -&gt; dia
+//   PEDIR &quot;Hora de entrada (0-23):&quot; -&gt; hora
+//   PEDIR &quot;¿Cuota al día? (S/N):&quot; -&gt; cuota
+//   valido &lt;- abono 1..3 Y dia 1..7 Y hora 0..23
+//   Si NO valido -&gt; &quot;Datos inválidos&quot; (no cuenta)
+//   SiNo:
+//     Si cuota no es S/s -&gt; &quot;Cuota pendiente: acceso denegado&quot; ; denegados + 1
+//     SiNo:
+//       Si dia = 7 -&gt; horario &lt;- hora &gt;= 9 Y hora &lt; 14
+//       SiNo: Según abono: 1 -&gt; 7..&lt;15 | 2 -&gt; 15..&lt;23 | 3 -&gt; 7..&lt;23
+//       Si horario -&gt; &quot;Acceso permitido&quot; ; permitidos + 1
+//       SiNo -&gt; &quot;Fuera de horario: acceso denegado&quot; ; denegados + 1
+//   PEDIR &quot;¿Pasa otro socio? (S/N):&quot; -&gt; otro
+// HASTA QUE otro &lt;&gt; &quot;S&quot; Y otro &lt;&gt; &quot;s&quot;
+// MOSTRAR &quot;Accesos permitidos: &quot;, permitidos
+// MOSTRAR &quot;Accesos denegados: &quot;, denegados</pre></div></details><details class="ej"><summary>Ejercicio 4: Coche eléctrico</summary><div class="code"><button class="copiar" data-for="c6">Copiar</button><pre id="c6">// DEFINIR: tipo (Entero); cargaini, distancia, distot, consumtot, restante, faltante (Real); hayautopista (Logico)
+// REPETIR (la carga se pide al menos una vez)
+//   PEDIR &quot;Carga actual de la batería (kWh, 0-60):&quot; -&gt; cargaini
+// HASTA QUE cargaini &gt;= 0 Y cargaini &lt;= 60
+// distot &lt;- 0 ; consumtot &lt;- 0 ; hayautopista &lt;- Falso
+// PEDIR &quot;Distancia del tramo en km (0 para terminar):&quot; -&gt; distancia   (1ª lectura ANTES del bucle)
+// MIENTRAS distancia &gt; 0 (puede no haber ningún tramo)
+//   PEDIR &quot;Tipo de vía (1 Ciudad, 2 Carretera, 3 Autopista):&quot; -&gt; tipo
+//   Según tipo:
+//     1 -&gt; distot + distancia ; consumtot + distancia * 0.15
+//     2 -&gt; distot + distancia ; consumtot + distancia * 0.18
+//     3 -&gt; distot + distancia ; consumtot + distancia * 0.22 ; hayautopista &lt;- Verdadero
+//     De Otro Modo -&gt; &quot;Tipo de vía no válido: tramo descartado&quot;
+//   PEDIR &quot;Distancia del tramo en km (0 para terminar):&quot; -&gt; distancia   (lectura al FINAL del bucle)
+// FIN MIENTRAS
+// Si distot = 0 -&gt; &quot;No hay tramos que analizar&quot;
+// SiNo:
+//   MOSTRAR &quot;Distancia total: &quot;, distot, &quot; km&quot;
+//   MOSTRAR &quot;Consumo estimado: &quot;, consumtot, &quot; kWh&quot;
+//   Si cargaini &gt;= consumtot:
+//     restante &lt;- cargaini - consumtot
+//     MOSTRAR &quot;Llegas sin recargar&quot; y &quot;Carga restante: &quot;, restante, &quot; kWh&quot;
+//     Si restante &lt; 6 Y (hayautopista O distot &gt; 250) -&gt; &quot;Aviso: llegarás en reserva&quot;
+//   SiNo:
+//     faltante &lt;- consumtot - cargaini
+//     MOSTRAR &quot;Necesitas recargar: te faltan &quot;, faltante, &quot; kWh&quot;</pre></div></details></section>
+</div>
+<script>
+document.querySelectorAll('button.copiar').forEach(function(b){b.addEventListener('click',function(){
+var t=document.getElementById(b.dataset.for).textContent;
+function ok(){var o=b.textContent;b.textContent='¡Copiado!';setTimeout(function(){b.textContent=o},1500)}
+if(navigator.clipboard){navigator.clipboard.writeText(t).then(ok,function(){})}else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok()}catch(x){}a.remove()}
+})});
+</script></body></html>
