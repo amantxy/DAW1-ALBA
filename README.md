@@ -40,6 +40,10 @@ Aún sin contenido.
 
 - [Temario de 10 unidades](https://amantxy.github.io/DAW1-ALBA/ingles-profesional/index.html) · Vocabulario, lectura, gramática, speaking, writing y ejercicios
 
+### [Aula DAW 1](aula/index.html)
+
+- Curso desde cero de las 7 asignaturas: teoría corta, editor para probar código (HTML y XML) y test al final de cada lección
+
 ## Estructura
 
 | Asignatura | Carpeta | HTML |
