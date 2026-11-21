@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Actualizando Aula DAW 1…</title>
+<style>body{font-family:system-ui,sans-serif;background:#1f2937;color:#fff;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:24px}a{color:#7dd3fc}</style></head>
+<body><div><h1>Actualizando…</h1><p id="m">Borrando la versión guardada.</p><p><a href="index.html">Si no pasa nada, pulsa aquí</a></p></div>
+<script>
+(function () {
+  var p = [];
+  if (window.caches) p.push(caches.keys().then(function (k) { return Promise.all(k.map(function (x) { return caches.delete(x); })); }));
+  if (navigator.serviceWorker) p.push(navigator.serviceWorker.getRegistrations().then(function (r) { return Promise.all(r.map(function (x) { return x.unregister(); })); }));
+  Promise.all(p).catch(function () {}).then(function () { document.getElementById('m').textContent = 'Listo. Abriendo el Aula…'; location.replace('index.html?v=' + Date.now()); });
+})();
+</script></body></html>
