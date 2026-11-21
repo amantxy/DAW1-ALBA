@@ -1,7 +1,7 @@
 /* Service worker de Aula DAW 1: guarda la aplicación para usarla sin conexión.
    Sube el número de VERSION cuando cambies cualquier archivo del Aula. */
-var VERSION = 'aula-daw1-v12';
-var ARCHIVOS = ['./', './index.html', './style.css', './data.js', './retos.js', './juego.js', './extra-1.js', './extra-2.js', './extra-3.js', './extra-4.js', './app.js', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
+var VERSION = 'aula-daw1-v13';
+var ARCHIVOS = ['./', './index.html', './style.css', './data.js', './retos.js', './juego.js', './extra-1.js', './extra-2.js', './extra-3.js', './extra-4.js', './extra-5.js', './app.js', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(VERSION).then(function (c) { return c.addAll(ARCHIVOS); }).then(function () { return self.skipWaiting(); }));
