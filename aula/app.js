@@ -584,6 +584,30 @@
     host.appendChild(el('div', { class: 'nivel-intro' }, cab));
   }
 
+
+  /* Botón para jugar a pantalla grande (pantalla completa si el navegador lo permite) */
+  function botonGrande(host) {
+    var b = el('button', { type: 'button', class: 'btn btn-grande', 'aria-pressed': 'false', text: 'Pantalla grande' });
+    function pon(on) {
+      host.classList.toggle('grande', on);
+      b.classList.toggle('activo', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.textContent = on ? 'Salir de pantalla grande' : 'Pantalla grande';
+      document.body.classList.toggle('sin-scroll', on);
+    }
+    b.addEventListener('click', function () {
+      var on = !host.classList.contains('grande');
+      pon(on);
+      try {
+        if (on && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function () {});
+        if (!on && document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {});
+      } catch (e) { /* sin pantalla completa: queda en modo ventana grande */ }
+    });
+    document.addEventListener('fullscreenchange', function () { if (!document.fullscreenElement && host.classList.contains('grande') && b.isConnected) pon(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && host.classList.contains('grande') && b.isConnected) pon(false); });
+    return b;
+  }
+
   function nivelJuego(s, i, l) {
     var k = key(s.id, i), reto = window.RETOS && window.RETOS[k];
     var host = el('section', { class: 'nivel', 'aria-label': 'Nivel del modo gaming' });
@@ -636,6 +660,7 @@
       record: jefes[s.id] || 0, boton: 'Combatir', empieza: juega,
       bloqueo: faltan.length ? 'El jefe está bloqueado. Supera antes los niveles: ' + faltan.map(function (i) { return (i + 1) + ' (' + s.lessons[i].t + ')'; }).join(', ') + '.' : null
     });
+    wrap.appendChild(botonGrande(host));
     wrap.appendChild(host);
     wrap.appendChild(el('div', { class: 'pager' }, [el('a', { class: 'btn', href: '#' + key(s.id, s.lessons.length - 1), text: '← Último nivel' }), el('a', { class: 'btn primary', href: '#inicio', text: 'Mapa', style: '--c:' + colorVar(s) })]));
     main.appendChild(wrap);
@@ -690,7 +715,7 @@
       }
     }
     if (l.ref) wrap.appendChild(el('p', { class: 'note' }, [document.createTextNode('Teoría completa de tu temario: '), el('a', { href: l.ref.href, text: l.ref.text })]));
-    if (gaming) { wrap.appendChild(el('h2', { text: 'Tu nivel' })); wrap.appendChild(nivelJuego(s, i, l)); }
+    if (gaming) { wrap.appendChild(el('h2', { text: 'Tu nivel' })); var nv = nivelJuego(s, i, l); wrap.appendChild(botonGrande(nv)); wrap.appendChild(nv); }
     else { wrap.appendChild(el('h2', { text: 'Comprueba lo que has aprendido' })); wrap.appendChild(quizBox(l, s.id, i)); }
     doneBtn = el('button', { class: 'btn', type: 'button' });
     doneBtn.addEventListener('click', function () {
