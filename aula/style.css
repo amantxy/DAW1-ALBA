@@ -414,3 +414,6 @@ body.sin-scroll { overflow: hidden; }
 }
 
 .jg-escena.jg-pixel { image-rendering: pixelated; }
+.hero-tit { display: flex; align-items: center; gap: 14px; }
+.hero-tit h1 { margin: 0; }
+.hero-img { width: 84px; height: 84px; border-radius: 22px; box-shadow: 0 4px 14px rgba(0,0,0,.35); flex: none; }

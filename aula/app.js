@@ -355,7 +355,7 @@
     var total = 0, done = 0;
     DATA.forEach(function (s) { total += s.lessons.length; done += doneCount(s); });
     main.appendChild(el('section', { class: 'hero' }, [
-      el('h1', { text: 'Aula DAW 1' }),
+      el('div', { class: 'hero-tit' }, [el('img', { class: 'hero-img', src: 'icon-192.png', alt: '', width: '84', height: '84' }), el('h1', { text: 'Aula DAW 1' })]),
       el('p', { text: 'Aprende desde cero lo que ves en clase, paso a paso: teoría corta, ejemplos, un editor para probar el código y un test al final de cada lección.' }),
       el('p', { class: 'note', text: 'El contenido es una base general escrita para empezar. Si tu profesorado explica algo distinto, manda su material y se ajusta. Llevas ' + done + ' de ' + total + ' lecciones completadas.' }),
       selectorModo(),
