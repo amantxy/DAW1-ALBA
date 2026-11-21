@@ -154,3 +154,5 @@ code { font-family: var(--font-mono); font-size: 0.88em; background: var(--surfa
 .volver:hover { color: var(--text); }
 @media (max-width: 520px) { .volver { display: none; } }
 .sesion button { border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-weight: 600; }
+.lesson .note { margin: 14px 0 0; padding: 10px 14px; border-left: 4px solid var(--c); background: var(--surface); border-radius: 0 8px 8px 0; font-size: 0.95rem; color: var(--muted); }
+.lesson .note a { color: var(--text); font-weight: 600; }

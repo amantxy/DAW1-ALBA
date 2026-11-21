@@ -254,11 +254,11 @@
       if (l.try) wrap.appendChild(tryBox(l.try, l.code));
       else {
         wrap.appendChild(codeBox(l.code));
-        if (s.id === 'prog' || s.id === 'entornos' && /Java/.test(l.t) || s.id === 'bd' || s.id === 'sistemas' || s.id === 'entornos') {
-          wrap.appendChild(el('p', { class: 'note', text: 'Este código no se ejecuta en la web. Cópialo y pruébalo en tu entorno: ' + (s.id === 'bd' ? 'un gestor de bases de datos' : s.id === 'sistemas' ? 'una terminal de Linux' : s.id === 'entornos' && /Algoritmos/.test(l.t) ? 'PSeInt' : s.id === 'ingles' ? 'tu correo' : 'tu IDE de Java') + '.' }));
-        }
+        var donde = s.id === 'prog' ? 'tu IDE de Java' : s.id === 'sistemas' ? 'una terminal de Linux' : (s.id === 'bd' && /SQL/.test(l.t)) ? 'un gestor de bases de datos' : (s.id === 'entornos' && /Algoritmos/.test(l.t)) ? 'PSeInt' : (s.id === 'entornos' && /Java/.test(l.t)) ? 'tu IDE de Java' : null;
+        if (donde) wrap.appendChild(el('p', { class: 'note', text: 'Este código no se ejecuta en la web. Cópialo y pruébalo en ' + donde + '.' }));
       }
     }
+    if (l.ref) wrap.appendChild(el('p', { class: 'note' }, [document.createTextNode('Teoría completa de tu temario: '), el('a', { href: l.ref.href, text: l.ref.text })]));
     wrap.appendChild(el('h2', { text: 'Comprueba lo que has aprendido' }));
     wrap.appendChild(quizBox(l, s.id, i));
     doneBtn = el('button', { class: 'btn', type: 'button' });

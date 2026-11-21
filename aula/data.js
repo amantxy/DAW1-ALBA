@@ -378,39 +378,163 @@ rm notas.txt`,
     ]
   },
   {
-    id: 'bd', name: 'Bases de Datos', short: 'Modelo y SQL', color: 'bd',
-    intro: 'Qué es una base de datos, cómo se diseña con el modelo entidad-relación y cómo consultarla con SQL.',
+    id: 'bd', name: 'Bases de Datos', short: 'Diseño, modelo relacional y normalización', color: 'bd',
+    intro: 'Los 4 temas de tu temario: fundamentos, diseño entidad-relación, modelo relacional y formas normales. Al final, un adelanto de SQL.',
     lessons: [
       {
-        t: 'Qué es una base de datos',
-        h: `<p>Una <strong>base de datos</strong> es un conjunto organizado de datos relacionados. Un <strong>SGBD</strong> (sistema gestor de bases de datos) es el programa que las crea y administra, como MySQL, PostgreSQL u Oracle.</p>
-<p>En el modelo <strong>relacional</strong> los datos se guardan en <strong>tablas</strong>:</p>
-<ul><li>Cada <strong>fila</strong> (registro) es un elemento, por ejemplo un alumno.</li><li>Cada <strong>columna</strong> (campo) es una característica, por ejemplo el nombre.</li><li>La <strong>clave primaria</strong> identifica cada fila de forma única y no se repite.</li><li>Una <strong>clave foránea</strong> es un campo que apunta a la clave primaria de otra tabla y así las relaciona.</li></ul>`,
-        code: null,
-        try: null,
+        t: 'Fichero frente a base de datos',
+        ref: { href: '../bases-de-datos/tema-1.html', text: 'Tema 1: Fundamentos' },
+        h: `<p>En el método clásico de <strong>ficheros</strong>, la informática estaba orientada a los <em>procesos</em>: cada aplicación tenía sus propios datos, y por eso se guardaban varias veces los mismos datos para distintas aplicaciones.</p>
+<p>Las <strong>bases de datos</strong> nacen para solucionarlo y están orientadas a los <em>datos</em>. Una base de datos es un depósito de datos <strong>integrados y compartidos</strong>, con una <strong>redundancia controlada</strong>, que refleja las relaciones del mundo real. Su característica principal es que los datos son <strong>independientes de las aplicaciones</strong> que los usan: quien programa no necesita saber cómo están guardados en el disco.</p>
+<p><strong>Ventajas</strong> de implantar un SGBD: acceso rápido, coherencia (todos usan la misma fuente), mejor disponibilidad y menos redundancia perjudicial. <strong>Inconvenientes</strong>: hardware y software costosos, personal muy especializado (el administrador), implantación laboriosa y una rentabilidad que no se nota a corto plazo.</p>`,
+        code: null, try: null,
         quiz: [
-          { q: '¿Qué es un SGBD?', o: ['Un tipo de tabla', 'El programa que crea y administra las bases de datos', 'Un lenguaje de marcas', 'Una clave'], a: 1 },
-          { q: 'Lo que identifica de forma única cada fila es...', o: ['La clave foránea', 'La clave primaria', 'La columna', 'El índice de la página'], a: 1 },
-          { q: 'En una tabla, una columna representa...', o: ['Un registro', 'Una característica o campo', 'Una base de datos', 'Un usuario'], a: 1 }
+          { q: '¿Qué problema tenía el método clásico de ficheros?', o: ['Los datos se guardaban varias veces para distintas aplicaciones', 'No se podían guardar números', 'Era demasiado rápido', 'No usaba ordenadores'], a: 0 },
+          { q: 'Una base de datos tiene una redundancia...', o: ['Total', 'Controlada', 'Inexistente siempre', 'Obligatoria en cada tabla'], a: 1 },
+          { q: '¿Cuál es un inconveniente de implantar un SGBD?', o: ['Acceso lento', 'Incoherencia de los datos', 'Hardware y personal especializado costosos', 'No permite compartir datos'], a: 2 }
         ]
       },
       {
-        t: 'Modelo entidad-relación',
-        h: `<p>Antes de crear las tablas se diseña la base de datos con el <strong>modelo entidad-relación</strong>:</p>
-<ul><li><strong>Entidad</strong>: algo del que guardamos datos (Alumno, Curso). Se dibuja como rectángulo.</li><li><strong>Atributo</strong>: una característica de la entidad (nombre, edad). Se dibuja como óvalo.</li><li><strong>Relación</strong>: cómo se conectan dos entidades (un alumno se matricula en cursos). Se dibuja como rombo.</li></ul>
-<p>La <strong>cardinalidad</strong> dice cuántos elementos se relacionan:</p>
-<ul><li><strong>1:1</strong>: una persona tiene un DNI.</li><li><strong>1:N</strong>: un profesor da muchas asignaturas.</li><li><strong>N:M</strong>: un alumno cursa muchas asignaturas y cada asignatura la cursan muchos alumnos. En tablas, se resuelve con una tabla intermedia.</li></ul>`,
-        code: null,
-        try: null,
+        t: 'Los tres niveles y el SGBD',
+        ref: { href: '../bases-de-datos/tema-1.html', text: 'Tema 1: Fundamentos' },
+        h: `<p>La arquitectura de una base de datos se divide en <strong>tres niveles de abstracción</strong> (norma ANSI/X3/SPARC):</p>
+<ul><li><strong>Esquema físico</strong> (nivel interno): cómo están realmente guardados los datos en la máquina. Lo maneja el administrador.</li><li><strong>Esquema conceptual</strong> (nivel lógico global): el plano general de qué datos existen y cómo se relacionan.</li><li><strong>Esquema externo</strong> (vistas de usuario): lo que ve cada usuario final, solo lo que necesita para su trabajo.</li></ul>
+<p>El <strong>SGBD</strong> (Oracle, DB2, SQL Server...) es el conjunto de programas que hace de intermediario entre los usuarios y los datos físicos. Sus objetivos: <strong>independencia</strong> de los datos (física y lógica), <strong>mínima redundancia</strong>, <strong>integridad</strong> (datos verdaderos), <strong>seguridad</strong> (no perderlos) y <strong>privacidad</strong> (acceso solo a quien está autorizado).</p>
+<p>Tres funciones: <strong>definición</strong> (lenguaje LDD, crea la estructura), <strong>manipulación</strong> (lenguaje LMD, como SQL: buscar, añadir, modificar y borrar) y <strong>utilización</strong> (copias de seguridad, usuarios, estadísticas).</p>
+<p>Los perfiles: <strong>administrador</strong> (diseño físico, copias, permisos), <strong>analistas o diseñadores</strong> (modelo conceptual), <strong>programadores</strong> (aplicaciones) y <strong>usuarios finales</strong>.</p>`,
+        code: null, try: null,
         quiz: [
-          { q: '¿Cómo se dibuja una relación en el modelo E/R?', o: ['Rectángulo', 'Óvalo', 'Rombo', 'Triángulo'], a: 2 },
-          { q: 'Un alumno cursa muchas asignaturas y cada asignatura tiene muchos alumnos. La cardinalidad es...', o: ['1:1', '1:N', 'N:M', '0:0'], a: 2 },
-          { q: '¿Qué es un atributo?', o: ['Una característica de una entidad', 'Una relación', 'Un programa', 'Una clave de otra base'], a: 0 }
+          { q: '¿Qué nivel muestra cómo se guardan realmente los datos en el disco?', o: ['Externo', 'Conceptual', 'Físico (interno)', 'De usuario'], a: 2 },
+          { q: 'La independencia lógica significa que...', o: ['Cambiar los discos no afecta a los programas', 'Añadir campos lógicos no rompe las aplicaciones que usan subconjuntos de datos', 'Los datos no necesitan claves', 'Solo el administrador ve los datos'], a: 1 },
+          { q: '¿Qué función del SGBD usa un lenguaje como SQL para buscar, añadir, modificar o borrar?', o: ['Definición', 'Manipulación', 'Utilización', 'Privacidad'], a: 1 },
+          { q: '¿Quién crea el modelo conceptual a partir de las reglas de negocio?', o: ['El usuario final', 'El administrador', 'Los analistas o diseñadores', 'El programador'], a: 2 }
         ]
       },
       {
-        t: 'SQL: consultar y modificar datos',
-        h: `<p><strong>SQL</strong> es el lenguaje para trabajar con bases de datos relacionales. Las instrucciones básicas son:</p>
+        t: 'Las fases del diseño de una base de datos',
+        ref: { href: '../bases-de-datos/tema-2.html', text: 'Tema 2: Diseño conceptual y lógico' },
+        h: `<p>Diseñar una base de datos se hace en <strong>4 fases</strong>:</p>
+<ol><li><strong>Recolección y análisis de requisitos</strong>: junto con el cliente se fijan las restricciones y se hace un primer diagrama con las entidades importantes, sus relaciones y sus atributos. Puede repetirse varias veces en sistemas grandes.</li><li><strong>Diseño conceptual</strong>: se construye el <strong>modelo entidad-relación</strong>.</li><li><strong>Diseño lógico-relacional</strong>: se pasa al <strong>modelo relacional</strong> y se refina aplicando reglas de <strong>normalización</strong>, para eliminar impurezas o errores.</li><li><strong>Diseño físico</strong>: con un lenguaje de definición de datos (DDL), como SQL, se crea la base de datos en un SGBD concreto buscando la mayor eficiencia.</li></ol>
+<p>Lo que se busca siempre son bases de datos <strong>escalables</strong> y fáciles de usar, que se adapten a nuevas necesidades sin perder calidad.</p>`,
+        code: null, try: null,
+        quiz: [
+          { q: '¿En qué fase se aplican las reglas de normalización?', o: ['Análisis de requisitos', 'Diseño conceptual', 'Diseño lógico-relacional', 'Diseño físico'], a: 2 },
+          { q: '¿Qué modelo se construye en el diseño conceptual?', o: ['Relacional', 'Entidad-relación', 'Físico', 'Orientado a objetos'], a: 1 },
+          { q: '¿En qué fase se crea la base de datos con SQL en un SGBD concreto?', o: ['Fase 1', 'Fase 2', 'Fase 3', 'Fase 4 (diseño físico)'], a: 3 }
+        ]
+      },
+      {
+        t: 'Entidades y atributos',
+        ref: { href: '../bases-de-datos/tema-2.html', text: 'Tema 2: Diseño conceptual y lógico' },
+        h: `<p>El <strong>modelo entidad-relación</strong> representa la realidad con <strong>entidades</strong> (objetos que se distinguen de otros por sus características, dibujadas como rectángulo) y <strong>atributos</strong> (esas características, dibujadas como elipse). Es solo un modelo de representación: hay que convertirlo a otro modelo antes de trabajar con él.</p>
+<p>Los atributos se clasifican de cuatro maneras:</p>
+<ul><li><strong>Funcionalidad</strong>: <em>identificador</em> (distingue cada elemento; si es uno solo, es el <strong>AIP</strong>, principal) o <em>descriptor</em> (caracteriza pero no diferencia). Los posibles AIP son los <strong>candidatos</strong> (AIC); uno es el AIP y el resto son <strong>alternativos</strong> (<strong>AIA</strong>).</li><li><strong>Opcionalidad</strong>: <em>obligatorio</em> (siempre tiene valor) u <em>optativo</em> (puede ser nulo).</li><li><strong>Cardinalidad</strong>: <em>univaluado</em> (un valor) o <em>multivaluado</em> (varios, como los teléfonos).</li><li><strong>Carácter</strong>: <em>simple</em>, <em>derivado</em> (se calcula de otros, como la edad a partir de la fecha de nacimiento) o <em>compuesto</em> (se divide en subpartes, como la dirección en calle, número y localidad).</li></ul>`,
+        code: `Tarea: entidad PERSONA con estos atributos
+- Dni: obligatorio, univaluado y AIP
+- Apellidos: opcional y univaluado
+- Teléfono: opcional y multivaluado
+- E-mail: obligatorio, multivaluado y AIA`,
+        try: null,
+        quiz: [
+          { q: 'La edad calculada a partir de la fecha de nacimiento es un atributo...', o: ['Compuesto', 'Derivado', 'Multivaluado', 'Alternativo'], a: 1 },
+          { q: 'Una persona puede tener varios teléfonos. El atributo teléfono es...', o: ['Univaluado', 'Multivaluado', 'Derivado', 'Obligatorio siempre'], a: 1 },
+          { q: 'AIA significa...', o: ['Atributo identificador alternativo', 'Atributo identificador absoluto', 'Atributo individual aislado', 'Atributo identificador adicional'], a: 0 },
+          { q: 'La dirección dividida en calle, número y localidad es un atributo...', o: ['Simple', 'Derivado', 'Compuesto', 'Descriptor'], a: 2 }
+        ]
+      },
+      {
+        t: 'Relaciones, grado y cardinalidad',
+        ref: { href: '../bases-de-datos/tema-2.html', text: 'Tema 2: Diseño conceptual y lógico' },
+        h: `<p>Una <strong>relación</strong> es una asociación entre una o más entidades y se dibuja con un <strong>rombo</strong>. Tiene nombre, <strong>grado</strong> (cuántas entidades intervienen) y <strong>tipo de correspondencia</strong>. Puede tener atributos propios: por ejemplo, el año en que un alumno cursa una asignatura.</p>
+<p>Conviene plantear siempre relaciones <strong>binarias</strong> (grado 2). Una ternaria se descompone creando una nueva entidad: en vez de relacionar comprador, vendedor y producto, se crea la entidad <em>venta</em> y se relaciona con las tres.</p>
+<p><strong>Cardinalidad parcial</strong> (o clase de pertenencia): se escribe con paréntesis, como (0,1) o (1,N). La mínima <strong>0</strong> significa que la relación es optativa y la mínima <strong>1</strong> que es obligatoria.</p>
+<p><strong>Cardinalidad total</strong>: se escribe en mayúsculas y con dos puntos, sin paréntesis (1:1, 1:N, N:M), y se obtiene a partir de los <strong>máximos</strong> de las parciales.</p>
+<p><strong>Casos especiales</strong>: la relación <strong>reflexiva</strong> se da entre elementos de la misma entidad (un empleado supervisa a otros empleados). Una <strong>entidad débil</strong> no tiene sentido sin otra (si el empleado se va, no se guardan sus hijos) y siempre aparece en relaciones 1:N.</p>`,
+        code: null, try: null,
+        quiz: [
+          { q: 'La cardinalidad total se obtiene a partir de...', o: ['Los mínimos de las parciales', 'Los máximos de las parciales', 'El número de atributos', 'El grado'], a: 1 },
+          { q: 'Una cardinalidad parcial con mínima 0 indica que la relación es...', o: ['Obligatoria', 'Optativa', 'Reflexiva', 'Ternaria'], a: 1 },
+          { q: 'Un empleado que hace de supervisor de otros empleados es una relación...', o: ['Reflexiva', 'Ternaria', 'Débil', 'Derivada'], a: 0 },
+          { q: '¿Cómo se suele evitar una relación ternaria?', o: ['Borrando una entidad', 'Creando una nueva entidad y relacionándola con las tres', 'Usando solo atributos', 'No se puede evitar'], a: 1 }
+        ]
+      },
+      {
+        t: 'Claves e integridad referencial',
+        ref: { href: '../bases-de-datos/tema-3.html', text: 'Tema 3: Modelo Relacional' },
+        h: `<p>En el modelo relacional los datos están en tablas y cada tabla necesita identificar sus filas:</p>
+<ul><li><strong>Clave candidata</strong>: atributos que identifican cada fila de forma única.</li><li><strong>Clave primaria</strong> (PK): la candidata que elige el diseñador. No puede tener valores nulos. Es habitual crear un campo <code>id</code> autonumérico. Se marca con <code>#</code>.</li><li><strong>Clave alternativa</strong>: las candidatas que no se eligieron como primaria.</li><li><strong>Clave ajena</strong> (FK): campo cuyos valores coinciden con la clave primaria de otra tabla, y así las relaciona. Se marca con <code>-</code>.</li></ul>
+<p>La <strong>integridad referencial</strong> garantiza que dos tablas relacionadas sigan sincronizadas al borrar o modificar. Opciones:</p>
+<ul><li><strong>RESTRICT</strong>: solo se borra la fila si ninguna otra tabla la referencia.</li><li><strong>CASCADE</strong>: al borrar o modificar, se borran o modifican también las filas que la referencian.</li><li><strong>SET NULL</strong>: las claves ajenas que la referencian pasan a nulo.</li><li><strong>SET DEFAULT</strong>: pasan a un valor por defecto definido antes.</li></ul>`,
+        code: `Trabajo (#codigo, nombre, posicion, salario)
+Profesor (#id, dni, nombre, apellidos, departamento)
+Asignatura (#id, nombre, n_horas, -id_profesor)`,
+        try: null,
+        quiz: [
+          { q: 'Con ON DELETE CASCADE, si borras el departamento 1...', o: ['No se puede borrar', 'Desaparecen también los empleados de ese departamento', 'Los empleados quedan con valor nulo', 'No pasa nada'], a: 1 },
+          { q: '¿Qué es una clave ajena?', o: ['Una clave que no se usa', 'Un campo cuyos valores coinciden con la clave primaria de otra tabla', 'Una contraseña', 'La clave candidata elegida'], a: 1 },
+          { q: 'En la notación de tus temas, ¿cómo se marca una clave primaria?', o: ['Con -', 'Con #', 'Con *', 'Con @'], a: 1 },
+          { q: '¿Puede una clave primaria tener valores nulos?', o: ['Sí', 'No', 'Solo si es ajena', 'Solo si es compuesta'], a: 1 }
+        ]
+      },
+      {
+        t: 'Del modelo E-R al modelo relacional',
+        ref: { href: '../bases-de-datos/tema-3.html', text: 'Tema 3: Modelo Relacional' },
+        h: `<p>Cada tipo de relación se transforma en tablas con una regla distinta:</p>
+<ul><li><strong>N:M</strong>: se crea una <strong>tabla nueva</strong> cuya clave primaria es la concatenación de las claves de las dos entidades, y cada una es además clave ajena. Los atributos de la relación van en esa tabla.</li><li><strong>1:N</strong>: la clave de la entidad con máximo <strong>1</strong> se <strong>propaga</strong> como clave ajena a la entidad con máximo <strong>N</strong>, y la relación desaparece.</li><li><strong>1:1</strong>: depende de las cardinalidades. La forma tradicional necesita que alguna parcial sea (1,1): su clave primaria se propaga a la tabla de la (0,1), donde es clave primaria y ajena a la vez. Otra opción más sencilla es transformarla como una 1:N.</li></ul>`,
+        code: `-- N:M: un producto está en varios pedidos y un pedido tiene varios productos
+pedidos(#id, descripcion, fecha)
+productos(#id, nombre, descripcion, precio_sin_iva, tipo, codigo_producto)
+pedido_producto(#(-id_pedido, -id_producto), precio)
+
+-- 1:N: un pedido lo hace un solo cliente, un cliente hace muchos pedidos
+pedidos(#id, precio, fecha, -id_cliente)
+clientes(#id, nombre, apellidos, direccion, telefono)`,
+        try: null,
+        quiz: [
+          { q: 'En una relación 1:N, ¿dónde se pone la clave ajena?', o: ['En la tabla del lado 1', 'En la tabla del lado N', 'En una tabla nueva', 'En las dos'], a: 1 },
+          { q: 'Una relación N:M se transforma en...', o: ['Una clave ajena', 'Un atributo', 'Una tabla nueva con la concatenación de las dos claves', 'Nada, desaparece'], a: 2 },
+          { q: 'En el ejemplo, ¿dónde está la clave ajena id_cliente?', o: ['En clientes', 'En pedidos', 'En pedido_producto', 'En productos'], a: 1 }
+        ]
+      },
+      {
+        t: 'Normalización: dependencia funcional y 1FN',
+        ref: { href: '../bases-de-datos/tema-4.html', text: 'Tema 4: Formas Normales' },
+        h: `<p>Un mal diseño provoca <strong>redundancia</strong> (el mismo dato repetido), <strong>inconsistencia</strong> (el mismo dato escrito de dos formas) y desperdicio de espacio. <strong>Normalizar</strong> es partir una tabla en varias más simples para guardar cada dato una sola vez. Con cumplir las tres primeras formas normales (1FN, 2FN y 3FN) hay un nivel suficiente.</p>
+<p><strong>Dependencia funcional</strong>: B depende funcionalmente de A (A → B) si a cada valor de A le corresponde un único valor de B. Con un DNI obtienes un único nombre (DNI → Nombre), pero un nombre no identifica a una sola persona.</p>
+<p><strong>Primera forma normal (1FN)</strong>: cada celda tiene <strong>un solo valor</strong>, no hay grupos de columnas repetidas (teléfono1, teléfono2...) y no hay filas idénticas. Si un cliente tiene varios teléfonos, se crea una tabla aparte, y un cliente con dos teléfonos ocupa dos filas en ella.</p>`,
+        code: `CLIENTES (#id, nombre, apellidos)
+TELEFONOS (#id, numero, -id_cliente)`,
+        try: null,
+        quiz: [
+          { q: 'DNI → Nombre significa que...', o: ['El nombre determina el DNI', 'A cada DNI le corresponde un único nombre', 'Hay dos nombres por DNI', 'El DNI es opcional'], a: 1 },
+          { q: '¿Cuál de estas tablas incumple la 1FN?', o: ['Una con una celda que guarda varios teléfonos separados por comas', 'Una con clave primaria', 'Una con dos columnas', 'Una con claves ajenas'], a: 0 },
+          { q: '¿Qué tres problemas provoca un mal diseño?', o: ['Redundancia, inconsistencia y desperdicio de espacio', 'Lentitud, calor y ruido', 'Claves, tablas y filas', 'Ninguno'], a: 0 }
+        ]
+      },
+      {
+        t: 'Normalización: 2FN y 3FN',
+        ref: { href: '../bases-de-datos/tema-4.html', text: 'Tema 4: Formas Normales' },
+        h: `<p><strong>Segunda forma normal (2FN)</strong>: solo importa cuando la clave primaria es <strong>compuesta</strong>. Una tabla está en 2FN si está en 1FN y todo atributo que no forma parte de la clave depende de la <strong>clave completa</strong>, no de una parte. Si el nombre del alumno depende solo del DNI y la clave es (DNI, CodCurso), hay que separar.</p>
+<p><strong>Tercera forma normal (3FN)</strong>: una tabla está en 3FN si está en 2FN y no hay <strong>dependencias transitivas</strong>: ningún atributo que no es clave depende de otro atributo que tampoco es clave. Si el nombre de la provincia depende del código de provincia y no del DNI, se separa en otra tabla.</p>
+<p><strong>Truco para recordarlo</strong>: en 1FN cada celda tiene un solo valor; en 2FN cada dato depende de <em>toda</em> la clave; en 3FN cada dato depende <em>solo</em> de la clave, y no de otro dato.</p>`,
+        code: `-- 2FN: la clave es (DNI, CodCurso); nombre y apellido dependen solo del DNI
+ALUMNOS (#DNI, nombre, apellido)
+NOTAS (#(-DNI, -CodCurso), nota)
+
+-- 3FN: la provincia depende del código de provincia, no del DNI
+ALUMNOS (#DNI, nombre, -CodProvincia)
+PROVINCIAS (#CodProvincia, provincia)`,
+        try: null,
+        quiz: [
+          { q: '¿Cuándo importa la 2FN?', o: ['Cuando la clave primaria es compuesta', 'Cuando no hay claves', 'Cuando hay una sola fila', 'Siempre igual'], a: 0 },
+          { q: 'La provincia depende del código de provincia, que no es clave. Eso es una dependencia...', o: ['Parcial', 'Transitiva', 'Total', 'Cardinal'], a: 1 },
+          { q: 'En 3FN, cada dato depende...', o: ['De cualquier otro dato', 'Solo de la clave', 'De una parte de la clave', 'De nada'], a: 1 },
+          { q: 'Si el teléfono del proveedor depende solo del proveedor y la clave es (Producto, Proveedor), ¿qué norma incumple?', o: ['1FN', '2FN', '3FN', 'Ninguna'], a: 1 }
+        ]
+      },
+      {
+        t: 'SQL: consultar y modificar datos (adelanto)',
+        h: `<p>Este tema todavía no está en tus 4 temas, pero lo necesitarás en el diseño físico. <strong>SQL</strong> es el lenguaje para trabajar con bases de datos relacionales. Las instrucciones básicas son:</p>
 <ul><li><code>SELECT</code>: consultar datos.</li><li><code>INSERT</code>: añadir filas.</li><li><code>UPDATE</code>: modificar filas.</li><li><code>DELETE</code>: borrar filas.</li></ul>
 <p>Una consulta tiene este orden: <code>SELECT</code> columnas <code>FROM</code> tabla <code>WHERE</code> condición <code>ORDER BY</code> columna. Usa <code>*</code> para todas las columnas. Importante: en <code>UPDATE</code> y <code>DELETE</code>, sin <code>WHERE</code> se cambian o borran <strong>todas</strong> las filas.</p>`,
         code: `SELECT nombre, edad
