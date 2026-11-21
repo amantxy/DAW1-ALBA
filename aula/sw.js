@@ -1,10 +1,10 @@
 /* Service worker de Aula DAW 1: guarda la aplicación para usarla sin conexión.
    Sube el número de VERSION cuando cambies cualquier archivo del Aula. */
-var VERSION = 'aula-daw1-v19';
+var VERSION = 'aula-daw1-v20';
 var ARCHIVOS = ['./', './index.html', './style.css', './data.js', './retos.js', './juego.js', './extra-1.js', './extra-2.js', './extra-3.js', './extra-4.js', './extra-5.js', './extra-6.js', './app.js', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', function (e) {
-  e.waitUntil(caches.open(VERSION).then(function (c) { return c.addAll(ARCHIVOS); }).then(function () { return self.skipWaiting(); }));
+  e.waitUntil(caches.open(VERSION).then(function (c) { return c.addAll(ARCHIVOS.map(function (u) { return new Request(u, { cache: 'reload' }); })); }).then(function () { return self.skipWaiting(); }));
 });
 self.addEventListener('activate', function (e) {
   e.waitUntil(caches.keys().then(function (ks) {
@@ -27,7 +27,7 @@ self.addEventListener('fetch', function (e) {
     return;
   }
   /* Primero la red (para ver cambios nuevos); si no hay conexión, lo guardado */
-  e.respondWith(fetch(req).then(function (n) {
+  e.respondWith(fetch(req, { cache: 'no-cache' }).then(function (n) {
     var copia = n.clone();
     caches.open(VERSION).then(function (c) { c.put(req, copia); });
     return n;
