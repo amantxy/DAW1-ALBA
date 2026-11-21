@@ -76,7 +76,7 @@
     quiz: [
       { q: '¿Cuál de estos elementos es en línea?', o: ['div', 'p', 'span', 'table'], a: 2, e: 'span, a, img, strong y em fluyen dentro del texto.' },
       { q: 'Estás en /web/paginas/ y quieres enlazar /web/img/logo.png. ¿Qué ruta relativa usas?', o: ['img/logo.png', '../img/logo.png', '/paginas/img/logo.png', 'logo.png'], a: 1, e: '.. sube un nivel (a /web/) y desde ahí entras en img.' },
-      { q: '¿Para qué sirve el atributo alt de una imagen?', o: ['Cambiar su tamaño', 'Dar un texto alternativo si no carga y para lectores de pantalla', 'Enlazarla', 'Redondearla'], a: 1, e: 'alt describe la imagen y es clave para la accesibilidad.' }
+      { q: '¿Qué función cumple el atributo alt en una etiqueta img?', o: ['Cambiar su tamaño', 'Dar un texto alternativo si no carga y para lectores de pantalla', 'Enlazarla', 'Redondearla'], a: 1, e: 'alt describe la imagen y es clave para la accesibilidad.' }
     ]
   }, { t: 'Bloque o en línea', tipo: 'clasifica', data: {
     intro: '¿Cómo se comporta cada etiqueta por defecto?',
