@@ -153,3 +153,4 @@ code { font-family: var(--font-mono); font-size: 0.88em; background: var(--surfa
 .volver { text-decoration: none; font-weight: 600; font-size: 0.9rem; color: var(--muted); white-space: nowrap; }
 .volver:hover { color: var(--text); }
 @media (max-width: 520px) { .volver { display: none; } }
+.sesion button { border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-weight: 600; }

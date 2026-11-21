@@ -1,6 +1,6 @@
 /* Service worker de Aula DAW 1: guarda la aplicación para usarla sin conexión.
    Sube el número de VERSION cuando cambies cualquier archivo del Aula. */
-var VERSION = 'aula-daw1-v1';
+var VERSION = 'aula-daw1-v2';
 var ARCHIVOS = ['./', './index.html', './style.css', './data.js', './app.js', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', function (e) {
@@ -16,8 +16,8 @@ self.addEventListener('fetch', function (e) {
   if (req.method !== 'GET') return;
   var url = new URL(req.url);
   if (url.origin !== location.origin) {
-    /* Fuentes de Google: se guardan al usarlas por primera vez */
-    if (/fonts\.(googleapis|gstatic)\.com$/.test(url.hostname)) {
+    /* Fuentes de Google y librería de la cuenta: se guardan al usarlas por primera vez */
+    if (/(fonts\.googleapis|fonts\.gstatic|cdn\.jsdelivr)\.(com|net)$/.test(url.hostname)) {
       e.respondWith(caches.open(VERSION).then(function (c) {
         return c.match(req).then(function (r) {
           return r || fetch(req).then(function (n) { c.put(req, n.clone()); return n; }).catch(function () { return r; });

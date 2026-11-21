@@ -1,9 +1,29 @@
 (function () {
   var DATA = window.DATA;
-  var STORE_KEY = 'aula-daw1-progreso';
+  /* Progreso: una clave "aula:<asignatura>-<n>" por lección completada.
+     progreso.js (el de toda la web) sincroniza las claves "aula:*" con tu cuenta. */
+  var PREFIJO = 'aula:';
   var progress = {};
-  try { progress = JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; } catch (e) { progress = {}; }
-  function saveProgress() { try { localStorage.setItem(STORE_KEY, JSON.stringify(progress)); } catch (e) { /* sin almacenamiento */ } }
+  function leeProgreso() {
+    progress = {};
+    try {
+      var viejo = localStorage.getItem('aula-daw1-progreso'); /* versión anterior: se migra una vez */
+      if (viejo) {
+        var o = JSON.parse(viejo) || {};
+        Object.keys(o).forEach(function (k) { if (o[k]) localStorage.setItem(PREFIJO + k, '1'); });
+        localStorage.removeItem('aula-daw1-progreso');
+      }
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k.indexOf(PREFIJO) === 0 && localStorage.getItem(k)) progress[k.slice(PREFIJO.length)] = 1;
+      }
+    } catch (e) { /* sin almacenamiento: el progreso dura solo mientras la página está abierta */ }
+  }
+  function setDone(k, on) {
+    if (on) progress[k] = 1; else delete progress[k];
+    try { if (on) localStorage.setItem(PREFIJO + k, '1'); else localStorage.removeItem(PREFIJO + k); } catch (e) { /* sin almacenamiento */ }
+  }
+  leeProgreso();
   function key(sid, i) { return sid + '-' + (i + 1); }
   function doneCount(s) { var n = 0; s.lessons.forEach(function (_, i) { if (progress[key(s.id, i)]) n++; }); return n; }
 
@@ -199,7 +219,7 @@
           if (answered === total) {
             score.hidden = false;
             score.textContent = 'Resultado: ' + correct + ' de ' + total + (correct === total ? '. ¡Lección dominada!' : '. Repasa la teoría y vuelve a intentarlo.');
-            if (correct === total && !progress[key(sid, idx)]) { progress[key(sid, idx)] = 1; saveProgress(); buildNav($('search').value); refreshDone(); }
+            if (correct === total && !progress[key(sid, idx)]) { setDone(key(sid, idx), true); buildNav($('search').value); refreshDone(); }
           }
         });
         return b;
@@ -244,8 +264,8 @@
     doneBtn = el('button', { class: 'btn', type: 'button' });
     doneBtn.addEventListener('click', function () {
       var k = key(s.id, i);
-      if (progress[k]) delete progress[k]; else progress[k] = 1;
-      saveProgress(); buildNav($('search').value); refreshDone();
+      setDone(k, !progress[k]);
+      buildNav($('search').value); refreshDone();
     });
     wrap.appendChild(el('div', { class: 'done-row' }, [doneBtn]));
     var prev = i > 0 ? { h: '#' + key(s.id, i - 1), t: '← ' + s.lessons[i - 1].t } : null;
