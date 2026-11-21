@@ -62,4 +62,45 @@
     intro: '¿A qué parte de MVC pertenece cada elemento?',
     cats: ['Modelo', 'Vista', 'Controlador'],
     items: [['Clase Cliente con sus datos', 0], ['Cálculo del total del pedido', 0], ['JFrame con botones', 1], ['JLabel que muestra el resultado', 1], ['ActionListener del botón Guardar', 2], ['Clase que conecta vista y modelo', 2]] } });
+
+  A('prog', {
+    t: '[Complemento] Cuadros de diálogo: JOptionPane y JDialog',
+    h: NOTA + '<p>Un <b>cuadro de diálogo</b> es una ventana secundaria para informar o pedir un dato. <code>JOptionPane</code> trae diálogos listos con métodos estáticos:</p><pre>JOptionPane.showMessageDialog(null, "Hola");                 // informa\nint op = JOptionPane.showConfirmDialog(null, "¿Seguro?",\n        "Confirmar", JOptionPane.YES_NO_OPTION);               // devuelve YES_OPTION o NO_OPTION\nString nombre = JOptionPane.showInputDialog("Nombre");       // devuelve el texto (null si se cancela)</pre><p><code>JDialog</code> permite crear tu propio diálogo: <code>new JDialog(ventanaPadre, "Título", true)</code>. El tercer parámetro indica si es <b>modal</b>: un diálogo modal bloquea la ventana padre hasta que se cierra. Después se le añaden componentes, se fija el tamaño con <code>setSize</code> y se muestra con <code>setVisible(true)</code>.</p>',
+    ref: OR('tutorial/uiswing/components/dialog.html', 'Tutorial oficial de Oracle · How to Make Dialogs'),
+    quiz: [
+      { q: '¿Qué método de JOptionPane pide un texto al usuario?', o: ['showMessageDialog', 'showInputDialog', 'showConfirmDialog', 'showTextDialog'], a: 1, e: 'Devuelve el texto escrito, o null si se cancela.' },
+      { q: 'Un diálogo modal…', o: ['Se cierra solo', 'Bloquea la ventana padre hasta que se cierra', 'Es siempre invisible', 'Solo sirve para errores'], a: 1, e: 'El tercer parámetro de new JDialog(padre, título, modal).' },
+      { q: '¿Qué devuelve showConfirmDialog con YES_NO_OPTION si se pulsa «Sí»?', o: ['JOptionPane.YES_OPTION', 'true', '"Sí"', 'null'], a: 0, e: 'Es un int que se compara con JOptionPane.YES_OPTION.' }
+    ]
+  }, { t: 'Une método y uso', tipo: 'parejas', data: {
+    intro: 'Relaciona cada método con su función.',
+    pares: [['showMessageDialog', 'Muestra un mensaje'], ['showConfirmDialog', 'Pregunta Sí/No'], ['showInputDialog', 'Pide un texto'], ['new JDialog(p, t, true)', 'Crea un diálogo modal'], ['setVisible(true)', 'Muestra la ventana']] } });
+
+  A('prog', {
+    t: '[Complemento] Serialización de objetos',
+    h: NOTA + '<p><b>Serializar</b> es convertir un objeto en una secuencia de bytes para guardarlo en un fichero o enviarlo por red; <b>deserializar</b> es reconstruirlo. La clase debe implementar la interfaz marcadora <code>Serializable</code> (no tiene métodos). Se recomienda declarar <code>serialVersionUID</code>.</p><pre>class Persona implements Serializable {\n    private static final long serialVersionUID = 1L;\n    String nombre;\n    int edad;\n    transient String clave = "secreta";   // NO se guarda\n}\n\ntry (ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream("p.dat"))) {\n    o.writeObject(new Persona("Ana", 30));\n}\ntry (ObjectInputStream i = new ObjectInputStream(new FileInputStream("p.dat"))) {\n    Persona p = (Persona) i.readObject();   // clave vale null\n}</pre><p>Los campos <code>transient</code> no se serializan (al recuperar el objeto valen <code>null</code>, 0 o false) y los <code>static</code> tampoco. <code>readObject()</code> devuelve <code>Object</code>, así que hay que hacer un <i>cast</i>, y puede lanzar <code>ClassNotFoundException</code> además de <code>IOException</code>.</p>',
+    ref: OR('8/docs/api/java/io/Serializable.html', 'API oficial de Java · java.io.Serializable'),
+    quiz: [
+      { q: '¿Qué interfaz debe implementar una clase para poder serializarse?', o: ['Comparable', 'Serializable', 'Cloneable', 'Runnable'], a: 1, e: 'Es una interfaz marcadora, sin métodos.' },
+      { q: '¿Qué ocurre con un campo transient al serializar?', o: ['Se guarda cifrado', 'No se guarda', 'Se guarda dos veces', 'Provoca error'], a: 1, e: 'Al leer el objeto, el campo toma el valor por defecto (null, 0 o false).' },
+      { q: '¿Qué clase escribe un objeto en un flujo de bytes?', o: ['ObjectOutputStream', 'Scanner', 'PrintWriter', 'BufferedReader'], a: 0, e: 'Con writeObject. Para leer se usa ObjectInputStream.readObject.' },
+      { q: '¿Qué devuelve readObject()?', o: ['El tipo exacto', 'Un Object que hay que convertir con cast', 'Un String', 'Un int'], a: 1, e: 'Por eso se escribe (Persona) i.readObject().' }
+    ]
+  }, { t: 'Se guarda o no se guarda', tipo: 'clasifica', data: {
+    intro: '¿Se serializa este campo?',
+    cats: ['Se guarda', 'No se guarda'],
+    items: [['private String nombre', 0], ['int edad', 0], ['private double saldo', 0], ['transient String clave', 1], ['static int contador', 1], ['transient int sesion', 1]] } });
+
+  A('prog', {
+    t: '[Complemento] Documentación con JavaDoc',
+    h: NOTA + '<p><b>JavaDoc</b> genera documentación HTML a partir de comentarios especiales que empiezan por <code>/**</code> y se colocan justo antes de la clase, el método o el atributo.</p><pre>/**\n * Suma dos enteros.\n * @param a primer sumando\n * @param b segundo sumando\n * @return la suma\n */\nstatic int suma(int a, int b) { return a + b; }</pre><p>Etiquetas habituales: <code>@param</code> (un parámetro), <code>@return</code> (qué devuelve), <code>@throws</code> (excepción que puede lanzar), <code>@author</code> y <code>@version</code> (en clases) y <code>@see</code> (referencia). Con la herramienta <code>javadoc</code> se genera la web (por ejemplo, <code>javadoc -d doc MiClase.java</code>) y Eclipse lo hace con <i>Project → Generate Javadoc</i>. Los comentarios normales son <code>//</code> (línea) y <code>/* … */</code> (bloque): estos no generan documentación.</p>',
+    ref: { href: 'https://docs.oracle.com/en/java/javase/17/javadoc/javadoc.html', text: 'Documentación oficial · herramienta javadoc (JDK 17)' },
+    quiz: [
+      { q: '¿Con qué empieza un comentario JavaDoc?', o: ['//', '/*', '/**', '#'], a: 2, e: 'Se coloca justo antes de la clase, método o atributo.' },
+      { q: '¿Qué etiqueta describe el valor que devuelve un método?', o: ['@param', '@return', '@see', '@author'], a: 1, e: '@param describe un parámetro.' },
+      { q: '¿Qué herramienta genera la documentación HTML?', o: ['javac', 'java', 'javadoc', 'jar'], a: 2, e: 'Por ejemplo: javadoc -d doc MiClase.java.' }
+    ]
+  }, { t: 'Une etiqueta y función', tipo: 'parejas', data: {
+    intro: 'Relaciona cada etiqueta JavaDoc.',
+    pares: [['@param', 'Describe un parámetro'], ['@return', 'Describe el valor devuelto'], ['@throws', 'Indica una excepción posible'], ['@author', 'Autor de la clase'], ['@see', 'Referencia a otro elemento']] } });
 })();
