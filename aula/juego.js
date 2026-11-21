@@ -509,8 +509,8 @@
       if (tema.noche) {
         estrellas.forEach(function (s) { var br = quieto || (Math.floor(t * 2) + s.f) % 4 ? '#ffffff' : '#9aa7c7'; brillo(g, s.x, s.y, s.f % 2 ? 2.2 : 1.4, br, 'rgba(255,255,255,0)'); });
         brillo(g, 284, 22, 34, 'rgba(255,247,194,.35)', 'rgba(255,247,194,0)');
-        g.fillStyle = '#fff7c2'; g.beginPath(); g.arc(284, 22, 10, 0, 6.283); g.fill();
-        g.fillStyle = tema.c1; g.beginPath(); g.arc(289, 19, 9, 0, 6.283); g.fill();
+        g.save(); g.beginPath(); g.rect(0, 0, W, H); g.arc(290, 19, 9, 0, 6.283); g.clip('evenodd');
+        g.fillStyle = '#fff7c2'; g.beginPath(); g.arc(284, 22, 10, 0, 6.283); g.fill(); g.restore();
       } else {
         brillo(g, 283, 23, 46, 'rgba(255,240,150,.7)', 'rgba(255,240,150,0)');
         brillo(g, 283, 23, 12, '#fff6b8', '#ffd43b');

@@ -1,6 +1,6 @@
 /* Service worker de Aula DAW 1: guarda la aplicación para usarla sin conexión.
    Sube el número de VERSION cuando cambies cualquier archivo del Aula. */
-var VERSION = 'aula-daw1-v16';
+var VERSION = 'aula-daw1-v17';
 var ARCHIVOS = ['./', './index.html', './style.css', './data.js', './retos.js', './juego.js', './extra-1.js', './extra-2.js', './extra-3.js', './extra-4.js', './extra-5.js', './extra-6.js', './app.js', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', function (e) {
