@@ -412,3 +412,5 @@ body.sin-scroll { overflow: hidden; }
   .nivel.grande .nivel-escena { position: sticky; top: 72px; }
   .nivel.grande .jg-escena { max-height: none; }
 }
+
+.jg-escena.jg-pixel { image-rendering: pixelated; }

@@ -673,8 +673,10 @@
   }
 
   function escena(color, sid, jefe) {
-    var W = 320, H = 150, SS = 4;
-    var cv = el('canvas', { class: 'jg-escena', width: String(W * SS), height: String(H * SS), role: 'img', 'aria-label': jefe ? 'Combate contra el jefe' : 'Tu héroe frente a ' + (MONSTRUOS[sid] || MONSTRUOS.marcas).n });
+    var W = 320, H = 150, estilo = 'medio';
+    try { estilo = localStorage.getItem('aula-estilo') || 'medio'; } catch (e0) { /* sin almacenamiento */ }
+    var SS = estilo === 'pixel' ? 1 : (estilo === 'suave' ? 4 : 2);
+    var cv = el('canvas', { class: 'jg-escena' + (estilo === 'suave' ? '' : ' jg-pixel'), width: String(W * SS), height: String(H * SS), role: 'img', 'aria-label': jefe ? 'Combate contra el jefe' : 'Tu héroe frente a ' + (MONSTRUOS[sid] || MONSTRUOS.marcas).n });
     var g = cv.getContext && cv.getContext('2d');
     var tema = TEMAS[sid] || TEMAS.marcas;
     var est = { hx: 0, ex: 0, flash: 0, tiemb: 0, hp: 1, fin: '', t0: Date.now(), proy: null, ps: [], nums: [], entra: jefe ? 60 : 24, golpeH: 0, ultimo: 0 };
