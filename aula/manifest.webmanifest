@@ -1,0 +1,16 @@
+{
+  "name": "Aula DAW 1",
+  "short_name": "Aula DAW 1",
+  "description": "Curso desde cero de las asignaturas de DAW 1 con teoría, editor y tests.",
+  "lang": "es",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1f2937",
+  "theme_color": "#1f2937",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
