@@ -601,6 +601,11 @@ DELETE FROM alumnos WHERE nombre = 'Alba';`,
     ]
   },
   {
+    id: 'despliegue', name: 'Despliegue de Aplicaciones Web', short: 'Servidores, SSH, Apache y Docker', color: 'despliegue',
+    intro: 'Cómo se publica una aplicación web: arquitectura cliente-servidor, DNS, transferencia de archivos (FTP/SSH), servidores web y de bases de datos, y contenedores Docker. Resumen propio basado en los apuntes de abrilcode (CC BY-SA 4.0, F. Valdeón).',
+    lessons: []
+  },
+  {
     id: 'ingles', name: 'Inglés profesional', short: 'Professional English', color: 'ingles',
     intro: 'Presentarte en el trabajo, vocabulario informático y cómo escribir un correo profesional. Contenido de base: complétalo con el temario de tu libro.',
     lessons: [

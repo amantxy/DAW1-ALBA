@@ -398,6 +398,9 @@
     tsp: { n: 'Monedón', f: [
       '....mmmm....', '...mmmmmm...', '....dddd....', '...mmmmmm...', '..mmmmmmmm..', '.mmwwmmwwmm.',
       '.mmwkmmwkmm.', '.mmmmyymmmm.', '.mmmyyyymmm.', '.mmmmyymmmm.', '..mmmmmmmm..', '...dd..dd...'] },
+    despliegue: { n: 'Servidor Pulpo', f: [
+      '...k.mm.k...', '..kmmmmmmk..', '.kmmmmmmmmk.', '.mmwwmmwwmm.', '.mmwkmmwkmm.', '.mmmmmmmmmm.',
+      '.mmkkkkkkmm.', '..mmmmmmmm..', '.m.m.mm.m.m.', 'm..m.mm.m..m', 'm..d.mm.d..m', '.d..d..d..d.'] },
     ingles: { n: 'Dragoncito Gramatical', f: [
       '.m........m.', '.mm......mm.', '..mmmmmmmm..', '.mmwwmmwwmm.', '.mmwkmmwkmm.', '.mmmmmmmmmm.',
       '.mmmkrrkmmm.', '.dmmmmmmmmd.', 'dmmmmmmmmmmd', '.mmmmmmmmmm.', '.mm..mm..mm.', '.dd..dd..dd.'] }
@@ -407,7 +410,7 @@
     function f(x) { x = Math.round(x * 0.65); return (x < 16 ? '0' : '') + x.toString(16); }
     return '#' + f(r) + f(g) + f(b);
   }
-  var EMBLEMA = { marcas: '</>', prog: '{ }', entornos: 'bug', sistemas: '0101', bd: 'DB', tsp: '€', ingles: 'Aa' };
+  var EMBLEMA = { marcas: '</>', prog: '{ }', entornos: 'bug', sistemas: '0101', bd: 'DB', tsp: '€', despliegue: 'SSH', ingles: 'Aa' };
   function sprite(ctx, filas, x, y, px, pal) {
     for (var r = 0; r < filas.length; r++) for (var c = 0; c < filas[r].length; c++) {
       var ch = filas[r][c];

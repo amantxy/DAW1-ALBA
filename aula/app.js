@@ -68,7 +68,7 @@
     { xp: 3200, n: 'Senior' }, { xp: 4800, n: 'Arquitecto' }, { xp: 6800, n: 'Maestro' }, { xp: 9000, n: 'Leyenda' }
   ];
   var XP_NIVEL = 60, XP_ESTRELLA = 40, XP_JEFE = 150, XP_JEFE_ESTRELLA = 150, XP_ACIERTO = 10, XP_PERFECTA = 50, XP_MISION = 20, META_DIA = 5;
-  var COLORES = ['#0b7a6f', '#c2531b', '#6b4ce0', '#2563c9', '#23813f', '#c23b72', '#a4660f'];
+  var COLORES = ['#0b7a6f', '#c2531b', '#6b4ce0', '#2563c9', '#23813f', '#c23b72', '#0e7490', '#a4660f'];
 
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
   function fechaDe(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }

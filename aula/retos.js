@@ -236,8 +236,15 @@
     items: ['Subject: Meeting on Friday', 'Dear Mr. Smith,', 'Thank you for your email.', 'Could we meet at 10:00 on Friday?', 'I look forward to hearing from you.', 'Kind regards, Alba'] } };
 
   window.RETOS = R;
+  /* Añade una lección nueva al final de una asignatura, con su reto (opcional) */
+  window.AGREGA = function (sid, lec, reto) {
+    var s = window.DATA.filter(function (x) { return x.id === sid; })[0];
+    if (!s) return;
+    s.lessons.push(lec);
+    if (reto) R[sid + '-' + s.lessons.length] = reto;
+  };
   window.JEFES = {
     marcas: 'El Guardián de las Etiquetas', prog: 'El Compilador Furioso', entornos: 'El Bug Supremo', sistemas: 'El Kernel Oscuro',
-    bd: 'La Tabla Redundante', tsp: 'El Competidor Implacable', ingles: 'The Grammar Dragon'
+    bd: 'La Tabla Redundante', tsp: 'El Competidor Implacable', despliegue: 'El Servidor Caído', ingles: 'The Grammar Dragon'
   };
 })();
