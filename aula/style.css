@@ -198,3 +198,11 @@ body { overflow-x: hidden; }
   .bin { grid-template-columns: 1fr; }
   .bin input { font-size: 16px; min-height: 44px; }
 }
+
+@media (max-width: 520px) {
+  .menu-txt { display: none; }
+  .topbar { gap: 8px; padding: 8px 10px; }
+  .menu-btn, .theme-btn { padding: 6px 12px; }
+  .brand { font-size: 1.05rem; min-width: 0; }
+  .sesion button { font-size: 0.9rem; padding: 6px 10px; }
+}
