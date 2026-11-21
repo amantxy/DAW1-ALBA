@@ -9,10 +9,10 @@
      El modo gaming no guarda nada propio: XP, nivel, racha y logros se calculan con estos datos.
      Solo el modo elegido (estudio o gaming) se guarda en este dispositivo (aula-modo). */
   var PREFIJO = 'aula:';
-  var progress = {}, scores = {}, resp = {}, foco = {};
+  var progress = {}, scores = {}, resp = {}, foco = {}, estrellas = {}, jefes = {};
   function leeJSON(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
   function leeProgreso() {
-    progress = {}; scores = {}; resp = {}; foco = {};
+    progress = {}; scores = {}; resp = {}; foco = {}; estrellas = {}; jefes = {};
     try {
       var viejo = localStorage.getItem('aula-daw1-progreso'); /* versión anterior: se migra una vez */
       if (viejo) {
@@ -27,6 +27,8 @@
         if (nombre.indexOf('q:') === 0) { var a = leeJSON(k); if (Array.isArray(a)) scores[nombre.slice(2)] = a; }
         else if (nombre === 'resp') { var r = leeJSON(k); if (r && typeof r === 'object') resp = r; }
         else if (nombre === 'foco') { var fo = leeJSON(k); if (fo && typeof fo === 'object') foco = fo; }
+        else if (nombre.indexOf('e:') === 0) { var ne = leeJSON(k); if (typeof ne === 'number' && ne >= 1) estrellas[nombre.slice(2)] = Math.min(3, ne); }
+        else if (nombre.indexOf('j:') === 0) { var nj = leeJSON(k); if (typeof nj === 'number' && nj >= 1) jefes[nombre.slice(2)] = Math.min(3, nj); }
         else progress[nombre] = 1;
       }
     } catch (e) { /* sin almacenamiento: el progreso dura solo mientras la página está abierta */ }
@@ -62,10 +64,10 @@
   document.body.classList.toggle('estudio', !gaming);
 
   var NIVELES = [
-    { xp: 0, n: 'Novato' }, { xp: 100, n: 'Aprendiz' }, { xp: 300, n: 'Junior' }, { xp: 600, n: 'Programador' },
-    { xp: 1000, n: 'Dev' }, { xp: 1500, n: 'Senior' }, { xp: 2100, n: 'Arquitecto' }, { xp: 2700, n: 'Leyenda' }
+    { xp: 0, n: 'Novato' }, { xp: 150, n: 'Aprendiz' }, { xp: 500, n: 'Junior' }, { xp: 1100, n: 'Programador' }, { xp: 2000, n: 'Dev' },
+    { xp: 3200, n: 'Senior' }, { xp: 4800, n: 'Arquitecto' }, { xp: 6800, n: 'Maestro' }, { xp: 9000, n: 'Leyenda' }
   ];
-  var XP_ACIERTO = 10, XP_PERFECTA = 50, XP_MISION = 20, META_DIA = 5;
+  var XP_NIVEL = 60, XP_ESTRELLA = 40, XP_JEFE = 150, XP_JEFE_ESTRELLA = 150, XP_ACIERTO = 10, XP_PERFECTA = 50, XP_MISION = 20, META_DIA = 5;
   var COLORES = ['#0b7a6f', '#c2531b', '#6b4ce0', '#2563c9', '#23813f', '#c23b72', '#a4660f'];
 
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
@@ -92,9 +94,18 @@
       });
       porAsig[s.id] = doneCount(s) === s.lessons.length;
     });
+    var nivelesHechos = 0, tresEstrellas = 0, estrellasTot = 0, jefesHechos = 0, xpJuego = 0;
+    DATA.forEach(function (s) {
+      s.lessons.forEach(function (l, i) {
+        var e = estrellas[key(s.id, i)] || 0;
+        if (e) { nivelesHechos++; estrellasTot += e; xpJuego += XP_NIVEL + e * XP_ESTRELLA; if (e === 3) tresEstrellas++; }
+      });
+      var j = jefes[s.id] || 0;
+      if (j) { jefesHechos++; estrellasTot += j; xpJuego += XP_JEFE + j * XP_JEFE_ESTRELLA; }
+    });
     var dias = Object.keys(resp).filter(function (d) { return resp[d] > 0; }).sort();
     var misiones = dias.filter(function (d) { return resp[d] >= META_DIA; }).length;
-    var xp = correctas * XP_ACIERTO + perfectas * XP_PERFECTA + misiones * XP_MISION;
+    var xp = correctas * XP_ACIERTO + perfectas * XP_PERFECTA + misiones * XP_MISION + xpJuego;
     var nivel = 0;
     NIVELES.forEach(function (n, i) { if (xp >= n.xp) nivel = i; });
     var siguiente = NIVELES[nivel + 1] || null;
@@ -105,7 +116,7 @@
     /* mejor racha */
     var mejor = 0, cur = 0, prev = null;
     dias.forEach(function (d) { cur = prev && diaAnterior(d) === prev ? cur + 1 : 1; if (cur > mejor) mejor = cur; prev = d; });
-    var s0 = { correctas: correctas, perfectas: perfectas, completadas: completadas, misiones: misiones, xp: xp, nivel: nivel, siguiente: siguiente, racha: racha, mejor: mejor, hoy: resp[hoy()] || 0, porAsig: porAsig };
+    var s0 = { correctas: correctas, perfectas: perfectas, completadas: completadas, misiones: misiones, xp: xp, nivel: nivel, siguiente: siguiente, racha: racha, mejor: mejor, nivelesHechos: nivelesHechos, tresEstrellas: tresEstrellas, estrellasTot: estrellasTot, jefesHechos: jefesHechos, hoy: resp[hoy()] || 0, porAsig: porAsig };
     s0.logros = logros(s0);
     return s0;
   }
@@ -118,6 +129,9 @@
       { id: 'racha', t: 'Constante', d: 'Estudia 3 días seguidos', ok: st.mejor >= 3, c: '#c23b72' },
       { id: 'mision', t: 'Misión cumplida', d: 'Responde ' + META_DIA + ' preguntas en un día', ok: st.misiones >= 1, c: '#23813f' }
     ];
+    l.push({ id: 'estrellas', t: 'Tres estrellas', d: 'Supera 5 niveles con las 3 vidas intactas', ok: st.tresEstrellas >= 5, c: '#a4660f' });
+    l.push({ id: 'jefe1', t: 'Cazador de jefes', d: 'Derrota a tu primer jefe', ok: st.jefesHechos >= 1, c: '#c23b72' });
+    l.push({ id: 'jefes', t: 'Rey de las mazmorras', d: 'Derrota a los ' + DATA.length + ' jefes', ok: st.jefesHechos >= DATA.length, c: '#6b4ce0' });
     DATA.forEach(function (s, i) { l.push({ id: 'asig-' + s.id, t: s.name, d: 'Completa todas sus lecciones', ok: !!st.porAsig[s.id], c: COLORES[i % COLORES.length] }); });
     var todo = DATA.every(function (s) { return st.porAsig[s.id]; });
     l.push({ id: 'todo', t: 'Leyenda de DAW 1', d: 'Completa todas las asignaturas', ok: todo, c: '#a4660f' });
@@ -205,6 +219,7 @@
       el('small', { text: st.xp + ' XP' + (st.siguiente ? ' · faltan ' + (tope - st.xp) + ' para ' + st.siguiente.n : ' · nivel máximo') })
     ]));
     hud.appendChild(el('div', { class: 'hud-dato' }, [el('b', { text: st.racha + (st.racha === 1 ? ' día' : ' días') }), el('span', { text: 'Racha' })]));
+    hud.appendChild(el('div', { class: 'hud-dato' }, [el('b', { text: '★ ' + st.estrellasTot }), el('span', { text: 'Estrellas' })]));
     var m = Math.min(st.hoy, META_DIA);
     hud.appendChild(el('div', { class: 'hud-dato' }, [el('b', { text: m + '/' + META_DIA }), el('span', { text: m >= META_DIA ? 'Misión cumplida' : 'Misión del día' })]));
   }
@@ -250,7 +265,7 @@
       var a = scores[k] || [];
       if (a.indexOf(qi) === -1) { a = a.concat([qi]); scores[k] = a; guarda('q:' + k, a); }
     }
-    if (aciertos(sid, idx, total) === total && !progress[k]) { setDone(k, true); buildNav($('search').value); refreshDone(); }
+    if (!gaming && aciertos(sid, idx, total) === total && !progress[k]) { setDone(k, true); buildNav($('search').value); refreshDone(); }
     var despues = stats();
     if (!gaming) return;
     var ganado = despues.xp - antes.xp;
@@ -282,7 +297,7 @@
       if (!items.length) return;
       var d = el('details', { class: 'nav-sub' });
       d.style.setProperty('--c', colorVar(s));
-      if (q || (route.s && route.s.id === s.id)) d.open = true;
+      if (q || (route.s && route.s.id === s.id) || (route.jefe && route.jefe.id === s.id)) d.open = true;
       d.appendChild(el('summary', null, [
         el('span', { class: 'dot' }),
         el('span', { text: s.name }),
@@ -293,10 +308,11 @@
         var on = route.s && route.s.id === s.id && route.i === i;
         var a = el('a', { href: '#' + key(s.id, i), class: on ? 'on' : '' }, [
           el('span', { text: (i + 1) + '. ' + s.lessons[i].t }),
-          progress[key(s.id, i)] ? el('span', { class: 'tick', text: '✓', 'aria-label': 'completada' }) : null
+          gaming && estrellas[key(s.id, i)] ? el('span', { class: 'tick est', text: '★'.repeat(estrellas[key(s.id, i)]), 'aria-label': estrellas[key(s.id, i)] + ' estrellas' }) : (progress[key(s.id, i)] ? el('span', { class: 'tick', text: '✓', 'aria-label': 'completada' }) : null)
         ]);
         ul.appendChild(el('li', null, [a]));
       });
+      if (gaming && !q) ul.appendChild(el('li', null, [el('a', { href: '#jefe-' + s.id, class: (route.jefe && route.jefe.id === s.id ? 'on ' : '') + 'nav-jefe' }, [el('span', { text: 'Jefe: ' + (window.JEFES && window.JEFES[s.id] || 'Jefe final') }), jefes[s.id] ? el('span', { class: 'tick est', text: '★'.repeat(jefes[s.id]) }) : null])]));
       d.appendChild(ul);
       nav.appendChild(d);
     });
@@ -306,6 +322,8 @@
   /* ---------- Rutas ---------- */
   function parseRoute() {
     var h = (location.hash || '#inicio').slice(1);
+    var mj = /^jefe-([a-z]+)$/.exec(h);
+    if (mj) { var sj = DATA.filter(function (x) { return x.id === mj[1]; })[0]; if (sj) return { jefe: sj }; }
     var m = /^([a-z]+)-(\d+)$/.exec(h);
     if (m) {
       var s = DATA.filter(function (x) { return x.id === m[1]; })[0];
@@ -344,6 +362,7 @@
       el('p', { class: 'muted', text: gaming ? 'Modo gaming: ganas XP, subes de nivel, mantienes tu racha y consigues logros.' : 'Modo estudio: vista tranquila con temporizador de concentración (25 minutos de estudio y 5 de descanso). Cambia a gaming cuando quieras puntos y logros.' })
     ]));
     if (gaming) main.appendChild(aventura());
+    if (gaming) { main.appendChild(mapa()); document.title = 'Aula DAW 1'; return; }
     var cards = el('div', { class: 'cards' });
     DATA.forEach(function (s) {
       var n = doneCount(s);
@@ -483,6 +502,167 @@
     return host;
   }
 
+
+  /* ---------- Modo gaming: niveles, jefes y mapa ---------- */
+  function colorHex(s) { return COLORES[DATA.indexOf(s) % COLORES.length]; }
+  function estrellasTxt(n) { return '★'.repeat(n) + '☆'.repeat(3 - n); }
+  function corazones(n) {
+    var w = el('span', { class: 'vidas', role: 'img', 'aria-label': n + (n === 1 ? ' vida' : ' vidas') });
+    for (var i = 0; i < 3; i++) w.appendChild(el('span', { class: i < n ? 'viva' : 'muerta', text: i < n ? '♥' : '♡', 'aria-hidden': 'true' }));
+    return w;
+  }
+  function nivelCompleto(s) { return s.lessons.every(function (_, i) { return (estrellas[key(s.id, i)] || 0) >= 1; }); }
+
+  /* Un combate (nivel o jefe). cfg: {titulo, color, sid, jefe, fases:[function(ctx)->nodo], alGanar(estrellas), siguiente:{h,t}, repite:function} */
+  function combate(host, cfg) {
+    JUEGO.limpia();
+    host.innerHTML = '';
+    var vidas = 3, fase = 0, fin = false, golpes = 0, hp = 1;
+    var esc = JUEGO.escena(cfg.color, cfg.sid, !!cfg.jefe);
+    var vid = el('div', { class: 'nivel-vidas' });
+    var info = el('b', { class: 'nivel-fase' });
+    var cuerpo = el('div', { class: 'nivel-cuerpo' });
+    var escBox = el('div', { class: 'nivel-escena' }, [esc.el, el('div', { class: 'nivel-barra' }, [info, vid])]);
+    host.appendChild(escBox); host.appendChild(cuerpo);
+    function pintaVidas() { vid.innerHTML = ''; vid.appendChild(corazones(vidas)); }
+    pintaVidas();
+    var ctx = {
+      vivo: function () { return vidas > 0 && !fin; },
+      acierto: function () { golpes++; hp = Math.max(0.12, hp - 0.12); esc.golpea(hp); },
+      perder: function () {
+        if (fin) return vidas;
+        vidas--; pintaVidas(); esc.recibe();
+        if (vidas <= 0) derrota();
+        return vidas;
+      },
+      listo: function () { fase++; if (fase >= cfg.fases.length) victoria(); else muestra(); }
+    };
+    function muestra() {
+      cuerpo.innerHTML = '';
+      info.textContent = cfg.nombres[fase];
+      cuerpo.appendChild(cfg.fases[fase](ctx));
+    }
+    function derrota() {
+      fin = true; JUEGO.limpia(); esc.fin('lose');
+      cuerpo.innerHTML = '';
+      cuerpo.appendChild(el('div', { class: 'nivel-fin mal' }, [
+        el('h3', { text: 'Te has quedado sin vidas' }),
+        el('p', { text: cfg.jefe ? 'El jefe resiste. Repasa las lecciones de la asignatura y vuelve a intentarlo.' : 'No pasa nada: repasa la teoría de arriba y vuelve a intentarlo.' }),
+        el('button', { type: 'button', class: 'btn primary', text: 'Reintentar', onclick: cfg.repite })
+      ]));
+    }
+    function victoria() {
+      fin = true; JUEGO.limpia(); esc.fin('win');
+      var antes = stats();
+      cfg.alGanar(vidas);
+      var despues = stats();
+      var xp = despues.xp - antes.xp;
+      cuerpo.innerHTML = '';
+      var botones = [el('a', { class: 'btn primary', href: cfg.siguiente.h, text: cfg.siguiente.t })];
+      if (vidas < 3) botones.push(el('button', { type: 'button', class: 'btn', text: 'Repetir para más estrellas', onclick: cfg.repite }));
+      cuerpo.appendChild(el('div', { class: 'nivel-fin bien' }, [
+        el('h3', { text: cfg.jefe ? '¡Jefe derrotado!' : '¡Nivel superado!' }),
+        el('p', { class: 'estrellas-grandes', 'aria-label': vidas + ' de 3 estrellas', text: estrellasTxt(vidas) }),
+        el('p', { text: xp > 0 ? '+' + xp + ' XP' : 'Ya tenías esta puntuación o una mejor.' }),
+        el('div', { class: 'done-row' }, botones)
+      ]));
+      confeti();
+      if (despues.nivel > antes.nivel) toast('¡Subes al nivel ' + (despues.nivel + 1) + ': ' + NIVELES[despues.nivel].n + '!');
+      despues.logros.forEach(function (lg, i) { if (lg.ok && !antes.logros[i].ok) toast('Logro desbloqueado: ' + lg.t); });
+      buildNav($('search').value); renderHud();
+    }
+    muestra();
+  }
+
+  function pantallaInicio(host, o) {
+    host.innerHTML = '';
+    var cab = [el('h3', { text: o.titulo }), el('p', { text: o.texto })];
+    if (o.record) cab.push(el('p', { class: 'estrellas-grandes', text: 'Mejor: ' + estrellasTxt(o.record) }));
+    cab.push(el('p', { class: 'muted' }, [document.createTextNode('Tienes '), corazones(3), document.createTextNode(' Cada fallo cuesta una vida; las estrellas son las vidas que te quedan al ganar.')]));
+    if (o.bloqueo) cab.push(el('p', { class: 'note', text: o.bloqueo }));
+    else cab.push(el('button', { type: 'button', class: 'btn primary', text: o.boton, onclick: o.empieza }));
+    host.appendChild(el('div', { class: 'nivel-intro' }, cab));
+  }
+
+  function nivelJuego(s, i, l) {
+    var k = key(s.id, i), reto = window.RETOS && window.RETOS[k];
+    var host = el('section', { class: 'nivel', 'aria-label': 'Nivel del modo gaming' });
+    var siguiente = i < s.lessons.length - 1 ? { h: '#' + key(s.id, i + 1), t: 'Siguiente nivel →' } : { h: '#jefe-' + s.id, t: 'Ir al jefe →' };
+    function inicio() {
+      pantallaInicio(host, {
+        titulo: 'Nivel ' + (i + 1) + ': ' + l.t,
+        texto: 'Te enfrentas a ' + JUEGO.enemigo(s.id) + '. Calentamiento con las preguntas de la lección y después el reto «' + (reto ? reto.t : 'final') + '».',
+        record: estrellas[k] || 0, boton: 'Empezar nivel', empieza: juega
+      });
+    }
+    function juega() {
+      var fases = [function (ctx) { return JUEGO.preguntas(l.quiz, ctx, { onResp: function (qi, ok, caja) { registra(s.id, i, qi, ok, caja, l.quiz.length); } }); }];
+      var nombres = ['Calentamiento'];
+      if (reto) { fases.push(function (ctx) { var w = el('div'); w.appendChild(el('h3', { class: 'jg-titulo', text: reto.t })); w.appendChild(JUEGO.construye(reto, ctx)); return w; }); nombres.push('Reto'); }
+      combate(host, {
+        color: colorHex(s), sid: s.id, jefe: false, fases: fases, nombres: nombres, siguiente: siguiente, repite: juega,
+        alGanar: function (v) {
+          if (v > (estrellas[k] || 0)) { estrellas[k] = v; guarda('e:' + k, v); }
+          setDone(k, true);
+        }
+      });
+    }
+    inicio();
+    return host;
+  }
+
+  function renderJefe(main, s) {
+    var nombre = (window.JEFES && window.JEFES[s.id]) || 'Jefe final';
+    var wrap = el('article', { class: 'lesson jefe-pagina' });
+    wrap.style.setProperty('--c', colorVar(s));
+    wrap.appendChild(el('div', { class: 'crumbs' }, [el('a', { href: '#inicio', text: 'Inicio' }), document.createTextNode(' / ' + s.name)]));
+    wrap.appendChild(el('span', { class: 'chip', text: s.name + ' · jefe final' }));
+    wrap.appendChild(el('h1', { text: nombre }));
+    var host = el('section', { class: 'nivel', 'aria-label': 'Combate contra el jefe' });
+    var faltan = s.lessons.map(function (_, i) { return i; }).filter(function (i) { return !(estrellas[key(s.id, i)] > 0); });
+    function juega() {
+      var pool = [];
+      s.lessons.forEach(function (l) { l.quiz.forEach(function (q) { pool.push(q); }); });
+      pool = JUEGO.mezcla(pool).slice(0, 10);
+      combate(host, {
+        color: colorHex(s), sid: s.id, jefe: true, nombres: ['Combate'], siguiente: { h: '#inicio', t: 'Volver al mapa' }, repite: juega,
+        fases: [function (ctx) { return JUEGO.preguntas(pool, ctx, { tiempo: 20, hp: true, jefe: nombre, onResp: function () { var d = hoy(); resp[d] = (resp[d] || 0) + 1; guarda('resp', resp); } }); }],
+        alGanar: function (v) { if (v > (jefes[s.id] || 0)) { jefes[s.id] = v; guarda('j:' + s.id, v); } }
+      });
+    }
+    pantallaInicio(host, {
+      titulo: nombre,
+      texto: 'Diez preguntas de toda la asignatura, 20 segundos cada una. Cada acierto le quita vida al jefe; si fallas, esa pregunta vuelve una vez más.',
+      record: jefes[s.id] || 0, boton: 'Combatir', empieza: juega,
+      bloqueo: faltan.length ? 'El jefe está bloqueado. Supera antes los niveles: ' + faltan.map(function (i) { return (i + 1) + ' (' + s.lessons[i].t + ')'; }).join(', ') + '.' : null
+    });
+    wrap.appendChild(host);
+    wrap.appendChild(el('div', { class: 'pager' }, [el('a', { class: 'btn', href: '#' + key(s.id, s.lessons.length - 1), text: '← Último nivel' }), el('a', { class: 'btn primary', href: '#inicio', text: 'Mapa', style: '--c:' + colorVar(s) })]));
+    main.appendChild(wrap);
+    document.title = nombre + ' · Aula DAW 1';
+  }
+
+  function mapa() {
+    var wrap = el('section', { class: 'mapa', 'aria-label': 'Mapa de aventura' });
+    wrap.appendChild(el('h2', { text: 'Mapa de aventura' }));
+    wrap.appendChild(el('p', { class: 'muted', text: 'Supera cada nivel (calentamiento y reto) para llegar al jefe de la asignatura. Ganas ' + XP_NIVEL + ' XP por nivel más ' + XP_ESTRELLA + ' por estrella, y ' + XP_JEFE + ' más ' + XP_JEFE_ESTRELLA + ' por estrella al derrotar a un jefe.' }));
+    DATA.forEach(function (s) {
+      var fila = el('div', { class: 'mapa-asig' });
+      fila.style.setProperty('--c', colorVar(s));
+      fila.appendChild(el('h3', null, [el('span', { class: 'dot' }), document.createTextNode(s.name)]));
+      var ruta = el('div', { class: 'mapa-ruta' });
+      s.lessons.forEach(function (l, i) {
+        var e = estrellas[key(s.id, i)] || 0;
+        ruta.appendChild(el('a', { href: '#' + key(s.id, i), class: 'nodo' + (e ? ' hecho' : ''), title: l.t, 'aria-label': 'Nivel ' + (i + 1) + ': ' + l.t + ', ' + e + ' estrellas' }, [el('b', { text: String(i + 1) }), el('small', { text: estrellasTxt(e) })]));
+      });
+      var abierto = nivelCompleto(s), j = jefes[s.id] || 0;
+      ruta.appendChild(el('a', { href: '#jefe-' + s.id, class: 'nodo jefe' + (abierto ? '' : ' lock') + (j ? ' hecho' : ''), 'aria-label': 'Jefe ' + (window.JEFES && window.JEFES[s.id] || '') + (abierto ? '' : ', bloqueado') }, [el('b', { text: 'Jefe' }), el('small', { text: abierto ? estrellasTxt(j) : 'bloqueado' })]));
+      fila.appendChild(ruta);
+      wrap.appendChild(fila);
+    });
+    return wrap;
+  }
+
   var doneBtn = null;
   function refreshDone() {
     if (!doneBtn) return;
@@ -510,15 +690,15 @@
       }
     }
     if (l.ref) wrap.appendChild(el('p', { class: 'note' }, [document.createTextNode('Teoría completa de tu temario: '), el('a', { href: l.ref.href, text: l.ref.text })]));
-    wrap.appendChild(el('h2', { text: 'Comprueba lo que has aprendido' }));
-    wrap.appendChild(quizBox(l, s.id, i));
+    if (gaming) { wrap.appendChild(el('h2', { text: 'Tu nivel' })); wrap.appendChild(nivelJuego(s, i, l)); }
+    else { wrap.appendChild(el('h2', { text: 'Comprueba lo que has aprendido' })); wrap.appendChild(quizBox(l, s.id, i)); }
     doneBtn = el('button', { class: 'btn', type: 'button' });
     doneBtn.addEventListener('click', function () {
       var k = key(s.id, i);
       setDone(k, !progress[k]);
       buildNav($('search').value); refreshDone(); renderHud();
     });
-    wrap.appendChild(el('div', { class: 'done-row' }, [doneBtn]));
+    if (!gaming) wrap.appendChild(el('div', { class: 'done-row' }, [doneBtn]));
     var prev = i > 0 ? { h: '#' + key(s.id, i - 1), t: '← ' + s.lessons[i - 1].t } : null;
     var next = i < s.lessons.length - 1 ? { h: '#' + key(s.id, i + 1), t: s.lessons[i + 1].t + ' →' } : { h: '#inicio', t: 'Volver al inicio' };
     wrap.appendChild(el('div', { class: 'pager' }, [
@@ -534,8 +714,9 @@
     var main = $('main');
     main.innerHTML = '';
     doneBtn = null;
+    JUEGO.limpia();
     var r = parseRoute();
-    if (r.home) renderHome(main); else renderLesson(main, r.s, r.i);
+    if (r.home) renderHome(main); else if (r.jefe) renderJefe(main, r.jefe); else renderLesson(main, r.s, r.i);
     buildNav($('search').value);
     renderHud();
     $('sidebar').classList.remove('open');
