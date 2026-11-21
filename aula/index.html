@@ -25,7 +25,7 @@
 <div class="hud" id="hud" hidden></div>
 <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
 <div class="shell">
-  <aside class="sidebar" id="sidebar"><nav id="nav" aria-label="Asignaturas y lecciones"></nav></aside>
+  <aside class="sidebar" id="sidebar"><nav id="nav" aria-label="Asignaturas y lecciones"></nav><button type="button" class="btn" id="actualizar" style="margin:16px 12px 24px;width:calc(100% - 24px)">↻ Actualizar la app</button></aside>
   <main class="main" id="main"></main>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
@@ -42,5 +42,6 @@
 <script src="app.js"></script>
 <script src="../progreso.js" data-pagina="aula" data-claves="aula:*"></script>
 <script>if ("serviceWorker" in navigator) { window.addEventListener("load", function () { var ya = !!navigator.serviceWorker.controller; navigator.serviceWorker.addEventListener("controllerchange", function () { if (ya && !window.__recarga) { window.__recarga = 1; location.reload(); } }); navigator.serviceWorker.register("sw.js").then(function (r) { r.update(); }).catch(function () {}); }); }</script>
+<script>(function(){var b=document.getElementById("actualizar");if(!b)return;b.addEventListener("click",function(){b.textContent="Actualizando…";var p=[];if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.map(function(x){return caches.delete(x);}));}));if(navigator.serviceWorker)p.push(navigator.serviceWorker.getRegistrations().then(function(r){return Promise.all(r.map(function(x){return x.unregister();}));}));Promise.all(p).catch(function(){}).then(function(){location.href=location.pathname+"?v="+Date.now()+location.hash;});});})();</script>
 </body>
 </html>
