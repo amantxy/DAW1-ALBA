@@ -257,3 +257,17 @@ body.gaming .chip { box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 25%, trans
   .nav-game { padding: 12px 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .xp-pop, .toast { animation: none; } .xpbar i { transition: none; } }
+
+/* ---------- Selector Estudio | Gaming y barra de estudio ---------- */
+.seg { display: flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 0 0 10px; max-width: 360px; }
+.hero .seg { margin-top: 14px; }
+.seg-b { flex: 1; padding: 10px 12px; min-height: 44px; border: 0; background: var(--surface); cursor: pointer; font-weight: 600; }
+.seg-b + .seg-b { border-left: 1px solid var(--line); }
+.seg-b.on[data-m="estudio"] { background: var(--c-sistemas); color: #fff; }
+.seg-b.on[data-m="gaming"] { background: var(--c-ingles); color: #fff; }
+.hud-reloj { display: flex; align-items: baseline; gap: 12px; }
+.hud-reloj .tiempo { font-family: var(--font-mono); font-weight: 500; font-size: 1.7rem; font-variant-numeric: tabular-nums; }
+.hud-reloj .fase { font-family: var(--font-display); font-size: 0.85rem; color: var(--muted); }
+.hud-botones { display: flex; gap: 8px; }
+.hud-estudio .btn.primary { --c: var(--c-sistemas); }
+@media (max-width: 860px) { .seg { max-width: none; } .hud-botones .btn { padding: 8px 14px; } }

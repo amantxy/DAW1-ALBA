@@ -5,13 +5,14 @@
        aula:<asignatura>-<n>   = 1        lección completada
        aula:q:<asignatura>-<n> = [0,2]    preguntas del test acertadas alguna vez
        aula:resp               = {fecha: nº de respuestas ese día}
+       aula:foco               = {fecha: nº de pomodoros ese día}
      El modo gaming no guarda nada propio: XP, nivel, racha y logros se calculan con estos datos.
-     Solo la preferencia "modo gaming activado" se guarda en este dispositivo (aula-modo). */
+     Solo el modo elegido (estudio o gaming) se guarda en este dispositivo (aula-modo). */
   var PREFIJO = 'aula:';
-  var progress = {}, scores = {}, resp = {};
+  var progress = {}, scores = {}, resp = {}, foco = {};
   function leeJSON(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
   function leeProgreso() {
-    progress = {}; scores = {}; resp = {};
+    progress = {}; scores = {}; resp = {}; foco = {};
     try {
       var viejo = localStorage.getItem('aula-daw1-progreso'); /* versión anterior: se migra una vez */
       if (viejo) {
@@ -25,6 +26,7 @@
         var nombre = k.slice(PREFIJO.length);
         if (nombre.indexOf('q:') === 0) { var a = leeJSON(k); if (Array.isArray(a)) scores[nombre.slice(2)] = a; }
         else if (nombre === 'resp') { var r = leeJSON(k); if (r && typeof r === 'object') resp = r; }
+        else if (nombre === 'foco') { var fo = leeJSON(k); if (fo && typeof fo === 'object') foco = fo; }
         else progress[nombre] = 1;
       }
     } catch (e) { /* sin almacenamiento: el progreso dura solo mientras la página está abierta */ }
@@ -55,8 +57,9 @@
 
   /* ---------- Modo gaming: XP, niveles, racha, misión y logros ---------- */
   var gaming = false;
-  try { gaming = localStorage.getItem('aula-modo') === '1'; } catch (e) { gaming = false; }
+  try { var modo0 = localStorage.getItem('aula-modo'); gaming = (modo0 === 'gaming' || modo0 === '1'); } catch (e) { gaming = false; }
   document.body.classList.toggle('gaming', gaming);
+  document.body.classList.toggle('estudio', !gaming);
 
   var NIVELES = [
     { xp: 0, n: 'Novato' }, { xp: 100, n: 'Aprendiz' }, { xp: 300, n: 'Junior' }, { xp: 600, n: 'Programador' },
@@ -123,15 +126,74 @@
 
   function setGaming(on) {
     gaming = on;
-    try { localStorage.setItem('aula-modo', on ? '1' : '0'); } catch (e) { /* solo en esta sesión */ }
+    if (on) paraTm();
+    try { localStorage.setItem('aula-modo', on ? 'gaming' : 'estudio'); } catch (e) { /* solo en esta sesión */ }
     document.body.classList.toggle('gaming', on);
+    document.body.classList.toggle('estudio', !on);
     renderHud();
     if (parseRoute().home) render(); else buildNav($('search').value);
   }
 
+  /* ---------- Modo estudio: temporizador de concentración (25 min + 5 de descanso) ---------- */
+  var FOCO_SEG = 25 * 60, DESC_SEG = 5 * 60;
+  var tm = { fase: 'foco', resta: FOCO_SEG, id: null };
+  var tmEl = null, tmFase = null, tmBtn = null;
+  function fmt(seg) { return pad(Math.floor(seg / 60)) + ':' + pad(seg % 60); }
+  function pintaTm() {
+    if (tmEl) tmEl.textContent = fmt(tm.resta);
+    if (tmFase) tmFase.textContent = tm.fase === 'foco' ? 'Concentración' : 'Descanso';
+    if (tmBtn) tmBtn.textContent = tm.id ? 'Pausar' : (tm.resta === (tm.fase === 'foco' ? FOCO_SEG : DESC_SEG) ? 'Iniciar' : 'Continuar');
+  }
+  function paraTm() { if (tm.id) { clearInterval(tm.id); tm.id = null; } }
+  function tickTm() {
+    tm.resta--;
+    if (tm.resta > 0) { pintaTm(); return; }
+    paraTm();
+    if (tm.fase === 'foco') {
+      var d = hoy(); foco[d] = (foco[d] || 0) + 1; guarda('foco', foco);
+      toast('Pomodoro completado. Descansa 5 minutos.');
+      tm.fase = 'descanso'; tm.resta = DESC_SEG;
+    } else {
+      toast('Descanso terminado. Vuelve a concentrarte 25 minutos.');
+      tm.fase = 'foco'; tm.resta = FOCO_SEG;
+    }
+    renderHud();
+  }
+  function barraEstudio(hud) {
+    hud.hidden = false;
+    hud.innerHTML = '';
+    var total = 0, hechas = 0;
+    DATA.forEach(function (s) { total += s.lessons.length; hechas += doneCount(s); });
+    tmEl = el('span', { class: 'tiempo', 'aria-live': 'off' });
+    tmFase = el('span', { class: 'fase' });
+    tmBtn = el('button', { type: 'button', class: 'btn primary', onclick: function () {
+      if (tm.id) paraTm(); else tm.id = setInterval(tickTm, 1000);
+      pintaTm();
+    } });
+    hud.appendChild(el('div', { class: 'hud-reloj' }, [tmFase, tmEl]));
+    hud.appendChild(el('div', { class: 'hud-botones' }, [
+      tmBtn,
+      el('button', { type: 'button', class: 'btn', text: 'Reiniciar', onclick: function () { paraTm(); tm.fase = 'foco'; tm.resta = FOCO_SEG; pintaTm(); } })
+    ]));
+    var n = foco[hoy()] || 0;
+    hud.appendChild(el('div', { class: 'hud-dato' }, [el('b', { text: n + (n === 1 ? ' pomodoro' : ' pomodoros') }), el('span', { text: 'Hoy' })]));
+    hud.appendChild(el('div', { class: 'hud-dato' }, [el('b', { text: hechas + '/' + total }), el('span', { text: 'Lecciones completadas' })]));
+    pintaTm();
+  }
+
+  function selectorModo() {
+    var wrap = el('div', { class: 'seg', role: 'group', 'aria-label': 'Modo de estudio' });
+    [['estudio', 'Estudio'], ['gaming', 'Gaming']].forEach(function (m) {
+      var on = (m[0] === 'gaming') === gaming;
+      wrap.appendChild(el('button', { type: 'button', class: 'seg-b' + (on ? ' on' : ''), 'data-m': m[0], 'aria-pressed': on ? 'true' : 'false', text: m[1], onclick: function () { if (!on) setGaming(m[0] === 'gaming'); } }));
+    });
+    return wrap;
+  }
+
   function renderHud() {
     var hud = $('hud');
-    if (!gaming) { hud.hidden = true; hud.innerHTML = ''; return; }
+    hud.className = 'hud ' + (gaming ? 'hud-gaming' : 'hud-estudio');
+    if (!gaming) { barraEstudio(hud); return; }
     var st = stats(), n = NIVELES[st.nivel];
     var base = n.xp, tope = st.siguiente ? st.siguiente.xp : n.xp;
     var pct = st.siguiente ? Math.round(100 * (st.xp - base) / (tope - base)) : 100;
@@ -211,7 +273,7 @@
     var q = (filter || '').trim().toLowerCase();
     var route = parseRoute();
     nav.appendChild(el('a', { href: '#inicio', class: 'nav-home' + (route.home ? ' on' : ''), text: 'Inicio' }));
-    nav.appendChild(el('button', { type: 'button', class: 'nav-game', 'aria-pressed': gaming ? 'true' : 'false', text: 'Modo gaming: ' + (gaming ? 'activado' : 'desactivado'), onclick: function () { setGaming(!gaming); } }));
+    nav.appendChild(selectorModo());
     DATA.forEach(function (s) {
       var items = [];
       s.lessons.forEach(function (l, i) {
@@ -278,8 +340,8 @@
       el('h1', { text: 'Aula DAW 1' }),
       el('p', { text: 'Aprende desde cero lo que ves en clase, paso a paso: teoría corta, ejemplos, un editor para probar el código y un test al final de cada lección.' }),
       el('p', { class: 'note', text: 'El contenido es una base general escrita para empezar. Si tu profesorado explica algo distinto, manda su material y se ajusta. Llevas ' + done + ' de ' + total + ' lecciones completadas.' }),
-      el('button', { type: 'button', class: 'btn primary gamebtn', 'aria-pressed': gaming ? 'true' : 'false', text: gaming ? 'Desactivar modo gaming' : 'Activar modo gaming', onclick: function () { setGaming(!gaming); } }),
-      gaming ? null : el('p', { class: 'muted', text: 'Gana XP, sube de nivel, mantén tu racha y consigue logros mientras estudias.' })
+      selectorModo(),
+      el('p', { class: 'muted', text: gaming ? 'Modo gaming: ganas XP, subes de nivel, mantienes tu racha y consigues logros.' : 'Modo estudio: vista tranquila con temporizador de concentración (25 minutos de estudio y 5 de descanso). Cambia a gaming cuando quieras puntos y logros.' })
     ]));
     if (gaming) main.appendChild(aventura());
     var cards = el('div', { class: 'cards' });
