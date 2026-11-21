@@ -1,11 +1,17 @@
 (function () {
   var DATA = window.DATA;
-  /* Progreso: una clave "aula:<asignatura>-<n>" por lección completada.
-     progreso.js (el de toda la web) sincroniza las claves "aula:*" con tu cuenta. */
+  /* Progreso guardado en localStorage con el prefijo "aula:".
+     progreso.js (el de toda la web) sincroniza las claves "aula:*" con tu cuenta.
+       aula:<asignatura>-<n>   = 1        lección completada
+       aula:q:<asignatura>-<n> = [0,2]    preguntas del test acertadas alguna vez
+       aula:resp               = {fecha: nº de respuestas ese día}
+     El modo gaming no guarda nada propio: XP, nivel, racha y logros se calculan con estos datos.
+     Solo la preferencia "modo gaming activado" se guarda en este dispositivo (aula-modo). */
   var PREFIJO = 'aula:';
-  var progress = {};
+  var progress = {}, scores = {}, resp = {};
+  function leeJSON(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
   function leeProgreso() {
-    progress = {};
+    progress = {}; scores = {}; resp = {};
     try {
       var viejo = localStorage.getItem('aula-daw1-progreso'); /* versión anterior: se migra una vez */
       if (viejo) {
@@ -15,10 +21,15 @@
       }
       for (var i = 0; i < localStorage.length; i++) {
         var k = localStorage.key(i);
-        if (k.indexOf(PREFIJO) === 0 && localStorage.getItem(k)) progress[k.slice(PREFIJO.length)] = 1;
+        if (k.indexOf(PREFIJO) !== 0 || !localStorage.getItem(k)) continue;
+        var nombre = k.slice(PREFIJO.length);
+        if (nombre.indexOf('q:') === 0) { var a = leeJSON(k); if (Array.isArray(a)) scores[nombre.slice(2)] = a; }
+        else if (nombre === 'resp') { var r = leeJSON(k); if (r && typeof r === 'object') resp = r; }
+        else progress[nombre] = 1;
       }
     } catch (e) { /* sin almacenamiento: el progreso dura solo mientras la página está abierta */ }
   }
+  function guarda(k, valor) { try { localStorage.setItem(PREFIJO + k, JSON.stringify(valor)); } catch (e) { /* sin almacenamiento */ } }
   function setDone(k, on) {
     if (on) progress[k] = 1; else delete progress[k];
     try { if (on) localStorage.setItem(PREFIJO + k, '1'); else localStorage.removeItem(PREFIJO + k); } catch (e) { /* sin almacenamiento */ }
@@ -42,6 +53,157 @@
   }
   function colorVar(s) { return 'var(--c-' + s.color + ')'; }
 
+  /* ---------- Modo gaming: XP, niveles, racha, misión y logros ---------- */
+  var gaming = false;
+  try { gaming = localStorage.getItem('aula-modo') === '1'; } catch (e) { gaming = false; }
+  document.body.classList.toggle('gaming', gaming);
+
+  var NIVELES = [
+    { xp: 0, n: 'Novato' }, { xp: 100, n: 'Aprendiz' }, { xp: 300, n: 'Junior' }, { xp: 600, n: 'Programador' },
+    { xp: 1000, n: 'Dev' }, { xp: 1500, n: 'Senior' }, { xp: 2100, n: 'Arquitecto' }, { xp: 2700, n: 'Leyenda' }
+  ];
+  var XP_ACIERTO = 10, XP_PERFECTA = 50, XP_MISION = 20, META_DIA = 5;
+  var COLORES = ['#0b7a6f', '#c2531b', '#6b4ce0', '#2563c9', '#23813f', '#c23b72', '#a4660f'];
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function fechaDe(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function hoy() { return fechaDe(new Date()); }
+  function diaAnterior(f) { var p = f.split('-'); var d = new Date(+p[0], +p[1] - 1, +p[2]); d.setDate(d.getDate() - 1); return fechaDe(d); }
+
+  function aciertos(sid, i, total) {
+    var a = scores[key(sid, i)] || [], vistos = {}, n = 0;
+    a.forEach(function (q) { if (typeof q === 'number' && q >= 0 && q < total && !vistos[q]) { vistos[q] = 1; n++; } });
+    return n;
+  }
+
+  function stats() {
+    var correctas = 0, perfectas = 0, completadas = 0;
+    var porAsig = {};
+    DATA.forEach(function (s) {
+      var perf = 0;
+      s.lessons.forEach(function (l, i) {
+        var n = aciertos(s.id, i, l.quiz.length);
+        correctas += n;
+        if (n === l.quiz.length) { perfectas++; perf++; }
+        if (progress[key(s.id, i)]) completadas++;
+      });
+      porAsig[s.id] = doneCount(s) === s.lessons.length;
+    });
+    var dias = Object.keys(resp).filter(function (d) { return resp[d] > 0; }).sort();
+    var misiones = dias.filter(function (d) { return resp[d] >= META_DIA; }).length;
+    var xp = correctas * XP_ACIERTO + perfectas * XP_PERFECTA + misiones * XP_MISION;
+    var nivel = 0;
+    NIVELES.forEach(function (n, i) { if (xp >= n.xp) nivel = i; });
+    var siguiente = NIVELES[nivel + 1] || null;
+    /* racha actual: días seguidos hasta hoy (o hasta ayer, si hoy aún no has respondido) */
+    var set = {}; dias.forEach(function (d) { set[d] = 1; });
+    var f = set[hoy()] ? hoy() : diaAnterior(hoy()), racha = 0;
+    while (set[f]) { racha++; f = diaAnterior(f); }
+    /* mejor racha */
+    var mejor = 0, cur = 0, prev = null;
+    dias.forEach(function (d) { cur = prev && diaAnterior(d) === prev ? cur + 1 : 1; if (cur > mejor) mejor = cur; prev = d; });
+    var s0 = { correctas: correctas, perfectas: perfectas, completadas: completadas, misiones: misiones, xp: xp, nivel: nivel, siguiente: siguiente, racha: racha, mejor: mejor, hoy: resp[hoy()] || 0, porAsig: porAsig };
+    s0.logros = logros(s0);
+    return s0;
+  }
+
+  function logros(st) {
+    var l = [
+      { id: 'primero', t: 'Primer paso', d: 'Completa tu primera lección', ok: st.completadas >= 1, c: '#2563c9' },
+      { id: 'diez', t: 'Maratón', d: 'Completa 10 lecciones', ok: st.completadas >= 10, c: '#6b4ce0' },
+      { id: 'perfectas', t: 'Perfeccionista', d: '5 tests con todas las respuestas acertadas', ok: st.perfectas >= 5, c: '#c2531b' },
+      { id: 'racha', t: 'Constante', d: 'Estudia 3 días seguidos', ok: st.mejor >= 3, c: '#c23b72' },
+      { id: 'mision', t: 'Misión cumplida', d: 'Responde ' + META_DIA + ' preguntas en un día', ok: st.misiones >= 1, c: '#23813f' }
+    ];
+    DATA.forEach(function (s, i) { l.push({ id: 'asig-' + s.id, t: s.name, d: 'Completa todas sus lecciones', ok: !!st.porAsig[s.id], c: COLORES[i % COLORES.length] }); });
+    var todo = DATA.every(function (s) { return st.porAsig[s.id]; });
+    l.push({ id: 'todo', t: 'Leyenda de DAW 1', d: 'Completa todas las asignaturas', ok: todo, c: '#a4660f' });
+    return l;
+  }
+
+  function setGaming(on) {
+    gaming = on;
+    try { localStorage.setItem('aula-modo', on ? '1' : '0'); } catch (e) { /* solo en esta sesión */ }
+    document.body.classList.toggle('gaming', on);
+    renderHud();
+    if (parseRoute().home) render(); else buildNav($('search').value);
+  }
+
+  function renderHud() {
+    var hud = $('hud');
+    if (!gaming) { hud.hidden = true; hud.innerHTML = ''; return; }
+    var st = stats(), n = NIVELES[st.nivel];
+    var base = n.xp, tope = st.siguiente ? st.siguiente.xp : n.xp;
+    var pct = st.siguiente ? Math.round(100 * (st.xp - base) / (tope - base)) : 100;
+    hud.hidden = false;
+    hud.innerHTML = '';
+    hud.appendChild(el('div', { class: 'hud-nivel' }, [el('b', { text: 'Nv ' + (st.nivel + 1) }), el('span', { text: n.n })]));
+    hud.appendChild(el('div', { class: 'hud-xp', role: 'img', 'aria-label': st.xp + ' puntos de experiencia' + (st.siguiente ? ', faltan ' + (tope - st.xp) + ' para el nivel ' + (st.nivel + 2) : ', nivel máximo') }, [
+      el('div', { class: 'xpbar' }, [el('i', { style: 'width:' + pct + '%' })]),
+      el('small', { text: st.xp + ' XP' + (st.siguiente ? ' · faltan ' + (tope - st.xp) + ' para ' + st.siguiente.n : ' · nivel máximo') })
+    ]));
+    hud.appendChild(el('div', { class: 'hud-dato' }, [el('b', { text: st.racha + (st.racha === 1 ? ' día' : ' días') }), el('span', { text: 'Racha' })]));
+    var m = Math.min(st.hoy, META_DIA);
+    hud.appendChild(el('div', { class: 'hud-dato' }, [el('b', { text: m + '/' + META_DIA }), el('span', { text: m >= META_DIA ? 'Misión cumplida' : 'Misión del día' })]));
+  }
+
+  function toast(msg) {
+    var box = $('toasts');
+    var t = el('div', { class: 'toast', text: msg });
+    box.appendChild(t);
+    setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 3600);
+  }
+
+  function reducido() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
+
+  function confeti() {
+    if (reducido()) return;
+    try {
+      var cv = el('canvas', { class: 'confeti', 'aria-hidden': 'true' });
+      cv.width = window.innerWidth; cv.height = window.innerHeight;
+      var ctx = cv.getContext && cv.getContext('2d');
+      if (!ctx) return;
+      document.body.appendChild(cv);
+      var ps = [], i;
+      for (i = 0; i < 90; i++) ps.push({ x: cv.width / 2 + (Math.random() - 0.5) * 120, y: cv.height * 0.35, vx: (Math.random() - 0.5) * 9, vy: -Math.random() * 9 - 2, r: 4 + Math.random() * 5, c: COLORES[i % COLORES.length], g: 0.25 + Math.random() * 0.1 });
+      var t0 = null;
+      (function paso(t) {
+        if (t0 === null) t0 = t;
+        var dt = t - t0;
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        ps.forEach(function (p) { p.vy += p.g; p.x += p.vx; p.y += p.vy; ctx.fillStyle = p.c; ctx.fillRect(p.x, p.y, p.r, p.r * 0.6); });
+        if (dt < 1800) requestAnimationFrame(paso); else if (cv.parentNode) cv.parentNode.removeChild(cv);
+      })(0);
+    } catch (e) { /* sin animación */ }
+  }
+
+  /* Registra una respuesta. Siempre guarda (así, al activar el modo gaming, ya tienes tu progreso). */
+  function registra(sid, idx, qi, acierto, ancla, total) {
+    var antes = stats();
+    var d = hoy();
+    resp[d] = (resp[d] || 0) + 1;
+    guarda('resp', resp);
+    var k = key(sid, idx);
+    if (acierto) {
+      var a = scores[k] || [];
+      if (a.indexOf(qi) === -1) { a = a.concat([qi]); scores[k] = a; guarda('q:' + k, a); }
+    }
+    if (aciertos(sid, idx, total) === total && !progress[k]) { setDone(k, true); buildNav($('search').value); refreshDone(); }
+    var despues = stats();
+    if (!gaming) return;
+    var ganado = despues.xp - antes.xp;
+    if (ganado > 0 && ancla) {
+      var pop = el('span', { class: 'xp-pop', text: '+' + ganado + ' XP', 'aria-hidden': 'true' });
+      ancla.appendChild(pop);
+      setTimeout(function () { if (pop.parentNode) pop.parentNode.removeChild(pop); }, 1400);
+    }
+    if (despues.perfectas > antes.perfectas) { toast('Test perfecto: +' + XP_PERFECTA + ' XP'); confeti(); }
+    if (despues.misiones > antes.misiones) toast('Misión del día cumplida: +' + XP_MISION + ' XP');
+    despues.logros.forEach(function (lg, i) { if (lg.ok && !antes.logros[i].ok) { toast('Logro desbloqueado: ' + lg.t); confeti(); } });
+    if (despues.nivel > antes.nivel) { toast('¡Subes al nivel ' + (despues.nivel + 1) + ': ' + NIVELES[despues.nivel].n + '!'); confeti(); }
+    renderHud();
+  }
+
   /* ---------- Menú lateral ---------- */
   function buildNav(filter) {
     var nav = $('nav');
@@ -49,6 +211,7 @@
     var q = (filter || '').trim().toLowerCase();
     var route = parseRoute();
     nav.appendChild(el('a', { href: '#inicio', class: 'nav-home' + (route.home ? ' on' : ''), text: 'Inicio' }));
+    nav.appendChild(el('button', { type: 'button', class: 'nav-game', 'aria-pressed': gaming ? 'true' : 'false', text: 'Modo gaming: ' + (gaming ? 'activado' : 'desactivado'), onclick: function () { setGaming(!gaming); } }));
     DATA.forEach(function (s) {
       var items = [];
       s.lessons.forEach(function (l, i) {
@@ -61,7 +224,7 @@
       d.appendChild(el('summary', null, [
         el('span', { class: 'dot' }),
         el('span', { text: s.name }),
-        el('span', { class: 'count', text: doneCount(s) + '/' + s.lessons.length })
+        el('span', { class: 'count', text: (gaming && doneCount(s) === s.lessons.length ? '★ ' : '') + doneCount(s) + '/' + s.lessons.length })
       ]));
       var ul = el('ul', { class: 'nav-lessons' });
       items.forEach(function (i) {
@@ -91,14 +254,34 @@
   }
 
   /* ---------- Inicio ---------- */
+  function aventura() {
+    var st = stats();
+    var wrap = el('section', { class: 'aventura', 'aria-label': 'Tu aventura' });
+    wrap.appendChild(el('h2', { text: 'Tu aventura' }));
+    wrap.appendChild(el('p', { class: 'muted', text: 'Cada respuesta acertada da ' + XP_ACIERTO + ' XP, un test perfecto ' + XP_PERFECTA + ' más y la misión del día (' + META_DIA + ' respuestas) ' + XP_MISION + '. Estudia días seguidos para mantener la racha.' }));
+    var grid = el('div', { class: 'badges' });
+    st.logros.forEach(function (lg) {
+      var b = el('div', { class: 'badge' + (lg.ok ? '' : ' off') }, [
+        el('span', { class: 'medal', text: lg.ok ? '★' : '·', style: 'background:' + lg.c, 'aria-hidden': 'true' }),
+        el('div', null, [el('b', { text: lg.t }), el('small', { text: lg.ok ? 'Conseguido' : lg.d })])
+      ]);
+      grid.appendChild(b);
+    });
+    wrap.appendChild(grid);
+    return wrap;
+  }
+
   function renderHome(main) {
     var total = 0, done = 0;
     DATA.forEach(function (s) { total += s.lessons.length; done += doneCount(s); });
     main.appendChild(el('section', { class: 'hero' }, [
       el('h1', { text: 'Aula DAW 1' }),
       el('p', { text: 'Aprende desde cero lo que ves en clase, paso a paso: teoría corta, ejemplos, un editor para probar el código y un test al final de cada lección.' }),
-      el('p', { class: 'note', text: 'El contenido es una base general escrita para empezar. Si tu profesorado explica algo distinto, manda su material y se ajusta. Llevas ' + done + ' de ' + total + ' lecciones completadas.' })
+      el('p', { class: 'note', text: 'El contenido es una base general escrita para empezar. Si tu profesorado explica algo distinto, manda su material y se ajusta. Llevas ' + done + ' de ' + total + ' lecciones completadas.' }),
+      el('button', { type: 'button', class: 'btn primary gamebtn', 'aria-pressed': gaming ? 'true' : 'false', text: gaming ? 'Desactivar modo gaming' : 'Activar modo gaming', onclick: function () { setGaming(!gaming); } }),
+      gaming ? null : el('p', { class: 'muted', text: 'Gana XP, sube de nivel, mantén tu racha y consigue logros mientras estudias.' })
     ]));
+    if (gaming) main.appendChild(aventura());
     var cards = el('div', { class: 'cards' });
     DATA.forEach(function (s) {
       var n = doneCount(s);
@@ -106,7 +289,7 @@
         el('h2', { text: s.name }),
         el('p', { text: s.intro }),
         el('div', { class: 'bar' }, [el('i', { style: 'width:' + Math.round(100 * n / s.lessons.length) + '%' })]),
-        el('small', { text: n + ' de ' + s.lessons.length + ' lecciones' })
+        el('small', { text: (gaming && n === s.lessons.length ? '★ ' : '') + n + ' de ' + s.lessons.length + ' lecciones' })
       ]);
       c.style.setProperty('--c', colorVar(s));
       cards.appendChild(c);
@@ -129,13 +312,13 @@
   }
 
   function xmlTree(node, depth, lines) {
-    var pad = new Array(depth + 1).join('  ');
+    var pad2 = new Array(depth + 1).join('  ');
     if (node.nodeType === 1) {
       var attrs = '';
       for (var k = 0; k < node.attributes.length; k++) attrs += ' ' + node.attributes[k].name + '="' + node.attributes[k].value + '"';
       var kids = [].slice.call(node.childNodes).filter(function (c) { return c.nodeType === 1 || (c.nodeType === 3 && c.nodeValue.trim()); });
-      if (kids.length === 1 && kids[0].nodeType === 3) { lines.push(pad + '▸ ' + node.nodeName + attrs + ': ' + kids[0].nodeValue.trim()); return; }
-      lines.push(pad + '▸ ' + node.nodeName + attrs);
+      if (kids.length === 1 && kids[0].nodeType === 3) { lines.push(pad2 + '▸ ' + node.nodeName + attrs + ': ' + kids[0].nodeValue.trim()); return; }
+      lines.push(pad2 + '▸ ' + node.nodeName + attrs);
       kids.forEach(function (c) { if (c.nodeType === 1) xmlTree(c, depth + 1, lines); });
     }
   }
@@ -197,39 +380,45 @@
   }
 
   function quizBox(l, sid, idx) {
-    var wrap = el('div');
-    var answered = 0, correct = 0, total = l.quiz.length;
-    var score = el('div', { class: 'score', hidden: 'hidden' });
-    l.quiz.forEach(function (q, qi) {
-      var box = el('div', { class: 'q' });
-      box.appendChild(el('h3', { text: (qi + 1) + '. ' + q.q }));
-      var opts = el('div', { class: 'opts' });
-      var expl = el('p', { class: 'expl', hidden: 'hidden' });
-      var btns = q.o.map(function (txt, oi) {
-        var b = el('button', { class: 'opt', type: 'button', text: txt });
-        b.addEventListener('click', function () {
-          btns.forEach(function (x, xi) {
-            x.disabled = true;
-            if (xi === q.a) x.classList.add('right');
+    var host = el('div');
+    function monta() {
+      host.innerHTML = '';
+      var answered = 0, correct = 0, total = l.quiz.length;
+      var score = el('div', { class: 'score', hidden: 'hidden' });
+      l.quiz.forEach(function (q, qi) {
+        var box = el('div', { class: 'q' });
+        box.appendChild(el('h3', { text: (qi + 1) + '. ' + q.q }));
+        var opts = el('div', { class: 'opts' });
+        var expl = el('p', { class: 'expl', hidden: 'hidden' });
+        var btns = q.o.map(function (txt, oi) {
+          var b = el('button', { class: 'opt', type: 'button', text: txt });
+          b.addEventListener('click', function () {
+            btns.forEach(function (x, xi) {
+              x.disabled = true;
+              if (xi === q.a) x.classList.add('right');
+            });
+            if (oi === q.a) correct++; else b.classList.add('wrong');
+            expl.hidden = false;
+            expl.textContent = (oi === q.a ? '¡Correcto! ' : 'No exacto. ') + (q.e || '');
+            answered++;
+            registra(sid, idx, qi, oi === q.a, box, total);
+            if (answered === total) {
+              score.hidden = false;
+              score.textContent = '';
+              score.appendChild(el('span', { text: 'Resultado: ' + correct + ' de ' + total + (correct === total ? '. ¡Lección dominada!' : '. Repasa la teoría y vuelve a intentarlo. ') }));
+              if (correct !== total) score.appendChild(el('button', { class: 'btn', type: 'button', text: 'Repetir test', onclick: monta }));
+            }
           });
-          if (oi === q.a) correct++; else b.classList.add('wrong');
-          expl.hidden = false;
-          expl.textContent = (oi === q.a ? '¡Correcto! ' : 'No exacto. ') + (q.e || '');
-          answered++;
-          if (answered === total) {
-            score.hidden = false;
-            score.textContent = 'Resultado: ' + correct + ' de ' + total + (correct === total ? '. ¡Lección dominada!' : '. Repasa la teoría y vuelve a intentarlo.');
-            if (correct === total && !progress[key(sid, idx)]) { setDone(key(sid, idx), true); buildNav($('search').value); refreshDone(); }
-          }
+          return b;
         });
-        return b;
+        btns.forEach(function (b) { opts.appendChild(b); });
+        box.appendChild(opts); box.appendChild(expl);
+        host.appendChild(box);
       });
-      btns.forEach(function (b) { opts.appendChild(b); });
-      box.appendChild(opts); box.appendChild(expl);
-      wrap.appendChild(box);
-    });
-    wrap.appendChild(score);
-    return wrap;
+      host.appendChild(score);
+    }
+    monta();
+    return host;
   }
 
   var doneBtn = null;
@@ -265,7 +454,7 @@
     doneBtn.addEventListener('click', function () {
       var k = key(s.id, i);
       setDone(k, !progress[k]);
-      buildNav($('search').value); refreshDone();
+      buildNav($('search').value); refreshDone(); renderHud();
     });
     wrap.appendChild(el('div', { class: 'done-row' }, [doneBtn]));
     var prev = i > 0 ? { h: '#' + key(s.id, i - 1), t: '← ' + s.lessons[i - 1].t } : null;
@@ -286,6 +475,7 @@
     var r = parseRoute();
     if (r.home) renderHome(main); else renderLesson(main, r.s, r.i);
     buildNav($('search').value);
+    renderHud();
     $('sidebar').classList.remove('open');
     window.scrollTo(0, 0);
   }
