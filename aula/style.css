@@ -156,3 +156,45 @@ code { font-family: var(--font-mono); font-size: 0.88em; background: var(--surfa
 .sesion button { border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-weight: 600; }
 .lesson .note { margin: 14px 0 0; padding: 10px 14px; border-left: 4px solid var(--c); background: var(--surface); border-radius: 0 8px 8px 0; font-size: 0.95rem; color: var(--muted); }
 .lesson .note a { color: var(--text); font-weight: 600; }
+
+/* ---------- Móvil: letra más grande, nada más ancho que la pantalla, botones fáciles de pulsar ---------- */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
+body { overflow-x: hidden; }
+.main, .lesson, .theory, .codebox, .try { min-width: 0; max-width: 100%; }
+.theory img, .theory table { max-width: 100%; }
+.codebox pre { max-width: 100%; }
+.btn, .opt, .menu-btn, .theme-btn, .sesion button, .search { min-height: 44px; }
+
+@media (max-width: 860px) {
+  body { font-size: 18px; }
+  .topbar { flex-wrap: wrap; gap: 8px 10px; padding: 8px 12px; }
+  .brand { font-size: 1.2rem; margin-right: auto; }
+  .menu-btn { order: 0; padding: 6px 14px; font-size: 1rem; }
+  .brand { order: 1; }
+  .sesion { order: 2; }
+  .theme-btn { order: 3; padding: 6px 14px; font-size: 1.1rem; }
+  .search { order: 4; flex: 1 1 100%; width: 100%; font-size: 16px; }
+  .sidebar { top: 0; padding-top: 72px; width: min(340px, 90vw); }
+  .nav-sub > summary { padding: 12px 10px; font-size: 1rem; }
+  .nav-lessons a { padding: 10px 8px; font-size: 1.02rem; }
+  .nav-home { padding: 12px 10px; }
+  .main { padding: 18px 14px 64px; }
+  .hero h1 { font-size: 2rem; }
+  .cards { grid-template-columns: 1fr; gap: 12px; }
+  .card h2 { font-size: 1.15rem; }
+  .lesson h1 { font-size: 1.7rem; }
+  .theory { padding: 4px 16px; }
+  code { font-size: 0.92em; }
+  .codebox pre { font-size: 0.95rem; padding: 14px; }
+  .try textarea { font-size: 16px; min-height: 220px; }
+  .xml-out { font-size: 0.95rem; }
+  .q { padding: 14px; }
+  .q h3 { font-size: 1.05rem; }
+  .opt { padding: 13px 14px; font-size: 1rem; }
+  .btn { padding: 11px 16px; }
+  .pager { flex-direction: column; }
+  .pager .btn { text-align: center; }
+  .done-row .btn { width: 100%; }
+  .bin { grid-template-columns: 1fr; }
+  .bin input { font-size: 16px; min-height: 44px; }
+}
