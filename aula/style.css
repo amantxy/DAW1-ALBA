@@ -276,7 +276,7 @@ body.gaming .chip { box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 25%, trans
 /* ---------- Modo gaming: niveles, retos, mapa y escenario 2D ---------- */
 .nivel { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 14px; margin: 12px 0 22px; display: grid; gap: 14px; }
 .nivel-escena { display: grid; gap: 8px; align-content: start; }
-.jg-escena { width: 100%; height: auto; aspect-ratio: 320 / 150; border-radius: 10px; image-rendering: pixelated; background: #1b1f3a; display: block; }
+.jg-escena { width: 100%; height: auto; aspect-ratio: 320 / 150; border-radius: 10px; image-rendering: auto; background: #1b1f3a; display: block; }
 .nivel-barra { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
 .nivel-fase { font-family: 'Sora', sans-serif; font-size: 0.95rem; color: var(--c); }
 .vidas { font-size: 1.5rem; letter-spacing: 2px; line-height: 1; }
