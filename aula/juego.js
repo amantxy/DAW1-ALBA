@@ -327,7 +327,9 @@
         caja.appendChild(reloj);
       }
       caja.appendChild(el('h3', { class: 'jg-q', text: q.q }));
-      if (q.code) caja.appendChild(bloqueCodigo(q.code));
+      var cod = q.code || q.codigo || q.ejemplo || q.ej;
+      if (cod) { caja.appendChild(bloqueCodigo(cod)); if (q.deLeccion) caja.insertBefore(el('p', { class: 'jg-cap', text: 'Ejemplo de la lección' }), caja.lastChild); }
+      else if (/\b(este|siguiente|anterior|del|el)\s+(ejemplo|c[oó]digo|fragmento|programa|script)\b/i.test(q.q) && window.console) console.warn('Pregunta que habla de un ejemplo pero no lo incluye:', q.q);
       var opts = el('div', { class: 'opts' });
       var expl = el('p', { class: 'expl', hidden: 'hidden' });
       var cont = el('button', { type: 'button', class: 'btn primary', text: 'Continuar', hidden: 'hidden', onclick: function () {
@@ -546,8 +548,11 @@
   function heroeVec(g, X, gy, o) {
     var c = o.color, bob = o.by, rojo = o.rojo;
     var piel = rojo ? '#ffb4ac' : '#ffe2c4', pielO = rojo ? '#f08a80' : '#f1bb90', tun = rojo ? '#e5484d' : c;
-    var pelo0 = '#8a5630', pelo1 = '#3a2010';
+    var ch = !!o.chica;
+    var pelo0 = ch ? '#b0693a' : '#8a5630', pelo1 = ch ? '#5a2f14' : '#3a2010';
     var hy = gy - 47 + bob, ond = o.quieto ? 0 : Math.sin(o.t * 5) * 2;
+    /* pelo largo por detrás (chica) */
+    if (ch) { rr(g, X - 23, hy - 6, 46, 40, 16); g.fillStyle = lg(g, 0, hy - 6, 0, hy + 34, pelo0, pelo1); g.fill(); }
     /* capa */
     g.fillStyle = lg(g, X - 20, gy - 40, X - 6, gy - 10, claro(oscuro(tun), 0.1), oscuro(oscuro(tun)));
     g.beginPath(); g.moveTo(X - 7, gy - 32 + bob); g.quadraticCurveTo(X - 24 + ond, gy - 26 + bob, X - 22 + ond * 1.5, gy - 8); g.lineTo(X - 3, gy - 12); g.closePath(); g.fill();
@@ -556,6 +561,8 @@
       rr(g, X + d * 5.2 - 4.2, gy - 13, 8.4, 13, 3.5); g.fillStyle = lg(g, 0, gy - 13, 0, gy, '#4a4f6e', '#1d2133'); g.fill();
       rr(g, X + d * 5.2 - 5, gy - 5, 10, 5, 2.5); g.fillStyle = '#5a3a1a'; g.fill();
     });
+    /* falda (chica) */
+    if (ch) { g.fillStyle = lg(g, X - 15, gy - 19 + bob, X + 15, gy - 8, claro(tun, 0.2), oscuro(tun)); g.beginPath(); g.moveTo(X - 10.5, gy - 19 + bob); g.lineTo(X - 16, gy - 8); g.quadraticCurveTo(X, gy - 5, X + 16, gy - 8); g.lineTo(X + 10.5, gy - 19 + bob); g.closePath(); g.fill(); trazo(g, 'rgba(20,24,40,.5)', 0.9); }
     /* cuerpo */
     rr(g, X - 10.5, gy - 31 + bob, 21, 21, 8); g.fillStyle = lg(g, X - 10, gy - 31, X + 10, gy - 10, claro(tun, 0.25), oscuro(tun)); g.fill(); trazo(g, 'rgba(20,24,40,.55)', 1);
     rr(g, X - 10.5, gy - 19 + bob, 21, 3.2, 1.2); g.fillStyle = '#6b4423'; g.fill();
@@ -594,6 +601,8 @@
     g.lineTo(X + 17, hy - 3); g.lineTo(X + 12, hy - 11); g.lineTo(X + 8, hy - 5); g.lineTo(X + 3, hy - 13); g.lineTo(X - 2, hy - 5); g.lineTo(X - 7, hy - 12); g.lineTo(X - 12, hy - 4); g.lineTo(X - 17, hy - 8); g.closePath(); g.fill();
     g.beginPath(); g.moveTo(X + 2, hy - 22); g.quadraticCurveTo(X + 6 + ond * 0.4, hy - 31, X + 12, hy - 30); g.quadraticCurveTo(X + 8, hy - 26, X + 9, hy - 21); g.closePath(); g.fillStyle = pelo0; g.fill();
     g.beginPath(); g.moveTo(X - 14, hy - 14); g.quadraticCurveTo(X - 6, hy - 20, X + 2, hy - 18); trazo(g, 'rgba(255,214,160,.55)', 1.4);
+    /* lazo (chica) */
+    if (ch) { var bx0 = X - 13, by0 = hy - 17; g.fillStyle = '#e5484d'; g.beginPath(); g.moveTo(bx0, by0); g.lineTo(bx0 - 9, by0 - 6); g.lineTo(bx0 - 9, by0 + 6); g.closePath(); g.fill(); g.beginPath(); g.moveTo(bx0, by0); g.lineTo(bx0 + 9, by0 - 6); g.lineTo(bx0 + 9, by0 + 6); g.closePath(); g.fill(); ovalo(g, bx0, by0, 3, 3, '#b3262b'); }
     /* brazo derecho y espada */
     var sx = X + 16, sy = gy - 22 + bob;
     ovalo(g, X + 12.8, gy - 25 + bob, 3.6, 6, tun);
@@ -672,11 +681,90 @@
     }
   }
 
-  function escena(color, sid, jefe) {
-    var W = 320, H = 150, estilo = 'medio';
-    try { estilo = localStorage.getItem('aula-estilo') || 'medio'; } catch (e0) { /* sin almacenamiento */ }
-    var SS = estilo === 'pixel' ? 1 : (estilo === 'suave' ? 4 : 2);
-    var cv = el('canvas', { class: 'jg-escena' + (estilo === 'suave' ? '' : ' jg-pixel'), width: String(W * SS), height: String(H * SS), role: 'img', 'aria-label': jefe ? 'Combate contra el jefe' : 'Tu héroe frente a ' + (MONSTRUOS[sid] || MONSTRUOS.marcas).n });
+  /* ---------- Muñeco elegible: estilo (píxel / intermedio / chibi) y género (chico / chica) ---------- */
+  var PREF = { estilo: 'medio', genero: 'chico' };
+  (function () {
+    var ini = null; try { ini = localStorage.getItem('aula-estilo'); } catch (e0) { /* sin almacenamiento */ }
+    if (ini === 'pixel' || ini === 'medio') PREF.estilo = ini; else if (ini === 'suave') PREF.estilo = 'chibi';
+    try {
+      var gd = JSON.parse(localStorage.getItem('aula-heroe'));
+      if (gd && /^(pixel|medio|chibi)$/.test(gd.estilo)) PREF.estilo = gd.estilo;
+      if (gd && /^(chico|chica)$/.test(gd.genero)) PREF.genero = gd.genero;
+    } catch (e) { /* sin almacenamiento local */ }
+  })();
+  var ESCENAS = [], OYENTES = [];
+  function ssDe(est) { return est === 'pixel' ? 1 : (est === 'chibi' ? 4 : 2); }
+  function claseDe(est) { return 'jg-escena' + (est === 'chibi' ? '' : ' jg-pixel'); }
+
+  /* Muñeco pixel art (12 columnas, mira a la derecha). m = túnica de la asignatura */
+  var PIX_CHICO = [
+    '...hhhhhh...', '..hhhhhhhh.g', '.hhhhhhhhhhg', '.hhppppppphg', '.hppwkppwkpg', '.ppppppppppg', '..pppprppp.g',
+    '..mmmmmmm.yy', '.mmmmmmmmm.p', '.mmbbbbbmmm.', '..mmmmmmmm..', '..mmmmmmmm..', '..nn....nn..', '..nn....nn..', '.oooo..oooo.'];
+  var PIX_CHICA = [
+    '.rr.hhhhhh..', '.rrhhhhhhh.g', 'hhhhhhhhhhhg', 'hhhppppppphg', 'hhppwkppwkhg', 'hhpppppppphg', 'hhpppprppphg',
+    'hhmmmmmmm.yy', 'hhmmmmmmmm.p', '.hmmbbbbmm..', '.mmmmmmmmmm.', 'mmmmmmmmmmmm', '..pp....pp..', '.oooo..oooo.'];
+  function heroePixel(g, X, gy, o) {
+    var f = o.chica ? PIX_CHICA : PIX_CHICO, px = 4;
+    var pal = { h: o.chica ? '#7a3f1c' : '#8a5630', p: o.rojo ? '#ffb4ac' : '#ffe2c4', k: '#1b2230', w: '#ffffff', r: '#d9453b',
+      m: o.rojo ? '#e5484d' : o.color, b: '#6b4423', y: '#ffd43b', g: '#e4ecf5', n: '#3a3f66', o: '#5a3a1a' };
+    sprite(g, f, Math.round(X - 6 * px), Math.round(gy - f.length * px + (o.quieto ? 0 : o.by)), px, pal);
+  }
+  /* Intermedio: el dibujo chibi, pero a media resolución y ampliado sin suavizar */
+  var OC = null, OCS = 0.6;
+  function heroeMedio(g, X, gy, o) {
+    if (!OC) { OC = document.createElement('canvas'); OC.width = Math.ceil(80 * OCS); OC.height = Math.ceil(93 * OCS); }
+    var oc = OC.getContext('2d');
+    oc.setTransform(1, 0, 0, 1, 0, 0); oc.clearRect(0, 0, OC.width, OC.height); oc.setTransform(OCS, 0, 0, OCS, 0, 0);
+    heroeVec(oc, 40, 86, o);
+    g.imageSmoothingEnabled = false;
+    g.drawImage(OC, 0, 0, OC.width, OC.height, X - 40, gy - 86, OC.width / OCS, OC.height / OCS);
+    g.imageSmoothingEnabled = true;
+  }
+  function monstruoPixel(g, sid, mx, gy, px, color, o) {
+    var fr = (MONSTRUOS[sid] || MONSTRUOS.marcas).f;
+    var pal = { m: color, d: oscuro(color), w: '#ffffff', k: '#1b2230', y: '#ffd43b', r: '#e5484d' };
+    var y = Math.round(gy - fr.length * px + (o.quieto ? 0 : o.by));
+    sprite(g, fr, mx, y, px, pal);
+    caraMonstruo(g, fr, mx, y, px, o.dolor, o.t);
+    if (o.jefe) { rect(g, mx + 2 * px, y - 7, 8 * px, 5, '#ffd43b'); [2, 5, 8].forEach(function (c) { rect(g, mx + c * px, y - 12, px, 6, '#ffd43b'); }); rect(g, mx + 5 * px, y - 5, px, 3, '#e60012'); }
+  }
+  function ponHeroe(p) {
+    if (p && /^(pixel|medio|chibi)$/.test(p.estilo)) PREF.estilo = p.estilo;
+    if (p && /^(chico|chica)$/.test(p.genero)) PREF.genero = p.genero;
+    try { localStorage.setItem('aula-heroe', JSON.stringify(PREF)); } catch (e) { /* sin almacenamiento local */ }
+    ESCENAS = ESCENAS.filter(function (e) { return e.cv.isConnected; });
+    ESCENAS.forEach(function (e) { e.redibuja(); });
+    OYENTES.forEach(function (f) { f(); });
+  }
+  function estilosHeroe() {
+    if (document.getElementById('jg-heroe-css')) return;
+    var st = document.createElement('style'); st.id = 'jg-heroe-css';
+    st.textContent = '.jg-heroe{display:flex;flex-wrap:wrap;gap:8px 18px;margin:8px 0}.jg-heroe-fila{display:flex;gap:6px;align-items:center;flex-wrap:wrap}' +
+      '.jg-heroe-fila>span{font-weight:700;font-size:.9rem;opacity:.8}.jg-opt{cursor:pointer;border:2px solid #8895aa;background:transparent;color:inherit;border-radius:10px;padding:8px 12px;font:inherit;font-weight:700;min-height:40px}' +
+      '.jg-opt.on{background:#e60012;border-color:#fff;color:#fff}';
+    document.head.appendChild(st);
+  }
+  function selectorHeroe() {
+    estilosHeroe();
+    var host = el('div', { class: 'jg-heroe', role: 'group', 'aria-label': 'Elige tu muñeco' });
+    var grupos = [['Estilo', 'estilo', [['pixel', 'Píxel'], ['medio', 'Intermedio'], ['chibi', 'Chibi']]], ['Muñeco', 'genero', [['chico', 'Chico'], ['chica', 'Chica']]]];
+    var btns = [];
+    grupos.forEach(function (gr) {
+      var fila = el('div', { class: 'jg-heroe-fila' }, [el('span', { text: gr[0] })]);
+      gr[2].forEach(function (op) {
+        var b = el('button', { type: 'button', class: 'jg-opt', text: op[1], onclick: function () { var q = {}; q[gr[1]] = op[0]; ponHeroe(q); } });
+        btns.push({ b: b, k: gr[1], v: op[0] }); fila.appendChild(b);
+      });
+      host.appendChild(fila);
+    });
+    function pinta() { btns.forEach(function (x) { var on = PREF[x.k] === x.v; x.b.classList.toggle('on', on); x.b.setAttribute('aria-pressed', on ? 'true' : 'false'); }); }
+    OYENTES.push(pinta); pinta();
+    return host;
+  }
+
+  function escena(color, sid, jefe, sinSelector) {
+    var W = 320, H = 150, SS = ssDe(PREF.estilo);
+    var cv = el('canvas', { class: claseDe(PREF.estilo), width: String(W * SS), height: String(H * SS), role: 'img', 'aria-label': jefe ? 'Combate contra el jefe' : 'Tu héroe frente a ' + (MONSTRUOS[sid] || MONSTRUOS.marcas).n });
     var g = cv.getContext && cv.getContext('2d');
     var tema = TEMAS[sid] || TEMAS.marcas;
     var est = { hx: 0, ex: 0, flash: 0, tiemb: 0, hp: 1, fin: '', t0: Date.now(), proy: null, ps: [], nums: [], entra: jefe ? 60 : 24, golpeH: 0, ultimo: 0 };
@@ -687,6 +775,9 @@
     function dibuja() {
       if (!g) return;
       var t = (Date.now() - est.t0) / 1000, quieto = hijo();
+      var estH = PREF.estilo, ssN = ssDe(estH);
+      if (ssN !== SS) { SS = ssN; cv.width = W * SS; cv.height = H * SS; }
+      if (cv.className !== claseDe(estH)) cv.className = claseDe(estH);
       g.setTransform(SS, 0, 0, SS, 0, 0);
       /* cielo */
       var cielo = g.createLinearGradient(0, 0, 0, H);
@@ -740,8 +831,13 @@
       sombra(g, hx + 24, 121, 30); sombra(g, mcx, 121, R + 10);
       /* aura del jefe */
       if (jefe && !quieto) { var ra = 8 + Math.sin(t * 4) * 3; brillo(g, mcx, 119 - R, 56 + ra, 'rgba(229,72,77,.38)', 'rgba(229,72,77,0)'); }
-      heroeVec(g, hx + 24, 119, { color: color, rojo: rojo, win: est.fin === 'win', by: by, t: t, quieto: quieto });
-      monstruoVec(g, sid, mcx, 119, R, blanco ? '#ffffff' : color, { t: t, dolor: blanco || est.tiemb > 0, jefe: jefe, quieto: quieto, by: by });
+      var ho = { color: color, rojo: rojo, win: est.fin === 'win', by: by, t: t, quieto: quieto, chica: PREF.genero === 'chica' };
+      var mo = { t: t, dolor: blanco || est.tiemb > 0, jefe: jefe, quieto: quieto, by: by };
+      if (estH === 'pixel') { heroePixel(g, hx + 24, 119, ho); monstruoPixel(g, sid, mx + sh, 119, px, blanco ? '#ffffff' : color, mo); }
+      else {
+        if (estH === 'medio') heroeMedio(g, hx + 24, 119, ho); else heroeVec(g, hx + 24, 119, ho);
+        monstruoVec(g, sid, mcx, 119, R, blanco ? '#ffffff' : color, mo);
+      }
       g.fillStyle = '#1b2230'; g.font = 'bold 12px monospace'; g.textAlign = 'center';
       g.fillText(EMBLEMA[sid] || '?', mcx, 119 - 2 * R - (jefe ? 22 : 8) - by);
       /* barra de vida con marco */
@@ -759,6 +855,7 @@
       if (est.fin === 'win') { g.fillStyle = 'rgba(255,255,255,.25)'; g.fillRect(0, 0, W, H); g.font = 'bold 22px sans-serif'; g.fillStyle = '#1b2230'; g.fillText('¡VICTORIA!', W / 2 + 1, 41); g.fillStyle = '#e60012'; g.fillText('¡VICTORIA!', W / 2, 40); }
       if (est.fin === 'lose') { g.fillStyle = 'rgba(0,0,0,.6)'; g.fillRect(0, 0, W, H); g.fillStyle = '#fff'; g.font = 'bold 20px sans-serif'; g.fillText('DERROTA', W / 2, H / 2); }
     }
+    ESCENAS.push({ cv: cv, redibuja: function () { dibuja(); } });
     var id = null;
     function bucle() {
       if (!cv.isConnected) { id = null; return; }
@@ -780,7 +877,12 @@
     }
     function arranca() { if (!id && typeof requestAnimationFrame === 'function') id = requestAnimationFrame(bucle); }
     dibuja();
-    setTimeout(arranca, 0);
+    setTimeout(function () {
+      /* el selector de muñeco aparece encima de la escena, en cualquier pantalla del juego */
+      var pr = cv.previousElementSibling;
+      if (!sinSelector && cv.parentNode && !(pr && pr.classList && pr.classList.contains('jg-heroe'))) cv.parentNode.insertBefore(selectorHeroe(), cv);
+      arranca();
+    }, 0);
     return {
       el: cv,
       golpea: function (hp) { if (typeof hp === 'number') est.hp = Math.max(0, hp); est.proy = { x: 90 }; est.hx = 14; arranca(); },
@@ -798,5 +900,5 @@
   }
   function limpia() { timers.forEach(function (t) { clearInterval(t); }); timers = []; }
 
-  window.JUEGO = { enemigo: function (sid) { return (MONSTRUOS[sid] || MONSTRUOS.marcas).n; }, escena: escena, construye: construye, preguntas: preguntas, limpia: limpia, mezcla: mezcla };
+  window.JUEGO = { heroe: { get: function () { return { estilo: PREF.estilo, genero: PREF.genero }; }, set: ponHeroe, selector: selectorHeroe }, enemigo: function (sid) { return (MONSTRUOS[sid] || MONSTRUOS.marcas).n; }, escena: escena, construye: construye, preguntas: preguntas, limpia: limpia, mezcla: mezcla };
 })();

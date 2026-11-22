@@ -417,3 +417,8 @@ body.sin-scroll { overflow: hidden; }
 .hero-tit { display: flex; align-items: center; gap: 14px; }
 .hero-tit h1 { margin: 0; }
 .hero-img { width: 84px; height: 84px; border-radius: 22px; box-shadow: 0 4px 14px rgba(0,0,0,.35); flex: none; }
+
+/* Muñeco elegible y rótulo del ejemplo en las preguntas */
+.muneco-panel { margin: 16px 12px 0; display: grid; gap: 4px; }
+.muneco-panel .jg-heroe { flex-direction: column; gap: 8px; margin: 4px 0 0; }
+.jg-cap { margin: 0 0 4px; font-size: 0.8rem; font-weight: 700; opacity: 0.7; }

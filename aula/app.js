@@ -513,6 +513,17 @@
   }
   function nivelCompleto(s) { return s.lessons.every(function (_, i) { return (estrellas[key(s.id, i)] || 0) >= 1; }); }
 
+  /* Si una pregunta habla de «el ejemplo» de la lección y no trae su propio código, el combate le añade el ejemplo de la lección
+     (en el combate no se ve la teoría, así que sin esto la pregunta se quedaría sin nada que mirar). */
+  function conEjemplo(l, qs) {
+    return qs.map(function (q) {
+      if (!l.code || q.code || !/\b(el|este|del|al)\s+ejemplo\b/i.test(q.q)) return q;
+      var c = {}; Object.keys(q).forEach(function (k) { c[k] = q[k]; });
+      c.code = l.code; c.deLeccion = true;
+      return c;
+    });
+  }
+
   /* Un combate (nivel o jefe). cfg: {titulo, color, sid, jefe, fases:[function(ctx)->nodo], alGanar(estrellas), siguiente:{h,t}, repite:function} */
   function combate(host, cfg) {
     JUEGO.limpia();
@@ -620,7 +631,7 @@
       });
     }
     function juega() {
-      var fases = [function (ctx) { return JUEGO.preguntas(l.quiz, ctx, { onResp: function (qi, ok, caja) { registra(s.id, i, qi, ok, caja, l.quiz.length); } }); }];
+      var fases = [function (ctx) { return JUEGO.preguntas(conEjemplo(l, l.quiz), ctx, { onResp: function (qi, ok, caja) { registra(s.id, i, qi, ok, caja, l.quiz.length); } }); }];
       var nombres = ['Calentamiento'];
       if (reto) { fases.push(function (ctx) { var w = el('div'); w.appendChild(el('h3', { class: 'jg-titulo', text: reto.t })); w.appendChild(JUEGO.construye(reto, ctx)); return w; }); nombres.push('Reto'); }
       combate(host, {
@@ -646,7 +657,7 @@
     var faltan = s.lessons.map(function (_, i) { return i; }).filter(function (i) { return !(estrellas[key(s.id, i)] > 0); });
     function juega() {
       var pool = [];
-      s.lessons.forEach(function (l) { l.quiz.forEach(function (q) { pool.push(q); }); });
+      s.lessons.forEach(function (l) { conEjemplo(l, l.quiz).forEach(function (q) { pool.push(q); }); });
       pool = JUEGO.mezcla(pool).slice(0, 10);
       combate(host, {
         color: colorHex(s), sid: s.id, jefe: true, nombres: ['Combate'], siguiente: { h: '#inicio', t: 'Volver al mapa' }, repite: juega,
