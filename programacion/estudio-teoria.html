@@ -1,0 +1,1180 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teoría para el examen · Programación</title>
+<style>
+:root{--bg:#eaf4fc;--card:#ffffff;--ink:#0f2438;--mut:#46627c;--line:#c5ddf1;--acc:#1673bf;--accbg:#dcedfb;--code:#e8f2fb;--ok:#1f7a4d;--warn:#b3341f}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0a1626;--card:#10233a;--ink:#e3eefa;--mut:#8ea9c4;--line:#21395a;--acc:#5ab4f5;--accbg:#12304f;--code:#0c1d31;--ok:#6fd0a0;--warn:#ff9c8a}}
+:root[data-theme=dark]{--bg:#0a1626;--card:#10233a;--ink:#e3eefa;--mut:#8ea9c4;--line:#21395a;--acc:#5ab4f5;--accbg:#12304f;--code:#0c1d31;--ok:#6fd0a0;--warn:#ff9c8a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;padding:10px 16px}
+header h1{font-size:1.05rem;margin:0;flex:1}
+header input{flex:1.2;max-width:320px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:inherit;font-size:.9rem}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 10px;font-size:.85rem}
+.wrap{display:grid;grid-template-columns:240px 1fr;max-width:1100px;margin:0 auto;gap:24px;padding:16px}
+nav{position:sticky;top:66px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;font-size:.9rem}
+nav a{display:block;color:var(--mut);text-decoration:none;padding:3px 8px;border-left:2px solid transparent}
+nav a:hover{color:var(--acc);border-color:var(--acc)}
+nav .t{font-weight:700;color:var(--ink);margin-top:12px;padding:3px 8px}
+main{min-width:0}
+h2.tema{font-size:1.5rem;margin:40px 0 4px;padding-bottom:6px;border-bottom:2px solid var(--acc)}
+h2.tema:first-of-type{margin-top:8px}
+.sub{color:var(--mut);margin:0 0 12px;font-size:.9rem}
+section.sec{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:hidden}
+section.sec>h3{margin:0;padding:12px 16px;font-size:1.05rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+section.sec>h3::after{content:"–";color:var(--mut)}
+section.sec.closed>h3::after{content:"+"}
+section.sec.closed .body{display:none}
+.body{padding:0 16px 14px}
+.body h4{margin:16px 0 4px;font-size:.95rem;color:var(--acc)}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow:auto;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;position:relative;margin:8px 0}
+code{font:.88em ui-monospace,Menlo,Consolas,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+pre code{background:none;padding:0}
+.cp{position:absolute;top:4px;right:4px;font-size:.7rem;padding:2px 6px;opacity:.7}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:.9rem;display:block;overflow:auto}
+th,td{border:1px solid var(--line);padding:5px 9px;text-align:left;vertical-align:top}
+th{background:var(--accbg)}
+.tip,.err,.ex{border-radius:8px;padding:8px 12px;margin:10px 0;font-size:.92rem}
+.tip{background:var(--accbg);border-left:3px solid var(--acc)}
+.err{border-left:3px solid var(--warn)}
+.ex{border:1px dashed var(--line)}
+.ex b{color:var(--ok)}
+details{margin:6px 0}summary{cursor:pointer;color:var(--mut);font-size:.88rem}
+.hide{display:none!important}
+footer{max-width:1100px;margin:0 auto;padding:16px;color:var(--mut);font-size:.82rem}
+@media(max-width:800px){.wrap{grid-template-columns:minmax(0,1fr)}nav{display:none}header{flex-wrap:wrap;gap:8px;padding:8px 12px}header h1{min-width:0}header input{order:9;flex:1 0 100%;max-width:none}header button{white-space:nowrap}#mn,#all{font-size:0;min-width:40px;min-height:36px}#mn::after{content:"☰";font-size:1rem}#all::after{content:"⇕";font-size:1rem}}
+
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+.bar select,.inp,.ta{font:inherit;font-size:.9rem;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.inp{min-width:220px}.inp.short{min-width:90px;width:110px}.inp.gap{min-width:0;padding:1px 4px;font:inherit;font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--card)}
+.ta{width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;margin:8px 0}
+.fcard{min-height:150px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;padding:20px;background:var(--accbg);border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:1.05rem;margin:8px 0}
+.fcard small{color:var(--mut);font-size:.75rem}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:9px 12px}
+.opt.good{border-color:var(--ok);background:var(--accbg)}.opt.bad{border-color:var(--warn)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}
+.ex textarea,.ex pre{margin-top:6px}
+nav details{margin:6px 0}nav summary{font-weight:700;color:var(--ink);cursor:pointer;padding:3px 8px;font-size:inherit}
+nav .c{font-weight:600;color:var(--acc);padding:6px 8px 2px;font-size:.82rem;text-transform:uppercase;letter-spacing:.03em}
+.chap{margin:22px 0 6px;padding:6px 12px;font-weight:700;background:var(--accbg);border-left:4px solid var(--acc);border-radius:6px}
+#mn{display:none}
+@media(max-width:800px){#mn{display:inline-block}nav.open{display:block;position:fixed;top:56px;left:8px;right:8px;max-height:70vh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;z-index:50;box-shadow:0 8px 30px rgba(0,0,0,.25)}}
+.tabs{display:flex;gap:8px;margin:10px 0;position:sticky;top:0;z-index:5;background:var(--bg,var(--card));padding:6px 0}
+.tabs button{padding:8px 22px;font-weight:700}.tabs button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.tabpane{display:none}.tabpane.on,body.searching .tabpane{display:block}
+body.searching .tabs{display:none}
+body:not(.searching) .nv{display:none!important}
+nav a.act{color:var(--acc);border-color:var(--acc);font-weight:600}
+.tabs button.on{color:#fff}
+.ejt{font-weight:700;margin:14px 0 6px}.ejgrupo.solo .ejt{display:none}</style>
+<link rel="stylesheet" href="../fondo.css"><script src="../tema.js"></script><script src="../acceso.js"></script></head>
+<body>
+<header>
+<a href="index.html" style="color:inherit;font-weight:600;text-decoration:none;white-space:nowrap">← Volver</a>
+<h1>Programación</h1>
+<input id="q" type="search" placeholder="Buscar (p. ej. switch, return, int…)">
+<button id="mn" aria-label="Menú">☰ Menú</button>
+<button id="all" aria-label="Abrir o cerrar todo">Abrir/cerrar</button>
+
+</header>
+<div class="wrap">
+<nav id="nav"></nav>
+<main id="main">
+
+<!-- ================= UT 1 ================= -->
+<h2 class="tema" id="ut1">UT 1 · Introducción. Elementos de un programa</h2>
+<p class="sub">Fuente: U1.pdf del profesor (Java, NetBeans).</p>
+
+<section class="sec"><h3>El programa principal</h3><div class="body">
+<p>Todo programa Java se escribe dentro de una clase y empieza a ejecutarse en el método <code>main</code>. El algoritmo va dentro de sus llaves.</p>
+<pre><code>package miprimerprograma;
+
+public class MiPrimerPrograma {
+    public static void main(String[] args) {
+        // aquí va el algoritmo
+    }
+}</code></pre>
+<p>En NetBeans se ejecuta con <b>Run Project (F6)</b>.</p>
+</div></section>
+
+<section class="sec"><h3>Palabras reservadas</h3><div class="body">
+<p>Tienen un significado propio en Java y <b>no se pueden usar como identificadores</b>.</p>
+<pre><code>abstract  continue  for       new        switch
+assert    default   if        package    synchronized
+boolean   do        goto*     private    this
+break     double    implements protected throw
+byte      else      import    public     throws
+case      enum      instanceof return    transient
+catch     extends   int       short      try
+char      final     interface static     void
+class     finally   long      strictfp   volatile
+const*    float     native    super      while</code></pre>
+<p>Literales también reservados: <code>true</code>, <code>false</code>, <code>null</code>. (*) <code>const</code> y <code>goto</code> están reservadas pero sin uso.</p>
+</div></section>
+
+<section class="sec"><h3>Variables e identificadores</h3><div class="body">
+<p>Una <b>variable</b> es un nombre (identificador) asociado a un valor que puede cambiar. Se le da valor con la asignación <code>=</code>.</p>
+<pre><code>a = 10;
+b = a + 1;   // b vale 11</code></pre>
+<h4>Reglas de los identificadores</h4>
+<ul>
+<li>Empiezan por letra, <code>_</code> o <code>$</code>.</li>
+<li>Los siguientes caracteres: letras, dígitos, <code>_</code> o <code>$</code>.</li>
+<li>No pueden ser palabras reservadas.</li>
+<li>Distinguen mayúsculas de minúsculas (<code>edad</code> ≠ <code>Edad</code>).</li>
+<li>No hay longitud máxima.</li>
+</ul>
+<div class="tip"><b>Notación Camel:</b> <code>edad</code>, <code>maxValor</code>, <code>notaMediaTercerTrimestre</code>.</div>
+</div></section>
+
+<section class="sec"><h3>Tipos primitivos</h3><div class="body">
+<p>Hay que <b>declarar</b> la variable antes de usarla. Aunque conceptualmente valgan 0/false, Java exige <b>inicializar</b> antes de leerla.</p>
+<pre><code>double importe;
+double importe, total, suma;
+double importe = 100.75;</code></pre>
+<table>
+<tr><th>Tipo</th><th>Tamaño</th><th>Rango / valores</th></tr>
+<tr><td>byte</td><td>8 bits</td><td>-128 … 127</td></tr>
+<tr><td>short</td><td>16 bits</td><td>-32768 … 32767</td></tr>
+<tr><td>int</td><td>32 bits</td><td>-2.147.483.648 … 2.147.483.647</td></tr>
+<tr><td>long</td><td>64 bits</td><td>±9.223.372.036.854.775.808</td></tr>
+<tr><td>float</td><td>32 bits</td><td>≈ ±10<sup>38</sup></td></tr>
+<tr><td>double</td><td>64 bits</td><td>≈ ±10<sup>308</sup></td></tr>
+<tr><td>boolean</td><td>—</td><td>true / false</td></tr>
+<tr><td>char</td><td>16 bits</td><td>un carácter (texto)</td></tr>
+</table>
+<div class="err"><b>Desbordamiento (overflow):</b> los enteros son circulares. En <code>byte</code>, <code>127 + 1</code> da <code>-128</code>.</div>
+</div></section>
+
+<section class="sec"><h3>Constantes</h3><div class="body">
+<p>Valor que no cambia. Se declara con <code>final</code>; por convención, en MAYÚSCULAS.</p>
+<pre><code>final byte MAYORIA_EDAD = 18;
+final double PI = 3.141592;</code></pre>
+</div></section>
+
+<section class="sec"><h3>Comentarios</h3><div class="body">
+<table>
+<tr><th>Sintaxis</th><th>Uso</th></tr>
+<tr><td><code>/* ... */</code></td><td>Varias líneas</td></tr>
+<tr><td><code>// ...</code></td><td>Hasta el final de la línea</td></tr>
+<tr><td><code>/** ... */</code></td><td>Documentación (Javadoc)</td></tr>
+</table>
+</div></section>
+
+<section class="sec"><h3>Operadores</h3><div class="body">
+<h4>Asignación</h4>
+<p><code>variable = expresión;</code> (el valor puede ser un literal, otra variable o una expresión).</p>
+<h4>Aritméticos</h4>
+<p><code>+ - * / %</code> y también <code>++</code> / <code>--</code> (prefijo o postfijo). <code>7 % 3</code> = 1 (resto).</p>
+<h4>Relacionales</h4>
+<p><code>== != &lt; &lt;= &gt; &gt;=</code></p>
+<div class="err">No confundir <code>=</code> (asigna) con <code>==</code> (compara).</div>
+<h4>Lógicos</h4>
+<p><code>&amp;&amp;</code> (y), <code>||</code> (o), <code>!</code> (no).</p>
+<h4>Operan y asignan</h4>
+<p><code>+= -= *= /= %=</code> &nbsp;→&nbsp; <code>a += 5</code> equivale a <code>a = a + 5</code>.</p>
+<h4>Ternario</h4>
+<pre><code>condición ? valor1 : valor2</code></pre>
+<h4>Precedencia (de mayor a menor)</h4>
+<ol>
+<li>Postfijos</li><li>Unarios prefijos</li><li><code>* / %</code></li><li><code>+ -</code></li><li>Relacionales (<code>&lt; &lt;= &gt; &gt;=</code>)</li><li>Comparación (<code>== !=</code>)</li><li><code>&amp;&amp;</code></li><li><code>||</code></li><li>Ternario</li><li>Asignación</li>
+</ol>
+<p>Los <b>paréntesis</b> fuerzan el orden.</p>
+</div></section>
+
+<section class="sec"><h3>Conversión de tipos</h3><div class="body">
+<ul>
+<li><b>Ensanchamiento</b> (automático, sin pérdida): <code>3</code> → <code>3.0</code>.</li>
+<li><b>Estrechamiento</b> (casting explícito): trunca decimales.</li>
+<li><code>char</code> → <code>int</code> da su código Unicode.</li>
+</ul>
+<pre><code>int a = (int) 2.6;   // a vale 2</code></pre>
+</div></section>
+
+
+<section class="sec"><h3>Introducción a la programación (conceptos)</h3><div class="body">
+<p class="sub">Fuente: Introduccion_a_la_Programacion_Informatica.docx</p>
+<p><b>Programar</b> es transformar una solución lógica en instrucciones que un ordenador pueda ejecutar. Las instrucciones deben ser precisas: qué datos usar, qué operaciones, en qué orden, qué decisiones y qué resultado.</p>
+<pre><code>Problema → Análisis → Algoritmo → Código fuente → Ejecución → Resultado</code></pre>
+<table>
+<tr><th>Concepto</th><th>Qué es</th></tr>
+<tr><td>Programa</td><td>Conjunto organizado de instrucciones para resolver una tarea.</td></tr>
+<tr><td>Programación</td><td>Proceso completo: analizar, diseñar, crear el algoritmo, codificar, ejecutar, depurar, mantener.</td></tr>
+<tr><td>Lenguaje de programación</td><td>Símbolos, palabras reservadas y reglas sintácticas para expresar instrucciones.</td></tr>
+<tr><td>Código fuente</td><td>Texto con las instrucciones escritas en un lenguaje (<code>.java</code>, <code>.py</code>…).</td></tr>
+</table>
+<h4>Modelo Entrada → Proceso → Salida</h4>
+<p>Ejemplo: precio final con descuento. <b>Entrada:</b> precio y % descuento. <b>Proceso:</b> calcular el descuento y restarlo. <b>Salida:</b> precio final.</p>
+<h4>Fases</h4>
+<ol><li>Análisis del problema</li><li>Diseño de la solución</li><li>Codificación</li><li>Pruebas (valores normales, límites y casos especiales)</li><li>Corrección de errores (<b>depuración / debugging</b>)</li><li>Mantenimiento</li></ol>
+<h4>Algoritmo</h4>
+<p>Secuencia <b>ordenada, precisa y finita</b> de instrucciones que resuelve un problema. Debe ser preciso, ordenado, finito y definido; con los mismos datos de entrada da el mismo resultado.</p>
+<pre><code>Inicio
+  Leer nota1
+  Leer nota2
+  Leer nota3
+  suma = nota1 + nota2 + nota3
+  media = suma / 3
+  Mostrar media
+Fin</code></pre>
+<h4>Pseudocódigo</h4>
+<p>Representa algoritmos con expresiones parecidas al lenguaje natural pero estructuradas, sin ser de ningún lenguaje concreto. Permite centrarse en la lógica, detectar errores antes de programar y comunicar soluciones. Palabras habituales: <code>Inicio, Fin, Leer, Escribir, Si, Entonces, SiNo, FinSi, Mientras, FinMientras, Para, FinPara</code>.</p>
+<h4>Lenguaje máquina</h4>
+<p>El procesador solo entiende binario (0 y 1). Un <b>bit</b> es la unidad mínima; <b>8 bits = 1 byte</b>.</p>
+<pre><code>Lenguaje máquina → Lenguaje ensamblador → Lenguajes de alto nivel</code></pre>
+<table>
+<tr><th>Característica</th><th>Bajo nivel</th><th>Alto nivel</th></tr>
+<tr><td>Cercanía al hardware</td><td>Muy alta</td><td>Baja</td></tr>
+<tr><td>Facilidad de lectura</td><td>Baja</td><td>Alta</td></tr>
+<tr><td>Desarrollo</td><td>Más complejo</td><td>Más sencillo</td></tr>
+<tr><td>Portabilidad</td><td>Baja</td><td>Alta</td></tr>
+<tr><td>Control del hardware</td><td>Alto</td><td>Menor</td></tr>
+<tr><td>Ejemplos</td><td>Ensamblador</td><td>Python, Java, PHP</td></tr>
+</table>
+<h4>Compilador vs intérprete</h4>
+<table>
+<tr><th>Característica</th><th>Compilador</th><th>Intérprete</th></tr>
+<tr><td>Traducción</td><td>Antes de ejecutar</td><td>Durante la ejecución</td></tr>
+<tr><td>Resultado</td><td>Puede generar un ejecutable</td><td>Requiere intérprete</td></tr>
+<tr><td>Errores</td><td>En la compilación</td><td>Pueden salir al ejecutar</td></tr>
+<tr><td>Velocidad</td><td>Normalmente alta</td><td>Puede ser menor</td></tr>
+</table>
+<div class="tip"><b>Java es mixto:</b> Código Java → Compilador → <b>Bytecode</b> → <b>Máquina Virtual Java (JVM)</b> → Ejecución. Otros entornos usan compilación <b>JIT</b> (Just In Time).</div>
+</div></section>
+
+<section class="sec"><h3>PSeInt: guía de pseudocódigo (UT 1)</h3><div class="body">
+<p class="sub">Fuente: guia_pseint_2016-6-10 UT1.pdf</p>
+<h4>Forma general</h4>
+<pre><code>Proceso SinTitulo
+    accion 1;
+    accion 2;
+FinProceso</code></pre>
+<p>Cada instrucción termina en <code>;</code>. Las acciones incluyen entrada/salida, asignaciones, condicionales y bucles.</p>
+<h4>Tipos de datos</h4>
+<ul>
+<li><b>Numérico</b> (enteros y decimales; el decimal con punto): <code>12  0  -2.3  3.14</code></li>
+<li><b>Lógico</b>: <code>VERDADERO</code> / <code>FALSO</code></li>
+<li><b>Carácter / cadena</b>: entre comillas <code>"hola"</code> o <code>'hola'</code></li>
+</ul>
+<p>El tipo se determina automáticamente al crear la variable (con <code>Leer</code> o <code>&lt;-</code>) y no puede cambiar durante la ejecución. Los identificadores: solo letras, números y <code>_</code>, empezando por letra.</p>
+<h4>Arrays</h4>
+<p>Estructuras homogéneas bajo un mismo nombre. Es obligatorio dimensionarlos antes de usarlos:</p>
+<pre><code>Dimension identificador(max1, ..., maxN);</code></pre>
+<h4>Operadores</h4>
+<table>
+<tr><th>Tipo</th><th>Operador</th><th>Significado</th></tr>
+<tr><td rowspan="6">Relacionales</td><td><code>&gt;</code></td><td>Mayor que</td></tr>
+<tr><td><code>&lt;</code></td><td>Menor que</td></tr>
+<tr><td><code>=</code></td><td>Igual que</td></tr>
+<tr><td><code>&lt;=</code></td><td>Menor o igual</td></tr>
+<tr><td><code>&gt;=</code></td><td>Mayor o igual</td></tr>
+<tr><td><code>&lt;&gt;</code></td><td>Distinto</td></tr>
+<tr><td rowspan="3">Lógicos</td><td><code>&amp;</code> ó <code>Y</code></td><td>Conjunción (y)</td></tr>
+<tr><td><code>|</code> ó <code>O</code></td><td>Disyunción (o)</td></tr>
+<tr><td><code>~</code> ó <code>NO</code></td><td>Negación</td></tr>
+<tr><td rowspan="3">Algebraicos</td><td><code>+ - * /</code></td><td>Suma, resta, multiplicación, división</td></tr>
+<tr><td><code>^</code></td><td>Potenciación (<code>3.41 * radio ^ 2</code>)</td></tr>
+<tr><td><code>%</code> ó <code>MOD</code></td><td>Módulo (resto de la división entera)</td></tr>
+</table>
+<p>La jerarquía es la del álgebra; los paréntesis la alteran.</p>
+<h4>Funciones matemáticas (un solo parámetro numérico)</h4>
+<table>
+<tr><th>Función</th><th>Significado</th></tr>
+<tr><td>RC(X)</td><td>Raíz cuadrada (X no negativo)</td></tr>
+<tr><td>ABS(X)</td><td>Valor absoluto</td></tr>
+<tr><td>LN(X)</td><td>Logaritmo natural</td></tr>
+<tr><td>EXP(X)</td><td>Exponencial</td></tr>
+<tr><td>SEN(X), COS(X), TAN(X)</td><td>Seno, coseno, tangente</td></tr>
+<tr><td>TRUNC(X)</td><td>Parte entera</td></tr>
+<tr><td>REDON(X)</td><td>Entero más cercano</td></tr>
+<tr><td>AZAR(X)</td><td>Entero aleatorio entre 0 y X-1</td></tr>
+</table>
+<h4>Entrada, proceso y salida</h4>
+<pre><code>Leer variable1, variable2;            // entrada (teclado)
+variable &lt;- expresión;                 // asignación: primero se evalúa la derecha
+Escribir expr1, expr2;                // salida (pantalla)</code></pre>
+<div class="tip">En la asignación, el tipo de la variable y el de la expresión deben coincidir.</div>
+</div></section>
+
+<section class="sec"><h3>Java: estructura básica, salida y entrada</h3><div class="body">
+<p class="sub">Fuente: Estructura básica de un programa en Java.pdf</p>
+<pre><code>public class HolaMundo {
+    public static void main(String[] args) {
+        System.out.println("Hola Mundo");
+    }
+}</code></pre>
+<ul>
+<li>Todo programa Java está dentro de una <b>clase</b>. El nombre de la clase pública debe coincidir con el del archivo (<code>HolaMundo.java</code>).</li>
+<li><code>main</code>: punto de entrada. <code>public</code> (accesible), <code>static</code> (sin crear objeto), <code>void</code> (no devuelve nada), <code>String[] args</code> (parámetros de la línea de comandos).</li>
+<li>Las llaves <code>{ }</code> delimitan la clase y el método.</li>
+</ul>
+<h4>Salida</h4>
+<pre><code>System.out.println("Hola");   // con salto de línea
+System.out.print("Hola ");    // sin salto de línea
+System.out.print("Mundo");    // Hola Mundo</code></pre>
+<h4>Entrada con Scanner</h4>
+<pre><code>import java.util.Scanner;
+
+public class EntradaSalida {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Escribe tu nombre: ");
+        String nombre = sc.nextLine();      // línea de texto
+        System.out.print("Escribe tu edad: ");
+        int edad = sc.nextInt();            // entero
+        System.out.print("Escribe tu altura (ej: 1.75): ");
+        double altura = sc.nextDouble();    // decimal
+
+        System.out.println("\n--- RESULTADOS ---");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Edad: " + edad + " años");
+        System.out.println("Altura: " + altura + " m");
+        sc.close();                         // buena práctica
+    }
+}</code></pre>
+<table>
+<tr><th>Método</th><th>Lee</th></tr>
+<tr><td><code>nextLine()</code></td><td>Una línea completa de texto</td></tr>
+<tr><td><code>nextInt()</code></td><td>Un entero</td></tr>
+<tr><td><code>nextDouble()</code></td><td>Un decimal</td></tr>
+<tr><td><code>nextBoolean()</code></td><td>true / false</td></tr>
+</table>
+</div></section>
+
+
+
+
+
+<!-- ================= UT 2 ================= -->
+<h2 class="tema" id="ut2">UT 2 · Estructuras de control</h2>
+<p class="sub">Fuente: U2 Estructuras de control.pdf del profesor.</p>
+
+<section class="sec"><h3>Introducción</h3><div class="body">
+<p>Las estructuras de control <b>alteran el flujo secuencial</b> del programa (por defecto, línea a línea). Las instrucciones se agrupan en <b>bloques</b> con llaves <code>{ }</code>.</p>
+</div></section>
+
+<section class="sec"><h3>Alternativas: if, if-else, anidados</h3><div class="body">
+<h4>if simple</h4>
+<pre><code>if (condición) {
+    // se ejecuta si es true
+}</code></pre>
+<h4>if-else</h4>
+<pre><code>if (sueldo &lt; 1000) {
+    sueldo = sueldo * 1.15;
+} else {
+    sueldo = sueldo * 1.12;
+}</code></pre>
+<h4>Escala if-else (varias alternativas)</h4>
+<pre><code>if (0 &lt;= nota &amp;&amp; nota &lt; 5) {
+    System.out.println("Insuficiente");
+} else if (nota &lt; 6) {
+    System.out.println("Suficiente");
+} else if (nota &lt; 9) {
+    System.out.println("Notable");
+} else {
+    System.out.println("Sobresaliente");
+}</code></pre>
+<div class="tip">Otro ejemplo del tema: calcular el valor absoluto con <code>if (x &lt; 0) x = -x;</code>.</div>
+</div></section>
+
+<section class="sec"><h3>switch</h3><div class="body">
+<p>La expresión puede ser <code>int</code>, <code>byte</code>, <code>short</code>, <code>char</code> o <code>String</code>. <code>default</code> es opcional.</p>
+<h4>switch clásico</h4>
+<pre><code>switch (dia) {
+    case 1:  System.out.println("Lunes");   break;
+    case 2:  System.out.println("Martes");  break;
+    default: System.out.println("Otro día");
+}</code></pre>
+<div class="err">Sin <code>break</code> hay <b>fall-through</b>: se siguen ejecutando los <code>case</code> siguientes.</div>
+<p>El fall-through sirve para <b>agrupar cases</b>:</p>
+<pre><code>switch (mes) {
+    case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+        System.out.println("31 días"); break;
+    case 2:
+        System.out.println("28 días"); break;
+    default:
+        System.out.println("30 días");
+}</code></pre>
+<h4>switch moderno (con ->, sin break)</h4>
+<pre><code>switch (mes) {
+    case 1, 3, 5, 7, 8, 10, 12 -&gt; System.out.println("31 días");
+    case 2 -&gt; System.out.println("28 días");
+    default -&gt; System.out.println("30 días");
+}</code></pre>
+</div></section>
+
+<section class="sec"><h3>while y do-while</h3><div class="body">
+<h4>while (precondición)</h4>
+<p>Comprueba la condición <b>antes</b>; puede ejecutarse 0 veces.</p>
+<pre><code>int i = 1;
+while (i &lt;= 3) {
+    System.out.println(i);
+    i++;
+}</code></pre>
+<pre><code>// cuerpo vacío: raíz cuadrada entera
+while (++sqrt * sqrt != target) ;</code></pre>
+<h4>do-while (poscondición)</h4>
+<p>Comprueba <b>después</b>; se ejecuta <b>al menos una vez</b>. Termina en <code>;</code>.</p>
+<pre><code>int i = 1;
+do {
+    System.out.println(i);
+    i++;
+} while (i &lt;= 10);</code></pre>
+<table>
+<tr><th></th><th>while</th><th>do-while</th></tr>
+<tr><td>Condición</td><td>Al principio</td><td>Al final</td></tr>
+<tr><td>Mínimo de ejecuciones</td><td>0</td><td>1</td></tr>
+<tr><td>Punto y coma final</td><td>No</td><td>Sí</td></tr>
+</table>
+</div></section>
+
+<section class="sec"><h3>for</h3><div class="body">
+<pre><code>for (inicialización; condición; incremento) {
+    // cuerpo
+}
+
+for (int i = 1; i &lt;= 5; i++) {
+    System.out.println(i);
+}</code></pre>
+<p><b>Secuencia de control:</b> 1) inicialización (una vez) → 2) condición → 3) cuerpo → 4) incremento → vuelve a 2. Sale cuando la condición es false.</p>
+</div></section>
+
+<section class="sec"><h3>break y continue</h3><div class="body">
+<ul>
+<li><code>break</code>: sale del bucle (o del switch) inmediatamente.</li>
+<li><code>continue</code>: salta a la siguiente iteración.</li>
+</ul>
+<pre><code>for (int i = 1; i &lt;= 10; i++) {
+    if (i == 3) continue;  // se salta el 3
+    if (i == 6) break;     // termina en el 6
+    System.out.println(i); // 1 2 4 5
+}</code></pre>
+</div></section>
+
+<section class="sec"><h3>Funciones en Java (introducción)</h3><div class="body">
+<pre><code>static tipo nombre(parámetros) {
+    ...
+    return valor;
+}</code></pre>
+<pre><code>static int sumar(int a, int b) { return a + b; }
+static void mostrarSaludo() { System.out.println("Hola"); }
+static double calcularAreaRectangulo(double base, double altura) {
+    double area = base * altura;   // variable local
+    return area;
+}</code></pre>
+<p><b>Ventajas:</b> reutilizar código, evitar repeticiones, organizar el programa y dividir un problema en partes.</p>
+<div class="ex"><b>Ejercicios propuestos:</b> <code>esPar</code>, <code>calcularAreaTriangulo</code>, <code>mostrarTabla</code>, <code>mayorDeTres</code>. (Ver más en UT 3.)</div><details><summary>Ver solución en Java</summary><pre><code>public class Propuestos {
+    static boolean esPar(int n) {
+        return n % 2 == 0;
+    }
+
+    static double calcularAreaTriangulo(double base, double altura) {
+        return base * altura / 2;
+    }
+
+    static void mostrarTabla(int n) {
+        for (int i = 1; i &lt;= 10; i++) {
+            System.out.println(n + " x " + i + " = " + (n * i));
+        }
+    }
+
+    static int mayorDeTres(int a, int b, int c) {
+        int mayor = a;
+        if (b &gt; mayor) {
+            mayor = b;
+        }
+        if (c &gt; mayor) {
+            mayor = c;
+        }
+        return mayor;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(esPar(4));
+        System.out.println(calcularAreaTriangulo(6, 3));
+        mostrarTabla(2);
+        System.out.println(mayorDeTres(4, 9, 2));
+    }
+}
+</code></pre></details>
+</div></section>
+
+
+<section class="sec"><h3>PSeInt: estructuras de control (guía UT 2)</h3><div class="body">
+<p class="sub">Fuente: guia_pseint_2016-11-20.pdf</p>
+<h4>Si-Entonces</h4>
+<pre><code>Si &lt;condición&gt; Entonces
+    &lt;instrucciones&gt;
+Sino
+    &lt;instrucciones&gt;
+FinSi</code></pre>
+<p><code>Entonces</code> siempre aparece; <code>Sino</code> es opcional. La condición debe ser una expresión lógica (Verdadero/Falso).</p>
+<h4>Selección múltiple (Según)</h4>
+<pre><code>Segun &lt;variable&gt; Hacer
+    1: &lt;instrucciones&gt;
+    2, 3: &lt;instrucciones&gt;
+    De Otro Modo: &lt;instrucciones&gt;
+FinSegun</code></pre>
+<p>Depende del valor de una variable numérica. Cada opción lleva uno o varios números separados por comas. <code>De Otro Modo</code> es opcional.</p>
+<h4>Mientras Hacer (while)</h4>
+<pre><code>Mientras &lt;condición&gt; Hacer
+    &lt;instrucciones&gt;
+FinMientras</code></pre>
+<p>Evalúa antes; el cuerpo puede no ejecutarse nunca. Si la condición siempre es verdadera: <b>ciclo infinito</b>, así que el cuerpo debe modificar las variables de la condición.</p>
+<h4>Repetir Hasta Que (do-while)</h4>
+<pre><code>Repetir
+    &lt;instrucciones&gt;
+Hasta Que &lt;condición&gt;</code></pre>
+<p>Evalúa al final: el cuerpo se ejecuta <b>al menos una vez</b> y se repite <b>hasta que</b> la condición sea verdadera. (Ojo: es lo contrario que el <code>while</code> de Java, que repite mientras es verdadera.)</p>
+<h4>Para (for)</h4>
+<pre><code>Para &lt;variable&gt; &lt;- &lt;inicial&gt; Hasta &lt;final&gt; Con Paso &lt;paso&gt; Hacer
+    &lt;instrucciones&gt;
+FinPara</code></pre>
+<p>Si se omite <code>Con Paso</code>, se incrementa de 1 en 1.</p>
+<h4>Observaciones</h4>
+<ul>
+<li>Comentarios con <code>//</code> (no vale <code>/* */</code>).</li>
+<li>No puede haber instrucciones fuera del proceso (sí comentarios).</li>
+<li>Las estructuras pueden anidarse, pero la interna debe empezar y acabar dentro de la externa.</li>
+<li>Los tipos no se declaran, se infieren. Constantes de texto entre comillas <code>"</code>; decimales con punto; lógicas <code>Verdadero</code> y <code>Falso</code>.</li>
+</ul>
+<h4>Ejecución paso a paso y prueba de escritorio</h4>
+<p>PSeInt permite ejecutar línea a línea («Primer Paso» / «Avanzar un paso»), pausar, evaluar variables o expresiones («Evaluar…») y ver la <b>Prueba de Escritorio</b>: una tabla con el valor de las variables tras cada línea.</p>
+<h4>Ejemplos que incluye PSeInt</h4>
+<ul>
+<li><b>AdivinaNumero:</b> adivinar un número aleatorio (<code>azar(100)+1</code>) en 10 intentos con <code>Mientras … Y intentos&gt;0</code>.</li>
+<li><b>Mayores:</b> los dos mayores de una lista de N datos (usa <code>Dimension datos[200]</code> y <code>Para</code>).</li>
+<li><b>Triángulo:</b> comprueba si 3 lados forman un triángulo rectángulo (Pitágoras) y calcula el área.</li>
+<li><b>OrdenaLista:</b> ordena nombres alfabéticamente (selección del menor).</li>
+<li><b>Promedio:</b> acumulador + <code>Para</code>.</li>
+</ul>
+<pre><code>// Promedio
+Proceso Promedio
+    Escribir "Ingrese la cantidad de datos:";
+    Leer n;
+    acum &lt;- 0;
+    Para i &lt;- 1 Hasta n Hacer
+        Escribir "Ingrese el dato ", i, ":";
+        Leer dato;
+        acum &lt;- acum + dato;
+    FinPara
+    prom &lt;- acum / n;
+    Escribir "El promedio es: ", prom;
+FinProceso</code></pre>
+</div></section>
+
+<section class="sec"><h3>Patrones de bucles: contador, acumulador, máximo/mínimo</h3><div class="body">
+<ul>
+<li><b>Contador:</b> <code>total++;</code> (suma 1 cada vez).</li>
+<li><b>Acumulador:</b> <code>suma += valor;</code></li>
+<li><b>Máximo/mínimo:</b> inicializar con un valor extremo (<code>max = -9999</code>, <code>min = 9999</code>) o con el primer dato, y comparar en cada vuelta.</li>
+<li><b>Lectura adelantada:</b> leer antes del bucle y volver a leer al final del cuerpo.</li>
+<li><b>Centinela:</b> valor que solo sirve para terminar (0, 99…) y <b>no entra en los cálculos</b>.</li>
+<li><b>Media con decimales:</b> <code>media = (double) suma / total;</code> (si no, división entera).</li>
+</ul>
+<pre><code>int edad, total = 0, suma = 0;
+edad = teclado.nextInt();            // lectura adelantada
+while (edad != 0) {
+    suma += edad;
+    total++;
+    edad = teclado.nextInt();
+}
+double media = (double) suma / total;</code></pre>
+</div></section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ================= UT 3 ================= -->
+<h2 class="tema" id="ut3">UT 3 · Objetos</h2>
+<p class="sub">Fuentes: U3_A_Funciones.docx, U3_B_UsoObjetos.docx y Ejercicios varios.docx del profesor.</p>
+
+<section class="sec"><h3>1. Estructura de un método</h3><div class="body">
+<p>En Java las funciones se llaman <b>métodos</b> y se declaran dentro de una clase. Sirven para organizar, reutilizar y dividir un problema en tareas pequeñas.</p>
+<pre><code>public static int sumar(int a, int b) {
+    return a + b;
+}</code></pre>
+<table>
+<tr><th>Parte</th><th>Significado</th></tr>
+<tr><td>public</td><td>Accesible desde otras clases</td></tr>
+<tr><td>static</td><td>Pertenece a la clase; se llama sin crear objeto</td></tr>
+<tr><td>int</td><td>Tipo que devuelve</td></tr>
+<tr><td>sumar</td><td>Nombre del método</td></tr>
+<tr><td>int a, int b</td><td>Parámetros: datos que recibe</td></tr>
+<tr><td>return</td><td>Devuelve el resultado y termina el método</td></tr>
+</table>
+<pre><code>modificadores tipoRetorno nombreMetodo(parametros) {
+    // Instrucciones
+}</code></pre>
+</div></section>
+
+<section class="sec"><h3>2. Declarar y llamar</h3><div class="body">
+<p><b>Declarar</b> = escribir qué hace. <b>Llamar</b> = ejecutarlo.</p>
+<pre><code>public class Ejemplo {
+    public static int sumar(int a, int b) { return a + b; }
+
+    public static void main(String[] args) {
+        int resultado = sumar(4, 6);
+        System.out.println(resultado); // 10
+    }
+}</code></pre>
+<div class="tip"><b>Parámetros</b> = variables de la declaración (<code>a</code>, <code>b</code>). <b>Argumentos</b> = valores que se pasan al llamar (<code>4</code>, <code>6</code>).</div>
+</div></section>
+
+<section class="sec"><h3>3. Tipos de método según parámetros y retorno</h3><div class="body">
+<h4>Sin parámetros y sin retorno (void)</h4>
+<pre><code>public static void saludar() { System.out.println("¡Hola!"); }
+saludar();</code></pre>
+<h4>Con parámetros y sin retorno</h4>
+<pre><code>public static void saludarPersona(String nombre) {
+    System.out.println("Hola, " + nombre);
+}
+saludarPersona("Ana");</code></pre>
+<h4>Sin parámetros y con retorno</h4>
+<pre><code>public static int obtenerNumero() { return 10; }
+int numero = obtenerNumero();</code></pre>
+<h4>Con parámetros y con retorno</h4>
+<pre><code>public static double calcularArea(double base, double altura) {
+    return base * altura / 2;
+}
+double area = calcularArea(6, 4); // 12.0</code></pre>
+</div></section>
+
+
+
+
+
+<section class="sec"><h3>4. Cómo funciona return</h3><div class="body">
+<p><code>return</code> termina el método en ese momento. El valor debe ser compatible con el tipo de retorno.</p>
+<pre><code>public static boolean esPar(int numero) {
+    return numero % 2 == 0;
+}</code></pre>
+<p>Un método con retorno debe devolver valor en <b>todos</b> los caminos:</p>
+<pre><code>public static String comprobarEdad(int edad) {
+    if (edad &gt;= 18) {
+        return "Mayor de edad";
+    }
+    return "Menor de edad";
+}</code></pre>
+<p>En un <code>void</code> se puede usar <code>return;</code> para salir antes:</p>
+<pre><code>public static void mostrarDivision(double a, double b) {
+    if (b == 0) {
+        System.out.println("No se puede dividir entre cero");
+        return;
+    }
+    System.out.println(a / b);
+}</code></pre>
+<div class="tip"><b>Mostrar ≠ devolver:</b> <code>println</code> escribe en pantalla; <code>return</code> entrega un resultado al código que llamó.</div>
+</div></section>
+
+<section class="sec"><h3>5. Métodos static y de instancia</h3><div class="body">
+<p>Un método <code>static</code> se llama con el nombre de la clase:</p>
+<pre><code>public class Calculadora {
+    public static int multiplicar(int a, int b) { return a * b; }
+}
+int resultado = Calculadora.multiplicar(3, 4);</code></pre>
+<p>Uno de instancia necesita un objeto:</p>
+<pre><code>public class Persona {
+    public void saludar() { System.out.println("¡Hola!"); }
+}
+Persona persona = new Persona();
+persona.saludar();</code></pre>
+<p>Desde <code>main</code> (que es static) necesitas un objeto para llamar a un método de instancia.</p>
+</div></section>
+
+<section class="sec"><h3>6. Sobrecarga de métodos</h3><div class="body">
+<p>Varios métodos con el <b>mismo nombre</b> si cambia el número, el tipo o el orden de los tipos de los parámetros.</p>
+<pre><code>public static int sumar(int a, int b)           { return a + b; }
+public static double sumar(double a, double b)  { return a + b; }
+public static int sumar(int a, int b, int c)    { return a + b + c; }
+
+sumar(2, 3);       // 5
+sumar(2.5, 3.5);   // 6.0
+sumar(2, 3, 4);    // 9</code></pre>
+<div class="err">Cambiar <b>solo el tipo de retorno</b> no permite sobrecargar.</div>
+</div></section>
+
+<section class="sec"><h3>7. Ámbito de las variables</h3><div class="body">
+<p>Parámetros y variables locales solo existen dentro de su método.</p>
+<pre><code>public static int duplicar(int numero) {
+    int resultado = numero * 2;
+    return resultado;
+}
+// fuera no existen numero ni resultado
+int doble = duplicar(5);   // recoge el valor devuelto</code></pre>
+</div></section>
+
+<section class="sec"><h3>8. Paso de argumentos por valor</h3><div class="body">
+<p>Java <b>siempre</b> pasa por valor: el método recibe una copia.</p>
+<pre><code>public static void cambiar(int numero) { numero = 100; }
+int valor = 5;
+cambiar(valor);
+System.out.println(valor);   // 5</code></pre>
+<p>Con objetos y arrays se copia la <b>referencia</b>, así que el método sí puede modificar el contenido:</p>
+<pre><code>public static void cambiarPrimero(int[] numeros) { numeros[0] = 100; }
+int[] datos = {1, 2, 3};
+cambiarPrimero(datos);
+System.out.println(datos[0]);   // 100</code></pre>
+<p>Pero asignar un objeto nuevo al parámetro no cambia la variable del llamador.</p>
+</div></section>
+
+<section class="sec"><h3>9. Recursividad</h3><div class="body">
+<p>Un método es recursivo si se llama a sí mismo. Necesita un <b>caso base</b> que detenga las llamadas.</p>
+<pre><code>// válido para n entre 0 y 12
+public static int factorial(int n) {
+    if (n &lt; 0 || n &gt; 12) {
+        throw new IllegalArgumentException("n debe estar entre 0 y 12");
+    }
+    if (n == 0) {
+        return 1;               // caso base
+    }
+    return n * factorial(n - 1);
+}
+factorial(4);   // 4 × 3 × 2 × 1 = 24</code></pre>
+<p>El límite 12 evita que el resultado supere la capacidad de <code>int</code>.</p>
+</div></section>
+
+<section class="sec"><h3>10. Errores frecuentes</h3><div class="body">
+<ul>
+<li>Olvidar devolver valor en un método que no es <code>void</code>.</li>
+<li>Confundir imprimir con devolver.</li>
+<li>Pasar argumentos con tipos o cantidad incorrectos.</li>
+<li>Llamar a un método de instancia desde <code>main</code> sin crear un objeto.</li>
+<li>Declarar un método dentro de otro.</li>
+<li>Creer que cambiar un parámetro primitivo modifica la variable original.</li>
+</ul>
+</div></section>
+
+
+
+
+
+
+
+
+
+<section class="sec"><h3>11. Clases, objetos y métodos</h3><div class="body"><p>Una <b>clase</b> describe un tipo y las operaciones que se pueden hacer con él. Un <b>objeto</b> es un ejemplar concreto de esa clase. Cada objeto tiene un <b>estado</b> (sus datos), un <b>comportamiento</b> (lo que sabe hacer) y una identidad propia: una variable de tipo objeto guarda una referencia a él.</p><pre><code>import java.awt.Point;
+
+Point punto = new Point(2, 3);
+punto.setLocation(4, 5);   // cambia la posición a (4, 5)</code></pre><p>El <code>import</code> va al principio del archivo y permite usar el nombre corto <code>Point</code>.</p></div></section>
+<section class="sec"><h3>12. Paquetes y import</h3><div class="body"><p>Un <b>paquete</b> agrupa clases relacionadas. En <code>java.awt.Point</code>, <code>java.awt</code> es el paquete y <code>Point</code> la clase.</p><ul><li><code>java.lang</code>: clases fundamentales como <code>Math</code>, <code>Integer</code> o <code>String</code>. No necesitan import.</li><li><code>java.util</code>: utilidades, como <code>Scanner</code>.</li><li><code>java.io</code>: entrada y salida de datos.</li><li><code>java.time</code>: fechas y horas, como <code>LocalDate</code>.</li></ul><p>Un import no instala nada: solo permite usar el nombre corto. La clase ya forma parte de Java.</p></div></section>
+<section class="sec"><h3>13. Leer la documentación de la API</h3><div class="body"><p>La documentación de Java indica, para cada clase, sus <b>constructores</b> (cómo se crea un objeto), sus <b>métodos</b> (qué parámetros piden y qué devuelven) y las excepciones que pueden lanzar. Busca la clase por su nombre en la documentación de la versión de Java que uses.</p><ul><li>Si el método es <code>static</code>, se llama con el nombre de la clase: <code>Math.sqrt(25)</code>.</li><li>Si necesitas un objeto, usa <code>new</code> con un constructor público, o un método estático que te lo devuelva.</li><li>Los métodos de instancia se llaman con la referencia del objeto: <code>punto.getX()</code>.</li></ul><pre><code>Point punto = new Point(2, 3);
+double x = punto.getX();   // 2.0
+Point origen = new Point(); // (0, 0)</code></pre><p class="nota">Declarar <code>Point punto;</code> solo reserva la variable. Hasta que no le asignes un objeto con <code>new</code> (u otro método que lo devuelva), no puedes usarla.</p></div></section>
+<section class="sec"><h3>14. Math y métodos estáticos</h3><div class="body"><p><code>Math</code> ofrece constantes y operaciones matemáticas sin necesidad de crear objetos.</p><pre><code>Math.sqrt(25);       // 5.0
+Math.pow(2, 3);      // 8.0
+Math.max(4, 9);      // 9
+Math.abs(-7);        // 7
+Math.round(3.6);     // 4 (long)
+Math.PI;             // 3.14159...</code></pre><p>La firma del método indica el tipo de los argumentos y del resultado: <code>sqrt</code> devuelve un <code>double</code>.</p></div></section>
+<section class="sec"><h3>15. Clases envoltorio (wrapper)</h3><div class="body"><p>Java tiene ocho tipos primitivos (<code>int</code>, <code>double</code>, <code>char</code>, <code>boolean</code>...). Sus <b>clases envoltorio</b> los representan como objetos y ofrecen métodos para convertirlos y comprobarlos.</p><table><tr><th>Primitivo</th><th>Envoltorio</th></tr><tr><td>int</td><td>Integer</td></tr><tr><td>double</td><td>Double</td></tr><tr><td>char</td><td>Character</td></tr><tr><td>boolean</td><td>Boolean</td></tr><tr><td>long, float, byte, short</td><td>Long, Float, Byte, Short</td></tr></table><p><b>Autoboxing</b> (primitivo a objeto) y <b>unboxing</b> (objeto a primitivo) se hacen solos: <code>Integer n = 25; int m = n;</code>.</p><p>Métodos que más se usan:</p><table><tr><th>Clase</th><th>Método</th><th>Para qué</th></tr><tr><td>Integer</td><td>parseInt(texto)</td><td>Texto a entero</td></tr><tr><td>Integer</td><td>toString(n)</td><td>Entero a texto</td></tr><tr><td>Double</td><td>parseDouble(texto)</td><td>Texto a decimal (con punto)</td></tr><tr><td>Character</td><td>isDigit(c), isLetter(c)</td><td>Comprobar si es dígito o letra</td></tr><tr><td>Character</td><td>isUpperCase(c), toUpperCase(c)</td><td>Mayúsculas</td></tr><tr><td>Boolean</td><td>parseBoolean(texto)</td><td>Texto a booleano</td></tr></table><pre><code>String texto = &quot;125&quot;;
+int numero = Integer.parseInt(texto);
+System.out.println(numero + 10);   // 135
+
+System.out.println(&quot;125&quot; + 10);       // 12510 (concatena)</code></pre><p class="nota"><b>Cuidado:</b> <code>Integer.parseInt("hola")</code> lanza <code>NumberFormatException</code>. Un envoltorio puede valer <code>null</code>, y hacer unboxing de un <code>null</code> lanza <code>NullPointerException</code>. Para cálculos sencillos, usa primitivos.</p></div></section>
+<section class="sec"><h3>16. Entrada por teclado con Scanner</h3><div class="body"><p><code>System.in</code> es la entrada estándar (el teclado) y <code>System.out</code> la salida (la consola).</p><pre><code>import java.util.Scanner;
+
+Scanner teclado = new Scanner(System.in);
+int numero = teclado.nextInt();
+System.out.println(numero * 2);</code></pre><ul><li><code>nextInt()</code>, <code>nextDouble()</code>, <code>next()</code> (una palabra) y <code>nextLine()</code> (una línea completa).</li><li>Si el dato no es del tipo pedido, se produce <code>InputMismatchException</code>.</li><li>Cerrar un <code>Scanner</code> asociado a <code>System.in</code> cierra también el teclado: ciérralo solo al final.</li></ul></div></section>
+<section class="sec"><h3>17. La clase String</h3><div class="body"><p><code>String</code> representa texto. Los <b>String son inmutables</b>: los métodos que transforman el texto devuelven uno nuevo, así que hay que guardar el resultado.</p><pre><code>String palabra = &quot;Java&quot;;
+int longitud = palabra.length();            // 4
+char primera = palabra.charAt(0);            // J
+String parte = palabra.substring(0, 2);      // &quot;Ja&quot;
+boolean igual = palabra.equals(&quot;Java&quot;);      // true
+String cambio = palabra.replace(&quot;J&quot;, &quot;L&quot;);   // &quot;Lava&quot;</code></pre><p>Para comparar el contenido usa <code>equals</code>, no <code>==</code>. El operador <code>==</code> compara si son el mismo objeto.</p></div></section>
+<section class="sec"><h3>18. Ejercicios varios</h3><div class="body"><p>Intenta cada ejercicio antes de abrir la solución.</p><h4>Ejercicio 1. Clase Producto</h4><p>Crea una clase <code>Producto</code> con los atributos <code>nombre</code> (texto) y <code>precio</code> (decimal). En una clase <code>Principal</code>, crea un objeto <code>producto1</code> con nombre «Teclado» y precio 29.90, y muestra sus datos en pantalla.</p><details><summary>Ver solución</summary><pre><code>public class Producto {
+    String nombre;
+    double precio;
+}
+
+public class Principal {
+    public static void main(String[] args) {
+        Producto producto1 = new Producto();
+        producto1.nombre = &quot;Teclado&quot;;
+        producto1.precio = 29.90;
+        System.out.println(&quot;Nombre: &quot; + producto1.nombre);
+        System.out.println(&quot;Precio: &quot; + producto1.precio + &quot; €&quot;);
+    }
+}</code></pre></details><h4>Ejercicio 2. Clase Calculadora</h4><p>Crea una clase <code>Calculadora</code> con dos métodos de instancia, <code>sumar</code> y <code>restar</code>, que reciban dos enteros y devuelvan el resultado. Desde <code>main</code>, crea un objeto <code>calc1</code>, usa <code>a = 10</code> y <code>b = 5</code> y muestra la suma y la resta.</p><details><summary>Ver solución</summary><pre><code>public class Calculadora {
+    public int sumar(int a, int b) { return a + b; }
+    public int restar(int a, int b) { return a - b; }
+}
+
+public class Principal {
+    public static void main(String[] args) {
+        Calculadora calc1 = new Calculadora();
+        int a = 10, b = 5;
+        System.out.println(&quot;Suma: &quot; + calc1.sumar(a, b));
+        System.out.println(&quot;Resta: &quot; + calc1.restar(a, b));
+    }
+}</code></pre></details><h4>Ejercicio 3. Diagonal de un rectángulo</h4><p>Pide por teclado la base y la altura (decimales). Crea el método <code>calcularDiagonal(base, altura)</code>, que devuelva √(base² + altura²) usando <code>Math.sqrt</code>. Muestra el resultado. Con base 3 y altura 4 debe salir 5.0.</p><details><summary>Ver solución</summary><pre><code>import java.util.Scanner;
+
+public class Rectangulo {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        System.out.print(&quot;Introduce la base: &quot;);
+        double base = teclado.nextDouble();
+        System.out.print(&quot;Introduce la altura: &quot;);
+        double altura = teclado.nextDouble();
+        System.out.println(&quot;La diagonal es: &quot; + calcularDiagonal(base, altura));
+    }
+
+    public static double calcularDiagonal(double base, double altura) {
+        return Math.sqrt(base * base + altura * altura);
+    }
+}</code></pre></details><h4>Ejercicio 4. Sumar dígitos</h4><p>Declara dos <code>char</code> con los valores '6' y '7'. Si ambos son dígitos (<code>Character.isDigit</code>), convierte cada uno a número con <code>Character.getNumericValue</code> y muestra su suma. Si no, muestra «No son los dos numéricos». Resultado esperado: 13.</p><details><summary>Ver solución</summary><pre><code>public class SumaCaracteres {
+    public static void main(String[] args) {
+        char a = &#x27;6&#x27;;
+        char b = &#x27;7&#x27;;
+        if (Character.isDigit(a) &amp;&amp; Character.isDigit(b)) {
+            int suma = Character.getNumericValue(a) + Character.getNumericValue(b);
+            System.out.println(&quot;La suma es &quot; + suma);
+        } else {
+            System.out.println(&quot;No son los dos numéricos&quot;);
+        }
+    }
+}</code></pre></details><h4>Ejercicio 5. ¿Desea salir?</h4><p>Pregunta «¿Desea salir (S/s)?» hasta que el usuario escriba S o s. Usa un bucle <code>do-while</code> y <code>Scanner</code>. Al final, muestra «Programa finalizado».</p><details><summary>Ver solución</summary><pre><code>import java.util.Scanner;
+
+public class Salir {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        char respuesta;
+        do {
+            System.out.print(&quot;¿Desea salir (S/s)? &quot;);
+            respuesta = sc.next().charAt(0);
+        } while (respuesta != &#x27;S&#x27; &amp;&amp; respuesta != &#x27;s&#x27;);
+        System.out.println(&quot;Programa finalizado&quot;);
+        sc.close();
+    }
+}</code></pre></details></div></section>
+<section class="sec"><h3>19. Programación modular</h3><div class="body">
+<p>Dividir un programa en partes pequeñas, llamadas <b>módulos</b>, que hacen una tarea concreta. En Java, la forma más sencilla son los <b>métodos</b> (también llamados funciones).</p>
+<h4>Ventajas</h4>
+<ul>
+<li><b>Organización</b>: un programa complejo se divide en partes sencillas.</li>
+<li><b>Reutilización</b>: un método se usa varias veces sin repetir código.</li>
+<li><b>Legibilidad</b> y <b>mantenimiento</b>: cambias una parte sin tocar todo el programa (si cambia el IVA, solo editas <code>calcularIVA()</code>).</li>
+<li><b>Depuración</b>: es más fácil localizar el error.</li>
+<li><b>Trabajo en equipo</b>: cada persona programa un módulo.</li>
+</ul>
+<table><tr><th>Concepto</th><th>Descripción</th><th>Ejemplo</th></tr><tr><td>Función / método</td><td>Bloque de código que resuelve una tarea; puede devolver un valor</td><td>sumar</td></tr><tr><td>Parámetros</td><td>Variables declaradas en la cabecera</td><td>a, b</td></tr><tr><td>Argumentos</td><td>Valores enviados al llamar</td><td>num1, num2</td></tr><tr><td>Valor de retorno</td><td>Dato que la función entrega a quien la llamó</td><td>resultado</td></tr><tr><td>Llamada</td><td>Instrucción que invoca la función</td><td>sumar(num1, num2)</td></tr></table>
+<h4>PSeInt frente a Java</h4>
+<table><tr><th>PSeInt</th><th>Java</th></tr><tr><td><code>Funcion resultado &lt;- Sumar(a, b)</code></td><td><code>public static int sumar(int a, int b) {</code></td></tr><tr><td><code>resultado &lt;- a + b</code></td><td><code>int resultado = a + b;</code></td></tr><tr><td><code>FinFuncion</code></td><td><code>return resultado; }</code></td></tr><tr><td><code>suma &lt;- Sumar(num1, num2)</code></td><td><code>suma = sumar(num1, num2);</code></td></tr><tr><td><code>Escribir &quot;La suma es: &quot;, suma</code></td><td><code>System.out.println(&quot;La suma es: &quot; + suma);</code></td></tr></table><pre><code>Funcion resultado &lt;- Sumar(a, b)
+    Definir resultado Como Entero
+    resultado &lt;- a + b
+FinFuncion
+
+Algoritmo Principal
+    Definir num1, num2, suma Como Entero
+    Escribir &quot;Introduce el primer número:&quot;
+    Leer num1
+    Escribir &quot;Introduce el segundo número:&quot;
+    Leer num2
+    suma &lt;- Sumar(num1, num2)
+    Escribir &quot;La suma es: &quot;, suma
+FinAlgoritmo</code></pre>
+<ul>
+<li><b>Programa principal</b>: pide los datos, llama a la función y muestra el resultado.</li>
+<li><b>Función</b>: se ocupa del cálculo y devuelve un valor.</li>
+<li>En PSeInt, la variable a la izquierda de <code>&lt;-</code> en la cabecera contiene el valor devuelto. En Java se usa el tipo de retorno y <code>return</code>.</li>
+</ul>
+<h4>Formas de llamar a un método</h4>
+<pre><code>int c = 3, d = 9;
+int r1 = sumar(c, d);              // con variables
+int r2 = sumar(4, 3 + 2);          // con una expresión
+int r3 = sumar(3, sumar(8, 2));    // con otra llamada dentro
+System.out.println(sumar(3, 4));   // dentro de println</code></pre>
+<p class="nota"><b>Parámetros y argumentos</b> deben coincidir en <b>tipo, cantidad y orden</b>. <code>sumar(5)</code> (falta un argumento) no compila.</p>
+<p><b>Con valor devuelto</b>: se puede usar dentro de una expresión. <b>void</b>: se llama como instrucción independiente. Una buena práctica es que los métodos <b>devuelvan</b> resultados y que <code>main</code> se encargue de mostrarlos.</p>
+</div></section>
+<section class="sec"><h3>20. Métodos que llaman a otros métodos y descomposición de un programa</h3><div class="body">
+<p>Un método no tiene que llamarse solo desde <code>main</code>: también puede llamar a otros.</p>
+<pre><code>public class Operaciones {
+    public static void main(String[] args) {
+        int resultado = calcularDobleSuma(3, 4);
+        System.out.println(resultado);        // 14
+    }
+
+    public static int sumar(int a, int b) {
+        return a + b;
+    }
+
+    public static int calcularDobleSuma(int a, int b) {
+        int suma = sumar(a, b);               // llama a otro método
+        return suma * 2;
+    }
+}</code></pre>
+<p>Orden: <code>main</code> llama a <code>calcularDobleSuma(3, 4)</code> → llama a <code>sumar(3, 4)</code> → devuelve 7 → se multiplica por 2 → devuelve 14 → <code>main</code> lo muestra.</p>
+<p><b>Reutilización:</b> un método se define una vez y se usa varias veces (<code>calcularCuadrado(3)</code>, <code>calcularCuadrado(5)</code>...). Un método sin parámetros también es útil, por ejemplo <code>mostrarMenu()</code>.</p>
+<h4>Cómo dividir un problema en métodos</h4>
+<ol>
+<li><b>Analizar</b>: datos de entrada y resultados.</li>
+<li><b>Dividir</b> en operaciones principales.</li>
+<li><b>Diseñar</b> cada método: qué recibe y qué devuelve.</li>
+<li><b>Programar</b> cada método.</li>
+<li><b>Programa principal</b>: pide los datos, llama a los métodos y muestra resultados.</li>
+<li><b>Probar</b> cada método y el programa completo.</li>
+</ol>
+<h4>Buenas prácticas</h4>
+<ul>
+<li>Una tarea por método.</li>
+<li>Nombres descriptivos (<code>calcularMedia()</code>, <code>mostrarMenu()</code>, no <code>metodo1()</code>).</li>
+<li>No repetir código: si algo se usa varias veces, método.</li>
+<li>Pasar por parámetros lo que necesita y devolver resultados con <code>return</code>.</li>
+<li><code>main</code> solo coordina.</li>
+<li><b>Cohesión alta</b>: las instrucciones de un método son de una misma tarea. <b>Acoplamiento bajo</b>: un módulo depende poco de los detalles internos de otros.</li>
+</ul>
+</div></section>
+<section class="sec"><h3>21. Más errores habituales con métodos</h3><div class="body">
+<table><tr><th>Error</th><th>Por qué falla</th><th>Solución</th></tr><tr><td>Método <code>int</code> sin <code>return</code></td><td>Error de compilación: no devuelve nada</td><td><code>return resultado;</code></td></tr><tr><td><code>String m = mostrarMensaje();</code> con un <code>void</code></td><td>Un <code>void</code> no devuelve valor, no se puede asignar</td><td>Llamarlo solo: <code>mostrarMensaje();</code></td></tr><tr><td><code>sumar(5);</code> si pide dos parámetros</td><td>Faltan argumentos</td><td><code>sumar(5, 3);</code></td></tr><tr><td><code>println(resultado)</code> en lugar de <code>return resultado</code></td><td>Mostrar no es devolver</td><td>Usa <code>return</code> si otro código necesita el valor</td></tr></table>
+<p>Un método con retorno puede escribirse con <code>if</code> / <code>return</code> / <code>return</code> o con <code>if</code> / <code>else</code>, es equivalente:</p>
+<pre><code>public static String comprobarEdad(int edad) {
+    if (edad &gt;= 18) {
+        return &quot;Mayor de edad&quot;;
+    }
+    return &quot;Menor de edad&quot;;          // equivale a poner un else
+}</code></pre></div></section>
+<section class="sec"><h3>22. Math: todos los métodos que habéis dado</h3><div class="body">
+<table><tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th></tr><tr><td><code>Math.sqrt(x)</code></td><td>Raíz cuadrada</td><td>Math.sqrt(25) → 5.0</td></tr><tr><td><code>Math.cbrt(x)</code></td><td>Raíz cúbica</td><td>Math.cbrt(27) → 3.0</td></tr><tr><td><code>Math.pow(b, e)</code></td><td>Potencia</td><td>Math.pow(2, 3) → 8.0</td></tr><tr><td><code>Math.max(a, b)</code></td><td>Mayor de dos</td><td>Math.max(4, 9) → 9</td></tr><tr><td><code>Math.min(a, b)</code></td><td>Menor de dos</td><td>Math.min(12, 7) → 7</td></tr><tr><td><code>Math.abs(x)</code></td><td>Valor absoluto</td><td>Math.abs(-7) → 7</td></tr><tr><td><code>Math.round(x)</code></td><td>Redondea al entero más próximo</td><td>Math.round(3.6) → 4</td></tr><tr><td><code>Math.ceil(x)</code></td><td>Redondea hacia arriba (devuelve double)</td><td>Math.ceil(4.2) → 5.0</td></tr><tr><td><code>Math.floor(x)</code></td><td>Redondea hacia abajo (devuelve double)</td><td>Math.floor(8.9) → 8.0</td></tr><tr><td><code>Math.random()</code></td><td>Número aleatorio entre 0 (incluido) y 1 (excluido)</td><td>valor distinto cada vez</td></tr><tr><td><code>Math.PI</code></td><td>Constante π (no lleva paréntesis)</td><td>Math.PI * r * r</td></tr></table>
+<p class="nota"><b>Cuándo se usa cada uno:</b> <code>ceil</code> cuando hay que "subir siempre" (cajas necesarias para N unidades), <code>floor</code> para "quedarse con la parte entera", <code>round</code> para redondear normal, <code>cbrt</code> para volúmenes de cubos, <code>random</code> para sorteos y juegos.</p>
+</div></section>
+<section class="sec"><h3>23. Clases envoltorio: más métodos</h3><div class="body">
+<table><tr><th>Clase</th><th>Método / constante</th><th>Utilidad</th></tr><tr><td>Integer</td><td><code>parseInt(texto)</code></td><td>Texto a entero</td></tr><tr><td>Integer</td><td><code>toString(n)</code></td><td>Entero a texto</td></tr><tr><td>Integer</td><td><code>Integer.MAX_VALUE / MIN_VALUE</code></td><td>2147483647 / -2147483648</td></tr><tr><td>Integer</td><td><code>Integer.max(a, b) / min(a, b)</code></td><td>Mayor / menor de dos enteros</td></tr><tr><td>Double</td><td><code>parseDouble(texto)</code></td><td>Texto a decimal (con punto)</td></tr><tr><td>Double</td><td><code>toString(x)</code></td><td>Decimal a texto</td></tr><tr><td>Character</td><td><code>isLetter(c) / isDigit(c)</code></td><td>¿Letra? / ¿dígito?</td></tr><tr><td>Character</td><td><code>isUpperCase(c) / isLowerCase(c)</code></td><td>¿Mayúscula? / ¿minúscula?</td></tr><tr><td>Character</td><td><code>toUpperCase(c) / toLowerCase(c)</code></td><td>Pasa a mayúscula / minúscula</td></tr><tr><td>Character</td><td><code>getNumericValue(c)</code></td><td>'6' → 6</td></tr><tr><td>Boolean</td><td><code>parseBoolean(texto)</code></td><td>Devuelve true si el texto es "true" (sin distinguir mayúsculas); en otro caso false</td></tr><tr><td>Boolean</td><td><code>toString(b)</code></td><td>Booleano a texto</td></tr></table>
+<ul>
+<li>Las clases envoltorio son de <code>java.lang</code>: no hace falta <code>import</code>. Sus objetos son <b>inmutables</b>.</li>
+<li>Si escribes <code>a + b</code> con dos <code>char</code>, Java suma sus códigos Unicode (<code>'6' + '7'</code> = 54 + 55 = 109). Para sumar sus valores numéricos usa <code>Character.getNumericValue</code>.</li>
+<li>Sin convertir, <code>"250" + 50</code> concatena y da <code>25050</code>.</li>
+<li><code>Double.parseDouble("12.5")</code> usa punto como separador decimal.</li>
+</ul>
+<pre><code>// ¿Es una vocal?
+char letra = sc.next().charAt(0);
+letra = Character.toLowerCase(letra);
+if (letra == &#x27;a&#x27; || letra == &#x27;e&#x27; || letra == &#x27;i&#x27; || letra == &#x27;o&#x27; || letra == &#x27;u&#x27;) {
+    System.out.println(&quot;Es una vocal&quot;);
+}</code></pre></div></section>
+<section class="sec"><h3>24. Salida por pantalla: print, println y concatenar</h3><div class="body">
+<p><code>System.out.print</code> escribe <b>sin</b> salto de línea; <code>System.out.println</code> lo <b>añade</b>.</p>
+<pre><code>System.out.print(5);
+System.out.println(3);      // muestra 53 en una línea</code></pre>
+<p>Para mostrar varios valores se usa el operador <code>+</code> (puedes mezclar tipos).</p>
+<pre><code>int numero = 25;
+System.out.print(&quot;El doble de &quot; + numero + &quot; es &quot; + (numero * 2));
+// El doble de 25 es 50
+
+int num1 = 8, num2 = 3;
+System.out.print(num1 + &quot; + &quot; + num2 + &quot; = &quot; + (num1 + num2));
+// 8 + 3 = 11</code></pre>
+<p class="nota"><b>Trampa clásica:</b> los paréntesis fuerzan la suma antes de concatenar.</p>
+<pre><code>System.out.print(&quot;Resultado: &quot; + num1 + num2);     // Resultado: 83   (concatena)
+System.out.print(&quot;Resultado: &quot; + (num1 + num2));   // Resultado: 11   (suma)</code></pre>
+<h4>printf (formato)</h4>
+<p>Cuando importa el formato: decimales fijos, columnas alineadas o muchos datos en un texto. No salta de línea solo: añade <code>%n</code>.</p>
+<table><tr><th>Código</th><th>Tipo</th><th>Ejemplo</th></tr><tr><td>%d</td><td>entero</td><td>%d → 25</td></tr><tr><td>%f / %.2f</td><td>decimal / con 2 decimales</td><td>%.2f → 3,14</td></tr><tr><td>%s</td><td>texto</td><td>%s → Ana</td></tr><tr><td>%c</td><td>carácter</td><td>%c → A</td></tr><tr><td>%b</td><td>booleano</td><td>%b → true</td></tr><tr><td>%n</td><td>salto de línea</td><td></td></tr></table><pre><code>System.out.printf(&quot;%s tiene %d años y mide %.2f m%n&quot;, nombre, edad, altura);</code></pre></div></section>
+<section class="sec"><h3>25. Scanner: leer todos los tipos</h3><div class="body">
+<p><code>Scanner</code> está en <code>java.util</code> (<code>import java.util.Scanner;</code>). Se crea con <code>new Scanner(System.in)</code>.</p>
+<table><tr><th>Tipo</th><th>Instrucción</th><th>Ejemplo de entrada</th></tr><tr><td>int</td><td><code>teclado.nextInt()</code></td><td>25</td></tr><tr><td>double</td><td><code>teclado.nextDouble()</code></td><td>19,95 (con coma en un sistema en español)</td></tr><tr><td>float</td><td><code>teclado.nextFloat()</code></td><td>1,75</td></tr><tr><td>long</td><td><code>teclado.nextLong()</code></td><td>123456789</td></tr><tr><td>short</td><td><code>teclado.nextShort()</code></td><td>18</td></tr><tr><td>byte</td><td><code>teclado.nextByte()</code></td><td>5</td></tr><tr><td>boolean</td><td><code>teclado.nextBoolean()</code></td><td>true</td></tr><tr><td>String (una palabra)</td><td><code>teclado.next()</code></td><td>Ana</td></tr><tr><td>String (una línea)</td><td><code>teclado.nextLine()</code></td><td>Hola mundo</td></tr><tr><td>char</td><td><code>teclado.next().charAt(0)</code></td><td>A</td></tr></table>
+<ul>
+<li><b><code>Scanner</code> no tiene <code>nextChar()</code></b>: para un carácter se usa <code>next().charAt(0)</code>.</li>
+<li><code>next()</code> lee una palabra (con «Juan Carlos» solo guarda «Juan»); <code>nextLine()</code> lee la línea completa.</li>
+<li>Tras <code>nextInt()</code> o <code>nextDouble()</code>, un <code>nextLine()</code> puede leer la línea vacía pendiente: pon un <code>nextLine()</code> extra para consumirla.</li>
+<li>Si el dato no es del tipo pedido: <code>InputMismatchException</code>.</li>
+<li>Cerrar un <code>Scanner</code> de <code>System.in</code> cierra el teclado: hazlo solo al final. Los recursos que se abren (archivos) se cierran; <i>try-with-resources</i> lo hace automáticamente.</li>
+</ul>
+</div></section>
+<section class="sec"><h3>26. La clase String: todos los métodos</h3><div class="body">
+<p><code>String</code> es una clase, no un primitivo. Texto entre <b>comillas dobles</b>; <code>char</code> entre <b>comillas simples</b>. Las posiciones empiezan en <b>0</b>.</p>
+<table><tr><th>Método</th><th>Utilidad</th><th>Ejemplo</th></tr><tr><td><code>length()</code></td><td>Número de caracteres (cuenta espacios)</td><td>"Carlos".length() → 6</td></tr><tr><td><code>charAt(i)</code></td><td>Carácter en la posición i</td><td>"Carlos".charAt(3) → l</td></tr><tr><td><code>toUpperCase() / toLowerCase()</code></td><td>Mayúsculas / minúsculas</td><td>"Carlos".toUpperCase() → CARLOS</td></tr><tr><td><code>equals(x)</code></td><td>Compara el contenido (distingue mayúsculas)</td><td>"Ana".equals("ana") → false</td></tr><tr><td><code>equalsIgnoreCase(x)</code></td><td>Compara sin distinguir mayúsculas</td><td>"SI".equalsIgnoreCase("si") → true</td></tr><tr><td><code>compareTo(x)</code></td><td>Compara alfabéticamente (0 si son iguales, negativo si va antes)</td><td>"a".compareTo("b") → negativo</td></tr><tr><td><code>contains(x)</code></td><td>¿Contiene el texto?</td><td>"Aprendo Java".contains("Java") → true</td></tr><tr><td><code>startsWith(x) / endsWith(x)</code></td><td>¿Empieza / termina por...?</td><td>"Ana".startsWith("A") → true</td></tr><tr><td><code>substring(a, b)</code></td><td>Trozo desde a (incluido) hasta b (excluido)</td><td>"Programacion".substring(0, 4) → Prog</td></tr><tr><td><code>indexOf(x)</code></td><td>Posición del texto; -1 si no está</td><td>"Programacion".indexOf("g") → 3</td></tr><tr><td><code>replace(a, b)</code></td><td>Sustituye texto</td><td>"Hola mundo".replace("mundo", "Java") → Hola Java</td></tr><tr><td><code>trim()</code></td><td>Quita espacios al principio y al final</td><td>" Ana ".trim() → Ana</td></tr><tr><td><code>isEmpty()</code></td><td>¿Longitud cero?</td><td>"".isEmpty() → true</td></tr></table>
+<ul>
+<li><b>Inmutables:</b> <code>nombre.toUpperCase();</code> no cambia <code>nombre</code>. Hay que guardar: <code>nombre = nombre.toUpperCase();</code></li>
+<li>Para comparar contenido: <code>equals</code>. El operador <code>==</code> compara referencias (si es el mismo objeto).</li>
+<li>Para unir: <code>nombre + " " + apellido</code>.</li>
+</ul>
+<pre><code>// Contraseña
+String clave = &quot;java123&quot;;
+String entrada = teclado.nextLine();
+if (clave.equals(entrada)) {
+    System.out.println(&quot;Acceso permitido&quot;);
+} else {
+    System.out.println(&quot;Acceso denegado&quot;);
+}
+
+// Salir con String (S o s)
+String respuesta;
+do {
+    System.out.print(&quot;¿Desea salir (S/N)? &quot;);
+    respuesta = teclado.next();
+} while (!respuesta.equalsIgnoreCase(&quot;S&quot;));
+System.out.println(&quot;Programa finalizado&quot;);</code></pre></div></section>
+<section class="sec"><h3>27. Práctica en NetBeans (compilar y ejecutar)</h3><div class="body">
+<ol>
+<li>Crea un proyecto Java (File &gt; New Project &gt; Java Application).</li>
+<li>Escribe el <code>import</code> al <b>principio del archivo</b> y el resto <b>dentro de <code>main</code></b>.</li>
+<li>Guarda y pulsa <b>F6</b> (Run Project).</li>
+<li>La <b>compilación</b> comprueba el código y genera el bytecode que ejecuta la JVM.</li>
+<li>Si <code>Scanner</code> no se reconoce: revisa el <code>import</code> (Ctrl+Shift+I) y que el proyecto tenga un JDK configurado.</li>
+<li>NetBeans ayuda con el autocompletado (Ctrl+Espacio) para ver los métodos disponibles de un objeto.</li>
+</ol>
+<p><b>Repaso:</b> busca en la API de <code>String</code> qué devuelve <code>substring(1, 3)</code> y pruébalo con <code>"Java"</code> (<code>"av"</code>). ¿Por qué <code>Math</code> se usa sin <code>import</code> y <code>Point</code> necesita uno? (<code>Math</code> está en <code>java.lang</code>; <code>Point</code> en <code>java.awt</code>.)</p>
+</div></section>
+<h2 class="tema" id="guia">Guía del examen</h2>
+<p class="sub">Fuentes: Guia_de_consulta_Java.docx (la guía que se puede consultar en el examen) y Unidades_RA_y_evaluacion_Programacion.docx.</p>
+<section class="sec"><h3>Qué viene en la guía y qué hay que memorizar</h3><div class="body">
+<p>La <b>guía de consulta</b> cubre solo <b>UT 1 y UT 2</b>. Sirve para consultar la sintaxis; hay que saber dónde está cada cosa y entenderla. Todo lo de la columna derecha no está en la guía: hay que saberlo.</p>
+<table><tr><th>Está en la guía (consulta)</th><th>NO está en la guía (memoriza)</th></tr><tr><td>Estructura del programa y <code>main</code></td><td><code>Scanner</code>: <code>nextInt</code>, <code>nextDouble</code>, <code>next</code>, <code>nextLine</code>, <code>nextBoolean</code> e <code>import java.util.Scanner</code></td></tr><tr><td>Palabras reservadas, identificadores, camelCase</td><td><code>print</code>, <code>println</code>, <code>printf</code> y sus códigos</td></tr><tr><td>Tipos primitivos y rangos, declaración e inicialización</td><td>Patrones de bucle: contador, acumulador, máximo/mínimo, centinela, lectura adelantada, validar con do-while</td></tr><tr><td><code>final</code> (constantes)</td><td>Arrays (<code>new int[5]</code>, <code>length</code>, índice desde 0)</td></tr><tr><td>Comentarios</td><td>Métodos: <code>static</code>, parámetros, <code>return</code>, <code>void</code>, sobrecarga, ámbito, paso por valor, recursividad</td></tr><tr><td>Operadores aritméticos, compuestos, relacionales, lógicos, ternario</td><td>Clases y objetos: <code>new</code>, atributos, método static frente a método de instancia</td></tr><tr><td>Precedencia</td><td><code>Math</code>: sqrt, pow, max, min, abs, round, ceil, floor, cbrt, random, PI</td></tr><tr><td>Conversión: ensanchamiento, casting, char ↔ int</td><td>Envoltorios: <code>Integer.parseInt</code>, <code>Double.parseDouble</code>, <code>Character.isDigit</code>...</td></tr><tr><td><code>if</code>, <code>if-else</code>, anidado, escala <code>else if</code></td><td><code>String</code>: length, charAt, substring, equals, equalsIgnoreCase, contains, indexOf...</td></tr><tr><td><code>switch</code> (clásico, agrupar casos, flecha <code>-&gt;</code>)</td><td>Paquetes e <code>import</code></td></tr><tr><td><code>while</code>, <code>do-while</code>, <code>for</code>, <code>break</code>, <code>continue</code></td><td>Cómo resolver cada tipo de ejercicio de examen</td></tr></table>
+<p class="nota"><b>Ojo:</b> la guía es la de la última vez. No se sabe si la del examen añadirá UT 3. Si no lo hace, UT 3 es lo que menos ayuda tiene.</p>
+</div></section>
+<section class="sec"><h3>Detalles de la guía que suelen caer en test</h3><div class="body">
+<ul>
+<li><code>x++</code> produce el valor <b>anterior</b> y luego incrementa; <code>++x</code> incrementa y produce el valor <b>nuevo</b>.</li>
+<li><code>&amp;&amp;</code> y <code>||</code> usan <b>cortocircuito</b>: si el primer operando ya decide el resultado, no evalúan el segundo.</li>
+<li>El casting a <code>int</code> <b>trunca</b> (hacia cero), no redondea: <code>(int) 2.9</code> es 2 y <code>(int) -2.9</code> es -2.</li>
+<li>Una <b>variable local</b> no tiene valor por defecto (error si la lees sin inicializar). Los <b>campos</b> de una clase y los <b>elementos de un array</b> sí: 0, false o null.</li>
+<li>Una variable <code>final</code> se asigna <b>una sola vez</b> (puede ser después de declararla). Reasignarla es error de compilación.</li>
+<li><code>true</code>, <code>false</code> y <code>null</code> son <b>literales</b>, no palabras reservadas, pero tampoco sirven de nombre. <code>const</code> y <code>goto</code> están reservadas aunque no se usan. <code>_</code> solo no es un identificador válido.</li>
+<li>Desbordamiento de enteros: resultado circular, <b>sin excepción</b>.</li>
+<li>Ensanchamiento automático: <code>byte → short → int → long → float → double</code> y <code>char → int</code>. <code>int</code> a <code>char</code> necesita casting. <code>boolean</code> no se convierte a números.</li>
+<li><code>float</code> y <code>double</code> tienen precisión limitada (existen <code>NaN</code> e infinitos).</li>
+<li>Sin llaves, un <code>else</code> se asocia al <code>if</code> <b>más cercano que aún no tenga <code>else</code></b>.</li>
+<li><code>switch</code>: el selector es byte, short, char, int o String (no long, float, double ni boolean); los <code>case</code> no se repiten; <code>default</code> es opcional y no tiene que ir al final; sin <code>break</code> continúa por los casos siguientes. La forma con flecha <code>-&gt;</code> no necesita <code>break</code> (Java 14 o superior).</li>
+<li><code>while (condicion);</code> con punto y coma: el <code>;</code> es el cuerpo vacío del bucle.</li>
+<li><code>for</code>: las tres partes son opcionales, pero se conservan los dos <code>;</code>. <code>for (;;)</code> es infinito. Una variable declarada en la cabecera solo existe dentro del <code>for</code>.</li>
+<li><code>break</code> sale solo del bucle (o <code>switch</code>) <b>más interno</b>. <code>continue</code> en un <code>for</code> ejecuta la actualización y luego comprueba la condición.</li>
+<li>Si ambos operandos de <code>/</code> son enteros, se descarta la parte decimal.</li>
+</ul>
+</div></section>
+<section class="sec"><h3>Evaluación: RA y pesos (módulo 0485)</h3><div class="body">
+<table><tr><th>Unidad</th><th>RA</th><th>Peso en la nota final</th></tr><tr><td>UT 1 Introducción</td><td>RA1</td><td>7 % (UT1 100 %)</td></tr><tr><td>UT 2 Estructuras de control</td><td>RA3</td><td>15 % (UT2 70 % y UT7 30 %)</td></tr><tr><td>UT 3 Utilización de objetos</td><td>RA2</td><td>8 % (UT3 100 %)</td></tr></table>
+<p>Hace falta <b>al menos un 5 en cada RA</b>, sin compensación entre ellos. En la recuperación se comprueban solo los RA pendientes con una prueba práctica individual.</p>
+</div></section>
+</main></div>
+<script>
+(function(){
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+// nav
+var nav=$("#nav"),h="";
+$$("main > h2.tema").forEach(function(t,i){
+  h+='<details open><summary><a href="#'+t.id+'" style="color:inherit;text-decoration:none">'+t.textContent.split(" · ")[0]+(t.id==="libro"?" (por capítulos)":"")+'</a></summary>';
+  var el=t.nextElementSibling;
+  while(el&&el.tagName!=="H2"){
+    if(el.classList.contains("tabpane")){h+='<div class="c"><a href="#'+el.id+'" style="color:inherit;text-decoration:none">'+el.getAttribute("data-label")+'</a></div>';$$(".ejgrupo",el).forEach(function(g){h+='<a href="#'+g.id+'">'+g.getAttribute("data-label")+'</a>'});$$("section.sec",el).forEach(function(s2){if(!s2.id)s2.id="s"+Math.random().toString(36).slice(2,7)});}
+    else if(el.classList.contains("chap")){h+='<div class="c"><a href="#'+el.id+'" style="color:inherit;text-decoration:none">'+el.textContent+'</a></div>';}
+    else if(el.tagName==="SECTION"){var s=el.querySelector("h3");if(!el.id)el.id="s"+Math.random().toString(36).slice(2,7);h+='<a href="#'+el.id+'">'+s.textContent.replace(/^Libro \(cap\. \d\): /,"")+'</a>';}
+    el=el.nextElementSibling;
+  }
+  h+='</details>';
+});
+nav.innerHTML=h;
+// collapsible + copy
+$$("section.sec").forEach(function(s){
+  $("h3",s).addEventListener("click",function(){s.classList.toggle("closed")});
+});
+$$("pre").forEach(function(p){
+  var b=document.createElement("button");b.className="cp";b.textContent="Copiar";
+  b.onclick=function(){try{navigator.clipboard.writeText($("code",p).innerText);b.textContent="✓";setTimeout(function(){b.textContent="Copiar"},1200)}catch(e){}};
+  p.appendChild(b);
+});
+nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;var t=document.querySelector(a.getAttribute("href"));if(t&&t.classList)t.classList.remove("closed")});
+$("#mn").onclick=function(){nav.classList.toggle("open")};
+nav.addEventListener("click",function(e){if(e.target.closest("a"))nav.classList.remove("open")});
+function showPane(u){$$(".tabpane").forEach(function(p){p.classList.toggle("on",p.id==="ej-"+u)})}
+nav.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;var t=document.querySelector(a.getAttribute("href"));var p=t&&t.closest?t.closest(".tabpane"):null;if(p)showPane(p.id.slice(3))});
+
+// vista por menú: solo se muestra lo elegido
+(function(){
+  var main=$("#main");
+  function all(){return $$("main > *").concat($$("main section.sec"))}
+  function hideAll(){all().forEach(function(e){e.classList.add("nv")})}
+  function show(e){e.classList.remove("nv")}
+  function nextUntil(el,stop){var r=[],n=el.nextElementSibling;while(n&&!stop(n)){r.push(n);n=n.nextElementSibling}return r}
+  function temaOf(el){var n=el;while(n&&!(n.tagName==="H2"&&n.classList.contains("tema"))){n=n.previousElementSibling||n.parentElement&&n.parentElement.previousElementSibling}return n}
+  function view(id){
+    var t=document.getElementById(id);if(!t)return;
+    if(/^p-/.test(id)&&t.matches("section.sec")){view("practica");t.classList.remove("closed");$$("nav a").forEach(function(a){a.classList.toggle("act",a.getAttribute("href")==="#"+id)});t.scrollIntoView();return}
+    document.body.classList.remove("searching");
+    hideAll();
+    $$(".ejgrupo").forEach(function(g){g.hidden=false;g.classList.remove("solo")});
+    var h2;
+    if(t.classList.contains("ejgrupo")){
+      var pg=t.closest(".tabpane");showPane(pg.id.slice(3));h2=temaOf(pg);show(h2);h2.textContent=pg.getAttribute("data-label")+" · "+t.getAttribute("data-label");show(pg);
+      $$(".ejgrupo",pg).forEach(function(g){g.hidden=g!==t});t.classList.add("solo");
+      var ss=$$("section.sec",t);ss.forEach(function(x){show(x);x.classList.toggle("closed",ss.length>1)});
+    } else if(t.tagName==="H2"){
+      h2=t;show(h2);if(t.id==="ejercicios"){t.textContent="Ejercicios";$$(".tabpane").forEach(function(p){p.classList.add("on")})}
+      nextUntil(h2,function(n){return n.tagName==="H2"}).forEach(function(n){
+        show(n);
+        $$("section.sec",n.tagName==="SECTION"?n.parentNode:n).forEach(function(){});
+        if(n.tagName==="SECTION"){}
+        $$("section.sec",n).forEach(function(s){show(s);s.classList.add("closed")});
+        if(n.tagName==="SECTION"){n.classList.add("closed")}
+      });
+    } else if(t.classList.contains("chap")){
+      h2=temaOf(t);show(h2);show(t);
+      nextUntil(t,function(n){return n.tagName==="H2"||n.classList.contains("chap")}).forEach(function(n){show(n);if(n.tagName==="SECTION")n.classList.add("closed")});
+    } else if(t.classList.contains("tabpane")){
+      showPane(t.id.slice(3));h2=temaOf(t);show(h2);h2.textContent="Ejercicios · "+t.getAttribute("data-label");show(t);
+      $$("section.sec",t).forEach(function(s){show(s);s.classList.add("closed")});
+    } else {
+      var pane=t.closest(".tabpane");
+      h2=temaOf(pane||t);show(h2);
+      if(pane){showPane(pane.id.slice(3));h2.textContent="Ejercicios · "+pane.getAttribute("data-label");show(pane);}
+      else{var c=t.previousElementSibling;while(c&&!c.classList.contains("chap")&&c.tagName!=="H2")c=c.previousElementSibling;if(c&&c.classList.contains("chap"))show(c)}
+      show(t);t.classList.remove("closed");
+    }
+    $$("nav a").forEach(function(a){a.classList.toggle("act",a.getAttribute("href")==="#"+id)});
+    window.scrollTo(0,0);
+  }
+  window.__view=view;
+  nav.addEventListener("click",function(e){
+    var a=e.target.closest("a");if(!a)return;var id=a.getAttribute("href").slice(1);
+    e.preventDefault();var s=a.closest("summary");if(s)e.stopPropagation();
+    view(id);try{history.replaceState(null,"","#"+id)}catch(x){}
+    if(s){var d=s.parentNode;d.open=true}
+  },true);
+  $("#q").addEventListener("input",function(){$$(".ejgrupo").forEach(function(g){g.hidden=false})});
+  $("#q").addEventListener("input",function(e){if(!e.target.value.trim()){var hs=(location.hash||"#ut1").slice(1);view(document.getElementById(hs)?hs:"ut1")}});
+  var first=(location.hash||"").slice(1);view(document.getElementById(first)?first:"ut1");window.addEventListener("hashchange",function(){var h=(location.hash||"").slice(1);if(document.getElementById(h))view(h)});
+})();
+// toggle all
+var allOpen=true;
+$("#all").onclick=function(){allOpen=!allOpen;$$("section.sec").forEach(function(s){s.classList.toggle("closed",!allOpen)})};
+// search
+$("#q").addEventListener("input",function(e){
+  var v=e.target.value.trim().toLowerCase();document.body.classList.toggle("searching",!!v);
+  $$("section.sec").forEach(function(s){
+    var m=!v||s.textContent.toLowerCase().indexOf(v)>-1;
+    s.classList.toggle("hide",!m);
+    if(v&&m)s.classList.remove("closed");
+  });
+});
+})();
+</script>
+<script src="../plegar.js"></script></body></html>
