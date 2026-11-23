@@ -876,6 +876,205 @@ public class Salir {
         sc.close();
     }
 }</code></pre></details></div></section>
+<section class="sec"><h3>19. Programación modular</h3><div class="body">
+<p>Dividir un programa en partes pequeñas, llamadas <b>módulos</b>, que hacen una tarea concreta. En Java, la forma más sencilla son los <b>métodos</b> (también llamados funciones).</p>
+<h4>Ventajas</h4>
+<ul>
+<li><b>Organización</b>: un programa complejo se divide en partes sencillas.</li>
+<li><b>Reutilización</b>: un método se usa varias veces sin repetir código.</li>
+<li><b>Legibilidad</b> y <b>mantenimiento</b>: cambias una parte sin tocar todo el programa (si cambia el IVA, solo editas <code>calcularIVA()</code>).</li>
+<li><b>Depuración</b>: es más fácil localizar el error.</li>
+<li><b>Trabajo en equipo</b>: cada persona programa un módulo.</li>
+</ul>
+<table><tr><th>Concepto</th><th>Descripción</th><th>Ejemplo</th></tr><tr><td>Función / método</td><td>Bloque de código que resuelve una tarea; puede devolver un valor</td><td>sumar</td></tr><tr><td>Parámetros</td><td>Variables declaradas en la cabecera</td><td>a, b</td></tr><tr><td>Argumentos</td><td>Valores enviados al llamar</td><td>num1, num2</td></tr><tr><td>Valor de retorno</td><td>Dato que la función entrega a quien la llamó</td><td>resultado</td></tr><tr><td>Llamada</td><td>Instrucción que invoca la función</td><td>sumar(num1, num2)</td></tr></table>
+<h4>PSeInt frente a Java</h4>
+<table><tr><th>PSeInt</th><th>Java</th></tr><tr><td><code>Funcion resultado &lt;- Sumar(a, b)</code></td><td><code>public static int sumar(int a, int b) {</code></td></tr><tr><td><code>resultado &lt;- a + b</code></td><td><code>int resultado = a + b;</code></td></tr><tr><td><code>FinFuncion</code></td><td><code>return resultado; }</code></td></tr><tr><td><code>suma &lt;- Sumar(num1, num2)</code></td><td><code>suma = sumar(num1, num2);</code></td></tr><tr><td><code>Escribir &quot;La suma es: &quot;, suma</code></td><td><code>System.out.println(&quot;La suma es: &quot; + suma);</code></td></tr></table><pre><code>Funcion resultado &lt;- Sumar(a, b)
+    Definir resultado Como Entero
+    resultado &lt;- a + b
+FinFuncion
+
+Algoritmo Principal
+    Definir num1, num2, suma Como Entero
+    Escribir &quot;Introduce el primer número:&quot;
+    Leer num1
+    Escribir &quot;Introduce el segundo número:&quot;
+    Leer num2
+    suma &lt;- Sumar(num1, num2)
+    Escribir &quot;La suma es: &quot;, suma
+FinAlgoritmo</code></pre>
+<ul>
+<li><b>Programa principal</b>: pide los datos, llama a la función y muestra el resultado.</li>
+<li><b>Función</b>: se ocupa del cálculo y devuelve un valor.</li>
+<li>En PSeInt, la variable a la izquierda de <code>&lt;-</code> en la cabecera contiene el valor devuelto. En Java se usa el tipo de retorno y <code>return</code>.</li>
+</ul>
+<h4>Formas de llamar a un método</h4>
+<pre><code>int c = 3, d = 9;
+int r1 = sumar(c, d);              // con variables
+int r2 = sumar(4, 3 + 2);          // con una expresión
+int r3 = sumar(3, sumar(8, 2));    // con otra llamada dentro
+System.out.println(sumar(3, 4));   // dentro de println</code></pre>
+<p class="nota"><b>Parámetros y argumentos</b> deben coincidir en <b>tipo, cantidad y orden</b>. <code>sumar(5)</code> (falta un argumento) no compila.</p>
+<p><b>Con valor devuelto</b>: se puede usar dentro de una expresión. <b>void</b>: se llama como instrucción independiente. Una buena práctica es que los métodos <b>devuelvan</b> resultados y que <code>main</code> se encargue de mostrarlos.</p>
+</div></section>
+<section class="sec"><h3>20. Métodos que llaman a otros métodos y descomposición de un programa</h3><div class="body">
+<p>Un método no tiene que llamarse solo desde <code>main</code>: también puede llamar a otros.</p>
+<pre><code>public class Operaciones {
+    public static void main(String[] args) {
+        int resultado = calcularDobleSuma(3, 4);
+        System.out.println(resultado);        // 14
+    }
+
+    public static int sumar(int a, int b) {
+        return a + b;
+    }
+
+    public static int calcularDobleSuma(int a, int b) {
+        int suma = sumar(a, b);               // llama a otro método
+        return suma * 2;
+    }
+}</code></pre>
+<p>Orden: <code>main</code> llama a <code>calcularDobleSuma(3, 4)</code> → llama a <code>sumar(3, 4)</code> → devuelve 7 → se multiplica por 2 → devuelve 14 → <code>main</code> lo muestra.</p>
+<p><b>Reutilización:</b> un método se define una vez y se usa varias veces (<code>calcularCuadrado(3)</code>, <code>calcularCuadrado(5)</code>...). Un método sin parámetros también es útil, por ejemplo <code>mostrarMenu()</code>.</p>
+<h4>Cómo dividir un problema en métodos</h4>
+<ol>
+<li><b>Analizar</b>: datos de entrada y resultados.</li>
+<li><b>Dividir</b> en operaciones principales.</li>
+<li><b>Diseñar</b> cada método: qué recibe y qué devuelve.</li>
+<li><b>Programar</b> cada método.</li>
+<li><b>Programa principal</b>: pide los datos, llama a los métodos y muestra resultados.</li>
+<li><b>Probar</b> cada método y el programa completo.</li>
+</ol>
+<h4>Buenas prácticas</h4>
+<ul>
+<li>Una tarea por método.</li>
+<li>Nombres descriptivos (<code>calcularMedia()</code>, <code>mostrarMenu()</code>, no <code>metodo1()</code>).</li>
+<li>No repetir código: si algo se usa varias veces, método.</li>
+<li>Pasar por parámetros lo que necesita y devolver resultados con <code>return</code>.</li>
+<li><code>main</code> solo coordina.</li>
+<li><b>Cohesión alta</b>: las instrucciones de un método son de una misma tarea. <b>Acoplamiento bajo</b>: un módulo depende poco de los detalles internos de otros.</li>
+</ul>
+</div></section>
+<section class="sec"><h3>21. Más errores habituales con métodos</h3><div class="body">
+<table><tr><th>Error</th><th>Por qué falla</th><th>Solución</th></tr><tr><td>Método <code>int</code> sin <code>return</code></td><td>Error de compilación: no devuelve nada</td><td><code>return resultado;</code></td></tr><tr><td><code>String m = mostrarMensaje();</code> con un <code>void</code></td><td>Un <code>void</code> no devuelve valor, no se puede asignar</td><td>Llamarlo solo: <code>mostrarMensaje();</code></td></tr><tr><td><code>sumar(5);</code> si pide dos parámetros</td><td>Faltan argumentos</td><td><code>sumar(5, 3);</code></td></tr><tr><td><code>println(resultado)</code> en lugar de <code>return resultado</code></td><td>Mostrar no es devolver</td><td>Usa <code>return</code> si otro código necesita el valor</td></tr></table>
+<p>Un método con retorno puede escribirse con <code>if</code> / <code>return</code> / <code>return</code> o con <code>if</code> / <code>else</code>, es equivalente:</p>
+<pre><code>public static String comprobarEdad(int edad) {
+    if (edad &gt;= 18) {
+        return &quot;Mayor de edad&quot;;
+    }
+    return &quot;Menor de edad&quot;;          // equivale a poner un else
+}</code></pre></div></section>
+<section class="sec"><h3>22. Math: todos los métodos que habéis dado</h3><div class="body">
+<table><tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th></tr><tr><td><code>Math.sqrt(x)</code></td><td>Raíz cuadrada</td><td>Math.sqrt(25) → 5.0</td></tr><tr><td><code>Math.cbrt(x)</code></td><td>Raíz cúbica</td><td>Math.cbrt(27) → 3.0</td></tr><tr><td><code>Math.pow(b, e)</code></td><td>Potencia</td><td>Math.pow(2, 3) → 8.0</td></tr><tr><td><code>Math.max(a, b)</code></td><td>Mayor de dos</td><td>Math.max(4, 9) → 9</td></tr><tr><td><code>Math.min(a, b)</code></td><td>Menor de dos</td><td>Math.min(12, 7) → 7</td></tr><tr><td><code>Math.abs(x)</code></td><td>Valor absoluto</td><td>Math.abs(-7) → 7</td></tr><tr><td><code>Math.round(x)</code></td><td>Redondea al entero más próximo</td><td>Math.round(3.6) → 4</td></tr><tr><td><code>Math.ceil(x)</code></td><td>Redondea hacia arriba (devuelve double)</td><td>Math.ceil(4.2) → 5.0</td></tr><tr><td><code>Math.floor(x)</code></td><td>Redondea hacia abajo (devuelve double)</td><td>Math.floor(8.9) → 8.0</td></tr><tr><td><code>Math.random()</code></td><td>Número aleatorio entre 0 (incluido) y 1 (excluido)</td><td>valor distinto cada vez</td></tr><tr><td><code>Math.PI</code></td><td>Constante π (no lleva paréntesis)</td><td>Math.PI * r * r</td></tr></table>
+<p class="nota"><b>Cuándo se usa cada uno:</b> <code>ceil</code> cuando hay que "subir siempre" (cajas necesarias para N unidades), <code>floor</code> para "quedarse con la parte entera", <code>round</code> para redondear normal, <code>cbrt</code> para volúmenes de cubos, <code>random</code> para sorteos y juegos.</p>
+</div></section>
+<section class="sec"><h3>23. Clases envoltorio: más métodos</h3><div class="body">
+<table><tr><th>Clase</th><th>Método / constante</th><th>Utilidad</th></tr><tr><td>Integer</td><td><code>parseInt(texto)</code></td><td>Texto a entero</td></tr><tr><td>Integer</td><td><code>toString(n)</code></td><td>Entero a texto</td></tr><tr><td>Integer</td><td><code>Integer.MAX_VALUE / MIN_VALUE</code></td><td>2147483647 / -2147483648</td></tr><tr><td>Integer</td><td><code>Integer.max(a, b) / min(a, b)</code></td><td>Mayor / menor de dos enteros</td></tr><tr><td>Double</td><td><code>parseDouble(texto)</code></td><td>Texto a decimal (con punto)</td></tr><tr><td>Double</td><td><code>toString(x)</code></td><td>Decimal a texto</td></tr><tr><td>Character</td><td><code>isLetter(c) / isDigit(c)</code></td><td>¿Letra? / ¿dígito?</td></tr><tr><td>Character</td><td><code>isUpperCase(c) / isLowerCase(c)</code></td><td>¿Mayúscula? / ¿minúscula?</td></tr><tr><td>Character</td><td><code>toUpperCase(c) / toLowerCase(c)</code></td><td>Pasa a mayúscula / minúscula</td></tr><tr><td>Character</td><td><code>getNumericValue(c)</code></td><td>'6' → 6</td></tr><tr><td>Boolean</td><td><code>parseBoolean(texto)</code></td><td>Devuelve true si el texto es "true" (sin distinguir mayúsculas); en otro caso false</td></tr><tr><td>Boolean</td><td><code>toString(b)</code></td><td>Booleano a texto</td></tr></table>
+<ul>
+<li>Las clases envoltorio son de <code>java.lang</code>: no hace falta <code>import</code>. Sus objetos son <b>inmutables</b>.</li>
+<li>Si escribes <code>a + b</code> con dos <code>char</code>, Java suma sus códigos Unicode (<code>'6' + '7'</code> = 54 + 55 = 109). Para sumar sus valores numéricos usa <code>Character.getNumericValue</code>.</li>
+<li>Sin convertir, <code>"250" + 50</code> concatena y da <code>25050</code>.</li>
+<li><code>Double.parseDouble("12.5")</code> usa punto como separador decimal.</li>
+</ul>
+<pre><code>// ¿Es una vocal?
+char letra = sc.next().charAt(0);
+letra = Character.toLowerCase(letra);
+if (letra == &#x27;a&#x27; || letra == &#x27;e&#x27; || letra == &#x27;i&#x27; || letra == &#x27;o&#x27; || letra == &#x27;u&#x27;) {
+    System.out.println(&quot;Es una vocal&quot;);
+}</code></pre></div></section>
+<section class="sec"><h3>24. Salida por pantalla: print, println y concatenar</h3><div class="body">
+<p><code>System.out.print</code> escribe <b>sin</b> salto de línea; <code>System.out.println</code> lo <b>añade</b>.</p>
+<pre><code>System.out.print(5);
+System.out.println(3);      // muestra 53 en una línea</code></pre>
+<p>Para mostrar varios valores se usa el operador <code>+</code> (puedes mezclar tipos).</p>
+<pre><code>int numero = 25;
+System.out.print(&quot;El doble de &quot; + numero + &quot; es &quot; + (numero * 2));
+// El doble de 25 es 50
+
+int num1 = 8, num2 = 3;
+System.out.print(num1 + &quot; + &quot; + num2 + &quot; = &quot; + (num1 + num2));
+// 8 + 3 = 11</code></pre>
+<p class="nota"><b>Trampa clásica:</b> los paréntesis fuerzan la suma antes de concatenar.</p>
+<pre><code>System.out.print(&quot;Resultado: &quot; + num1 + num2);     // Resultado: 83   (concatena)
+System.out.print(&quot;Resultado: &quot; + (num1 + num2));   // Resultado: 11   (suma)</code></pre>
+<h4>printf (formato)</h4>
+<p>Cuando importa el formato: decimales fijos, columnas alineadas o muchos datos en un texto. No salta de línea solo: añade <code>%n</code>.</p>
+<table><tr><th>Código</th><th>Tipo</th><th>Ejemplo</th></tr><tr><td>%d</td><td>entero</td><td>%d → 25</td></tr><tr><td>%f / %.2f</td><td>decimal / con 2 decimales</td><td>%.2f → 3,14</td></tr><tr><td>%s</td><td>texto</td><td>%s → Ana</td></tr><tr><td>%c</td><td>carácter</td><td>%c → A</td></tr><tr><td>%b</td><td>booleano</td><td>%b → true</td></tr><tr><td>%n</td><td>salto de línea</td><td></td></tr></table><pre><code>System.out.printf(&quot;%s tiene %d años y mide %.2f m%n&quot;, nombre, edad, altura);</code></pre></div></section>
+<section class="sec"><h3>25. Scanner: leer todos los tipos</h3><div class="body">
+<p><code>Scanner</code> está en <code>java.util</code> (<code>import java.util.Scanner;</code>). Se crea con <code>new Scanner(System.in)</code>.</p>
+<table><tr><th>Tipo</th><th>Instrucción</th><th>Ejemplo de entrada</th></tr><tr><td>int</td><td><code>teclado.nextInt()</code></td><td>25</td></tr><tr><td>double</td><td><code>teclado.nextDouble()</code></td><td>19,95 (con coma en un sistema en español)</td></tr><tr><td>float</td><td><code>teclado.nextFloat()</code></td><td>1,75</td></tr><tr><td>long</td><td><code>teclado.nextLong()</code></td><td>123456789</td></tr><tr><td>short</td><td><code>teclado.nextShort()</code></td><td>18</td></tr><tr><td>byte</td><td><code>teclado.nextByte()</code></td><td>5</td></tr><tr><td>boolean</td><td><code>teclado.nextBoolean()</code></td><td>true</td></tr><tr><td>String (una palabra)</td><td><code>teclado.next()</code></td><td>Ana</td></tr><tr><td>String (una línea)</td><td><code>teclado.nextLine()</code></td><td>Hola mundo</td></tr><tr><td>char</td><td><code>teclado.next().charAt(0)</code></td><td>A</td></tr></table>
+<ul>
+<li><b><code>Scanner</code> no tiene <code>nextChar()</code></b>: para un carácter se usa <code>next().charAt(0)</code>.</li>
+<li><code>next()</code> lee una palabra (con «Juan Carlos» solo guarda «Juan»); <code>nextLine()</code> lee la línea completa.</li>
+<li>Tras <code>nextInt()</code> o <code>nextDouble()</code>, un <code>nextLine()</code> puede leer la línea vacía pendiente: pon un <code>nextLine()</code> extra para consumirla.</li>
+<li>Si el dato no es del tipo pedido: <code>InputMismatchException</code>.</li>
+<li>Cerrar un <code>Scanner</code> de <code>System.in</code> cierra el teclado: hazlo solo al final. Los recursos que se abren (archivos) se cierran; <i>try-with-resources</i> lo hace automáticamente.</li>
+</ul>
+</div></section>
+<section class="sec"><h3>26. La clase String: todos los métodos</h3><div class="body">
+<p><code>String</code> es una clase, no un primitivo. Texto entre <b>comillas dobles</b>; <code>char</code> entre <b>comillas simples</b>. Las posiciones empiezan en <b>0</b>.</p>
+<table><tr><th>Método</th><th>Utilidad</th><th>Ejemplo</th></tr><tr><td><code>length()</code></td><td>Número de caracteres (cuenta espacios)</td><td>"Carlos".length() → 6</td></tr><tr><td><code>charAt(i)</code></td><td>Carácter en la posición i</td><td>"Carlos".charAt(3) → l</td></tr><tr><td><code>toUpperCase() / toLowerCase()</code></td><td>Mayúsculas / minúsculas</td><td>"Carlos".toUpperCase() → CARLOS</td></tr><tr><td><code>equals(x)</code></td><td>Compara el contenido (distingue mayúsculas)</td><td>"Ana".equals("ana") → false</td></tr><tr><td><code>equalsIgnoreCase(x)</code></td><td>Compara sin distinguir mayúsculas</td><td>"SI".equalsIgnoreCase("si") → true</td></tr><tr><td><code>compareTo(x)</code></td><td>Compara alfabéticamente (0 si son iguales, negativo si va antes)</td><td>"a".compareTo("b") → negativo</td></tr><tr><td><code>contains(x)</code></td><td>¿Contiene el texto?</td><td>"Aprendo Java".contains("Java") → true</td></tr><tr><td><code>startsWith(x) / endsWith(x)</code></td><td>¿Empieza / termina por...?</td><td>"Ana".startsWith("A") → true</td></tr><tr><td><code>substring(a, b)</code></td><td>Trozo desde a (incluido) hasta b (excluido)</td><td>"Programacion".substring(0, 4) → Prog</td></tr><tr><td><code>indexOf(x)</code></td><td>Posición del texto; -1 si no está</td><td>"Programacion".indexOf("g") → 3</td></tr><tr><td><code>replace(a, b)</code></td><td>Sustituye texto</td><td>"Hola mundo".replace("mundo", "Java") → Hola Java</td></tr><tr><td><code>trim()</code></td><td>Quita espacios al principio y al final</td><td>" Ana ".trim() → Ana</td></tr><tr><td><code>isEmpty()</code></td><td>¿Longitud cero?</td><td>"".isEmpty() → true</td></tr></table>
+<ul>
+<li><b>Inmutables:</b> <code>nombre.toUpperCase();</code> no cambia <code>nombre</code>. Hay que guardar: <code>nombre = nombre.toUpperCase();</code></li>
+<li>Para comparar contenido: <code>equals</code>. El operador <code>==</code> compara referencias (si es el mismo objeto).</li>
+<li>Para unir: <code>nombre + " " + apellido</code>.</li>
+</ul>
+<pre><code>// Contraseña
+String clave = &quot;java123&quot;;
+String entrada = teclado.nextLine();
+if (clave.equals(entrada)) {
+    System.out.println(&quot;Acceso permitido&quot;);
+} else {
+    System.out.println(&quot;Acceso denegado&quot;);
+}
+
+// Salir con String (S o s)
+String respuesta;
+do {
+    System.out.print(&quot;¿Desea salir (S/N)? &quot;);
+    respuesta = teclado.next();
+} while (!respuesta.equalsIgnoreCase(&quot;S&quot;));
+System.out.println(&quot;Programa finalizado&quot;);</code></pre></div></section>
+<section class="sec"><h3>27. Práctica en NetBeans (compilar y ejecutar)</h3><div class="body">
+<ol>
+<li>Crea un proyecto Java (File &gt; New Project &gt; Java Application).</li>
+<li>Escribe el <code>import</code> al <b>principio del archivo</b> y el resto <b>dentro de <code>main</code></b>.</li>
+<li>Guarda y pulsa <b>F6</b> (Run Project).</li>
+<li>La <b>compilación</b> comprueba el código y genera el bytecode que ejecuta la JVM.</li>
+<li>Si <code>Scanner</code> no se reconoce: revisa el <code>import</code> (Ctrl+Shift+I) y que el proyecto tenga un JDK configurado.</li>
+<li>NetBeans ayuda con el autocompletado (Ctrl+Espacio) para ver los métodos disponibles de un objeto.</li>
+</ol>
+<p><b>Repaso:</b> busca en la API de <code>String</code> qué devuelve <code>substring(1, 3)</code> y pruébalo con <code>"Java"</code> (<code>"av"</code>). ¿Por qué <code>Math</code> se usa sin <code>import</code> y <code>Point</code> necesita uno? (<code>Math</code> está en <code>java.lang</code>; <code>Point</code> en <code>java.awt</code>.)</p>
+</div></section>
+<h2 class="tema" id="guia">Guía del examen</h2>
+<p class="sub">Fuentes: Guia_de_consulta_Java.docx (la guía que se puede consultar en el examen) y Unidades_RA_y_evaluacion_Programacion.docx.</p>
+<section class="sec"><h3>Qué viene en la guía y qué hay que memorizar</h3><div class="body">
+<p>La <b>guía de consulta</b> cubre solo <b>UT 1 y UT 2</b>. Sirve para consultar la sintaxis; hay que saber dónde está cada cosa y entenderla. Todo lo de la columna derecha no está en la guía: hay que saberlo.</p>
+<table><tr><th>Está en la guía (consulta)</th><th>NO está en la guía (memoriza)</th></tr><tr><td>Estructura del programa y <code>main</code></td><td><code>Scanner</code>: <code>nextInt</code>, <code>nextDouble</code>, <code>next</code>, <code>nextLine</code>, <code>nextBoolean</code> e <code>import java.util.Scanner</code></td></tr><tr><td>Palabras reservadas, identificadores, camelCase</td><td><code>print</code>, <code>println</code>, <code>printf</code> y sus códigos</td></tr><tr><td>Tipos primitivos y rangos, declaración e inicialización</td><td>Patrones de bucle: contador, acumulador, máximo/mínimo, centinela, lectura adelantada, validar con do-while</td></tr><tr><td><code>final</code> (constantes)</td><td>Arrays (<code>new int[5]</code>, <code>length</code>, índice desde 0)</td></tr><tr><td>Comentarios</td><td>Métodos: <code>static</code>, parámetros, <code>return</code>, <code>void</code>, sobrecarga, ámbito, paso por valor, recursividad</td></tr><tr><td>Operadores aritméticos, compuestos, relacionales, lógicos, ternario</td><td>Clases y objetos: <code>new</code>, atributos, método static frente a método de instancia</td></tr><tr><td>Precedencia</td><td><code>Math</code>: sqrt, pow, max, min, abs, round, ceil, floor, cbrt, random, PI</td></tr><tr><td>Conversión: ensanchamiento, casting, char ↔ int</td><td>Envoltorios: <code>Integer.parseInt</code>, <code>Double.parseDouble</code>, <code>Character.isDigit</code>...</td></tr><tr><td><code>if</code>, <code>if-else</code>, anidado, escala <code>else if</code></td><td><code>String</code>: length, charAt, substring, equals, equalsIgnoreCase, contains, indexOf...</td></tr><tr><td><code>switch</code> (clásico, agrupar casos, flecha <code>-&gt;</code>)</td><td>Paquetes e <code>import</code></td></tr><tr><td><code>while</code>, <code>do-while</code>, <code>for</code>, <code>break</code>, <code>continue</code></td><td>Cómo resolver cada tipo de ejercicio de examen</td></tr></table>
+<p class="nota"><b>Ojo:</b> la guía es la de la última vez. No se sabe si la del examen añadirá UT 3. Si no lo hace, UT 3 es lo que menos ayuda tiene.</p>
+</div></section>
+<section class="sec"><h3>Detalles de la guía que suelen caer en test</h3><div class="body">
+<ul>
+<li><code>x++</code> produce el valor <b>anterior</b> y luego incrementa; <code>++x</code> incrementa y produce el valor <b>nuevo</b>.</li>
+<li><code>&amp;&amp;</code> y <code>||</code> usan <b>cortocircuito</b>: si el primer operando ya decide el resultado, no evalúan el segundo.</li>
+<li>El casting a <code>int</code> <b>trunca</b> (hacia cero), no redondea: <code>(int) 2.9</code> es 2 y <code>(int) -2.9</code> es -2.</li>
+<li>Una <b>variable local</b> no tiene valor por defecto (error si la lees sin inicializar). Los <b>campos</b> de una clase y los <b>elementos de un array</b> sí: 0, false o null.</li>
+<li>Una variable <code>final</code> se asigna <b>una sola vez</b> (puede ser después de declararla). Reasignarla es error de compilación.</li>
+<li><code>true</code>, <code>false</code> y <code>null</code> son <b>literales</b>, no palabras reservadas, pero tampoco sirven de nombre. <code>const</code> y <code>goto</code> están reservadas aunque no se usan. <code>_</code> solo no es un identificador válido.</li>
+<li>Desbordamiento de enteros: resultado circular, <b>sin excepción</b>.</li>
+<li>Ensanchamiento automático: <code>byte → short → int → long → float → double</code> y <code>char → int</code>. <code>int</code> a <code>char</code> necesita casting. <code>boolean</code> no se convierte a números.</li>
+<li><code>float</code> y <code>double</code> tienen precisión limitada (existen <code>NaN</code> e infinitos).</li>
+<li>Sin llaves, un <code>else</code> se asocia al <code>if</code> <b>más cercano que aún no tenga <code>else</code></b>.</li>
+<li><code>switch</code>: el selector es byte, short, char, int o String (no long, float, double ni boolean); los <code>case</code> no se repiten; <code>default</code> es opcional y no tiene que ir al final; sin <code>break</code> continúa por los casos siguientes. La forma con flecha <code>-&gt;</code> no necesita <code>break</code> (Java 14 o superior).</li>
+<li><code>while (condicion);</code> con punto y coma: el <code>;</code> es el cuerpo vacío del bucle.</li>
+<li><code>for</code>: las tres partes son opcionales, pero se conservan los dos <code>;</code>. <code>for (;;)</code> es infinito. Una variable declarada en la cabecera solo existe dentro del <code>for</code>.</li>
+<li><code>break</code> sale solo del bucle (o <code>switch</code>) <b>más interno</b>. <code>continue</code> en un <code>for</code> ejecuta la actualización y luego comprueba la condición.</li>
+<li>Si ambos operandos de <code>/</code> son enteros, se descarta la parte decimal.</li>
+</ul>
+</div></section>
+<section class="sec"><h3>Evaluación: RA y pesos (módulo 0485)</h3><div class="body">
+<table><tr><th>Unidad</th><th>RA</th><th>Peso en la nota final</th></tr><tr><td>UT 1 Introducción</td><td>RA1</td><td>7 % (UT1 100 %)</td></tr><tr><td>UT 2 Estructuras de control</td><td>RA3</td><td>15 % (UT2 70 % y UT7 30 %)</td></tr><tr><td>UT 3 Utilización de objetos</td><td>RA2</td><td>8 % (UT3 100 %)</td></tr></table>
+<p>Hace falta <b>al menos un 5 en cada RA</b>, sin compensación entre ellos. En la recuperación se comprueban solo los RA pendientes con una prueba práctica individual.</p>
+</div></section>
 <h2 class="tema" id="ejercicios">Ejercicios</h2>
 
 <div class="tabpane on" id="ej-U1" data-label="Unidad 1">
@@ -5236,7 +5435,216 @@ public class NumeroMayor {
         num2 = teclado.nextInt();
         mostrarMayor(num1, num2);
     }
-}</code></pre></details></div></section><section class="sec"><h3>Suma con función: PSeInt vs Java</h3><div class="body">
+}</code></pre></details></div></section><section class="sec"><h3>Ejercicios nuevos de la UT 3 (carpeta del profesor, nov 2026)</h3><div class="body"><h4>Ejercicio 1 · Todos los métodos de Math</h4><p>Con variables ya declaradas, escribe dentro de <code>println</code> (concatenado con un mensaje) la raíz cuadrada de 25, 2 elevado a 3, el mayor entre 4 y 9, el menor entre 12 y 7, el valor absoluto de -7, el redondeo de 3.6, 4.2 hacia arriba, 8.9 hacia abajo, el área de un círculo de radio 2 con <code>Math.PI</code>, la raíz cúbica de 27 y un número aleatorio. No guardes resultados en variables auxiliares ni pidas datos por teclado.</p><details><summary>Ver solución</summary><pre><code>public class EjercicioMath {
+    public static void main(String[] args) {
+        double numero = 25;
+        int base = 2, exponente = 3;
+        int num1 = 4, num2 = 9;
+        int num3 = 12, num4 = 7;
+        int negativo = -7;
+        double decimal1 = 3.6, decimal2 = 4.2, decimal3 = 8.9;
+        double radio = 2;
+        double numeroCubico = 27;
+
+        System.out.println(&quot;Raíz cuadrada de &quot; + numero + &quot;: &quot; + Math.sqrt(numero));
+        System.out.println(base + &quot; elevado a &quot; + exponente + &quot;: &quot; + Math.pow(base, exponente));
+        System.out.println(&quot;Mayor entre &quot; + num1 + &quot; y &quot; + num2 + &quot;: &quot; + Math.max(num1, num2));
+        System.out.println(&quot;Menor entre &quot; + num3 + &quot; y &quot; + num4 + &quot;: &quot; + Math.min(num3, num4));
+        System.out.println(&quot;Valor absoluto de &quot; + negativo + &quot;: &quot; + Math.abs(negativo));
+        System.out.println(&quot;Redondeo de &quot; + decimal1 + &quot;: &quot; + Math.round(decimal1));
+        System.out.println(&quot;Redondeo hacia arriba de &quot; + decimal2 + &quot;: &quot; + Math.ceil(decimal2));
+        System.out.println(&quot;Redondeo hacia abajo de &quot; + decimal3 + &quot;: &quot; + Math.floor(decimal3));
+        System.out.println(&quot;Área del círculo de radio &quot; + radio + &quot;: &quot; + (Math.PI * Math.pow(radio, 2)));
+        System.out.println(&quot;Raíz cúbica de &quot; + numeroCubico + &quot;: &quot; + Math.cbrt(numeroCubico));
+        System.out.println(&quot;Número aleatorio entre 0 y 1: &quot; + Math.random());
+    }
+}</code></pre></details><h4>Ejercicio 2 · Datos de un alumno con clases envoltorio</h4><p>Pide por teclado la edad y la nota (como texto) y una respuesta S o N (char) que indica si ha entregado todas las actividades. Convierte la edad a entero y la nota a decimal; comprueba si la respuesta es una letra y pásala a mayúscula; guarda en un <code>boolean</code> si es mayor de edad (muéstralo con <code>Boolean.toString</code>); muestra «Aprobado» o «Suspendido» (nota ≥ 5); y muestra «Evaluación completada» si ha aprobado y ha entregado todo; si no, «Evaluación pendiente». Usa <code>Integer.parseInt</code>, <code>Double.parseDouble</code>, <code>Character.isLetter</code>, <code>Character.toUpperCase</code> y <code>Boolean.toString</code>.</p><details><summary>Ver solución</summary><pre><code>import java.util.Scanner;
+
+public class ClasesEnvoltorio {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        String edadTexto, notaTexto;
+        int edad;
+        double nota;
+        char respuesta;
+        boolean mayorEdad, aprobado, actividades;
+
+        System.out.print(&quot;Introduce tu edad: &quot;);
+        edadTexto = teclado.nextLine();
+        System.out.print(&quot;Introduce tu nota: &quot;);
+        notaTexto = teclado.nextLine();
+        System.out.print(&quot;¿Has entregado todas las actividades? (S/N): &quot;);
+        respuesta = teclado.next().charAt(0);
+
+        edad = Integer.parseInt(edadTexto);
+        System.out.println(&quot;Edad: &quot; + edad);
+        nota = Double.parseDouble(notaTexto);
+        System.out.println(&quot;Nota: &quot; + nota);
+
+        if (Character.isLetter(respuesta)) {
+            System.out.println(&quot;El carácter introducido es una letra.&quot;);
+        } else {
+            System.out.println(&quot;El carácter introducido no es una letra.&quot;);
+        }
+
+        respuesta = Character.toUpperCase(respuesta);
+        System.out.println(&quot;Respuesta en mayúsculas: &quot; + respuesta);
+
+        mayorEdad = edad &gt;= 18;
+        System.out.println(&quot;Mayor de edad: &quot; + Boolean.toString(mayorEdad));
+
+        aprobado = nota &gt;= 5;
+        if (aprobado) {
+            System.out.println(&quot;Resultado: Aprobado&quot;);
+        } else {
+            System.out.println(&quot;Resultado: Suspendido&quot;);
+        }
+
+        if (respuesta == &#x27;S&#x27;) {
+            actividades = true;
+        } else {
+            actividades = false;
+        }
+
+        if (aprobado &amp;&amp; actividades) {
+            System.out.println(&quot;Evaluación completada&quot;);
+        } else {
+            System.out.println(&quot;Evaluación pendiente&quot;);
+        }
+        teclado.close();
+    }
+}</code></pre></details><h4>Ejercicio 3 · Comparación de cadenas (equals y equalsIgnoreCase)</h4><p>(a) Pide dos nombres y muestra si son exactamente iguales. (b) Pide dos palabras y muestra si son iguales sin distinguir mayúsculas. (c) Pide un usuario y comprueba si es exactamente «administrador» («Usuario reconocido» / «Usuario desconocido»).</p><details><summary>Ver solución</summary><pre><code>// (a)
+String nombre1 = teclado.nextLine();
+String nombre2 = teclado.nextLine();
+if (nombre1.equals(nombre2)) {
+    System.out.println(&quot;Los nombres son iguales&quot;);
+} else {
+    System.out.println(&quot;Los nombres son diferentes&quot;);
+}
+
+// (b)
+String palabra1 = teclado.next();
+String palabra2 = teclado.next();
+if (palabra1.equalsIgnoreCase(palabra2)) {
+    System.out.println(&quot;Las palabras son iguales&quot;);
+} else {
+    System.out.println(&quot;Las palabras son diferentes&quot;);
+}
+
+// (c)
+String usuario = teclado.nextLine();
+if (usuario.equals(&quot;administrador&quot;)) {
+    System.out.println(&quot;Usuario reconocido&quot;);
+} else {
+    System.out.println(&quot;Usuario desconocido&quot;);
+}</code></pre></details><h4>Ejercicio 4 · Precio final de una compra (un método llama a otro)</h4><p>Crea <code>calcularImporte(precio, unidades)</code>, que devuelva el importe total, y <code>calcularPrecioFinal(precio, unidades)</code>, que llame a <code>calcularImporte</code> y aplique un 10 % de descuento si el importe supera 100 €. Desde <code>main</code> pide precio y unidades y muestra lo que paga el cliente. Con precio 30 y 4 unidades: 108.0 €.</p><details><summary>Ver solución</summary><pre><code>import java.util.Scanner;
+
+public class Compra {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        System.out.print(&quot;Introduce el precio del producto: &quot;);
+        double precio = teclado.nextDouble();
+        System.out.print(&quot;Introduce el número de unidades: &quot;);
+        int unidades = teclado.nextInt();
+
+        double resultado = calcularPrecioFinal(precio, unidades);
+        System.out.println(&quot;Precio final de la compra: &quot; + resultado + &quot; €&quot;);
+    }
+
+    public static double calcularImporte(double precio, int unidades) {
+        return precio * unidades;
+    }
+
+    public static double calcularPrecioFinal(double precio, int unidades) {
+        double importe = calcularImporte(precio, unidades);
+        if (importe &gt; 100) {
+            importe = importe * 0.90;
+        }
+        return importe;
+    }
+}</code></pre></details><h4>Ejercicio 5 · Reserva de hotel (métodos independientes)</h4><p>Pide el precio por noche y las noches. Descuento: menos de 3 noches, 0 %; de 3 a 5 noches (ambas incluidas), 5 %; más de 5 noches, 15 %. IVA del 10 % sobre el importe después del descuento. Usa métodos independientes para el importe, el descuento y el IVA, y muestra importe inicial, descuento, IVA e importe final.</p><details><summary>Ver solución</summary><pre><code>import java.util.Scanner;
+
+public class ReservaHotel {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        System.out.print(&quot;Introduce el precio por noche: &quot;);
+        double precio = teclado.nextDouble();
+        System.out.print(&quot;Introduce el número de noches: &quot;);
+        int noches = teclado.nextInt();
+
+        double importe = calcularImporte(precio, noches);
+        double descuento = calcularDescuento(importe, noches);
+        double iva = calcularIVA(importe - descuento);
+        double total = importe - descuento + iva;
+
+        System.out.println(&quot;Importe inicial: &quot; + importe + &quot; €&quot;);
+        System.out.println(&quot;Descuento: &quot; + descuento + &quot; €&quot;);
+        System.out.println(&quot;IVA: &quot; + iva + &quot; €&quot;);
+        System.out.println(&quot;Importe final: &quot; + total + &quot; €&quot;);
+    }
+
+    public static double calcularImporte(double precio, int noches) {
+        return precio * noches;
+    }
+
+    public static double calcularDescuento(double importe, int noches) {
+        double descuento;
+        if (noches &lt; 3) {
+            descuento = 0;
+        } else if (noches &lt;= 5) {
+            descuento = importe * 0.05;
+        } else {
+            descuento = importe * 0.15;
+        }
+        return descuento;
+    }
+
+    public static double calcularIVA(double importe) {
+        return importe * 0.10;
+    }
+}</code></pre></details><h4>Ejercicio 6 · Factura eléctrica (diseño modular)</h4><p>Pide el consumo en kWh y el precio por kWh. Descuento: importe inferior a 50 €, 0 %; de 50 a 100 € (ambos incluidos), 5 %; superior a 100 €, 10 %. IVA del 21 % sobre el importe descontado. Métodos: <code>calcularImporte</code>, <code>calcularDescuento</code> y <code>calcularIVA</code>. Con 250 kWh a 0,40 €/kWh: importe 100,00 €, descuento 5,00 €, IVA 19,95 €, final 114,95 €.</p><details><summary>Ver solución</summary><pre><code>import java.util.Scanner;
+
+public class FacturaElectrica {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        System.out.print(&quot;Introduce el consumo en kWh: &quot;);
+        double consumo = teclado.nextDouble();
+        System.out.print(&quot;Introduce el precio por kWh: &quot;);
+        double precio = teclado.nextDouble();
+
+        double importe = calcularImporte(consumo, precio);
+        double descuento = calcularDescuento(importe);
+        double importeDescontado = importe - descuento;
+        double iva = calcularIVA(importeDescontado);
+        double total = importeDescontado + iva;
+
+        System.out.println(&quot;Importe inicial: &quot; + importe);
+        System.out.println(&quot;Descuento: &quot; + descuento);
+        System.out.println(&quot;IVA: &quot; + iva);
+        System.out.println(&quot;Importe final: &quot; + total);
+        teclado.close();
+    }
+
+    public static double calcularImporte(double consumo, double precio) {
+        return consumo * precio;
+    }
+
+    public static double calcularDescuento(double importe) {
+        double descuento;
+        if (importe &lt; 50) {
+            descuento = 0;
+        } else if (importe &lt;= 100) {
+            descuento = importe * 0.05;
+        } else {
+            descuento = importe * 0.10;
+        }
+        return descuento;
+    }
+
+    public static double calcularIVA(double importe) {
+        return importe * 0.21;
+    }
+}</code></pre></details><h4>Ejercicios propuestos por el profesor (sin solución oficial)</h4><p><b>Métodos:</b></p><ul><li><code>cuadrado(int numero)</code>: devuelve el número multiplicado por sí mismo.</li><li>Pide dos enteros; <code>obtenerMayor(int a, int b)</code> <b>devuelve</b> el mayor y <code>main</code> lo muestra.</li><li><code>esPositivo(int numero)</code>: devuelve si es mayor que cero.</li><li><code>mostrarTabla(int numero)</code>: imprime su tabla del 1 al 10.</li><li><code>calcularMedia(double a, double b, double c)</code>: devuelve la media.</li><li>Área de un triángulo con <code>calcularArea()</code>; par o impar con <code>esPar()</code>.</li><li>Compra con <code>calcularImporte()</code>, <code>calcularDescuento()</code> (10 % si supera 100 €) y <code>calcularIVA()</code> (21 %).</li><li>Notas de tres alumnos: métodos para la media, la nota más alta y si la media es ≥ 5.</li></ul><p><b>Envoltorios:</b></p><ol><li>Guarda "250" en un <code>String</code>, conviértelo con <code>Integer.parseInt()</code> y muestra el triple.</li><li>Guarda "15.75", conviértelo con <code>Double.parseDouble()</code> y calcula su doble.</li><li>Pide un carácter y comprueba con <code>Character</code> si es letra o dígito.</li><li>Pide una letra, di si es mayúscula o minúscula y conviértela a la forma contraria.</li><li>Pide dos enteros y muestra el mayor y el menor con <code>Integer.max()</code> e <code>Integer.min()</code>.</li><li>Pide tres notas como texto, conviértelas a <code>double</code> y calcula la media.</li><li>Pide cuatro caracteres y comprueba con <code>Character.isDigit()</code> que todos son dígitos.</li><li>Pide una palabra, recórrela con <code>for</code> y cuenta sus mayúsculas y minúsculas.</li></ol><p><b>String:</b></p><ol><li>Pide nombre y apellidos y muéstralos en mayúsculas.</li><li>Pide una palabra y muestra cuántos caracteres tiene.</li><li>Pide una palabra y muestra su primera y última letra.</li><li>Pide dos nombres y di si son iguales sin distinguir mayúsculas.</li><li>Pide una contraseña y comprueba si coincide con «Java2026».</li><li>Pide una frase y comprueba si contiene «Java».</li><li>Pide un correo y comprueba si contiene @.</li><li>Pregunta repetidamente si desea salir hasta introducir S o s.</li><li>Pide una frase y muéstrala en mayúsculas, minúsculas y sin espacios exteriores.</li><li>Pide dos palabras e indica cuál va primero alfabéticamente con <code>compareTo()</code>.</li></ol></div></section><section class="sec"><h3>Suma con función: PSeInt vs Java</h3><div class="body">
 <p><b>Objetivo:</b> pedir dos enteros, llamar a una función que los sume y mostrar el resultado. El programa principal lee y muestra; la función calcula.</p>
 <h4>PSeInt</h4>
 <pre><code>Funcion resultado &lt;- Sumar(a, b)
