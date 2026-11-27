@@ -980,7 +980,14 @@ char letra = sc.next().charAt(0);
 letra = Character.toLowerCase(letra);
 if (letra == &#x27;a&#x27; || letra == &#x27;e&#x27; || letra == &#x27;i&#x27; || letra == &#x27;o&#x27; || letra == &#x27;u&#x27;) {
     System.out.println(&quot;Es una vocal&quot;);
-}</code></pre></div></section>
+}
+
+// Precio final con IVA a partir de un texto
+String precioTexto = &quot;120.50&quot;;
+double precio = Double.parseDouble(precioTexto);
+double iva = precio * 0.21;
+double total = precio + iva;
+System.out.println(&quot;Precio final: &quot; + total);</code></pre></div></section>
 <section class="sec"><h3>24. Salida por pantalla: print, println y concatenar</h3><div class="body">
 <p><code>System.out.print</code> escribe <b>sin</b> salto de línea; <code>System.out.println</code> lo <b>añade</b>.</p>
 <pre><code>System.out.print(5);
@@ -1033,7 +1040,21 @@ do {
     System.out.print(&quot;¿Desea salir (S/N)? &quot;);
     respuesta = teclado.next();
 } while (!respuesta.equalsIgnoreCase(&quot;S&quot;));
-System.out.println(&quot;Programa finalizado&quot;);</code></pre></div></section>
+System.out.println(&quot;Programa finalizado&quot;);
+
+// Contar caracteres
+System.out.print(&quot;Introduce tu nombre: &quot;);
+String nombre = teclado.nextLine();
+System.out.println(&quot;Tu nombre tiene &quot; + nombre.length() + &quot; caracteres&quot;);
+
+// Comprobar la inicial
+System.out.print(&quot;Introduce una palabra: &quot;);
+String palabra = teclado.next();
+if (palabra.toLowerCase().startsWith(&quot;a&quot;)) {
+    System.out.println(&quot;Comienza por A&quot;);
+} else {
+    System.out.println(&quot;No comienza por A&quot;);
+}</code></pre></div></section>
 <section class="sec"><h3>27. Práctica en NetBeans (compilar y ejecutar)</h3><div class="body">
 <ol>
 <li>Crea un proyecto Java (File &gt; New Project &gt; Java Application).</li>
