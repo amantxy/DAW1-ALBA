@@ -31,6 +31,7 @@ Fuente: Google Site del profesor (Programación 1 DAM).
 - U3_A_Funciones.docx
 - U3_B_UsoObjetos.docx (clases de la biblioteca: Math, envoltorios, Scanner, String)
 - Ejercicios varios.docx (Producto, Calculadora)
+- Revisados de nuevo el 27-11-2026 (U3_A_Funciones, U3_B_UsoObjetos y Ejercicios varios): su contenido ya estaba en la web; solo se añadieron los ejemplos del IVA con `Double.parseDouble`, contar caracteres y comprobar la inicial
 
 ## Pendiente
 - Libro completo (221 págs.): cap. 1 desde el ejercicio 10 y cap. 2 en adelante.
